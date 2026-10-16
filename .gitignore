@@ -1,0 +1,2 @@
+# Local-only files: form responses, contact data, drafts. Never commit.
+private/
