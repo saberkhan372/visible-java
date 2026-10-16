@@ -25,7 +25,7 @@ tissue is the Java/Processing comparison, translation layer, port exercise, and 
 | `index.html` | **Workshop home.** Welcome, the run/predict/change/port pattern, the before-Session-1 checklist, the four sessions, and the library. |
 | `processing.html` | **Workshop.** Your first sketch: install Processing, Java mode, Run, first-run problems, and three ways to run plain Java. |
 | `session-1.html` | **Workshop.** Session 1, Make state visible (Sun Nov 8): the template for every session. Eight-block run of show (90-minute core + 30 studio), predictions with answers, supported and extension missions, Java transfer, colleague exchange, exit evidence, an On your own route, and facilitator notes. Files in `downloads/workshop/session-1/`, including an editable student handout and teacher guide. |
-| `session-2.html`–`session-5.html` | **Workshop, in progress.** Make decisions visible (Nov 15), Make objects visible (Nov 22), Make learning transferable (Dec 6), Classroom studio (Dec 13). |
+| `session-2.html`–`session-5.html` | **Workshop.** Make decisions visible (Nov 15), Make objects visible (Nov 22), Make learning transferable (Dec 6), and the Classroom studio (Dec 13), all on the Session 1 template. Files in `downloads/workshop/session-2/`–`session-5/`, each with a student handout and teacher guide. |
 | `downloads/workshop/visible-java-2026.ics` | Calendar file for the five meetings (15:00–17:00 UTC). |
 | `course.html` | Course start, for students. The gap, what was cut in 2025, where to go next. |
 | `calendar.html` | All 140 class days, week by week, for five 50-minute periods a week. Data in `assets/calendar.js`. |
@@ -100,14 +100,25 @@ JDK=/Applications/Processing.app/Contents/PlugIns/jdk-17.0.8+7/Contents/Home/bin
 for f in downloads/workshop/session-1/plain-java/*.java; do "$JDK/java" "$f"; done
 ```
 
-Each `.java` file runs as a single file with no compile step. Compile the sketches from the
-Processing editor, or with Processing's command-line tool (`processing-java --sketch=<folder>
---build`). Then rebuild the zip:
+Sessions 1–3: each `.java` file runs as a single file with no compile step. Session 3 keeps
+`BallWorld/` and `ArrayTrace/` in separate folders because each declares its own `Ball` class.
+Session 4 is a multi-file project: compile the folder, then run the demo and the checks:
 
 ```bash
-cd downloads/workshop/session-1
-zip -qrX ../session-1-files.zip MovingBall FrameByFrame MovingBallCheckpoint FallingBall plain-java \
-  session-1-student-handout.md session-1-teacher-guide.md -x '.*'
+cd downloads/workshop/session-4/plain-java
+"$JDK/javac" -d /tmp/vj4 *.java
+"$JDK/java" -cp /tmp/vj4 BallModel
+"$JDK/java" -cp /tmp/vj4 BallModelTest   # ten checks, all PASS
+```
+
+Compile the sketches from the Processing editor, or with Processing's command-line tool
+(`processing-java --sketch=<folder> --build`). Then rebuild each session's zip from its folder
+so the zip holds exactly what is on disk:
+
+```bash
+for n in 1 2 3 4 5; do
+  (cd downloads/workshop/session-$n && rm -f ../session-$n-files.zip && zip -qrX ../session-$n-files.zip . -x '.*')
+done
 ```
 
 ## Verifying and building workbook projects

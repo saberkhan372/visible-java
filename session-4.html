@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 4: Make learning transferable — Visible Java</title>
+<meta name="description" content="Visible Java Session 4, Sunday December 6: separate a sketch's behavior from its drawing, run and test that model in plain Java, and write a query over a prepared collection. Works live or on your own.">
+<link rel="stylesheet" href="assets/site.css?v=20261015b">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java <span class="arrow">&middot;</span> <span class="logo-sub">Processing to AP CS A</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="path.html">Units</a>
+      <a href="examples.html">Compare</a>
+      <a href="translate.html">Translate</a>
+      <a href="port.html">Port</a>
+      <a href="traps.html">Traps</a>
+      <a href="frq.html">FRQ</a>
+      <a href="setup.html">Setup</a>
+      <a href="camp.html">Camp</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow"><a href="index.html#sessions">Session 04</a> &middot; Sunday, December 6 &middot; 7&ndash;9 a.m. PT / 10 a.m.&ndash;noon ET</span>
+      <h1>Make learning transferable</h1>
+      <p class="lede">
+        Session 3&rsquo;s balls carried their own drawing around. Today you pull the behavior
+        apart from the picture, so the same model runs in a sketch and in plain Java, where you
+        can test it. Then you ask the collection a question, <code>countActive()</code>, the
+        way an exam question would.
+      </p>
+    </div>
+    <dl class="camp-logistics">
+      <div><dt>Java ideas</dt><dd>Separating a model (state and rules) from its view (drawing), methods with parameters and return values, <code>boolean</code> methods, <code>ArrayList</code> (a list that can grow and shrink), traversing a collection to count, removing while traversing, and tests.</dd></div>
+      <div><dt>AP link</dt><dd>AP CS A Units 3 and 4: writing methods, traversing an <code>ArrayList</code>, and the standard count algorithm. Free-response Question 3 asks for exactly this kind of method. Written reasoning means explaining why code is correct. <strong>Outside AP:</strong> a unit on testing, a simulation in a science class, or any project where the logic should outlive the graphics.</dd></div>
+      <div><dt>Files</dt><dd><a href="downloads/workshop/session-4-files.zip">session-4-files.zip</a>: starter, prediction, checkpoint, and completed sketches; three Java files that compile together; an editable student lesson; and a teacher guide with evidence, assessment criteria, and an implementation plan.</dd></div>
+      <div><dt>You leave with</dt><dd>A lesson package: student directions, the evidence to expect, assessment criteria, and a plan for teaching it.</dd></div>
+    </dl>
+    <div class="note">
+      <p><strong>Can&rsquo;t make it live?</strong> Every block on this page works without the meeting. Follow <a href="#on-your-own">On your own</a>, which takes about 90 minutes. <strong>Missed Session 3?</strong> <code>ActiveBalls</code> starts from Session 3&rsquo;s objects, already in a prepared list, so you can begin here.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Run of show &middot; 90-minute core, then 30 minutes of optional studio</span>
+      <h2>Two hours, eight blocks</h2>
+    </div>
+    <div class="ws-agenda">
+      <div class="step"><div class="step-label">0:00<b>10 min &middot; 7:00 PT</b></div><div class="step-body"><p><a href="#predict"><strong>Predict and discuss.</strong></a> A prepared collection of four balls: which one stops first?</p></div></div>
+      <div class="step"><div class="step-label">0:10<b>15 min &middot; 7:10 PT</b></div><div class="step-body"><p><a href="#demo"><strong>Short demo.</strong></a> Count the active balls in the console, then take the picture away.</p></div></div>
+      <div class="step"><div class="step-label">0:25<b>25 min &middot; 7:25 PT</b></div><div class="step-body"><p><a href="#build"><strong>Guided build.</strong></a> Move the drawing out of <code>Ball</code>, name the rule, and write <code>countActive()</code>. Then independent extensions.</p></div></div>
+      <div class="step"><div class="step-label">0:50<b>5 min &middot; 7:50 PT</b></div><div class="step-body"><p><strong>Break.</strong></p></div></div>
+      <div class="step"><div class="step-label">0:55<b>15 min &middot; 7:55 PT</b></div><div class="step-body"><p><a href="#transfer"><strong>Java transfer.</strong></a> The model in three files, output that matches, and tests predicted before they run.</p></div></div>
+      <div class="step"><div class="step-label">1:10<b>15 min &middot; 8:10 PT</b></div><div class="step-body"><p><a href="#exchange"><strong>Colleague exchange.</strong></a> What counts as evidence that a student understands a query.</p></div></div>
+      <div class="step"><div class="step-label">1:25<b>5 min &middot; 8:25 PT</b></div><div class="step-body"><p><a href="#exit"><strong>Exit evidence and next step.</strong></a></p></div></div>
+      <div class="step"><div class="step-label">1:30<b>30 min &middot; 8:30 PT</b></div><div class="step-body"><p><a href="#studio"><strong>Optional studio.</strong></a> An AP-style testing question, and building your lesson package.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="predict" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:00 &middot; 10 minutes &middot; Predict and discuss</span>
+      <h2>A prepared collection</h2>
+      <p>Four balls, prepared for you in an <code>ArrayList</code>. Each one counts its bounces and stops for good on its third, turning gray. <strong>Before anyone presses Run</strong>, answer the two questions. Then open <code>ActiveBalls</code> from the download and run it.</p>
+    </div>
+<pre class="ws-code" data-file="ActiveBalls/ActiveBalls.pde">
+ArrayList&lt;Ball&gt; balls = new ArrayList&lt;Ball&gt;();
+
+void setup() {
+  size(400, 400);
+  balls.add(new Ball(60, 200, 4, 0));
+  balls.add(new Ball(200, 60, 0, -3));
+  balls.add(new Ball(300, 300, -5, 5));
+  balls.add(new Ball(120, 330, 2, 6));
+}
+
+void draw() {
+  background(255);
+  for (Ball b : balls) {
+    b.move();
+    b.show();
+  }
+}
+
+class Ball {
+  float x;
+  float y;
+  float xSpeed;
+  float ySpeed;
+  int bounces;
+
+  Ball(float startX, float startY, float startXSpeed, float startYSpeed) {
+    x = startX;
+    y = startY;
+    xSpeed = startXSpeed;
+    ySpeed = startYSpeed;
+    bounces = 0;
+  }
+
+  void move() {
+    if (bounces &lt; 3) {
+      x = x + xSpeed;
+      y = y + ySpeed;
+      if (x &gt; width - 20 || x &lt; 20) {
+        xSpeed = -xSpeed;
+        bounces = bounces + 1;
+      }
+      if (y &gt; height - 20 || y &lt; 20) {
+        ySpeed = -ySpeed;
+        bounces = bounces + 1;
+      }
+    }
+  }
+
+  void show() {
+    if (bounces &lt; 3) {
+      fill(255);
+    } else {
+      fill(180);
+    }
+    circle(x, y, 40);
+  }
+}</pre>
+    <ol class="ws-predict">
+      <li>
+        <p>What will you see when it runs?</p>
+        <button class="reveal-btn" type="button" aria-controls="q1">Show answer</button>
+        <div class="answer" id="q1" hidden><p><span class="out">four balls stopping one by one</span> One moves sideways, one up and down, one diagonally, and one steeply. Each freezes gray on its third bounce. The last one stops about four and a half seconds in.</p></div>
+      </li>
+      <li>
+        <p>Which ball stops first?</p>
+        <button class="reveal-btn" type="button" aria-controls="q2">Show answer</button>
+        <div class="answer" id="q2" hidden><p><span class="out">the diagonal one</span> The ball that starts at (300, 300). It isn&rsquo;t the fastest. It runs into a floor and a wall, and every bounce counts, so it reaches three in about a second and a half. The ball moving only sideways is last.</p></div>
+      </li>
+    </ol>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Most people pick the fastest-looking ball for question 2. The real answer rewards reading the rule (&ldquo;every wall hit counts&rdquo;) rather than the motion, which is the habit this session builds.</p>
+        <p>The list is prepared for participants on purpose. <code>ArrayList</code> is new here, and today it only has to hold four objects. Anyone who missed Session 3 can start right here.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="demo" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:10 &middot; 15 minutes &middot; Short demo</span>
+      <h2>Count it, then take the picture away</h2>
+      <p>
+        The facilitator runs <code>ActiveTrace</code>: <code>ActiveBalls</code> plus a few lines
+        that count the active balls each frame and print a line whenever the count changes.
+        <strong>Write your answers to questions 3&ndash;6 first.</strong>
+      </p>
+    </div>
+<pre class="ws-code" data-file="ActiveTrace/ActiveTrace.pde: the lines added to ActiveBalls">
+int lastActive = 4;
+
+// at the end of draw():
+  int active = 0;
+  for (Ball b : balls) {
+    if (b.bounces &lt; 3) {
+      active = active + 1;
+    }
+  }
+  if (active != lastActive) {
+    println("frame " + frameCount + ": " + active + " active");
+    lastActive = active;
+  }</pre>
+    <ol class="ws-predict" start="3">
+      <li>
+        <p>How many lines will the console print?</p>
+        <button class="reveal-btn" type="button" aria-controls="q3">Show answer</button>
+        <div class="answer" id="q3" hidden><p><span class="out">four</span> One each time a ball stops. If two balls stopped on the same frame, there would be fewer lines, because the count would drop by two at once.</p></div>
+      </li>
+      <li>
+        <p>What are the first and last lines?</p>
+        <button class="reveal-btn" type="button" aria-controls="q4">Show answer</button>
+        <div class="answer" id="q4" hidden>
+<pre class="ws-console">frame 91: 3 active
+frame 131: 2 active
+frame 256: 1 active
+frame 265: 0 active</pre>
+          <p>Frame 91 is the diagonal ball from question 2. Nobody is expected to predict the frame numbers. The order is the part to reason about.</p>
+        </div>
+      </li>
+      <li>
+        <p>Break it: delete <code>b.show();</code>. What changes?</p>
+        <button class="reveal-btn" type="button" aria-controls="q5">Show answer</button>
+        <div class="answer" id="q5" hidden><p><span class="out">the window goes blank, and the console doesn&rsquo;t change</span> The same four lines print on the same frames. The behavior never needed the picture. Separating that behavior from its drawing is what this session is about. The behavior on its own is called a <em>model</em>.</p></div>
+      </li>
+      <li>
+        <p>Undo that. In <code>move()</code>, change <code>bounces &lt; 3</code> to <code>bounces &lt;= 3</code>. What changes?</p>
+        <button class="reveal-btn" type="button" aria-controls="q6">Show answer</button>
+        <div class="answer" id="q6" hidden><p><span class="out">same console, wrong picture</span> The console prints the same four lines, because the counting loop still says <code>&lt; 3</code>. But each gray ball keeps moving until it bounces once more. The rule &ldquo;a ball is active&rdquo; now lives in three places, and they disagree. In the build, one method, <code>isActive()</code>, puts it in one place.</p></div>
+      </li>
+    </ol>
+
+    <div class="stack">
+      <h3>What Processing hides</h3>
+      <p>Processing lets a class reach for anything the sketch has: <code>width</code>, <code>height</code>, <code>circle()</code>. That is convenient, and it is why this <code>Ball</code> can&rsquo;t run anywhere else. Here is the same class as a model only.</p>
+    </div>
+    <div class="seam">
+      <div class="side side-a">
+        <div class="side-head"><span class="dot"></span>Model and view, mixed</div>
+<pre><span class="k">class</span> <span class="t">Ball</span> {
+  <span class="c">// fields and constructor</span>
+
+  <span class="k">void</span> move() {
+    <span class="k">if</span> (bounces &lt; <span class="n">3</span>) {
+      <span class="c">// ... uses width and height</span>
+    }
+  }
+
+  <span class="k">void</span> show() {
+    <span class="k">if</span> (bounces &lt; <span class="n">3</span>) {
+      fill(<span class="n">255</span>);
+    } <span class="k">else</span> {
+      fill(<span class="n">180</span>);
+    }
+    circle(x, y, <span class="n">40</span>);
+  }
+}</pre>
+      </div>
+      <div class="side side-b">
+        <div class="side-head"><span class="dot"></span>Model only: Ball.java</div>
+<pre><span class="k">public class</span> <span class="t">Ball</span> {
+  <span class="c">// private fields and constructor</span>
+
+  <span class="k">public boolean</span> isActive() {
+    <span class="k">return</span> bounces &lt; <span class="n">3</span>;
+  }
+
+  <span class="k">public void</span> move(<span class="k">int</span> w, <span class="k">int</span> h) {
+    <span class="k">if</span> (isActive()) {
+      <span class="c">// ... uses w and h</span>
+    }
+  }
+
+  <span class="c">// getX(), getY(), getBounces()</span>
+}</pre>
+      </div>
+    </div>
+    <ul class="plain">
+      <li><strong>A model is the state and the rules.</strong> A view is how they are drawn. The model on the right never draws, and it is told the size of its world instead of reading it from a window.</li>
+      <li><strong>Once they are apart, the model can go anywhere</strong>: into plain Java, into a test, onto the AP exam. The view stays in the sketch.</li>
+    </ul>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Question 5 is the hinge of the session. Run it on screen and let the blank window sit there while the console keeps printing. It makes &ldquo;the model doesn&rsquo;t need the picture&rdquo; obvious in a way no diagram does.</p>
+        <p>Question 6 is a real bug pattern: the same condition written in several places, edited in one. It motivates <code>isActive()</code> better than any rule about avoiding duplicate code.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="build" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:25 &middot; 25 minutes &middot; Guided build</span>
+      <h2>Pull the model out, with the picture on</h2>
+      <p>Work in <code>ActiveBalls</code>. Every supported mission has to leave the picture exactly as it was, so the running sketch is your first test. The supported missions end at <code>ModelViewCheckpoint</code>. If you fall behind, open that and carry on from there.</p>
+    </div>
+    <h3>Supported</h3>
+    <div class="grid">
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 1</span>
+        <h3>Take the drawing out</h3>
+        <p>Move <code>show()</code> out of <code>Ball</code> and into the sketch as <code>void drawBall(Ball b)</code>, using <code>b.x</code>, <code>b.y</code>, and <code>b.bounces</code>. Change <code>move()</code> to <code>move(int w, int h)</code>, use <code>w</code> and <code>h</code> where it said <code>width</code> and <code>height</code>, and call <code>b.move(width, height);</code> and <code>drawBall(b);</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;No visible change. <code>Ball</code> no longer uses anything that belongs to Processing.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 2</span>
+        <h3>Name the rule</h3>
+        <p>Add <code>boolean isActive() { return bounces &lt; 3; }</code> to <code>Ball</code>. Use <code>isActive()</code> in <code>move()</code> and in <code>drawBall()</code> in place of each <code>bounces &lt; 3</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;No visible change. The rule now lives in one place, so question 6&rsquo;s bug can&rsquo;t happen anymore.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 3</span>
+        <h3>Ask the collection</h3>
+        <p>In the sketch, write <code>int countActive()</code>: loop over <code>balls</code>, count the ones where <code>isActive()</code> is true, and return the count. Add <code>textSize(16);</code> to <code>setup()</code>, and show it with <code>fill(0); text(countActive() + " active", 10, 25);</code></p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;&ldquo;4 active&rdquo; in the corner, dropping by one as each ball stops, and reaching 0 about four and a half seconds in. This is <code>ModelViewCheckpoint</code>.</p>
+      </article>
+    </div>
+    <h3>Independent extension</h3>
+    <div class="grid">
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 1</span>
+        <h3>Clear the stopped balls</h3>
+        <p>Write <code>int removeInactive()</code>: loop through <code>balls</code> backward, remove every ball that is not active, and return how many you removed. Call it when the <code>c</code> key is pressed, and print the result.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;<code>c</code> makes the gray balls disappear, and the console reports how many went. An <code>ArrayList</code> can shrink. An array can&rsquo;t.</p>
+      </article>
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 2</span>
+        <h3>Add by clicking</h3>
+        <p>Add <code>mousePressed()</code>: add a new <code>Ball</code> at the mouse, kept inside the walls with <code>constrain</code>, with speeds from <code>random(-6, 6)</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;Each click adds a white ball and raises the count by one. The input stays in the sketch. The model only receives a new ball. One answer to both extensions is <code>ModelViewComplete</code>.</p>
+      </article>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>&ldquo;Refactor with the picture on&rdquo; is the move to teach. A change that breaks the picture is caught in seconds, and students trust a change once the sketch still looks right.</p>
+        <p>Mission 3 is a complete free-response Question 3 answer in miniature: loop, condition, count, return. Point out that it calls <code>isActive()</code> instead of repeating <code>bounces &lt; 3</code>. Calling the method you were given is how those questions work.</p>
+        <p>In extension 1, someone will remove inside a <code>for (Ball b : balls)</code> loop. Java stops that with a <code>ConcurrentModificationException</code>. Someone else will loop forward with an index and skip a ball. The tests in the transfer catch that one.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="transfer" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:55 &middot; 15 minutes &middot; Java transfer</span>
+      <h2>The model, with no window at all</h2>
+      <p>
+        <code>Ball.java</code> is the model from the right-hand side above, in full.
+        <code>BallModel.java</code> holds the prepared collection. <strong>Before you open it,
+        write <code>countActive()</code> yourself from this header.</strong>
+      </p>
+    </div>
+<pre class="ws-code" data-file="Write the body. balls is an ArrayList&lt;Ball&gt; field of BallModel.">
+/** Returns how many balls are still active. */
+public int countActive()</pre>
+    <button class="reveal-btn" type="button" aria-controls="query-answer">Show one answer</button>
+    <div class="answer" id="query-answer" hidden>
+<pre class="ws-console">public int countActive() {
+  int count = 0;
+  for (Ball b : balls) {
+    if (b.isActive()) {
+      count++;
+    }
+  }
+  return count;
+}</pre>
+      <p>Start the count at 0, visit every ball, test with the method you were given, return the count. A loop with an index, <code>balls.get(i)</code>, earns the same credit.</p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/BallModel.java">
+import java.util.ArrayList;
+
+public class BallModel {
+  private ArrayList&lt;Ball&gt; balls;
+  private int width;
+  private int height;
+
+  public BallModel(int w, int h) {
+    balls = new ArrayList&lt;Ball&gt;();
+    width = w;
+    height = h;
+  }
+
+  /** Adds the four starting balls, the same ones the sketch starts with. */
+  public void addStartingBalls() {
+    balls.add(new Ball(60, 200, 4, 0));
+    balls.add(new Ball(200, 60, 0, -3));
+    balls.add(new Ball(300, 300, -5, 5));
+    balls.add(new Ball(120, 330, 2, 6));
+  }
+
+  public void add(Ball b) {
+    balls.add(b);
+  }
+
+  public int size() {
+    return balls.size();
+  }
+
+  /** Moves every ball one frame. */
+  public void step() {
+    for (Ball b : balls) {
+      b.move(width, height);
+    }
+  }
+
+  /** Returns how many balls are still active. */
+  public int countActive() {
+    int count = 0;
+    for (Ball b : balls) {
+      if (b.isActive()) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  /** Removes every ball that is no longer active. Returns how many it removed. */
+  public int removeInactive() {
+    int removed = 0;
+    for (int i = balls.size() - 1; i &gt;= 0; i--) {
+      if (!balls.get(i).isActive()) {
+        balls.remove(i);
+        removed++;
+      }
+    }
+    return removed;
+  }
+
+  public static void main(String[] args) {
+    BallModel model = new BallModel(400, 400);
+    model.addStartingBalls();
+
+    int frame = 0;
+    int active = model.countActive();
+    while (active &gt; 0) {
+      frame++;
+      model.step();
+      int now = model.countActive();
+      if (now != active) {
+        System.out.println("frame " + frame + ": " + now + " active");
+        active = now;
+      }
+    }
+  }
+}</pre>
+    </div>
+    <p>Put <code>Ball.java</code>, <code>BallModel.java</code>, and <code>BallModelTest.java</code> in one folder. In an IDE, make one project. From a terminal, run <code>javac *.java</code>, then <code>java BallModel</code>. <strong>The test: the output must match the <code>ActiveTrace</code> console line for line.</strong></p>
+<pre class="ws-console">frame 91: 3 active
+frame 131: 2 active
+frame 256: 1 active
+frame 265: 0 active</pre>
+    <p>Identical. <code>draw()</code> became a <code>while</code> loop that runs until nothing is active, and <code>frameCount</code> became a counter you keep yourself.</p>
+
+    <div class="stack">
+      <h3>Test what the picture can&rsquo;t</h3>
+      <p><code>BallModelTest.java</code> checks one case per line: the third-bounce boundary, a corner hit that counts twice, an empty model, all active, none active, and three stopped balls side by side. <strong>Predict PASS or FAIL for each line before you run <code>java BallModelTest</code>.</strong></p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/BallModelTest.java">
+public class BallModelTest {
+
+  public static void main(String[] args) {
+    // isActive: the boundary at the third bounce
+    Ball corner = new Ball(370, 370, 15, 15);
+    corner.move(400, 400);
+    check("a corner hit counts twice", 2, corner.getBounces());
+    check("two bounces is still active", true, corner.isActive());
+
+    Ball runner = new Ball(200, 200, 10, 0);
+    for (int frame = 1; frame &lt;= 100; frame++) {
+      runner.move(400, 400);
+    }
+    check("after 100 frames, bounces", 3, runner.getBounces());
+    check("after 100 frames, active", false, runner.isActive());
+
+    // countActive: empty, all, some, none
+    check("empty model, countActive", 0, new BallModel(400, 400).countActive());
+    check("starting four, countActive", 4, stepped(0).countActive());
+    check("after 91 frames, countActive", 3, stepped(91).countActive());
+    check("after 265 frames, countActive", 0, stepped(265).countActive());
+
+    // removeInactive: three stopped balls side by side
+    BallModel late = stepped(260);
+    check("after 260 frames, removeInactive", 3, late.removeInactive());
+    check("after 260 frames, size after", 1, late.size());
+  }
+
+  /** Returns a model with the four starting balls, run for the given number of frames. */
+  private static BallModel stepped(int frames) {
+    BallModel model = new BallModel(400, 400);
+    model.addStartingBalls();
+    for (int frame = 1; frame &lt;= frames; frame++) {
+      model.step();
+    }
+    return model;
+  }
+
+  private static void check(String name, int expected, int actual) {
+    report(name, expected == actual, "" + expected, "" + actual);
+  }
+
+  private static void check(String name, boolean expected, boolean actual) {
+    report(name, expected == actual, "" + expected, "" + actual);
+  }
+
+  private static void report(String name, boolean passed, String expected, String actual) {
+    String result = passed ? "PASS" : "FAIL";
+    System.out.println(result + "  " + name + ": expected " + expected + ", got " + actual);
+  }
+}</pre>
+    </div>
+    <button class="reveal-btn" type="button" aria-controls="test-out">Show the output</button>
+    <div class="answer" id="test-out" hidden>
+<pre class="ws-console">PASS  a corner hit counts twice: expected 2, got 2
+PASS  two bounces is still active: expected true, got true
+PASS  after 100 frames, bounces: expected 3, got 3
+PASS  after 100 frames, active: expected false, got false
+PASS  empty model, countActive: expected 0, got 0
+PASS  starting four, countActive: expected 4, got 4
+PASS  after 91 frames, countActive: expected 3, got 3
+PASS  after 265 frames, countActive: expected 0, got 0
+PASS  after 260 frames, removeInactive: expected 3, got 3
+PASS  after 260 frames, size after: expected 1, got 1</pre>
+      <p>Everything passes, which only matters once you see what fails. Try the two questions below.</p>
+    </div>
+    <ol class="ws-predict">
+      <li>
+        <p>A colleague writes <code>isActive()</code> as <code>return bounces &lt;= 3;</code>. Which tests fail?</p>
+        <button class="reveal-btn" type="button" aria-controls="t1">Show answer</button>
+        <div class="answer" id="t1" hidden>
+<pre class="ws-console">FAIL  after 100 frames, active: expected false, got true
+FAIL  after 91 frames, countActive: expected 3, got 4
+FAIL  after 265 frames, countActive: expected 0, got 2
+FAIL  after 260 frames, removeInactive: expected 3, got 2
+FAIL  after 260 frames, size after: expected 1, got 2</pre>
+          <p>Five failures from one character. &ldquo;After 100 frames, bounces&rdquo; still passes, because the ball has bounced exactly three times by then. It just hasn&rsquo;t stopped. A boundary test only helps when it sits right on the boundary.</p>
+        </div>
+      </li>
+      <li>
+        <p>Another colleague writes <code>removeInactive()</code> with a forward loop, <code>for (int i = 0; i &lt; balls.size(); i++)</code>. Which tests fail? Does <code>java BallModel</code> still match the sketch?</p>
+        <button class="reveal-btn" type="button" aria-controls="t2">Show answer</button>
+        <div class="answer" id="t2" hidden>
+<pre class="ws-console">FAIL  after 260 frames, removeInactive: expected 3, got 2
+FAIL  after 260 frames, size after: expected 1, got 2</pre>
+          <p>And yes, <code>java BallModel</code> still prints the same four lines, because <code>main</code> never removes anything. Removing index 1 slides the next ball into index 1, and the loop moves on to index 2 and skips it. Neither the sketch nor <code>main</code> could have shown you this bug. Only a test with stopped balls side by side can.</p>
+        </div>
+      </li>
+    </ol>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Before anyone reads the test file, ask the room to list the cases they would test. Then compare with the file. The list on <a href="frq.html">FRQ</a> (empty list, one element, nothing matches, everything matches) is the place to start, and &ldquo;side by side&rdquo; is the case for any method that removes.</p>
+        <p>Each test is one line: a name, an expected value, and the actual call. Students can write that before they know any testing framework, and the expected column is where the thinking happens. <a href="port.html">Port your own project</a> applies the same process to a year of real student sketches.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="exchange" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:10 &middot; 15 minutes &middot; Colleague exchange</span>
+      <h2>What counts as evidence?</h2>
+      <p>In groups of three or four. One person shares their screen. Everyone answers:</p>
+    </div>
+    <div class="note">
+      <p><strong>Discussion prompt.</strong> A student&rsquo;s <code>countActive()</code> passes every test. What else would you want to see before you were sure they understand it? Which would you assess: the sketch, the tests they wrote, or a written explanation?</p>
+    </div>
+    <button class="reveal-btn" type="button" aria-controls="example-response">Show an example response</button>
+    <div class="answer" id="example-response" hidden>
+      <p>&ldquo;Passing my tests only shows the method is right. I want to see the tests the student would have written. If they list the empty case and the side-by-side case without being told, they understand the traversal. I&rsquo;d assess a short written explanation most heavily: &lsquo;Why does <code>removeInactive</code> loop backward?&rsquo; A student who can answer that in two sentences has learned something that transfers to any language.&rdquo;</p>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Mix AP and non-AP teachers in each group. This prompt feeds directly into the assessment criteria in the lesson package, so ask each group to keep their best sentence.</p>
+        <p>Ask each group to put one sentence in the chat. Those sentences start Session 5&rsquo;s studio.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="exit" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:25 &middot; 5 minutes &middot; Exit evidence and next step</span>
+      <h2>Before you go</h2>
+    </div>
+    <ol class="ws-checklist">
+      <li><div><h3>Exit evidence</h3><p>Post your answer to question 5 in one sentence: the window went blank but the console didn&rsquo;t change. What does that tell you about the model?</p></div></li>
+      <li><div><h3>Next step</h3><p>The classroom studio, <strong>Sunday, December 13</strong>. Bring one lesson package from any session, finished or not. You will test it with colleagues and revise it.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="studio" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:30 &middot; 30 minutes &middot; Optional studio</span>
+      <h2>Studio</h2>
+      <p>Stay for whichever helps: one-on-one troubleshooting, the extensions, this AP-style question, or the lesson package.</p>
+    </div>
+    <article class="trap">
+      <div class="trap-head"><span class="eyebrow">AP-style multiple choice</span><h3>Which call shows the error?</h3></div>
+<pre class="ws-code" data-file="The method below is intended to count the values in ys that are between top and bottom, inclusive.">
+/** Precondition: top &lt;= bottom */
+public static int countBetween(ArrayList&lt;Double&gt; ys, double top, double bottom) {
+  int count = 0;
+  for (double y : ys) {
+    if (y &gt; top &amp;&amp; y &lt;= bottom) {
+      count++;
+    }
+  }
+  return count;
+}</pre>
+      <p>The method does not always work as intended. Which of the following calls returns a value different from the intended result?</p>
+      <ol type="A" class="ws-predict">
+        <li><code>ys</code> contains <code>[50.0, 150.0, 250.0]</code>; <code>top</code> is 100, <code>bottom</code> is 200</li>
+        <li><code>ys</code> contains <code>[100.0, 300.0]</code>; <code>top</code> is 100, <code>bottom</code> is 200</li>
+        <li><code>ys</code> is empty; <code>top</code> is 100, <code>bottom</code> is 200</li>
+        <li><code>ys</code> contains <code>[200.0, 250.0]</code>; <code>top</code> is 100, <code>bottom</code> is 200</li>
+        <li><code>ys</code> contains <code>[150.0, 150.0, 150.0]</code>; <code>top</code> is 100, <code>bottom</code> is 200</li>
+      </ol>
+      <button class="reveal-btn" type="button" aria-controls="ap-answer">Show answer</button>
+      <div class="answer" id="ap-answer" hidden>
+        <p><span class="out">B</span> 100 is between 100 and 200 inclusive, so the intended result is 1. The method uses <code>y &gt; top</code>, skips 100, and returns 0. D tests the other boundary, which the method gets right: it returns 1, as intended. A, C, and E never put a value on a boundary, so a broken boundary can&rsquo;t show up in them.</p>
+      </div>
+    </article>
+    <div class="note">
+      <p><strong>Classroom adaptation task, 20&ndash;30 minutes.</strong> Open <code>session-4-student-handout.md</code> from the download. It is a complete set of student directions for this lesson: separate a sketch&rsquo;s model, write a query, and test it. The teacher guide adds the expected evidence, assessment criteria, and an implementation plan with blanks for your class. Fill in the plan for one class you teach. Bring the package to Session 5.</p>
+    </div>
+  </div>
+</section>
+
+<section id="on-your-own" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Asynchronous route &middot; about 90 minutes</span>
+      <h2>On your own</h2>
+      <p>Everything from the live session, in order. Answers are behind the Show buttons on this page.</p>
+    </div>
+    <ol class="ws-checklist">
+      <li><div><h3>Set up</h3><p>Download <a href="downloads/workshop/session-4-files.zip">session-4-files.zip</a>. If Processing isn&rsquo;t installed, start with <a href="processing.html">Your first sketch</a>. About 10 minutes.</p></div></li>
+      <li><div><h3>Predict</h3><p>Answer questions 1&ndash;6 on paper <em>before</em> running anything. Then run <code>ActiveBalls</code> and <code>ActiveTrace</code>, make the two changes, and check. About 20 minutes.</p></div></li>
+      <li><div><h3>Build</h3><p>Missions 1&ndash;3, and the extensions if you want more. Compare with <code>ModelViewCheckpoint</code> and <code>ModelViewComplete</code>. About 25 minutes.</p></div></li>
+      <li><div><h3>Transfer</h3><p>Write <code>countActive()</code> from its header first. Then compile the three Java files, run <code>BallModel</code>, and predict every line of <code>BallModelTest</code> before you run it. About 20 minutes.</p></div></li>
+      <li><div><h3>Discuss</h3><p>Answer the <a href="#exchange">discussion prompt</a> in writing, and compare it with the example response. Share it where the cohort shares work; details come by email.</p></div></li>
+      <li><div><h3>Adapt</h3><p>The <a href="#studio">classroom adaptation task</a>. The teacher guide in the download has every answer and the misconceptions to expect.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">In the download</span>
+      <h2>Session 4 files</h2>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>File</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr><td><code>ActiveBalls/</code></td><td class="why">Starter. Four balls in a prepared <code>ArrayList</code>, with model and drawing mixed. Where everyone begins.</td></tr>
+          <tr><td><code>ActiveTrace/</code></td><td class="why">The demo sketch: prints a line whenever the number of active balls changes.</td></tr>
+          <tr><td><code>ModelViewCheckpoint/</code></td><td class="why">Checkpoint: missions 1&ndash;3 done. The model is separate, and <code>countActive()</code> is written.</td></tr>
+          <tr><td><code>ModelViewComplete/</code></td><td class="why">Completed example of both extensions.</td></tr>
+          <tr><td><code>plain-java/</code></td><td class="why"><code>Ball.java</code>, <code>BallModel.java</code>, <code>BallModelTest.java</code>. Compile them together.</td></tr>
+          <tr><td><code>session-4-student-handout.md</code></td><td class="why">Editable student directions for the model-and-test lesson.</td></tr>
+          <tr><td><code>session-4-teacher-guide.md</code></td><td class="why">Expected evidence, assessment criteria, likely misconceptions, and an implementation plan.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <nav class="lesson-pager" aria-label="Workshop pages">
+      <a href="session-3.html">&larr; Session 3, Nov 22</a>
+      <a href="index.html#sessions">All sessions</a>
+      <a href="session-5.html">Studio, Dec 13 &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap stack-sm">
+    <p>Every sketch and Java file on this page was run with Processing 4.3.4 and Java 17. Every expected output shown is real output.</p>
+    <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<script src="assets/content.js"></script>
+<script src="assets/workshop.js?v=20261015a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>

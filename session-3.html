@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 3: Make objects visible — Visible Java</title>
+<meta name="description" content="Visible Java Session 3, Sunday November 22: turn the bouncing ball into a class, make objects with different starting states, watch a reference in action, and update a small array of objects. Works live or on your own.">
+<link rel="stylesheet" href="assets/site.css?v=20261015b">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java <span class="arrow">&middot;</span> <span class="logo-sub">Processing to AP CS A</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="path.html">Units</a>
+      <a href="examples.html">Compare</a>
+      <a href="translate.html">Translate</a>
+      <a href="port.html">Port</a>
+      <a href="traps.html">Traps</a>
+      <a href="frq.html">FRQ</a>
+      <a href="setup.html">Setup</a>
+      <a href="camp.html">Camp</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow"><a href="index.html#sessions">Session 03</a> &middot; Sunday, November 22 &middot; 7&ndash;9 a.m. PT / 10 a.m.&ndash;noon ET</span>
+      <h1>Make objects visible</h1>
+      <p class="lede">
+        Session 2&rsquo;s ball knows its walls. Now it becomes a class, so one set of rules can
+        drive many balls, each starting in a different state. You watch two objects share code
+        but not state, watch one object answer to two names, and put a small set of them in an
+        array. In plain Java, the class gains private fields and a getter.
+      </p>
+    </div>
+    <dl class="camp-logistics">
+      <div><dt>Java ideas</dt><dd>Classes, fields (the variables each object owns), constructors, <code>new</code>, methods, references (a variable that points to an object rather than holding it) and <code>null</code>, <code>this</code>, and a small array of objects traversed with a loop.</dd></div>
+      <div><dt>AP link</dt><dd>AP CS A Unit 3, writing classes, and Unit 4, arrays and how to traverse them. Free-response Question 2 asks students to write a whole class. <strong>Outside AP:</strong> any course that introduces objects, an ecosystem or particle project in creative coding, or a game with many characters.</dd></div>
+      <div><dt>Files</dt><dd><a href="downloads/workshop/session-3-files.zip">session-3-files.zip</a>: starter, prediction, checkpoint, completed, and optional 2D-grid sketches; two Java files; an editable student class-design activity and a teacher guide.</dd></div>
+      <div><dt>You leave with</dt><dd>A small object world, a class-design activity, an object-state diagram, and a scaffolded extension for students.</dd></div>
+    </dl>
+    <div class="note">
+      <p><strong>Can&rsquo;t make it live?</strong> Every block on this page works without the meeting. Follow <a href="#on-your-own">On your own</a>, which takes about 90 minutes. <strong>Missed Session 2?</strong> <code>BallObjects</code> starts from Session 2&rsquo;s ball, already turned into a class, so you can begin here.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Run of show &middot; 90-minute core, then 30 minutes of optional studio</span>
+      <h2>Two hours, eight blocks</h2>
+    </div>
+    <div class="ws-agenda">
+      <div class="step"><div class="step-label">0:00<b>10 min &middot; 7:00 PT</b></div><div class="step-body"><p><a href="#predict"><strong>Predict and discuss.</strong></a> Two objects from one class: call what they will do.</p></div></div>
+      <div class="step"><div class="step-label">0:10<b>15 min &middot; 7:10 PT</b></div><div class="step-body"><p><a href="#demo"><strong>Short demo.</strong></a> Trace two objects frame by frame, then give one object two names.</p></div></div>
+      <div class="step"><div class="step-label">0:25<b>25 min &middot; 7:25 PT</b></div><div class="step-body"><p><a href="#build"><strong>Guided build.</strong></a> A third ball, a small array, and balls of different sizes, then independent extensions.</p></div></div>
+      <div class="step"><div class="step-label">0:50<b>5 min &middot; 7:50 PT</b></div><div class="step-body"><p><strong>Break.</strong></p></div></div>
+      <div class="step"><div class="step-label">0:55<b>15 min &middot; 7:55 PT</b></div><div class="step-body"><p><a href="#transfer"><strong>Java transfer.</strong></a> Private fields and a getter, then an array traced on paper.</p></div></div>
+      <div class="step"><div class="step-label">1:10<b>15 min &middot; 8:10 PT</b></div><div class="step-body"><p><a href="#exchange"><strong>Colleague exchange.</strong></a> When to say &ldquo;object,&rdquo; and which class students should design first.</p></div></div>
+      <div class="step"><div class="step-label">1:25<b>5 min &middot; 8:25 PT</b></div><div class="step-body"><p><a href="#exit"><strong>Exit evidence and next step.</strong></a></p></div></div>
+      <div class="step"><div class="step-label">1:30<b>30 min &middot; 8:30 PT</b></div><div class="step-body"><p><a href="#studio"><strong>Optional studio.</strong></a> An AP-style reference question, the 2D-grid extension, and the class-design activity.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="predict" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:00 &middot; 10 minutes &middot; Predict and discuss</span>
+      <h2>One class, two balls</h2>
+      <p>This is Session 2&rsquo;s ball with its state and wall rules moved into a <code>Ball</code> class. <strong>Before anyone presses Run</strong>, answer the two questions. Then open <code>BallObjects</code> from the download and run it.</p>
+    </div>
+<pre class="ws-code" data-file="BallObjects/BallObjects.pde">
+Ball a;
+Ball b;
+
+void setup() {
+  size(400, 400);
+  a = new Ball(40, 40, 1.5, 2);
+  b = new Ball(300, 100, -3, 1);
+}
+
+void draw() {
+  background(255);
+  a.move();
+  b.move();
+  a.show();
+  b.show();
+}
+
+class Ball {
+  float x;
+  float y;
+  float xSpeed;
+  float ySpeed;
+
+  Ball(float startX, float startY, float startXSpeed, float startYSpeed) {
+    x = startX;
+    y = startY;
+    xSpeed = startXSpeed;
+    ySpeed = startYSpeed;
+  }
+
+  void move() {
+    x = x + xSpeed;
+    y = y + ySpeed;
+    if (x &gt; width - 20 || x &lt; 20) {
+      xSpeed = -xSpeed;
+    }
+    if (y &gt; height - 20 || y &lt; 20) {
+      ySpeed = -ySpeed;
+    }
+  }
+
+  void show() {
+    circle(x, y, 40);
+  }
+}</pre>
+    <ol class="ws-predict">
+      <li>
+        <p>What will you see when it runs?</p>
+        <button class="reveal-btn" type="button" aria-controls="q1">Show answer</button>
+        <div class="answer" id="q1" hidden><p><span class="out">two balls, bouncing on their own</span> One starts near the top-left corner and drifts down and to the right, like Session 2&rsquo;s ball. The other starts upper right and heads left, faster sideways and slower down. When their paths cross, they pass right through each other, because nothing tells either ball that the other exists.</p></div>
+      </li>
+      <li>
+        <p>The wall rules are written once. How many times do they run each frame?</p>
+        <button class="reveal-btn" type="button" aria-controls="q2">Show answer</button>
+        <div class="answer" id="q2" hidden><p><span class="out">twice</span> Once for <code>a.move()</code> and once for <code>b.move()</code>. Inside <code>move()</code>, <code>x</code> means &ldquo;this ball&rsquo;s <code>x</code>.&rdquo; Same code, different state.</p></div>
+      </li>
+    </ol>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Before running, ask what a third ball would have cost in Session 2: two more variables and two more <code>if</code>s, copied. Then ask what it costs now. Let people feel the difference before anyone says &ldquo;class.&rdquo;</p>
+        <p>Anyone who missed Session 2 can start right here. <code>BallObjects</code> is Session 2&rsquo;s ball, already in a class.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="demo" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:10 &middot; 15 minutes &middot; Short demo</span>
+      <h2>Two objects, one frame at a time</h2>
+      <p>
+        The facilitator runs <code>ObjectTrace</code>: two balls from the same class, moving
+        sideways only, at one frame per second. It prints both <code>x</code> values and stops
+        after five frames. <strong>Write your answers to questions 3&ndash;6 first.</strong>
+      </p>
+    </div>
+<pre class="ws-code" data-file="ObjectTrace/ObjectTrace.pde">
+Ball a;
+Ball b;
+
+void setup() {
+  size(400, 400);
+  frameRate(1);
+  a = new Ball(350, 120, 15, 0);
+  b = new Ball(100, 280, -10, 0);
+}
+
+void draw() {
+  background(255);
+  a.move();
+  b.move();
+  a.show();
+  b.show();
+  println("frame " + frameCount + ": a.x = " + a.x + ", b.x = " + b.x);
+  if (frameCount == 5) {
+    noLoop();
+  }
+}
+
+// class Ball: the same as in BallObjects</pre>
+    <ol class="ws-predict" start="3">
+      <li>
+        <p>What does the console print for frame 1?</p>
+        <button class="reveal-btn" type="button" aria-controls="q3">Show answer</button>
+        <div class="answer" id="q3" hidden><p><span class="out">frame 1: a.x = 365.0, b.x = 90.0</span> Each object starts from the numbers its constructor was handed. This time <code>move()</code> runs before the print, so frame 1 already shows one step.</p></div>
+      </li>
+      <li>
+        <p>What does it print for frame 3?</p>
+        <button class="reveal-btn" type="button" aria-controls="q4">Show answer</button>
+        <div class="answer" id="q4" hidden><p><span class="out">frame 3: a.x = 395.0, b.x = 70.0</span> <code>a</code> overshoots the wall and turns around, the boundary case from Session 2. <code>b</code> doesn&rsquo;t notice. Each object has its own <code>xSpeed</code>.</p></div>
+      </li>
+      <li>
+        <p>In <code>setup()</code>, change <code>b = new Ball(100, 280, -10, 0);</code> to <code>b = a;</code>. What do you see, and what is the line for frame 1?</p>
+        <button class="reveal-btn" type="button" aria-controls="q5">Show answer</button>
+        <div class="answer" id="q5" hidden><p><span class="out">frame 1: a.x = 380.0, b.x = 380.0</span> One ball, moving two steps a frame. <code>b = a</code> copies the reference, not the ball. There is one <code>Ball</code> with two names, so <code>move()</code> runs on it twice a frame, and the two names always print the same number. On frame 2 it reaches 395, turns, and comes back to 380 inside the same frame.</p></div>
+      </li>
+      <li>
+        <p>Undo that. Now rename the constructor&rsquo;s parameters to <code>x</code>, <code>y</code>, <code>xSpeed</code>, and <code>ySpeed</code>, so its first line reads <code>x = x;</code>. What happens?</p>
+        <button class="reveal-btn" type="button" aria-controls="q6">Show answer</button>
+        <div class="answer" id="q6" hidden><p><span class="out">frame 1: a.x = 0.0, b.x = 0.0</span> Both balls sit in the top-left corner as one quarter circle and never move. Inside the constructor, <code>x</code> now means the parameter, so <code>x = x</code> copies the parameter onto itself. The fields keep their default, 0. The fix is <code>this.x = x;</code>, which names the field on purpose.</p></div>
+      </li>
+    </ol>
+
+    <div class="stack">
+      <h3>What Processing hides</h3>
+      <p>How can <code>Ball</code> call <code>circle()</code> and read <code>width</code>? Those belong to the sketch. Here is where the class ends up when Processing builds it.</p>
+    </div>
+    <div class="seam">
+      <div class="side side-a">
+        <div class="side-head"><span class="dot"></span>What you wrote</div>
+<pre><span class="t">Ball</span> a;
+<span class="t">Ball</span> b;
+
+<span class="k">void</span> setup() { <span class="c">// ...</span> }
+<span class="k">void</span> draw() { <span class="c">// ...</span> }
+
+<span class="k">class</span> <span class="t">Ball</span> {
+  <span class="c">// fields, constructor, move()</span>
+
+  <span class="k">void</span> show() {
+    circle(x, y, <span class="n">40</span>);
+  }
+}</pre>
+      </div>
+      <div class="side side-b">
+        <div class="side-head"><span class="dot"></span>What Processing runs</div>
+<pre><span class="k">public class</span> <span class="t">BallObjects</span> <span class="k">extends</span> <span class="t">PApplet</span> {
+
+  <span class="t">Ball</span> a;
+  <span class="t">Ball</span> b;
+
+  <span class="c">// setup(), draw(), settings(), main()</span>
+
+  <span class="k">class</span> <span class="t">Ball</span> {
+    <span class="c">// fields, constructor, move()</span>
+
+    <span class="k">void</span> show() {
+      circle(x, y, <span class="n">40</span>); <span class="c">// the sketch's circle()</span>
+    }
+  }
+}</pre>
+      </div>
+    </div>
+    <ul class="plain">
+      <li><strong><code>Ball</code> is a class inside the sketch&rsquo;s class.</strong> Every class in a sketch, in any tab, is placed inside it.</li>
+      <li><strong>That is how it can draw.</strong> <code>circle()</code> and <code>width</code> belong to the sketch around each ball. A plain-Java <code>Ball</code> stands alone, so it can&rsquo;t.</li>
+    </ul>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Question 5 is the most valuable minute of the session. References are usually taught with box-and-arrow diagrams. Here the aliasing (one object with two names) is something you can watch. Ask people to explain the double speed before anyone says &ldquo;reference.&rdquo; The object-state diagram in the handout draws the same moment.</p>
+        <p>Question 6 is the most common constructor bug in student code, and Processing doesn&rsquo;t warn about it. It is the honest reason <code>this</code> exists.</p>
+        <p>If someone deletes <code>a = new Ball(&hellip;)</code> by accident, Processing stops on <code>a.move()</code> with a <code>NullPointerException</code>. Declaring <code>Ball a;</code> gives you a name. Only <code>new</code> makes a ball. Inner classes are not on the AP exam, and nobody needs the term.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="build" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:25 &middot; 25 minutes &middot; Guided build</span>
+      <h2>From two objects to a small world</h2>
+      <p>Work in <code>BallObjects</code>. Before each run, say what you expect. The supported missions end at <code>BallArrayCheckpoint</code>. If you fall behind, open that and carry on from there.</p>
+    </div>
+    <h3>Supported</h3>
+    <div class="grid">
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 1</span>
+        <h3>A third ball</h3>
+        <p>Declare <code>Ball c;</code>, make it in <code>setup()</code> with <code>c = new Ball(200, 300, 1, -2.5);</code>, and add <code>c.move();</code> and <code>c.show();</code> to <code>draw()</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;A third ball starting low in the middle and drifting up. You added four lines, and none of them is a wall rule.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 2</span>
+        <h3>A small array</h3>
+        <p>Replace <code>a</code>, <code>b</code>, and <code>c</code> with <code>Ball[] balls = new Ball[4];</code>. In <code>setup()</code>, make each one: <code>balls[0] = new Ball(60, 60, 2, 1.5);</code>, <code>balls[1] = new Ball(300, 100, -3, 2);</code>, <code>balls[2] = new Ball(200, 300, 1, -2.5);</code>, <code>balls[3] = new Ball(100, 250, -1.5, -1);</code>. In <code>draw()</code>: <code>for (int i = 0; i &lt; balls.length; i++) { balls[i].move(); balls[i].show(); }</code></p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;Four balls, each from its own starting state. Leave out one of the four <code>new</code> lines and Processing stops with a <code>NullPointerException</code>: an array of objects starts out empty.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 3</span>
+        <h3>Different sizes</h3>
+        <p>Add a field <code>float diameter;</code> and a fifth constructor parameter that sets it. Draw with <code>circle(x, y, diameter);</code>, and in <code>move()</code> use <code>float r = diameter / 2;</code> in place of each 20. Give the four balls diameters 40, 60, 30, and 80.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;Four sizes, and each one turns exactly where its own edge meets the wall. This is <code>BallArrayCheckpoint</code>.</p>
+      </article>
+    </div>
+    <h3>Independent extension</h3>
+    <div class="grid">
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 1</span>
+        <h3>Who is touching?</h3>
+        <p>Add <code>boolean touches(Ball other)</code> to <code>Ball</code>. It returns true when <code>dist(x, y, other.x, other.y)</code> is less than <code>(diameter + other.diameter) / 2</code>. In <code>draw()</code>, fill a ball orange if it touches any other ball.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;Within the first second, two balls overlap and both turn orange, then white again as they separate. One answer is <code>BallTouch</code>.</p>
+      </article>
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 2 &middot; optional</span>
+        <h3>A grid of balls</h3>
+        <p>Make <code>Ball[][] grid = new Ball[3][3];</code> and fill it with nested loops. Put each ball at the center of its cell, with <code>col - 1</code> as its horizontal speed and <code>row - 1</code> as its vertical speed.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;Nine balls in a three-by-three grid, each moving in a different direction. The one in the middle never moves. Why? One answer is <code>BallGrid</code>.</p>
+      </article>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>In mission 2, making the array and making the objects are two separate steps, and students mix them up for weeks. <code>new Ball[4]</code> makes four empty slots, not four balls. Let someone hit the <code>NullPointerException</code> on screen.</p>
+        <p>Mission 3 is where &ldquo;different initial states&rdquo; becomes real. One constructor, four calls, four different objects. It is also the first time a field changes how a method behaves.</p>
+        <p>Extension 1 is the first method that takes another object as its parameter. <code>other.x</code> reads another ball&rsquo;s field. In AP Java, with private fields, that still works inside the <code>Ball</code> class itself. Extension 2 is optional here: 2D arrays belong to AP Unit 4, so keep it for those who want it.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="transfer" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:55 &middot; 15 minutes &middot; Java transfer</span>
+      <h2>Same objects, no window</h2>
+      <p>
+        <strong>The test: the output must match the <code>ObjectTrace</code> console line for
+        line.</strong> Run each file with any method from <a href="processing.html#plain-java">Running plain Java</a>.
+      </p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/BallWorld/BallWorld.java">
+public class BallWorld {
+
+  public static void main(String[] args) {
+    Ball a = new Ball(350, 120, 15, 0);
+    Ball b = new Ball(100, 280, -10, 0);
+    for (int frame = 1; frame &lt;= 5; frame++) {
+      a.move();
+      b.move();
+      System.out.println("frame " + frame + ": a.x = " + a.getX() + ", b.x = " + b.getX());
+    }
+  }
+}
+
+class Ball {
+  private double x;
+  private double y;
+  private double xSpeed;
+  private double ySpeed;
+
+  public Ball(double startX, double startY, double startXSpeed, double startYSpeed) {
+    x = startX;
+    y = startY;
+    xSpeed = startXSpeed;
+    ySpeed = startYSpeed;
+  }
+
+  /** One frame of motion in a 400 by 400 window: move, then turn around at any wall. */
+  public void move() {
+    x = x + xSpeed;
+    y = y + ySpeed;
+    if (x &gt; 380 || x &lt; 20) {
+      xSpeed = -xSpeed;
+    }
+    if (y &gt; 380 || y &lt; 20) {
+      ySpeed = -ySpeed;
+    }
+  }
+
+  public double getX() {
+    return x;
+  }
+
+  public double getY() {
+    return y;
+  }
+}</pre>
+    </div>
+<pre class="ws-console">frame 1: a.x = 365.0, b.x = 90.0
+frame 2: a.x = 380.0, b.x = 80.0
+frame 3: a.x = 395.0, b.x = 70.0
+frame 4: a.x = 380.0, b.x = 60.0
+frame 5: a.x = 365.0, b.x = 50.0</pre>
+    <p>Identical. The fields became <code>private</code> and <code>double</code>, so <code>a.x</code> became <code>a.getX()</code>, a getter (a method that only reports a field). <code>show()</code> is gone, and <code>width - 20</code> became 380.</p>
+
+    <div class="stack">
+      <h3>Trace an array before you run it</h3>
+      <p><code>ArrayTrace.java</code> moves four balls for two frames, then traverses the array once to count and to find the farthest right. <strong>Write all five lines first.</strong></p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/ArrayTrace/ArrayTrace.java">
+public class ArrayTrace {
+
+  public static void main(String[] args) {
+    Ball[] balls = new Ball[4];
+    balls[0] = new Ball(370, 100, 10, 0);
+    balls[1] = new Ball(200, 200, -50, 0);
+    balls[2] = new Ball(30, 300, -10, 0);
+    balls[3] = new Ball(190, 50, 10, 0);
+
+    for (int frame = 1; frame &lt;= 2; frame++) {
+      for (int i = 0; i &lt; balls.length; i++) {
+        balls[i].move();
+      }
+    }
+
+    int right = 0;
+    int farthest = 0;
+    for (int i = 0; i &lt; balls.length; i++) {
+      System.out.println("balls[" + i + "].x = " + balls[i].getX());
+      if (balls[i].getX() &gt; 200) {
+        right++;
+      }
+      if (balls[i].getX() &gt; balls[farthest].getX()) {
+        farthest = i;
+      }
+    }
+    System.out.println(right + " in the right half; farthest right is balls[" + farthest + "]");
+  }
+}
+
+// class Ball: the same fields, constructor, move(), and getX() as BallWorld.java</pre>
+    </div>
+    <button class="reveal-btn" type="button" aria-controls="array-out">Show the output</button>
+    <div class="answer" id="array-out" hidden>
+<pre class="ws-console">balls[0].x = 390.0
+balls[1].x = 100.0
+balls[2].x = 10.0
+balls[3].x = 210.0
+2 in the right half; farthest right is balls[0]</pre>
+      <p>Two boundary cases hide in here. <code>balls[0]</code> reaches exactly 380 on frame 1, which is not past the wall, so it goes on to 390. <code>balls[2]</code> reaches exactly 20, which is not less than 20, so it goes on to 10. <code>farthest</code> starts at 0 and changes only when a larger <code>x</code> turns up: that is the standard find-the-largest traversal.</p>
+    </div>
+    <p>Both programs define a class named <code>Ball</code>, so each has its own folder. Run either one as a single file, or compile its folder with <code>javac *.java</code>. In an IDE, make each folder its own project.</p>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Have people paste their <code>BallWorld</code> output next to the sketch&rsquo;s console. A mismatch is usually printing before moving, which is a good conversation about the order inside <code>draw()</code>.</p>
+        <p>In the array trace, most people get <code>balls[2]</code> wrong by turning it at 20. Point back to Session 2&rsquo;s boundary cases: the same <code>&lt;</code> versus <code>&lt;=</code> question, now inside an object.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="exchange" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:10 &middot; 15 minutes &middot; Colleague exchange</span>
+      <h2>When does a variable become an object?</h2>
+      <p>In groups of three or four. One person shares their screen. Everyone answers:</p>
+    </div>
+    <div class="note">
+      <p><strong>Discussion prompt.</strong> When would you first say the word <em>object</em> to students: before they feel the copying, or after? What is the smallest class you would ask them to design on their own, and what would show you they understood it?</p>
+    </div>
+    <button class="reveal-btn" type="button" aria-controls="example-response">Show an example response</button>
+    <div class="answer" id="example-response" hidden>
+      <p>&ldquo;After the copying, every time. I&rsquo;d have them build two balls the long way first and count the lines, then show the class as the fix for a problem they already have. The smallest class I&rsquo;d ask for is one with two fields, a constructor, and one method that changes a field, like a <code>Firefly</code> that blinks. The evidence would be the object-state diagram: if a student can draw what <code>b = a</code> does, they understand references, whether or not the sketch looks good.&rdquo;</p>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Mix AP and non-AP teachers in each group. Creative coding teachers often introduce objects earlier, through particles and agents, and that perspective helps everyone.</p>
+        <p>Ask each group to put one sentence in the chat. Those sentences start Session 5&rsquo;s studio.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="exit" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:25 &middot; 5 minutes &middot; Exit evidence and next step</span>
+      <h2>Before you go</h2>
+    </div>
+    <ol class="ws-checklist">
+      <li><div><h3>Exit evidence</h3><p>Post your answer to question 5 in one sentence: after <code>b = a</code>, why does one ball move twice as far each frame?</p></div></li>
+      <li><div><h3>Next step</h3><p>No meeting on November 29, Thanksgiving weekend. Session 4, <strong>Sunday, December 6</strong>, starts from <code>BallArrayCheckpoint</code>. Open it once before then, so it runs on your machine.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="studio" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:30 &middot; 30 minutes &middot; Optional studio</span>
+      <h2>Studio</h2>
+      <p>Stay for whichever helps: one-on-one troubleshooting, the extensions, this AP-style question, or the classroom adaptation task.</p>
+    </div>
+    <article class="trap">
+      <div class="trap-head"><span class="eyebrow">AP-style multiple choice</span><h3>What is printed?</h3></div>
+<pre class="ws-code" data-file="Consider the following code segment.">
+int[] speeds = {2, -3, 5};
+int[] copy = speeds;
+for (int i = 0; i &lt; copy.length; i++) {
+  copy[i] = -copy[i];
+}
+System.out.println(speeds[0] + " " + speeds[1] + " " + copy[2]);</pre>
+      <ol type="A" class="ws-predict">
+        <li><code>2 -3 5</code></li>
+        <li><code>2 -3 -5</code></li>
+        <li><code>-2 3 -5</code></li>
+        <li><code>-2 3 5</code></li>
+        <li><code>-2 -3 -5</code></li>
+      </ol>
+      <button class="reveal-btn" type="button" aria-controls="ap-answer">Show answer</button>
+      <div class="answer" id="ap-answer" hidden>
+        <p><span class="out">C &nbsp;-2 3 -5</span> An array is an object, so <code>copy = speeds</code> copies the reference, just as <code>b = a</code> did. There is one array with two names, and the loop negates every element of it. B is the answer for anyone who thinks <code>copy</code> is a separate array. A says the loop changed nothing at all. D forgets the loop reaches index 2. E negates every element but forgets that negating &minus;3 gives 3.</p>
+      </div>
+    </article>
+    <div class="note">
+      <p><strong>Classroom adaptation task, 20&ndash;30 minutes.</strong> Open <code>session-3-student-handout.md</code> from the download. It is a complete 30-minute class-design activity: students design a new kind of object, draw an object-state diagram, and try a scaffolded extension. Edit it for one class you teach: swap in a character your students care about, change the vocabulary, and cut what won&rsquo;t fit. Keep the diagram. Bring it to Session 5.</p>
+    </div>
+  </div>
+</section>
+
+<section id="on-your-own" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Asynchronous route &middot; about 90 minutes</span>
+      <h2>On your own</h2>
+      <p>Everything from the live session, in order. Answers are behind the Show buttons on this page.</p>
+    </div>
+    <ol class="ws-checklist">
+      <li><div><h3>Set up</h3><p>Download <a href="downloads/workshop/session-3-files.zip">session-3-files.zip</a>. If Processing isn&rsquo;t installed, start with <a href="processing.html">Your first sketch</a>. About 10 minutes.</p></div></li>
+      <li><div><h3>Predict</h3><p>Answer questions 1&ndash;6 on paper <em>before</em> running anything. Then run <code>BallObjects</code> and <code>ObjectTrace</code>, make the two changes, and check. About 20 minutes.</p></div></li>
+      <li><div><h3>Build</h3><p>Missions 1&ndash;3, and the extensions if you want more. Compare with <code>BallArrayCheckpoint</code>, <code>BallTouch</code>, and <code>BallGrid</code>. About 25 minutes.</p></div></li>
+      <li><div><h3>Transfer</h3><p>Run <code>BallWorld.java</code>. Trace <code>ArrayTrace.java</code> before you run it. About 15 minutes.</p></div></li>
+      <li><div><h3>Discuss</h3><p>Answer the <a href="#exchange">discussion prompt</a> in writing, and compare it with the example response. Share it where the cohort shares work; details come by email.</p></div></li>
+      <li><div><h3>Adapt</h3><p>The <a href="#studio">classroom adaptation task</a>. The teacher guide in the download has every answer and the misconceptions to expect.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">In the download</span>
+      <h2>Session 3 files</h2>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>File</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr><td><code>BallObjects/</code></td><td class="why">Starter. Session 2&rsquo;s ball as a class, with two objects. Where everyone begins.</td></tr>
+          <tr><td><code>ObjectTrace/</code></td><td class="why">The demo sketch: two objects, one frame a second, stops after five.</td></tr>
+          <tr><td><code>BallArrayCheckpoint/</code></td><td class="why">Checkpoint: missions 1&ndash;3 done. Session 4 starts here.</td></tr>
+          <tr><td><code>BallTouch/</code></td><td class="why">Completed example of extension 1.</td></tr>
+          <tr><td><code>BallGrid/</code></td><td class="why">Optional extension 2: a 2D array of balls.</td></tr>
+          <tr><td><code>plain-java/</code></td><td class="why"><code>BallWorld/BallWorld.java</code> and <code>ArrayTrace/ArrayTrace.java</code>, each in its own folder because both define a <code>Ball</code> class.</td></tr>
+          <tr><td><code>session-3-student-handout.md</code></td><td class="why">Editable 30-minute class-design activity, with an object-state diagram and a scaffolded extension.</td></tr>
+          <tr><td><code>session-3-teacher-guide.md</code></td><td class="why">Expected answers, likely misconceptions, and how to assess it.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <nav class="lesson-pager" aria-label="Workshop pages">
+      <a href="session-2.html">&larr; Session 2, Nov 15</a>
+      <a href="index.html#sessions">All sessions</a>
+      <a href="session-4.html">Session 4, Dec 6 &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap stack-sm">
+    <p>Every sketch and Java file on this page was run with Processing 4.3.4 and Java 17. Every expected output shown is real output.</p>
+    <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<script src="assets/content.js"></script>
+<script src="assets/workshop.js?v=20261015a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>

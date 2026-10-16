@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 5: Classroom studio — Visible Java</title>
+<meta name="description" content="Visible Java classroom studio, Sunday December 13: bring one lesson package, test it on colleagues, get structured feedback, and revise it. Optional extensions with AI-generated code and hardware sensors.">
+<link rel="stylesheet" href="assets/site.css?v=20261015b">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java <span class="arrow">&middot;</span> <span class="logo-sub">Processing to AP CS A</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="path.html">Units</a>
+      <a href="examples.html">Compare</a>
+      <a href="translate.html">Translate</a>
+      <a href="port.html">Port</a>
+      <a href="traps.html">Traps</a>
+      <a href="frq.html">FRQ</a>
+      <a href="setup.html">Setup</a>
+      <a href="camp.html">Camp</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow"><a href="index.html#sessions">Meeting 05</a> &middot; Sunday, December 13 &middot; 7&ndash;9 a.m. PT / 10 a.m.&ndash;noon ET</span>
+      <h1>Classroom studio</h1>
+      <p class="lede">
+        No new Java today. You bring one lesson package from any session, try it on colleagues
+        the way your students would meet it, get structured feedback, and revise. You leave
+        with one lesson you are ready to teach. Two optional extensions, AI-generated code and
+        hardware sensors, are saved for the last half hour.
+      </p>
+    </div>
+    <dl class="camp-logistics">
+      <div><dt>Java ideas</dt><dd>Nothing new. Whatever your lesson uses from Sessions 1&ndash;4.</dd></div>
+      <div><dt>AP link</dt><dd>Optional: tie your lesson to an AP CS A unit and an exam skill, such as tracing code, writing a method, writing a class, or testing. <strong>Outside AP:</strong> the critique protocol works for any lesson in any subject.</dd></div>
+      <div><dt>Files</dt><dd><a href="downloads/workshop/session-5-files.zip">session-5-files.zip</a>: a blank student-handout template, a studio guide with the package checklist and critique protocol, and a sensor stand-in sketch for the hardware extension.</dd></div>
+      <div><dt>You leave with</dt><dd>One classroom-ready lesson package, revised after colleague feedback, with a plan for the first day you teach it.</dd></div>
+    </dl>
+    <div class="note">
+      <p><strong>Can&rsquo;t make it live?</strong> The studio works with one colleague and an hour. Follow <a href="#on-your-own">On your own</a>. <strong>Didn&rsquo;t finish a package?</strong> Bring a draft, or bring the handout from any session unedited. Half-finished work is exactly what the studio is for.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Run of show &middot; 90-minute core, then 30 minutes of optional studio</span>
+      <h2>Two hours, eight blocks</h2>
+    </div>
+    <div class="ws-agenda">
+      <div class="step"><div class="step-label">0:00<b>10 min &middot; 7:00 PT</b></div><div class="step-body"><p><a href="#predict"><strong>Predict and discuss.</strong></a> Predict where your students will get stuck in your lesson.</p></div></div>
+      <div class="step"><div class="step-label">0:10<b>15 min &middot; 7:10 PT</b></div><div class="step-body"><p><a href="#demo"><strong>Short demo.</strong></a> The facilitator runs the critique protocol on Session 1&rsquo;s handout.</p></div></div>
+      <div class="step"><div class="step-label">0:25<b>25 min &middot; 7:25 PT</b></div><div class="step-body"><p><a href="#build"><strong>Guided build.</strong></a> Revise your package against the checklist, then independent extensions.</p></div></div>
+      <div class="step"><div class="step-label">0:50<b>5 min &middot; 7:50 PT</b></div><div class="step-body"><p><strong>Break.</strong></p></div></div>
+      <div class="step"><div class="step-label">0:55<b>15 min &middot; 7:55 PT</b></div><div class="step-body"><p><a href="#transfer"><strong>Classroom adaptation.</strong></a> Teach the first three minutes of your lesson to two colleagues.</p></div></div>
+      <div class="step"><div class="step-label">1:10<b>15 min &middot; 8:10 PT</b></div><div class="step-body"><p><a href="#exchange"><strong>Colleague exchange.</strong></a> Structured critique: what will work, where students get stuck, one change.</p></div></div>
+      <div class="step"><div class="step-label">1:25<b>5 min &middot; 8:25 PT</b></div><div class="step-body"><p><a href="#exit"><strong>Exit evidence and next step.</strong></a></p></div></div>
+      <div class="step"><div class="step-label">1:30<b>30 min &middot; 8:30 PT</b></div><div class="step-body"><p><a href="#studio"><strong>Optional studio.</strong></a> AI-generated code as a prediction task, a hardware sensor as input, and one last trace.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="predict" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:00 &middot; 10 minutes &middot; Predict and discuss</span>
+      <h2>Predict your own lesson</h2>
+      <p>Open the lesson package you brought. <strong>Before anyone looks at it</strong>, write your answers to the two questions. You will check them against what your colleagues actually do at 0:55.</p>
+    </div>
+    <ol class="ws-predict">
+      <li>
+        <p>Where will your students get stuck first? Name the line, the question, or the minute.</p>
+        <button class="reveal-btn" type="button" aria-controls="q1">Show an example</button>
+        <div class="answer" id="q1" hidden><p><span class="out">&ldquo;Question 4 of the prediction table&rdquo;</span> A strong answer is specific enough to check. &ldquo;They&rsquo;ll find it hard&rdquo; can&rsquo;t be wrong, so it can&rsquo;t teach you anything. &ldquo;They&rsquo;ll write 10 for frame 5&rdquo; can.</p></div>
+      </li>
+      <li>
+        <p>What will a student who understands write that a student who doesn&rsquo;t won&rsquo;t?</p>
+        <button class="reveal-btn" type="button" aria-controls="q2">Show an example</button>
+        <div class="answer" id="q2" hidden><p><span class="out">&ldquo;The value that made the condition true&rdquo;</span> For the Session 2 lab: a student who understands names 390, or any number above 380. A student who patched the bug says &ldquo;I changed <code>&amp;&amp;</code> to <code>||</code>.&rdquo; If you can&rsquo;t name the difference, the lesson doesn&rsquo;t collect it yet.</p></div>
+      </li>
+    </ol>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>People who didn&rsquo;t finish a package will feel behind. Say out loud that drafts are the point. Anyone with nothing can take any session&rsquo;s handout as it is and adapt it today.</p>
+        <p>Collect a few answers to question 1 in the chat. They are the predictions this meeting tests.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="demo" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:10 &middot; 15 minutes &middot; Short demo</span>
+      <h2>The critique protocol, on a lesson everyone knows</h2>
+      <p>
+        The facilitator presents Session 1&rsquo;s student handout, and two volunteers critique
+        it with the protocol everyone will use at 1:10. The protocol is in the studio guide in
+        the download. <strong>Write your answers to questions 3&ndash;4 first.</strong>
+      </p>
+    </div>
+    <ol class="ws-checklist">
+      <li><div><h3>Context, 2 minutes</h3><p>Who the students are and where the lesson lands. No apologies or disclaimers.</p></div></li>
+      <li><div><h3>Try it, 3 minutes</h3><p>Colleagues do the first three minutes as students would, out loud.</p></div></li>
+      <li><div><h3>Clarifying questions, 1 minute</h3><p>Questions with short factual answers only.</p></div></li>
+      <li><div><h3>Warm feedback, 2 minutes</h3><p>&ldquo;What will work for students is&hellip;&rdquo;</p></div></li>
+      <li><div><h3>Cool feedback, 2 minutes</h3><p>&ldquo;I wonder where a student would get stuck when&hellip;&rdquo; Point to a line, a question, or a minute.</p></div></li>
+      <li><div><h3>One change, 2 minutes</h3><p>The presenter names one change, and makes it before the meeting ends.</p></div></li>
+    </ol>
+    <ol class="ws-predict" start="3">
+      <li>
+        <p>Which question in Session 1&rsquo;s handout will students get wrong most often?</p>
+        <button class="reveal-btn" type="button" aria-controls="q3">Show answer</button>
+        <div class="answer" id="q3" hidden><p><span class="out">frame 5 of the prediction table</span> Most students predict that frame 5 draws at 10. It draws at 8, because the circle is drawn before <code>y</code> changes. The Session 1 teacher guide lists it first among the likely misconceptions.</p></div>
+      </li>
+      <li>
+        <p>Which part of that handout gives the strongest evidence that a student understands?</p>
+        <button class="reveal-btn" type="button" aria-controls="q4">Show answer</button>
+        <div class="answer" id="q4" hidden><p><span class="out">Explain, question 3</span> &ldquo;Why does the ball stop moving if <code>float y = 0;</code> is moved inside <code>draw()</code>?&rdquo; A student can copy a working sketch. A student can&rsquo;t copy an explanation of scope without understanding it.</p></div>
+      </li>
+    </ol>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Model the hardest rule: during warm and cool feedback, the presenter only listens and takes notes. Don&rsquo;t defend the handout, even when the feedback is wrong. Say so afterward, so everyone sees it is allowed.</p>
+        <p>Pick a cool-feedback point you genuinely agree with, and make the change on screen. It shows that &ldquo;one change&rdquo; means a small, real edit, not a rewrite.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="build" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:25 &middot; 25 minutes &middot; Guided build</span>
+      <h2>Revise your package</h2>
+      <p>Work in your own package. Use the checklist in <code>session-5-teacher-guide.md</code>. If you are starting from nothing, copy <code>session-5-student-handout.md</code>, a blank handout in the same shape as Sessions 1&ndash;4.</p>
+    </div>
+    <h3>Supported</h3>
+    <div class="grid">
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 1</span>
+        <h3>Directions a student can follow alone</h3>
+        <p>Give the handout a time, a &ldquo;you need&rdquo; line, and steps a student could follow with no teacher talking.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;A colleague can read step 1 and start without asking you anything.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 2</span>
+        <h3>A prediction before any Run</h3>
+        <p>Make sure students commit to an answer in writing before the computer shows them: a table, a trace, or a question with one right answer.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;The prediction has an answer you could check, and it appears before the first &ldquo;press Run.&rdquo;</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 3</span>
+        <h3>Evidence and one criterion</h3>
+        <p>Add &ldquo;What to hand in&rdquo; to the handout. In your teacher notes, write the expected answers and one assessment criterion that looks at reasoning, not at the finished sketch.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;You could grade a stack of these in ten minutes, and the grade would tell you who understood.</p>
+      </article>
+    </div>
+    <h3>Independent extension</h3>
+    <div class="grid">
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 1</span>
+        <h3>A way back in</h3>
+        <p>Make a checkpoint file: the project as it should be halfway through. Say in the handout where a student who falls behind should open it.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;A student who missed the first half can start the second half on time. Every session in this workshop has one for the same reason.</p>
+      </article>
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 2</span>
+        <h3>An absent-student route</h3>
+        <p>Write a short &ldquo;on your own&rdquo; route, modeled on the ones on these session pages: the steps, the time for each, and where the answers are.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;A student who was out sick can do the lesson at home and hand in the same evidence.</p>
+      </article>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Circulate and ask one question per person: &ldquo;What will a student write in your prediction step?&rdquo; If they can&rsquo;t answer, mission 2 isn&rsquo;t done.</p>
+        <p>Experienced teachers often want to add more content. Steer them toward the extensions instead, which make the lesson more usable rather than longer.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="transfer" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:55 &middot; 15 minutes &middot; Classroom adaptation</span>
+      <h2>Teach the first three minutes</h2>
+      <p>In groups of three. Each person teaches the first three minutes of their lesson while the other two act as students: they follow the handout literally and say aloud what they are thinking. One person keeps time. Then rotate.</p>
+    </div>
+    <ol class="ws-checklist">
+      <li><div><h3>Teacher, 3 minutes</h3><p>Teach as you would in class. Don&rsquo;t explain the lesson. Teach it.</p></div></li>
+      <li><div><h3>Students, the whole time</h3><p>Do exactly what the handout says, nothing more. When it is unclear, say so out loud instead of guessing.</p></div></li>
+      <li><div><h3>Teacher, after</h3><p>Check your answer to question 1. Did they get stuck where you predicted?</p></div></li>
+    </ol>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Three minutes is short on purpose. The opening of a lesson is where most of the confusion starts, and it is the part teachers rehearse least.</p>
+        <p>Remind &ldquo;students&rdquo; to be literal, not difficult. The goal is to find the sentence the handout is missing, not to trip the teacher up.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="exchange" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:10 &middot; 15 minutes &middot; Colleague exchange</span>
+      <h2>Structured critique</h2>
+      <p>Same groups of three. Run the protocol from the demo, with warm feedback, cool feedback, and one change, on as many packages as time allows. The presenter listens and doesn&rsquo;t respond until step 6.</p>
+    </div>
+    <div class="note">
+      <p><strong>Discussion prompt.</strong> Warm: what in this lesson will work for students? Cool: where would a student get stuck, and what is the smallest change that would help?</p>
+    </div>
+    <button class="reveal-btn" type="button" aria-controls="example-response">Show an example response</button>
+    <div class="answer" id="example-response" hidden>
+      <p>&ldquo;Warm: the prediction table comes before any Run, and the frame-5 question is going to start an argument, which is exactly what you want. Cool: I wonder whether a student will know what &lsquo;drew at y&rsquo; means in the second column. When I was the student, I had to look at the code to find out. Smallest change: one example row filled in, maybe frame 0.&rdquo;</p>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Visit each group once, and only to keep time and protect the listening rule. Cool feedback that names a specific line is the goal. Redirect &ldquo;it&rsquo;s a lot&rdquo; to &ldquo;which part could go?&rdquo;</p>
+        <p>The sentences groups posted to the chat in Sessions 1&ndash;4 are good openers here if a group stalls.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="exit" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:25 &middot; 5 minutes &middot; Exit evidence and next step</span>
+      <h2>Before you go</h2>
+    </div>
+    <ol class="ws-checklist">
+      <li><div><h3>Exit evidence</h3><p>Share your package where the cohort shares work, with one sentence: the one change you made today, and why.</p></div></li>
+      <li><div><h3>Next step</h3><p>Teach it. Afterward, add one line to your teacher notes: what students actually did at the step you predicted would be hardest. Every session page and download stays up after the camp.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="studio" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:30 &middot; 30 minutes &middot; Optional studio</span>
+      <h2>Studio</h2>
+      <p>Two optional extensions, for anyone who wants them. Neither is required for any lesson in this workshop, and every lesson works without them.</p>
+    </div>
+    <div class="grid">
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Optional &middot; AI</span>
+        <h3>AI-generated code as a prediction task</h3>
+        <p>Ask an AI assistant for a variation of your starter sketch, such as &ldquo;make the ball speed up each time it hits a wall.&rdquo; Don&rsquo;t run it yet. Students read it, predict what it will do, then run it and find one way the code differs from the request.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;A prediction task you didn&rsquo;t have to write, and a habit students need: read and test generated code before trusting it. The studio guide has the full routine.</p>
+      </article>
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Optional &middot; hardware</span>
+        <h3>A sensor as input</h3>
+        <p>Open <code>SensorStandIn</code>. The ball&rsquo;s speed comes from <code>readSensor()</code>, which reports 0 to 1023, the range of an Arduino analog pin. For now, the mouse stands in for the sensor.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;With the mouse at the right edge, the corner reads <code>sensor: 1023</code> and the ball slides right until it stops at the wall. At the left edge it reads 0 and slides left. To use a real sensor, replace only the body of <code>readSensor()</code>.</p>
+      </article>
+    </div>
+    <article class="trap">
+      <div class="trap-head"><span class="eyebrow">AP-style multiple choice &middot; one last trace</span><h3>What is printed?</h3></div>
+<pre class="ws-code" data-file="Consider the following code segment.">
+int[] xs = {370, 25, 200, 395};
+int[] speeds = {15, -10, 5, 10};
+int turned = 0;
+for (int i = 0; i &lt; xs.length; i++) {
+  xs[i] = xs[i] + speeds[i];
+  if (xs[i] &gt; 380 || xs[i] &lt; 20) {
+    speeds[i] = -speeds[i];
+    turned++;
+  }
+}
+System.out.println(turned + " " + xs[1] + " " + speeds[3]);</pre>
+      <ol type="A" class="ws-predict">
+        <li><code>2 15 -10</code></li>
+        <li><code>3 15 -10</code></li>
+        <li><code>3 25 -10</code></li>
+        <li><code>3 15 10</code></li>
+        <li><code>4 15 -10</code></li>
+      </ol>
+      <button class="reveal-btn" type="button" aria-controls="ap-answer">Show answer</button>
+      <div class="answer" id="ap-answer" hidden>
+        <p><span class="out">B &nbsp;3 15 -10</span> Every session in one question. The moves give 385, 15, 205, and 405. Three of those are past a wall, so three speeds flip. A misses the first one, at 385. C forgets that <code>xs[1]</code> was updated before it was printed. D forgets that the flip changes the array. E counts 205 too.</p>
+      </div>
+    </article>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Keep both extensions framed as options. Many schools restrict AI tools, and many classrooms have no hardware. The stand-in sketch exists so a hardware lesson never shuts out a student without a board.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="on-your-own" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Asynchronous route &middot; about 60 minutes</span>
+      <h2>On your own</h2>
+      <p>The studio works with one colleague, live or not.</p>
+    </div>
+    <ol class="ws-checklist">
+      <li><div><h3>Set up</h3><p>Download <a href="downloads/workshop/session-5-files.zip">session-5-files.zip</a> and choose one lesson package, yours or any session&rsquo;s handout. About 5 minutes.</p></div></li>
+      <li><div><h3>Predict</h3><p>Answer questions 1 and 2 above in writing. About 5 minutes.</p></div></li>
+      <li><div><h3>Revise</h3><p>Work through the package checklist and missions 1&ndash;3. About 25 minutes.</p></div></li>
+      <li><div><h3>Try it</h3><p>Ask one colleague to do the first three minutes as a student, out loud. A video call works. Check your prediction. About 10 minutes.</p></div></li>
+      <li><div><h3>Critique</h3><p>Ask them only the two <a href="#exchange">discussion prompt</a> questions. Listen without responding. About 10 minutes.</p></div></li>
+      <li><div><h3>Change</h3><p>Make one change, and write one sentence about why. Share it where the cohort shares work. About 5 minutes.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">In the download</span>
+      <h2>Studio files</h2>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>File</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr><td><code>session-5-student-handout.md</code></td><td class="why">A blank student handout in the same shape as Sessions 1&ndash;4, ready to fill in.</td></tr>
+          <tr><td><code>session-5-teacher-guide.md</code></td><td class="why">The studio guide: package checklist, critique protocol, what to listen for, and the AI and hardware extensions.</td></tr>
+          <tr><td><code>SensorStandIn/</code></td><td class="why">The optional hardware extension, with the mouse standing in for a sensor.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <nav class="lesson-pager" aria-label="Workshop pages">
+      <a href="session-4.html">&larr; Session 4, Dec 6</a>
+      <a href="index.html#sessions">All sessions</a>
+      <a href="port.html">Port your own project &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap stack-sm">
+    <p>Every sketch and Java file on this page was run with Processing 4.3.4 and Java 17. Every expected output shown is real output.</p>
+    <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<script src="assets/content.js"></script>
+<script src="assets/workshop.js?v=20261015a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>

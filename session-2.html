@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 2: Make decisions visible — Visible Java</title>
+<meta name="description" content="Visible Java Session 2, Sunday November 15: give the moving ball walls, a pause key, and a pattern drawn with a loop, break a condition on purpose, and move the same decisions into plain Java. Works live or on your own.">
+<link rel="stylesheet" href="assets/site.css?v=20261015b">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java <span class="arrow">&middot;</span> <span class="logo-sub">Processing to AP CS A</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="path.html">Units</a>
+      <a href="examples.html">Compare</a>
+      <a href="translate.html">Translate</a>
+      <a href="port.html">Port</a>
+      <a href="traps.html">Traps</a>
+      <a href="frq.html">FRQ</a>
+      <a href="setup.html">Setup</a>
+      <a href="camp.html">Camp</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow"><a href="index.html#sessions">Session 02</a> &middot; Sunday, November 15 &middot; 7&ndash;9 a.m. PT / 10 a.m.&ndash;noon ET</span>
+      <h1>Make decisions visible</h1>
+      <p class="lede">
+        Session 1&rsquo;s ball drifted off the screen. Today it makes decisions: it turns at the
+        walls, answers a key, and lights up the column it is in. Then you break a condition on
+        purpose, find the bug by watching, and move the same decisions into plain Java, where
+        the keyboard becomes a string of characters.
+      </p>
+    </div>
+    <dl class="camp-logistics">
+      <div><dt>Java ideas</dt><dd>Boolean expressions, <code>if</code> and <code>else</code>, the operators <code>||</code> (or), <code>&amp;&amp;</code> (and), and <code>!</code> (not), a <code>for</code> loop that draws a pattern, integer division, and keyboard and mouse input.</dd></div>
+      <div><dt>AP link</dt><dd>AP CS A Unit 2, where the course covers decisions and loops: Boolean expressions, <code>if</code> statements, iteration, tracing, and boundary cases (the values right at the edge of a condition). <strong>Outside AP:</strong> a first lesson on conditionals, a game-design unit, or any lesson on debugging.</dd></div>
+      <div><dt>Files</dt><dd><a href="downloads/workshop/session-2-files.zip">session-2-files.zip</a>: starter, prediction, checkpoint, completed, and debugging-lab sketches; two Java files; an editable student debugging lab and a teacher guide with the answer key.</dd></div>
+      <div><dt>You leave with</dt><dd>A bouncing sketch that responds to the keyboard, a debugging lab with an answer key, and short explanation questions for students.</dd></div>
+    </dl>
+    <div class="note">
+      <p><strong>Can&rsquo;t make it live?</strong> Every block on this page works without the meeting. Follow <a href="#on-your-own">On your own</a>, which takes about 90 minutes. <strong>Missed Session 1?</strong> <code>WallBall</code> in this download starts from Session 1&rsquo;s checkpoint, so you can begin here.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Run of show &middot; 90-minute core, then 30 minutes of optional studio</span>
+      <h2>Two hours, eight blocks</h2>
+    </div>
+    <div class="ws-agenda">
+      <div class="step"><div class="step-label">0:00<b>10 min &middot; 7:00 PT</b></div><div class="step-body"><p><a href="#predict"><strong>Predict and discuss.</strong></a> Read one new <code>if</code>, call what it will do, then run it.</p></div></div>
+      <div class="step"><div class="step-label">0:10<b>15 min &middot; 7:10 PT</b></div><div class="step-body"><p><a href="#demo"><strong>Short demo.</strong></a> Slow a ball down at a wall, then break the condition twice.</p></div></div>
+      <div class="step"><div class="step-label">0:25<b>25 min &middot; 7:25 PT</b></div><div class="step-body"><p><a href="#build"><strong>Guided build.</strong></a> Four walls, a pause key, and a row that lights up, then independent extensions.</p></div></div>
+      <div class="step"><div class="step-label">0:50<b>5 min &middot; 7:50 PT</b></div><div class="step-body"><p><strong>Break.</strong></p></div></div>
+      <div class="step"><div class="step-label">0:55<b>15 min &middot; 7:55 PT</b></div><div class="step-body"><p><a href="#transfer"><strong>Java transfer.</strong></a> The same decisions with no window, and the keys arriving as data.</p></div></div>
+      <div class="step"><div class="step-label">1:10<b>15 min &middot; 8:10 PT</b></div><div class="step-body"><p><a href="#exchange"><strong>Colleague exchange.</strong></a> How you teach conditions, and how you would assess debugging.</p></div></div>
+      <div class="step"><div class="step-label">1:25<b>5 min &middot; 8:25 PT</b></div><div class="step-body"><p><a href="#exit"><strong>Exit evidence and next step.</strong></a></p></div></div>
+      <div class="step"><div class="step-label">1:30<b>30 min &middot; 8:30 PT</b></div><div class="step-body"><p><a href="#studio"><strong>Optional studio.</strong></a> The debugging lab, an AP-style question, and adapting the lab for your class.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="predict" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:00 &middot; 10 minutes &middot; Predict and discuss</span>
+      <h2>One new line of logic</h2>
+      <p>This is Session 1&rsquo;s checkpoint with one <code>if</code> added at the end. <strong>Before anyone presses Run</strong>, answer the two questions. Then open <code>WallBall</code> from the download and run it.</p>
+    </div>
+<pre class="ws-code" data-file="WallBall/WallBall.pde">
+float x = 0;
+float y = 0;
+float xSpeed = 1.5;
+float ySpeed = 2;
+
+void setup() {
+  size(400, 400);
+}
+
+void draw() {
+  background(255);
+  circle(x, y, 40);
+  x = x + xSpeed;
+  y = y + ySpeed;
+  if (y &gt; height - 20) {
+    ySpeed = -ySpeed;
+  }
+}</pre>
+    <ol class="ws-predict">
+      <li>
+        <p>What will you see when it runs?</p>
+        <button class="reveal-btn" type="button" aria-controls="q1">Show answer</button>
+        <div class="answer" id="q1" hidden><p><span class="out">one bounce, then gone</span> The ball drifts down and to the right as before, bounces off the bottom about three-quarters of the way across, then heads up and to the right. It leaves through the right edge about halfway up, a little under five seconds in. Nothing checks the right edge, so nothing stops it.</p></div>
+      </li>
+      <li>
+        <p>The <code>if</code> is checked every frame. On how many frames is its condition true?</p>
+        <button class="reveal-btn" type="button" aria-controls="q2">Show answer</button>
+        <div class="answer" id="q2" hidden><p><span class="out">one</span> Frame 191, when <code>y</code> reaches 382. The question is asked about 60 times a second, and the answer is &ldquo;no&rdquo; every time but once. After the flip, <code>ySpeed</code> is negative and <code>y</code> only gets smaller.</p></div>
+      </li>
+    </ol>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Collect answers to question 1 in the chat before running. Many people expect the ball to bounce off the right wall too. The sketch does exactly what the condition says, and the condition only asks about <code>y</code>. That gap between &ldquo;what I meant&rdquo; and &ldquo;what I wrote&rdquo; is the whole session.</p>
+        <p>Anyone whose sketch doesn&rsquo;t run goes to <a href="processing.html">Your first sketch</a> with a co-facilitator. Anyone who missed Session 1 can start right here: <code>WallBall</code> contains Session 1&rsquo;s checkpoint.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="demo" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:10 &middot; 15 minutes &middot; Short demo</span>
+      <h2>Slow it down at the wall, then break it</h2>
+      <p>
+        The facilitator runs <code>WallTrace</code>: a ball moving sideways toward the right wall
+        at one frame per second, printing <code>x</code> and <code>xSpeed</code> after each
+        frame&rsquo;s decision. <strong>Write your answers to questions 3&ndash;6 first.</strong>
+      </p>
+    </div>
+<pre class="ws-code" data-file="WallTrace/WallTrace.pde">
+float x = 350;
+float xSpeed = 15;
+
+void setup() {
+  size(400, 400);
+  frameRate(1);
+}
+
+void draw() {
+  background(255);
+  circle(x, 200, 40);
+  x = x + xSpeed;
+  if (x &gt; width - 20 || x &lt; 20) {
+    xSpeed = -xSpeed;
+  }
+  println("frame " + frameCount + ": x = " + x + ", xSpeed = " + xSpeed);
+  if (frameCount == 6) {
+    noLoop();
+  }
+}</pre>
+    <ol class="ws-predict" start="3">
+      <li>
+        <p>What does the console print for frame 1?</p>
+        <button class="reveal-btn" type="button" aria-controls="q3">Show answer</button>
+        <div class="answer" id="q3" hidden><p><span class="out">frame 1: x = 365.0, xSpeed = 15.0</span> The line prints after the move and after the decision. 365 is nowhere near a wall, so nothing flips.</p></div>
+      </li>
+      <li>
+        <p>On which frame does <code>xSpeed</code> first turn negative, and what is <code>x</code> then?</p>
+        <button class="reveal-btn" type="button" aria-controls="q4">Show answer</button>
+        <div class="answer" id="q4" hidden><p><span class="out">frame 3: x = 395.0, xSpeed = -15.0</span> On frame 2, <code>x</code> is exactly 380, and 380 is not greater than 380. On frame 3 the ball overshoots to 395, and only then does the <code>if</code> turn it around. The wall doesn&rsquo;t stop the ball. It only changes the speed afterward. Values right at the edge of a condition are called boundary cases, and this is one.</p></div>
+      </li>
+      <li>
+        <p>Break it: change <code>||</code> to <code>&amp;&amp;</code>. What happens?</p>
+        <button class="reveal-btn" type="button" aria-controls="q5">Show answer</button>
+        <div class="answer" id="q5" hidden><p><span class="out">it never turns around</span> <code>x</code> goes 365, 380, 395, 410, 425, 440, and the ball leaves. No number is both greater than 380 and less than 20, so the condition can never be true. One question finds this kind of bug: &ldquo;What value would make this true?&rdquo;</p></div>
+      </li>
+      <li>
+        <p>Undo that. Now break it differently: start at <code>float x = 390;</code>. What happens?</p>
+        <button class="reveal-btn" type="button" aria-controls="q6">Show answer</button>
+        <div class="answer" id="q6" hidden><p><span class="out">it shivers in place</span> <code>frame 1: x = 405.0, xSpeed = -15.0</code>, then <code>frame 2: x = 390.0, xSpeed = 15.0</code>, and the same two lines forever. The ball starts past the wall. One step back still leaves it past the wall, so the condition is true again and the speed flips back. The rule is fine. The starting state breaks it.</p></div>
+      </li>
+    </ol>
+
+    <div class="stack">
+      <h3>What Processing hides</h3>
+      <p>In the build you will add a key. Nothing in your code calls <code>keyPressed()</code>, just as nothing called <code>draw()</code>. Here is the shape of the loop Processing runs. It is not real code.</p>
+    </div>
+    <div class="seam">
+      <div class="side side-a">
+        <div class="side-head"><span class="dot"></span>What you write</div>
+<pre><span class="k">void</span> draw() {
+  <span class="c">// move, decide, draw</span>
+}
+
+<span class="k">void</span> keyPressed() {
+  <span class="k">if</span> (key == <span class="s">'p'</span>) {
+    paused = !paused;
+  }
+}</pre>
+      </div>
+      <div class="side side-b">
+        <div class="side-head"><span class="dot"></span>What Processing does with it</div>
+<pre><span class="c">// Not real code: the shape of the loop.</span>
+setup();
+<span class="k">while</span> (the window is open) {
+  draw();
+  <span class="k">for</span> (each key that went down
+       since the last frame) {
+    key = that key;
+    keyPressed();
+  }
+  wait <span class="k">for</span> the next frame;
+}</pre>
+      </div>
+    </div>
+    <ul class="plain">
+      <li><strong><code>keyPressed()</code> is an event.</strong> Processing calls it once each time a key goes down, after a <code>draw()</code> and before the next one.</li>
+      <li><strong><code>keyPressed</code> with no parentheses is a state</strong>: a variable that is true while any key is held down. Reading it inside <code>draw()</code> sees the same press on several frames in a row. The debugging lab has that bug in it.</li>
+    </ul>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Take a poll on question 4 before running. A split between frame 2 and frame 3 is the boundary-case conversation, and it lands better here than as a rule about <code>&gt;</code> and <code>&gt;=</code>.</p>
+        <p>Questions 5 and 6 are the two broken conditions students write most: one that can never be true, and one that stays true. Name them that way, because the debugging lab uses those words.</p>
+        <p>The order in the right-hand side is real: Processing 4 calls <code>draw()</code>, then handles the keys that arrived. Nobody needs more than that.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="build" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:25 &middot; 25 minutes &middot; Guided build</span>
+      <h2>Walls, a key, and a pattern</h2>
+      <p>Work in <code>WallBall</code>. Before each run, say what you expect. The supported missions end at <code>WallBallCheckpoint</code>. If you fall behind, open that and carry on from there.</p>
+    </div>
+    <h3>Supported</h3>
+    <div class="grid">
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 1</span>
+        <h3>Four walls</h3>
+        <p>Make the <code>if</code> check the top too: <code>if (y &gt; height - 20 || y &lt; 20)</code>. Then add a second <code>if</code> that does the same for <code>x</code> and <code>xSpeed</code> with <code>width</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;The ball shivers in the top-left corner and never gets out. That is question 6 again: it starts at (0, 0), past two walls at once. Change the start to <code>x = 40</code> and <code>y = 40</code>, and it bounces around the window forever.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 2</span>
+        <h3>A pause key</h3>
+        <p>Add <code>boolean paused = false;</code>. Wrap the two update lines and both <code>if</code>s in <code>if (!paused) { &hellip; }</code>. Add <code>void keyPressed() { if (key == 'p') { paused = !paused; } }</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;<code>p</code> freezes the ball, and <code>p</code> again sends it on in the same direction. If keys do nothing, click inside the window first: a sketch only hears keys while its window has focus.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 3</span>
+        <h3>A row that lights up</h3>
+        <p>After <code>background(255);</code>, add <code>int col = int(x / 40);</code> and <code>for (int i = 0; i &lt; 10; i++) { if (i == col) { fill(0); } else { fill(255); } rect(i * 40, 390, 40, 10); }</code>. Put <code>fill(255);</code> just before the circle.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;A row of ten cells along the bottom. The cell under the ball is black, and the black cell follows the ball back and forth. This is <code>WallBallCheckpoint</code>.</p>
+      </article>
+    </div>
+    <h3>Independent extension</h3>
+    <div class="grid">
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 1</span>
+        <h3>Click to place</h3>
+        <p>Add <code>void mousePressed() { x = mouseX; y = mouseY; }</code>. Click near an edge and watch closely. Then fix what you see.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;The ball jumps to each click. A click within 20 pixels of an edge makes it shiver: question 6, caused by the mouse. <code>x = constrain(mouseX, 20, width - 20);</code>, and the same for <code>y</code>, keeps every click inside the walls.</p>
+      </article>
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 2</span>
+        <h3>Faster and slower</h3>
+        <p>In <code>keyPressed()</code>, add <code>else if (key == 'f')</code> to double both speeds and <code>else if (key == 's')</code> to halve them.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;Each <code>f</code> doubles the speed, and <code>s</code> brings it back. The ball never changes direction, because doubling a negative number keeps it negative. One answer to both extensions is <code>ControlBall</code>.</p>
+      </article>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Mission 1&rsquo;s corner shiver is the best moment of the build. Don&rsquo;t rescue anyone from it for a minute. Ask them to pause it mentally: where is the ball, what is <code>xSpeed</code>, and is the condition true on the next frame too?</p>
+        <p><code>int(x / 40)</code> turns a position into a column number. It is a cast, the same idea as <code>(int)</code> in AP Java, and students have usually never seen one do something visible.</p>
+        <p>In extension 2, someone will write <code>xSpeed = xSpeed + 1</code> for &ldquo;faster.&rdquo; Moving left, that slows the ball down. &ldquo;Faster&rdquo; means a bigger size, not a bigger number, and that is a real conversation about sign.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="transfer" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:55 &middot; 15 minutes &middot; Java transfer</span>
+      <h2>Same decisions, no window</h2>
+      <p>
+        <strong>The test: the output must match the <code>WallTrace</code> console line for
+        line.</strong> Run each file with any method from <a href="processing.html#plain-java">Running plain Java</a>.
+      </p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/WallTrace.java">
+public class WallTrace {
+
+  public static void main(String[] args) {
+    double x = 350;
+    double xSpeed = 15;
+
+    for (int frame = 1; frame &lt;= 6; frame++) {
+      x = x + xSpeed;
+      if (x &gt; 380 || x &lt; 20) {
+        xSpeed = -xSpeed;
+      }
+      System.out.println("frame " + frame + ": x = " + x + ", xSpeed = " + xSpeed);
+    }
+  }
+}</pre>
+    </div>
+<pre class="ws-console">frame 1: x = 365.0, xSpeed = 15.0
+frame 2: x = 380.0, xSpeed = 15.0
+frame 3: x = 395.0, xSpeed = -15.0
+frame 4: x = 380.0, xSpeed = -15.0
+frame 5: x = 365.0, xSpeed = -15.0
+frame 6: x = 350.0, xSpeed = -15.0</pre>
+    <p>Identical. The condition didn&rsquo;t change at all. <code>width - 20</code> became 380, because plain Java has no window to measure.</p>
+
+    <div class="stack">
+      <h3>Keys become data</h3>
+      <p>AP Java has no keyboard events. So <code>KeyTrace.java</code> gets its keys as a <code>String</code>, one character per frame, with <code>.</code> for a frame where nothing was pressed. <strong>Write all eight lines first.</strong></p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/KeyTrace.java">
+public class KeyTrace {
+
+  public static void main(String[] args) {
+    String keys = "..p.p...";
+    double x = 350;
+    double xSpeed = 15;
+    boolean paused = false;
+
+    for (int frame = 1; frame &lt;= keys.length(); frame++) {
+      char key = keys.charAt(frame - 1);
+      if (key == 'p') {
+        paused = !paused;
+      }
+      if (!paused) {
+        x = x + xSpeed;
+        if (x &gt; 380 || x &lt; 20) {
+          xSpeed = -xSpeed;
+        }
+      }
+      System.out.println("frame " + frame + ": x = " + x + ", paused = " + paused);
+    }
+  }
+}</pre>
+    </div>
+    <button class="reveal-btn" type="button" aria-controls="key-out">Show the output</button>
+    <div class="answer" id="key-out" hidden>
+<pre class="ws-console">frame 1: x = 365.0, paused = false
+frame 2: x = 380.0, paused = false
+frame 3: x = 380.0, paused = true
+frame 4: x = 380.0, paused = true
+frame 5: x = 395.0, paused = false
+frame 6: x = 380.0, paused = false
+frame 7: x = 365.0, paused = false
+frame 8: x = 350.0, paused = false</pre>
+      <p>The <code>p</code> on frame 3 is handled before the move, so frame 3 doesn&rsquo;t move. The <code>p</code> on frame 5 unpauses, and the ball moves on that same frame, overshoots to 395, and turns. <code>keyPressed()</code> became an <code>if</code> at the top of the loop.</p>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Have people paste their <code>WallTrace</code> output next to the sketch&rsquo;s console. A mismatch is usually the print placed before the <code>if</code>, which is a good conversation about where a decision happens in a frame.</p>
+        <p>If someone asks whether the key should be handled before or after the move: each character is the key that arrived <em>before</em> its frame, which is when Processing would handle it.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="exchange" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:10 &middot; 15 minutes &middot; Colleague exchange</span>
+      <h2>How do you teach a condition?</h2>
+      <p>In groups of three or four. One person shares their screen. Everyone answers:</p>
+    </div>
+    <div class="note">
+      <p><strong>Discussion prompt.</strong> Would you teach the bounce before or after the vocabulary of Boolean expressions? When a student fixes a bug, what evidence would show you they understood it rather than patched it?</p>
+    </div>
+    <button class="reveal-btn" type="button" aria-controls="example-response">Show an example response</button>
+    <div class="answer" id="example-response" hidden>
+      <p>&ldquo;Bounce first. My students argue about why the ball shivers before they have any words for it, and then <em>condition</em> and <em>boundary</em> are names for something they have already seen. For evidence, I would not accept a working sketch. I&rsquo;d ask for the sentence from the lab: what value made the condition true when it shouldn&rsquo;t have been. A student who can name the value understood it. A student who changed numbers until it worked patched it.&rdquo;</p>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Mix AP and non-AP teachers in each group. Debugging is universal, and non-AP teachers often have the richest routines for it.</p>
+        <p>Ask each group to put one sentence in the chat. Those sentences start Session 5&rsquo;s studio.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="exit" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:25 &middot; 5 minutes &middot; Exit evidence and next step</span>
+      <h2>Before you go</h2>
+    </div>
+    <ol class="ws-checklist">
+      <li><div><h3>Exit evidence</h3><p>Post your answer to question 6 in one sentence: why does the ball shiver when it starts at <code>x = 390</code>?</p></div></li>
+      <li><div><h3>Next step</h3><p>Session 3, <strong>Sunday, November 22</strong>, starts from <code>WallBallCheckpoint</code>. Open it once before then, so it runs on your machine.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="studio" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:30 &middot; 30 minutes &middot; Optional studio</span>
+      <h2>Studio</h2>
+      <p>Stay for whichever helps: one-on-one troubleshooting, the extensions, the debugging lab, this AP-style question, or the classroom adaptation task.</p>
+    </div>
+    <article class="trap">
+      <div class="trap-head"><span class="eyebrow">AP-style multiple choice</span><h3>What is printed?</h3></div>
+<pre class="ws-code" data-file="Consider the following code segment.">
+int count = 0;
+for (int t = 0; t &lt;= 400; t = t + 50) {
+  if (t &lt; 100 || t &gt; 300) {
+    count = count + 2;
+  } else if (t != 200) {
+    count = count + 1;
+  }
+}
+System.out.println(count);</pre>
+      <ol type="A" class="ws-predict">
+        <li><code>9</code></li>
+        <li><code>10</code></li>
+        <li><code>12</code></li>
+        <li><code>13</code></li>
+        <li><code>16</code></li>
+      </ol>
+      <button class="reveal-btn" type="button" aria-controls="ap-answer">Show answer</button>
+      <div class="answer" id="ap-answer" hidden>
+        <p><span class="out">C &nbsp;12</span> The loop runs for 0, 50, 100, and so on up to 400: nine values. 0, 50, 350, and 400 each add 2, for 8. 100, 150, 250, and 300 each add 1, for 4. 200 adds nothing, because it fails both tests. Each distractor is a real mistake. D forgets that 200 is skipped. B stops the loop before 400. A counts passes instead of points. E lets the <code>else if</code> run after its <code>if</code> already did.</p>
+      </div>
+    </article>
+    <div class="note">
+      <p><strong>Classroom adaptation task, 20&ndash;30 minutes.</strong> Open <code>session-2-student-handout.md</code> from the download. It is a complete debugging lab built on <code>BrokenBall</code>, a sketch with three planted bugs: a condition that can never be true, a loop that stops one short, and a key read the wrong way. Edit it for one class you teach: change the vocabulary or the questions, or cut a bug. Keep the &ldquo;what value made it true&rdquo; question. Bring it to Session 5.</p>
+    </div>
+  </div>
+</section>
+
+<section id="on-your-own" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Asynchronous route &middot; about 90 minutes</span>
+      <h2>On your own</h2>
+      <p>Everything from the live session, in order. Answers are behind the Show buttons on this page.</p>
+    </div>
+    <ol class="ws-checklist">
+      <li><div><h3>Set up</h3><p>Download <a href="downloads/workshop/session-2-files.zip">session-2-files.zip</a>. If Processing isn&rsquo;t installed, start with <a href="processing.html">Your first sketch</a>. About 10 minutes.</p></div></li>
+      <li><div><h3>Predict</h3><p>Answer questions 1&ndash;6 on paper <em>before</em> running anything. Then run <code>WallBall</code> and <code>WallTrace</code>, make the two breaks, and check. About 20 minutes.</p></div></li>
+      <li><div><h3>Build</h3><p>Missions 1&ndash;3, and the extensions if you want more. Compare with <code>WallBallCheckpoint</code> and <code>ControlBall</code>. About 25 minutes.</p></div></li>
+      <li><div><h3>Transfer</h3><p>Run <code>WallTrace.java</code>. Trace <code>KeyTrace.java</code> before you run it. About 15 minutes.</p></div></li>
+      <li><div><h3>Debug</h3><p>Do the lab in <code>session-2-student-handout.md</code> yourself, as a student would, on <code>BrokenBall</code>. Check it against the teacher guide. About 15 minutes.</p></div></li>
+      <li><div><h3>Discuss</h3><p>Answer the <a href="#exchange">discussion prompt</a> in writing, and compare it with the example response. Share it where the cohort shares work; details come by email.</p></div></li>
+      <li><div><h3>Adapt</h3><p>The <a href="#studio">classroom adaptation task</a>. The teacher guide in the download has every answer and the misconceptions to expect.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">In the download</span>
+      <h2>Session 2 files</h2>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>File</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr><td><code>WallBall/</code></td><td class="why">Starter. Session 1&rsquo;s checkpoint plus one <code>if</code>. Where everyone begins.</td></tr>
+          <tr><td><code>WallTrace/</code></td><td class="why">The demo sketch: one wall, one frame a second, stops after six.</td></tr>
+          <tr><td><code>WallBallCheckpoint/</code></td><td class="why">Checkpoint: missions 1&ndash;3 done. Session 3 starts here.</td></tr>
+          <tr><td><code>ControlBall/</code></td><td class="why">Completed example of both extensions.</td></tr>
+          <tr><td><code>BrokenBall/</code></td><td class="why">The debugging lab sketch: three planted bugs.</td></tr>
+          <tr><td><code>plain-java/</code></td><td class="why"><code>WallTrace.java</code>, <code>KeyTrace.java</code>.</td></tr>
+          <tr><td><code>session-2-student-handout.md</code></td><td class="why">Editable 30-minute student debugging lab. Plain text, easy to translate.</td></tr>
+          <tr><td><code>session-2-teacher-guide.md</code></td><td class="why">Answer key, expected explanations, likely misconceptions, and how to assess it.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <nav class="lesson-pager" aria-label="Workshop pages">
+      <a href="session-1.html">&larr; Session 1, Nov 8</a>
+      <a href="index.html#sessions">All sessions</a>
+      <a href="session-3.html">Session 3, Nov 22 &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap stack-sm">
+    <p>Every sketch and Java file on this page was run with Processing 4.3.4 and Java 17. Every expected output shown is real output.</p>
+    <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<script src="assets/content.js"></script>
+<script src="assets/workshop.js?v=20261015a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>
