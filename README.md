@@ -1,10 +1,16 @@
-# AP Computer Science A — course site
+# Visible Java — Processing to AP CS A
 
-The course site for AP CS A, E block, 2026–27. Calendar, units, free response and tools.
+Two things share this site:
 
-**What makes it this course and not a generic one:** every new idea is anchored to something
-students already built in Processing. They arrive with a year of Java behind them, so the
-site never starts from zero.
+- **The Visible Java workshop** (`index.html`, `processing.html`, `session-1.html`): a free
+  CC Fest Camp for educators, four live online sessions in November–December 2026. Each
+  session runs a sketch, predicts it, changes it, and ports it to standard Java.
+- **The AP CS A course** (`course.html` and everything it links to): a full four-unit course,
+  paced for five 50-minute periods a week, that the workshop sessions draw on.
+
+**What makes the course distinctive:** every new idea is anchored to something students
+can build in Processing. Students who have written sketches start ahead; students who
+haven't can follow every lesson in plain Java.
 
 **Design principle: make the local material coherent.** The course folder is the curriculum
 source: existing handouts, labs, assessments, and examples are remixed into the current
@@ -15,8 +21,11 @@ tissue is the Java/Processing comparison, translation layer, port exercise, and 
 
 | File | What it is |
 |---|---|
-| `index.html` | Start here. The gap, what was cut in 2025, where to go next. |
-| `calendar.html` | All 71 meetings: date, rotation, time, topic, activity, assessments. Data in `assets/calendar.js`. |
+| `index.html` | **Workshop home.** Welcome, the run/predict/change/port pattern, the before-Session-1 checklist, the four sessions, and the library. |
+| `processing.html` | **Workshop.** Your first sketch: install Processing, Java mode, Run, first-run problems, and three ways to run plain Java. |
+| `session-1.html` | **Workshop.** Session 1, From sketch to Java: a 110-minute run of show with predictions, missions, port, AP transfer, take-home, and facilitator notes. Files in `downloads/workshop/session-1/`. |
+| `course.html` | Course start, for students. The gap, what was cut in 2025, where to go next. |
+| `calendar.html` | All 140 class days, week by week, for five 50-minute periods a week. Data in `assets/calendar.js`. |
 | `unit1.html` | Broad Unit 1 overview and workbook dashboard: reference visual, Java anchor, resume state, editor profile, export, and eleven typed lessons. |
 | `unit1/lesson-01.html`–`lesson-11.html` | Workbook lessons with predictions, verified projects, missions, evidence, AP transfer, optional Processing prompts, review, and assessment shapes. Data in `assets/unit1.js`; behavior in `assets/workbook.js`. |
 | `unit2.html` | Broad Unit 2 overview and workbook dashboard: resume state, editor profile, export, and eleven typed lessons. |
@@ -53,28 +62,56 @@ alone unless the Form is edited at the same time.
 
 ## Running it
 
-The HTML/CSS/JavaScript site has no rendering build step and no backend. Open `index.html` in a
-browser. Unit 1–4 project bundles have a separate release build so the Java downloads can
-be compiled, checked, and packaged before publication.
-
-To serve locally:
+The HTML/CSS/JavaScript site has no rendering build step and no backend. To serve it locally
+from the repository root:
 
 ```bash
-python3 -m http.server 8000 --directory /Users/saberkhan/Documents/coding/apcsa/site
+python3 -m http.server 8000
 ```
+
+Then open http://localhost:8000/. Opening `index.html` directly from disk mostly works, but
+serving it is closer to how it is published.
 
 ## Deploying
 
-Any static host. Drag the `site/` folder onto Netlify, or push to a GitHub repo and turn on
-Pages. There is no login or transmitted student data. The Unit 1–4 workbooks store editor choice
+Any static host. This repository is published by pushing to GitHub. There is no login or
+transmitted student data.
+
+## The `private/` folder
+
+`private/` is gitignored and never published. It holds interest-form responses, contact data,
+and reference copies of other pages. Put anything with names, emails, or student data there,
+or keep it out of this folder entirely. The Unit 1–4 workbooks store editor choice
 and student-entered working progress in `localStorage` after interaction and export Markdown/JSON;
 an untouched page need not create state. Teacher role and temporary display name use
 `sessionStorage`. The LMS remains the system of record.
 
+## Verifying the workshop files
+
+Everything in `downloads/workshop/` is checked against Processing 4.3.4 and its bundled Java 17.
+The page copy quotes real console output, so re-run these after any change to a sketch or `.java`
+file. On a Mac with Processing in `/Applications` (adjust `JDK` for other versions):
+
+```bash
+JDK=/Applications/Processing.app/Contents/PlugIns/jdk-17.0.8+7/Contents/Home/bin
+for f in downloads/workshop/session-1/plain-java/*.java; do "$JDK/java" "$f"; done
+```
+
+Each `.java` file runs as a single file with no compile step. Compile the sketches from the
+Processing editor, or with Processing's command-line tool (`processing-java --sketch=<folder>
+--build`). Then rebuild the zip:
+
+```bash
+cd downloads/workshop/session-1
+zip -qrX ../session-1-files.zip MovingBall FrameByFrame BouncingBall plain-java -x '.*'
+```
+
 ## Verifying and building workbook projects
 
-Unit 1–4 source projects live in `../coursework/unit-1/` through `../coursework/unit-4/`.
-The course verification baseline is OpenJDK 17. Run:
+**The workbook project sources and release scripts are not in this repository.** They live
+in the private course source this site is published from. The Unit 1–4 ZIPs under
+`downloads/unit1/` through `downloads/unit4/` are prebuilt release outputs; treat them as
+read-only here. The course verification baseline is OpenJDK 17. In the course source, run:
 
 ```bash
 ../tools/verify.sh
@@ -85,7 +122,7 @@ The course verification baseline is OpenJDK 17. Run:
 `verify.sh` compiles all 51 starters and solutions and runs 366 checks against the solutions.
 `build-bundles.sh` creates 51 student ZIP files without solution code. Unit 2 contains ten lesson
 directories but nine Java projects because its Magpie companion intentionally does not republish
-authorized source. `release.sh` performs both steps and verifies 81 HTML pages, 65 workbook routes,
+authorized source. `release.sh` performs both steps and verifies the course source’s 81 HTML pages (this published copy adds the workshop pages), 65 workbook routes,
 51 manifests, skip links, main landmarks, downloads, local HTML links, every JavaScript asset's
 syntax, workbook data schemas, and Present slide ordering. Node.js is required for the JavaScript
 release checks. Processing verification is a separate optional gate and is not required for
@@ -119,10 +156,12 @@ System.out.println(x);`,
   own chip.
 - `why` should name the *misconception*, not just restate the answer.
 
-**The calendar lives in `assets/calendar.js`** — one object per meeting with `date`, `rot`,
-`time`, `unit`, `topic`, `act` and `kind` (`test` / `quiz` / `lab` / `frq` / `due`). Dates were
-generated by parsing the Secondary Planner; topics are hand-written. Edit `topic`/`act`/`kind`
-freely. If the school calendar changes, re-derive the dates rather than hand-editing 71 rows.
+**The calendar lives in `assets/calendar.js`** — one object per lesson or block, in order,
+with `n` (lesson number, or `null` for flex and review), `unit`, `topic`, `act`, `kind`
+(`test` / `quiz` / `lab` / `frq` / `due` / `flex`), `days` (how many 50-minute periods it
+takes), and `plan` (one line per period when `days` is more than 1). Week numbers, day numbers,
+and the `when`/`length` labels lesson pages show are computed at the bottom of the file. Edit
+`topic`/`act`/`kind`/`plan` freely; see **Pacing** before changing `days`.
 
 **Legacy lesson-reader material lives in `assets/lessons.js`** — one object per calendar meeting,
 with `concept`,
@@ -138,8 +177,8 @@ quotes when referring to a variable in a comment. A stray backtick silently brea
 lesson type, outcome, deliverable, prediction, project metadata, missions, checkpoints, AP transfer,
 optional Processing prompt, and reflection. `assets/workbook.js` renders all 65 thin Unit 1–4
 lesson routes, stores the shared local working copy, calculates Evidence ready, and handles
-Markdown/JSON export. Standard-Java project sources stay in `../coursework/unit-1/` through
-`../coursework/unit-4/`; edit those files and rebuild the student ZIPs rather than copying Java into
+Markdown/JSON export. Standard-Java project sources stay in the private course source (`coursework/unit-1/` through
+`coursework/unit-4/` there); edit those files and rebuild the student ZIPs rather than copying Java into
 the page data.
 
 `assets/lessons.js` is retained as source/reference material and no longer drives the Unit 1 routes.
@@ -206,7 +245,7 @@ left-hand column as their own work.
 ## Facts baked into the copy — recheck these each year
 
 Verified July 2026 directly against the CED in
-`../classroom-materials/Class Documents/2025 AP Computer Science A CED/`:
+the 2025 AP Computer Science A CED in the private course materials:
 
 - Four units. Weights: U1 15–25%, U2 25–35%, U3 10–18%, U4 30–40%.
 - Exam: 42 MCQ / 90 min (55%) + 4 FRQ / 90 min (45%), fully digital in Bluebook.
@@ -224,26 +263,42 @@ Verified July 2026 directly against the CED in
 - Unit 1 source attributions were checked against the imported M&amp;M's Parameters, String
   Activity, String Four Corners, String Output Lineup, and Unit 1 More Labs handouts.
 
-Claims about what students already know come from measuring all 140 `.pde` files in
-`../Copy of C - Comp Prog in Java 2025 - 2026/`: zero 2D arrays, zero `String` methods, zero
-file reading, `ArrayList` in only 4 files. If next year's Processing course changes, re-run
-that check before trusting `path.html`.
+Claims about what sketch code contains ("a year of student sketches", "140 files") come from
+measuring one full year of a Processing course's `.pde` files: zero 2D arrays, zero `String`
+methods, zero file reading, `ArrayList` in only 4 files. The sketches themselves are student
+work and stay out of this repository. The copy says "a year of sketches we measured" rather
+than "your sketches", so it holds for any class.
 
-If College Board revises the course again, `path.html`, `frq.html` and `index.html` are
+If College Board revises the course again, `path.html`, `frq.html` and `course.html` are
 where the version-specific claims live.
 
 ## Pacing
 
-The timeline at the top of `path.html` mirrors `../SCOPE-AND-SEQUENCE.md` — **71 meetings**
-of 75 minutes before the exam, split 11 / 11 / 13 / 30 / 6. **If you change the pacing, change
-both.** Counts and dates live in the page's `.tl-blocks` and `.tl-when` spans.
+The course is paced for **five 50-minute periods a week: 140 class days over 28 weeks**,
+school-neutral, with no dates. Many schools have about 30 instructional weeks before the May
+exam, so 28 leaves slack, and eight flex days are already in the plan.
 
-Dates come from the real 2026–27 Secondary Planner. E block is a **Gold-day** class: first
-meeting Fri 4 Sep 2026, last before the exam Mon 10 May 2027, exam Wed 12 May 2027 12:00 PM.
-If the block letter changes for 2026–27, re-derive the meeting list — the scope and sequence
-has the parser output in its appendix.
+Day rules, applied in `assets/calendar.js`:
+
+| Lesson type | Days |
+|---|---|
+| Build lesson | 2 (day 1: predict and first missions; day 2: checks, AP transfer, exit slip) |
+| Extended lab | 2 |
+| Review / FRQ practice | 1 |
+| Unit 1–3 tests | 2 (multiple-choice day, free-response day) |
+| Unit 4 section tests and quizzes | 1 |
+
+By unit: Unit 1 22 days, Unit 2 23, Unit 3 25, Unit 4 58, exam review 12.
+
+**If you change a lesson's `days`, also change:** its `duration` in `assets/unit1.js`–`unit4.js`
+(Units 3–4 builder lessons get theirs from `lessonType`), each unit's `dates`/`meetings` in the
+same files, the unit page eyebrows in `unit1.html`–`unit4.html`, and the timeline in
+`path.html` (`.tl-when` and `.tl-blocks`). The calendar page and lesson pages update
+themselves. The Present view's timer scales its 75-minute default split to `days × 50`.
 
 ## Never copy into this folder
+
+These live in the private course materials and must never be added here:
 
 - `Class Documents/2026 FRQ Student Samples/` — secure APSI material, explicitly not for
   websites.

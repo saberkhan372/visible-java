@@ -90,10 +90,22 @@
     return slides.filter(item => !skipped.has(item.key) && !skipped.has(item.section));
   }
 
+  /* DEFAULT_MINUTES is a 75-minute split. Scale it to the lesson's real time from the
+     pacing calendar (days × period length), giving any rounding remainder to missions. */
+  function scaledDefaults(meeting) {
+    const base = Object.values(DEFAULT_MINUTES).reduce((sum, value) => sum + value, 0);
+    const period = typeof PERIOD_MINUTES !== "undefined" ? PERIOD_MINUTES : base;
+    const total = meeting && meeting.days ? meeting.days * period : base;
+    const minutes = {};
+    Object.entries(DEFAULT_MINUTES).forEach(([key, value]) => { minutes[key] = Math.round(value * total / base); });
+    minutes.missions += total - Object.values(minutes).reduce((sum, value) => sum + value, 0);
+    return minutes;
+  }
+
   /* A manipulative has to come out of the block somewhere. By default it is taken
      from build time; a lesson can override the split with its own `segments`. */
-  function segmentMinutes(lesson) {
-    const minutes = Object.assign({}, DEFAULT_MINUTES);
+  function segmentMinutes(lesson, meeting) {
+    const minutes = scaledDefaults(meeting);
     if (lesson.paper) {
       const requested = Number(String(lesson.paper.time).replace(/[^0-9]/g, "")) || 12;
       minutes.paper = requested;
@@ -120,7 +132,7 @@
     const { mount, lesson, meeting, meta, announce } = options;
     const slides = buildSlides(lesson);
     const timerEnabled = lesson.lessonType !== "assessment";
-    const minutes = segmentMinutes(lesson);
+    const minutes = segmentMinutes(lesson, meeting);
     const remaining = Object.fromEntries(Object.entries(minutes).map(([key, value]) => [key, Math.round(value * 60)]));
     const presenterNotes = window.APCSAPresenterGuidance
       ? APCSAPresenterGuidance.forLesson(lesson)

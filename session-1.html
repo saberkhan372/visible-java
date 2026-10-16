@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 1: From sketch to Java — Visible Java</title>
+<meta name="description" content="Visible Java Session 1: run a moving-ball sketch, predict its frames, change its behavior, and port its state changes into plain Java.">
+<link rel="stylesheet" href="assets/site.css?v=20261015a">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java <span class="arrow">&middot;</span> <span class="logo-sub">Processing to AP CS A</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="path.html">Units</a>
+      <a href="examples.html">Compare</a>
+      <a href="translate.html">Translate</a>
+      <a href="port.html">Port</a>
+      <a href="traps.html">Traps</a>
+      <a href="frq.html">FRQ</a>
+      <a href="setup.html">Setup</a>
+      <a href="camp.html">Camp</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow"><a href="index.html#sessions">Session 01</a> &middot; Sketch structure &middot; 110 minutes</span>
+      <h1>From sketch to Java</h1>
+      <p class="lede">
+        One ball, moving down a window. You run it, predict where it will be, change how it
+        moves, and then write the same state changes as plain Java with no window at all. By
+        the end, &ldquo;a variable holds state&rdquo; and &ldquo;a method is called repeatedly&rdquo; are things you
+        have watched happen.
+      </p>
+    </div>
+    <dl class="camp-logistics">
+      <div><dt>Java ideas</dt><dd>Variables as state, assignment, <code>float</code> vs <code>double</code>, scope, methods that something else calls, and the <code>main</code> method Processing hides.</dd></div>
+      <div><dt>AP link</dt><dd>Tracing variable values through repeated execution (Unit 1 and Unit 2 tracing).</dd></div>
+      <div><dt>Files</dt><dd><a href="downloads/workshop/session-1-files.zip">session-1-files.zip</a>: three sketches, three Java files.</dd></div>
+      <div><dt>You leave with</dt><dd>Your changed sketch, a plain-Java port with matching output, a filled-in frame table, and a short classroom note.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Run of show</span>
+      <h2>Seven blocks</h2>
+    </div>
+    <div class="ws-agenda">
+      <div class="step"><div class="step-label">0:00<b>10 min</b></div><div class="step-body"><p><a href="#run"><strong>Run it.</strong></a> Everyone gets the moving ball on screen.</p></div></div>
+      <div class="step"><div class="step-label">0:10<b>20 min</b></div><div class="step-body"><p><a href="#predict"><strong>Predict it.</strong></a> Slow it to one frame a second and call each line before it prints.</p></div></div>
+      <div class="step"><div class="step-label">0:30<b>25 min</b></div><div class="step-body"><p><a href="#change"><strong>Change it.</strong></a> Four missions: faster, named speed, wraparound, bounce.</p></div></div>
+      <div class="step"><div class="step-label">0:55<b>10 min</b></div><div class="step-body"><p><a href="#hidden"><strong>What Processing hides.</strong></a> The sketch was a class all along.</p></div></div>
+      <div class="step"><div class="step-label">1:05<b>25 min</b></div><div class="step-body"><p><a href="#port"><strong>Port it.</strong></a> Plain Java whose output matches the sketch, then a bounce traced on paper first.</p></div></div>
+      <div class="step"><div class="step-label">1:30<b>10 min</b></div><div class="step-body"><p><a href="#transfer"><strong>AP transfer.</strong></a> One exam-style tracing question.</p></div></div>
+      <div class="step"><div class="step-label">1:40<b>10 min</b></div><div class="step-body"><p><a href="#take-home"><strong>Take it to class.</strong></a> Assemble the take-home and write the classroom note.</p></div></div>
+    </div>
+    <div class="note">
+      <p><strong>Running 90 minutes?</strong> Skip mission 4 and send the AP transfer home. <strong>Running 120?</strong> Add the <a href="#stretch">class preview</a> before the take-home block.</p>
+    </div>
+  </div>
+</section>
+
+<section id="run" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:00 &middot; 10 minutes &middot; Run</span>
+      <h2>Get it moving</h2>
+      <p>Open <code>MovingBall/MovingBall.pde</code> from the download, or paste this into a new sketch, and press Run.</p>
+    </div>
+<pre class="ws-code" data-file="MovingBall.pde">
+float y = 0;
+
+void setup() {
+  size(400, 400);
+}
+
+void draw() {
+  background(255);
+  circle(200, y, 40);
+  y = y + 2;
+}</pre>
+    <p class="ws-expect"><strong>Expect</strong> &nbsp;A white 400&times;400 window. A circle with a black outline starts half-hidden at the top center, slides straight down, and leaves the bottom in about three and a half seconds. Then the window stays empty.</p>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Nothing else starts until every screen shows the ball. Anyone stuck goes to <a href="processing.html">Your first sketch</a>, and a co-facilitator follows them there.</p>
+        <p>Ask one question before moving on: <em>&ldquo;Nobody called <code>draw()</code>. So who did?&rdquo;</em> Don&rsquo;t answer it yet. It comes back at 0:55.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="predict" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:10 &middot; 20 minutes &middot; Predict</span>
+      <h2>Call each frame before it prints</h2>
+      <p>
+        <code>FrameByFrame.pde</code> is the same ball at one frame per second. It prints where
+        it drew each frame and stops after five. <strong>Write your answers to questions 1&ndash;3
+        before you press Run.</strong>
+      </p>
+    </div>
+<pre class="ws-code" data-file="FrameByFrame.pde">
+float y = 0;
+
+void setup() {
+  size(400, 400);
+  frameRate(1);
+}
+
+void draw() {
+  background(255);
+  circle(200, y, 40);
+  println("frame " + frameCount + ": drew at y = " + y);
+  y = y + 2;
+  if (frameCount == 5) {
+    noLoop();
+    println("after frame 5, y = " + y);
+  }
+}</pre>
+
+    <ol class="ws-predict">
+      <li>
+        <p>What does the console print for frame 1?</p>
+        <button class="reveal-btn" type="button" aria-controls="p1">Show answer</button>
+        <div class="answer" id="p1" hidden><p><span class="out">frame 1: drew at y = 0.0</span> The circle is drawn <em>before</em> <code>y</code> changes. And <code>0.0</code>, not <code>0</code>, because <code>y</code> is a <code>float</code>.</p></div>
+      </li>
+      <li>
+        <p>What does it print for frame 5?</p>
+        <button class="reveal-btn" type="button" aria-controls="p2">Show answer</button>
+        <div class="answer" id="p2" hidden><p><span class="out">frame 5: drew at y = 8.0</span> Frame <em>n</em> draws at 2(<em>n</em>&minus;1). Many people say 10. That is the next question.</p></div>
+      </li>
+      <li>
+        <p>What is the last line?</p>
+        <button class="reveal-btn" type="button" aria-controls="p3">Show answer</button>
+        <div class="answer" id="p3" hidden><p><span class="out">after frame 5, y = 10.0</span> The variable has already moved past the last position drawn. The update runs after the drawing, every frame.</p></div>
+      </li>
+      <li>
+        <p>Back in <code>MovingBall</code> at full speed: on which frame is the circle&rsquo;s center first drawn below the bottom edge, past <code>y = 400</code>?</p>
+        <button class="reveal-btn" type="button" aria-controls="p4">Show answer</button>
+        <div class="answer" id="p4" hidden><p><span class="out">frame 202</span> It draws at <code>y = 402.0</code>. Frame 201 draws exactly on the edge at 400. At Processing&rsquo;s default 60 frames per second, that is about 3.4 seconds, which matches what you saw.</p></div>
+      </li>
+      <li>
+        <p>Move the line <code>float y = 0;</code> from the top of <code>MovingBall</code> to the first line inside <code>draw()</code>. What does the ball do now?</p>
+        <button class="reveal-btn" type="button" aria-controls="p5">Show answer</button>
+        <div class="answer" id="p5" hidden><p><span class="out">it never moves</span> Each call to <code>draw()</code> creates a new local <code>y</code>, sets it to 0, draws, adds 2, and throws it away when the method ends. State that has to outlast one frame has to live outside <code>draw()</code>. That is scope, and it becomes &ldquo;instance variable&rdquo; at 0:55.</p></div>
+      </li>
+    </ol>
+
+    <div class="stack-sm">
+      <h3>Frame table</h3>
+      <p>Fill in the first two columns before running and the third after. This is the table to hand to students.</p>
+      <div class="tbl-scroll">
+        <table class="ws-blank">
+          <thead><tr><th>Frame</th><th>Predicted: drew at y</th><th>Actual: drew at y</th><th>y after the frame</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td></td><td></td><td></td></tr>
+            <tr><td>2</td><td></td><td></td><td></td></tr>
+            <tr><td>3</td><td></td><td></td><td></td></tr>
+            <tr><td>4</td><td></td><td></td><td></td></tr>
+            <tr><td>5</td><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Collect predictions for frame 5 before anyone runs it, by poll or in the chat. A split between 8 and 10 is the best possible outcome: it is the draw-then-update order, discovered rather than told.</p>
+        <p><code>frameRate(1)</code> is the most useful thing in this session for students. Any animation can be slowed until it can be traced.</p>
+        <p>Question 5 is the scope lesson. Have people actually make the change and run it. Seeing a ball refuse to move sticks longer than the explanation.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="change" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:30 &middot; 25 minutes &middot; Change</span>
+      <h2>Four missions</h2>
+      <p>Work in <code>MovingBall</code>. Before each run, say out loud what you expect. Each mission says what &ldquo;working&rdquo; looks like.</p>
+    </div>
+    <div class="grid">
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 1</span>
+        <h3>Faster</h3>
+        <p>Change the <code>2</code> in <code>y = y + 2;</code> to <code>5</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;The ball leaves the window in under a second and a half. In <code>FrameByFrame</code>, frame 5 would draw at <code>20.0</code>.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 2</span>
+        <h3>Name the speed</h3>
+        <p>Add <code>float speed = 2;</code> under <code>float y = 0;</code>, and change the update to <code>y = y + speed;</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;No visible change at all. That is the point: speed is now state too, so the program can change it while it runs.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 3</span>
+        <h3>Wrap around</h3>
+        <p>After the update line, add <code>if (y &gt; height + 20) { y = -20; }</code></p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;The ball leaves the bottom and slides back in from the top, forever. The 20s are the radius, so it is fully out of sight before it jumps.</p>
+      </article>
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Mission 4 &middot; stretch</span>
+        <h3>Bounce</h3>
+        <p>Start at <code>y = 20</code>. Replace the wrap with: when the ball reaches the top or bottom edge, flip the sign of <code>speed</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;The ball bounces between the top and bottom edges forever. One answer is <code>BouncingBall/BouncingBall.pde</code> in the download.</p>
+      </article>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Someone will try mission 4 starting from <code>y = 0</code>. The ball jitters at the top instead of bouncing, because <code>y &lt; 20</code> is true every frame and <code>speed</code> flips back and forth. Put that screen up and trace two frames together with <code>frameRate(1)</code>. It is the best debugging moment of the session.</p>
+        <p>Mission 2 matters more than it looks: it is the step that turns a magic number into a field, and Session 3 builds on it.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="hidden" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">0:55 &middot; 10 minutes &middot; Translate</span>
+      <h2>What Processing hides</h2>
+      <p>
+        Back to the opening question: who calls <code>draw()</code>? Here is the same sketch
+        written as the Java class Processing actually builds. It runs outside the editor
+        with Processing&rsquo;s library.
+      </p>
+    </div>
+    <div class="seam">
+      <div class="side side-a">
+        <div class="side-head"><span class="dot"></span>What you wrote</div>
+<pre><span class="k">float</span> y = <span class="n">0</span>;
+
+<span class="k">void</span> setup() {
+  size(<span class="n">400</span>, <span class="n">400</span>);
+}
+
+<span class="k">void</span> draw() {
+  background(<span class="n">255</span>);
+  circle(<span class="n">200</span>, y, <span class="n">40</span>);
+  y = y + <span class="n">2</span>;
+}</pre>
+      </div>
+      <div class="side side-b">
+        <div class="side-head"><span class="dot"></span>What Processing runs</div>
+<pre><span class="k">import</span> processing.core.<span class="t">PApplet</span>;
+
+<span class="k">public class</span> <span class="t">MovingBall</span> <span class="k">extends</span> <span class="t">PApplet</span> {
+
+  <span class="k">private float</span> y = <span class="n">0</span>;
+
+  <span class="k">public void</span> settings() {
+    size(<span class="n">400</span>, <span class="n">400</span>);
+  }
+
+  <span class="k">public void</span> draw() {
+    background(<span class="n">255</span>);
+    circle(<span class="n">200</span>, y, <span class="n">40</span>);
+    y = y + <span class="n">2</span>;
+  }
+
+  <span class="k">public static void</span> main(<span class="t">String</span>[] args) {
+    <span class="t">PApplet</span>.main(<span class="s">"MovingBall"</span>);
+  }
+}</pre>
+      </div>
+    </div>
+    <ul class="plain">
+      <li><strong>The sketch is a class.</strong> The editor wraps your code in one, named after the sketch.</li>
+      <li><strong>The global is a field.</strong> <code>y</code> outlives each frame because it belongs to the object, not to <code>draw()</code>. That is why question 5 froze the ball.</li>
+      <li><strong><code>draw()</code> is a method someone else calls.</strong> Processing&rsquo;s own loop calls it about 60 times a second. You never do.</li>
+      <li><strong><code>main</code> was there all along.</strong> It starts the loop. Outside the editor, <code>size()</code> moves to <code>settings()</code>.</li>
+    </ul>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Keep this short and conceptual. Nobody needs to run the right-hand version today. <a href="examples.html">Compare</a> has it, and nine more pairs, for later.</p>
+        <p><code>extends PApplet</code> uses inheritance, which is no longer on the AP exam. Name it once (&ldquo;Processing&rsquo;s machinery comes in here&rdquo;) and move on.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="port" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:05 &middot; 25 minutes &middot; Port</span>
+      <h2>Same state, no window</h2>
+      <p>
+        AP Java has no animation loop and no screen. So you write the loop yourself, and each
+        frame becomes a line of text. <strong>The test: the output must match the
+        <code>FrameByFrame</code> console line for line.</strong>
+      </p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/MovingBall.java">
+public class MovingBall {
+
+  public static void main(String[] args) {
+    double y = 0;
+
+    for (int frame = 1; frame &lt;= 5; frame++) {
+      System.out.println("frame " + frame + ": drew at y = " + y);
+      y = y + 2;
+    }
+    System.out.println("after frame 5, y = " + y);
+  }
+}</pre>
+    </div>
+<pre class="ws-console">frame 1: drew at y = 0.0
+frame 2: drew at y = 2.0
+frame 3: drew at y = 4.0
+frame 4: drew at y = 6.0
+frame 5: drew at y = 8.0
+after frame 5, y = 10.0</pre>
+    <p>Identical to the sketch. Name what changed: <code>float</code> became <code>double</code>, <code>frameCount</code> became a loop counter you control, <code>println</code> became <code>System.out.println</code>, and the picture became text.</p>
+
+    <div class="stack">
+      <h3>Now trace a bounce before you run it</h3>
+      <p><code>BounceTrace.java</code> applies the mission 4 rule with no drawing. Start at 360 moving 15 per frame. <strong>Write all six lines on paper first.</strong></p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/BounceTrace.java">
+public class BounceTrace {
+
+  public static void main(String[] args) {
+    double y = 360;
+    double speed = 15;
+
+    for (int frame = 1; frame &lt;= 6; frame++) {
+      y = y + speed;
+      if (y &gt; 380 || y &lt; 20) {
+        speed = -speed;
+      }
+      System.out.println("frame " + frame + ": y = " + y + ", speed = " + speed);
+    }
+  }
+}</pre>
+    </div>
+    <button class="reveal-btn" type="button" aria-controls="bounce-out">Show the output</button>
+    <div class="answer" id="bounce-out" hidden>
+<pre class="ws-console">frame 1: y = 375.0, speed = 15.0
+frame 2: y = 390.0, speed = -15.0
+frame 3: y = 375.0, speed = -15.0
+frame 4: y = 360.0, speed = -15.0
+frame 5: y = 345.0, speed = -15.0
+frame 6: y = 330.0, speed = -15.0</pre>
+      <p>Frame 2 overshoots to 390 before turning around. In the sketch, that is the ball poking past the edge for one frame. Here it is just a number, and the trace shows it to you.</p>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Have people paste their console output next to the <code>FrameByFrame</code> output in the chat. A mismatch is usually the loop starting at 0 instead of 1, which is a good conversation about where the frame counter came from.</p>
+        <p>The bounce trace is where the visual intuition pays off: people who watched the ball overshoot catch the 390. People who only read the code often don&rsquo;t.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="transfer" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:30 &middot; 10 minutes &middot; AP transfer</span>
+      <h2>An exam-style question</h2>
+      <p>No Run button. Commit to a letter.</p>
+    </div>
+    <article class="trap">
+      <div class="trap-head"><span class="eyebrow">Multiple choice</span><h3>What is printed?</h3></div>
+<pre class="ws-code" data-file="Consider the following code segment.">
+double y = 370;
+double speed = 8;
+for (int k = 0; k &lt; 3; k++) {
+  y = y + speed;
+  if (y &gt; 380 || y &lt; 20) {
+    speed = -speed;
+  }
+}
+System.out.println(y + " " + speed);</pre>
+      <ol type="A" class="ws-predict">
+        <li><code>386.0 8.0</code></li>
+        <li><code>378.0 -8.0</code></li>
+        <li><code>394.0 8.0</code></li>
+        <li><code>370.0 -8.0</code></li>
+        <li><code>378.0 8.0</code></li>
+      </ol>
+      <button class="reveal-btn" type="button" aria-controls="ap-answer">Show answer</button>
+      <div class="answer" id="ap-answer" hidden>
+        <p><span class="out">B &nbsp;378.0 -8.0</span> After pass 1, <code>y</code> is 378 and nothing flips. After pass 2, it is 386, past 380, so <code>speed</code> becomes &minus;8. Pass 3 brings <code>y</code> back to 378 still moving up. E is the answer for anyone who forgets the flip persists. A is the answer for anyone who stops a pass early.</p>
+      </div>
+    </article>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>This is the same shape as the bounce trace, with new numbers and no frame labels. Point out that the distractors come from real mistakes, which is how good AP distractors work. Then invite participants to write one for their own students.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="stretch" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Stretch &middot; if you are running 120 minutes &middot; preview of Session 3</span>
+      <h2>Put the state in an object</h2>
+      <p>
+        <code>y</code> and <code>speed</code> belong together. <code>BallWorld.java</code> moves them
+        into a <code>Ball</code> class. It prints exactly what <code>BounceTrace</code> prints.
+      </p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/BallWorld.java">
+public class BallWorld {
+
+  public static void main(String[] args) {
+    Ball b = new Ball(360, 15);
+    for (int frame = 1; frame &lt;= 6; frame++) {
+      b.move();
+      System.out.println("frame " + frame + ": y = " + b.getY() + ", speed = " + b.getSpeed());
+    }
+  }
+}
+
+class Ball {
+  private double y;
+  private double speed;
+
+  public Ball(double startY, double startSpeed) {
+    y = startY;
+    speed = startSpeed;
+  }
+
+  /** One frame of motion: move, then turn around at an edge. */
+  public void move() {
+    y = y + speed;
+    if (y &gt; 380 || y &lt; 20) {
+      speed = -speed;
+    }
+  }
+
+  public double getY() {
+    return y;
+  }
+
+  public double getSpeed() {
+    return speed;
+  }
+}</pre>
+    </div>
+    <p>In a classroom, <code>Ball</code> would live in its own <code>Ball.java</code>. It is in one file here so it runs anywhere with one paste.</p>
+  </div>
+</section>
+
+<section id="take-home" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">1:40 &middot; 10 minutes &middot; Take it to class</span>
+      <h2>What you leave with</h2>
+      <p>Put these four things in one folder before you go. Together they are a lesson you could teach next week.</p>
+    </div>
+    <ol class="ws-checklist">
+      <li><div><h3>Your changed sketch</h3><p>Whichever mission you got furthest on, saved under a new name.</p></div></li>
+      <li><div><h3>Your plain-Java port</h3><p>Its output matches the sketch&rsquo;s console. Paste both outputs into a comment at the bottom of the file as evidence.</p></div></li>
+      <li><div><h3>Your frame table</h3><p>Predictions and actuals, including the ones you got wrong. Those are the misconceptions your students will have too.</p></div></li>
+      <li><div><h3>A classroom note, three sentences</h3><p>Where in your course this would land. What you would ask students to predict first. Which misconception you expect it to surface.</p></div></li>
+    </ol>
+    <div class="note">
+      <p><strong>Before Session 2:</strong> add a key press to your sketch that pauses the ball. Session 2 starts from conditionals and input, and a pause key is the first thing it builds.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <nav class="lesson-pager" aria-label="Workshop pages">
+      <a href="processing.html">&larr; Your first sketch</a>
+      <a href="index.html#sessions">All sessions</a>
+      <a href="index.html#sessions">Session 2: outline &rarr;</a>
+    </nav>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap stack-sm">
+    <p>Every sketch and Java file on this page was run with Processing 4.3.4 and Java 17, and every expected output shown is the real output.</p>
+    <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<script src="assets/content.js"></script>
+<script src="assets/workshop.js?v=20261015a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>

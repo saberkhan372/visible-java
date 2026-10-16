@@ -182,7 +182,7 @@
     const action = status === "in-progress" ? "Resume" : status === "evidence-ready" ? "Review evidence" : "Open lesson";
     return `<a class="unit-lesson-card workbook-unit-card is-${lesson.lessonType}" href="${file}" data-unit-card="${lesson.id}">
       <span class="unit-lesson-number">${String(lesson.unitLesson).padStart(2, "0")}</span>
-      <span class="unit-lesson-date">${meeting ? `${meeting.date} · ${meeting.time}` : `Meeting ${lesson.number}`}</span>
+      <span class="unit-lesson-date">${meeting ? `${meeting.when} · ${meeting.length}` : `Lesson ${lesson.number}`}</span>
       <span class="workbook-status status-${status}">${statusLabel(status)}</span>
       <span class="tag">${lesson.topic}</span>
       <h3>${lesson.title}</h3>
@@ -631,7 +631,7 @@
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../path.html">Units</a><span aria-hidden="true">/</span><a href="../${ACTIVE_META.slug}.html">${ACTIVE_META.name}</a><span aria-hidden="true">/</span><span aria-current="page">Assessment</span></nav>
         ${lessonViewSwitch()}
         <span class="eyebrow">${ACTIVE_META.name} · Assessment · ${lesson.topic}</span><h1>${lesson.title}</h1><p class="lede">${lesson.outcome}</p>
-        ${meeting ? `<div class="lesson-meta"><span>${meeting.date}</span><span>${meeting.rot}</span><span>${meeting.time}</span></div>` : ""}
+        ${meeting ? `<div class="lesson-meta"><span>${meeting.when}</span><span>${meeting.length}</span></div>` : ""}
       </div>
     </section>
     <section><div class="wrap assessment-grid">
@@ -698,7 +698,7 @@
         ${lessonViewSwitch()}
         <span class="eyebrow">${ACTIVE_META.name} · Lesson ${String(lesson.unitLesson).padStart(2, "0")} · ${lesson.topic} · ${lesson.lessonType.replace("-", " ")}</span>
         <h1>${lesson.title}</h1><p class="lede">${lesson.outcome}</p>
-        ${meeting ? `<div class="lesson-meta"><span>${meeting.date}</span><span>${meeting.rot}</span><span>${meeting.time}</span></div>` : ""}
+        ${meeting ? `<div class="lesson-meta"><span>${meeting.when}</span><span>${meeting.length}</span></div>` : ""}
         ${atAGlance(lesson)}
       </div>
     </section>

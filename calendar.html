@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Calendar — AP Computer Science A</title>
-<meta name="description" content="Every AP CS A class meeting for 2026–27, with topic, activity and assessment.">
-<link rel="stylesheet" href="assets/site.css">
+<meta name="description" content="A day-by-day AP CS A pacing plan for five 50-minute periods a week: 140 days, 28 weeks, with topic, activity and assessment for every day.">
+<link rel="stylesheet" href="assets/site.css?v=20261015a">
 </head>
 <body>
 
@@ -13,9 +13,10 @@
 
 <header class="masthead">
   <div class="wrap">
-    <a class="logo" href="index.html">AP CS A <span class="arrow">&middot;</span> <span class="logo-sub">built on your sketches</span></a>
+    <a class="logo" href="index.html">Visible Java <span class="arrow">&middot;</span> <span class="logo-sub">Processing to AP CS A</span></a>
     <nav aria-label="Primary navigation">
-      <a href="index.html">Start</a>
+      <a href="index.html">Workshop</a>
+      <a href="course.html">Course</a>
       <a href="calendar.html" aria-current="page">Calendar</a>
       <a href="path.html">Units</a>
       <a href="examples.html">Compare</a>
@@ -33,19 +34,29 @@
 
 <section>
   <div class="wrap stack">
-    <span class="eyebrow">2026&ndash;27 &middot; E block, Gold days</span>
-    <h1>Every meeting, in order</h1>
+    <span class="eyebrow">Pacing &middot; five 50-minute periods a week</span>
+    <h1>Every day, in order</h1>
     <p class="lede">
-      All 71 class meetings between Friday 4 September and the exam on Wednesday 12 May,
-      with the topic and the work for each one. Times move because E block rotates through
-      four periods &mdash; check the time, not just the date.
+      <span id="cal-total">140 class days over 28 weeks</span>, from the first day of class to
+      the AP exam, with the topic and the work for each one. There are no dates here, so
+      lay it over your own school calendar: when your school is closed, the plan simply waits.
     </p>
+    <div class="note">
+      <p>
+        <strong>Fitting it to your year.</strong> Many schools have about 30 weeks of
+        instruction before the May exam, so 28 leaves room for assemblies, testing, and
+        snow days. Eight <strong>flex days</strong> are already in the plan. Spend them
+        where you fall behind, or move them. Build lessons take two periods: day one is
+        prediction and the first missions, day two is checks, AP transfer, and the exit slip.
+      </p>
+    </div>
     <div class="tags" style="gap:0.5rem">
       <span class="tag"><span class="chip chip-test" style="margin:0">test</span></span>
       <span class="tag"><span class="chip chip-quiz" style="margin:0">quiz</span></span>
       <span class="tag"><span class="chip chip-lab" style="margin:0">lab</span></span>
       <span class="tag"><span class="chip chip-frq" style="margin:0">frq</span></span>
       <span class="tag"><span class="chip chip-due" style="margin:0">due</span></span>
+      <span class="tag"><span class="chip chip-flex" style="margin:0">flex</span></span>
     </div>
   </div>
 </section>
@@ -56,25 +67,20 @@
 
     <div class="cal-exam">
       <h3>AP Computer Science A Exam</h3>
-      <p style="font-family:var(--mono);font-size:0.8rem;color:var(--warn)">Wednesday 12 May 2027 &middot; 12:00 PM</p>
+      <p style="font-family:var(--mono);font-size:0.8rem;color:var(--warn)">May &middot; check <a href="https://apcentral.collegeboard.org/exam-administration-ordering-scores/exam-dates">AP Central</a> for this year&rsquo;s date</p>
       <p>
         Three hours. 42 multiple-choice in 90 minutes (55%), then four free-response in 90
         minutes (45%). Digital, in Bluebook, with the Java Quick Reference on screen and no
         Run button.
-      </p>
-      <p>
-        <strong>Note:</strong> 12 May is a Gold 4 day, so E block is technically scheduled
-        10:15&ndash;11:30 that morning &mdash; expect to be released for exam check-in
-        instead.
       </p>
     </div>
 
     <div class="stack" style="margin-top:2rem">
       <h3>After the exam</h3>
       <p style="font-size:0.9rem;color:var(--ink-2)">
-        Seven more meetings, 14 May to 2 June: a Unit 4 lab-choice project or a free build.
+        Whatever time is left in the year: a Unit 4 lab-choice project or a free build. The
+        Processing extensions in each lesson are a good place to start.
       </p>
-      <div id="postexam" class="tags"></div>
     </div>
   </div>
 </section>
@@ -84,57 +90,68 @@
 <footer>
   <div class="wrap stack-sm">
     <p>
-      Dates generated from the 2026&ndash;27 Secondary Planner. Topics follow the AP Computer
-      Science A Course and Exam Description effective Fall 2025. Sequence and pacing
-      rationale: <code>SCOPE-AND-SEQUENCE.md</code>.
+      Topics follow the AP Computer Science A Course and Exam Description effective Fall
+      2025. Pacing lives in <code>assets/calendar.js</code>: change a lesson&rsquo;s
+      <code>days</code> and every week and day number on the site updates.
     </p>
     <p>
-      This is the plan, not a promise &mdash; snow days, assemblies and the pace of the room
-      all move things. Check with your teacher before relying on a date.
+      This is a plan, not a promise. The pace of the room matters more than the row number.
     </p>
   </div>
 </footer>
 
-<script src="assets/calendar.js"></script>
+<script src="assets/calendar.js?v=20261015a"></script>
 <script>
 (function () {
   const mount = document.getElementById("calendar");
-  const CHIP = { test: "test", quiz: "quiz", lab: "lab", frq: "frq", due: "due" };
+  const CHIP = { test: "test", quiz: "quiz", lab: "lab", frq: "frq", due: "due", flex: "flex" };
   let html = "";
   let unit = null;
+  let week = 0;
 
-  MEETINGS.forEach((m, i) => {
+  document.getElementById("cal-total").textContent =
+    `${TOTAL_DAYS} class days over ${TOTAL_WEEKS} weeks`;
+
+  MEETINGS.forEach((m) => {
     if (m.unit !== unit) {
       unit = m.unit;
-      const last = MEETINGS.filter(x => x.unit === unit).slice(-1)[0];
-      const span = m.date.slice(4, 10) + " – " + last.date.slice(4, 10);
-      const count = MEETINGS.filter(x => x.unit === unit).length;
+      const group = MEETINGS.filter(x => x.unit === unit);
+      const last = group[group.length - 1];
+      const days = group.reduce((sum, x) => sum + x.days, 0);
+      const weeks = m.firstWeek === last.lastWeek ? `Week ${m.firstWeek}` : `Weeks ${m.firstWeek}–${last.lastWeek}`;
       html += `<div class="cal-unit"><h3>${unit}</h3>
-        <span class="cal-span">${span} &middot; ${count} meeting${count > 1 ? "s" : ""}</span></div>`;
-    }
-    if (m.gap) {
-      html += `<div class="cal-break">${m.gap} days off</div>`;
+        <span class="cal-span">${weeks} &middot; ${days} day${days > 1 ? "s" : ""}</span></div>`;
     }
     const chip = m.kind ? `<span class="chip chip-${m.kind}">${CHIP[m.kind]}</span>` : "";
     const unitNumber = /^Unit ([1-4])/.exec(m.unit);
-    const lessonHref = unitNumber
+    const lessonHref = m.n && unitNumber
       ? `unit${unitNumber[1]}/lesson-${String(m.n).padStart(2, "0")}.html`
       : "";
     const topic = lessonHref ? `<a class="cal-topic-link" href="${lessonHref}">${m.topic}</a>` : m.topic;
-    html += `<div class="cal-row${m.kind === "test" ? " k-test" : ""}">
-      <div class="cal-n">${m.n}</div>
-      <div class="cal-date">${m.date}<span class="cal-rot">${m.rot}</span></div>
-      <div class="cal-time">${m.time}</div>
-      <div class="cal-main">
-        <span class="cal-topic">${topic}${chip}</span>
-        <span class="cal-act">${m.act}</span>
-      </div>
-    </div>`;
+
+    for (let i = 0; i < m.days; i++) {
+      const day = m.firstDay + i;
+      const thisWeek = Math.ceil(day / DAYS_PER_WEEK);
+      if (thisWeek !== week) {
+        week = thisWeek;
+        html += `<div class="cal-week">Week ${week}</div>`;
+      }
+      const part = m.days > 1 ? `Part ${i + 1} of ${m.days}` : `${PERIOD_MINUTES} min`;
+      const detail = m.plan[i]
+        ? (i === 0 ? `${m.act} <span class="cal-plan">${m.plan[i]}</span>` : `<span class="cal-plan">${m.plan[i]}</span>`)
+        : m.act;
+      html += `<div class="cal-row${m.kind === "test" ? " k-test" : ""}${m.kind === "flex" ? " k-flex" : ""}">
+        <div class="cal-n">${day}</div>
+        <div class="cal-date">Day ${(day - 1) % DAYS_PER_WEEK + 1}<span class="cal-rot">Week ${week}</span></div>
+        <div class="cal-time">${part}</div>
+        <div class="cal-main">
+          <span class="cal-topic">${topic}${chip}</span>
+          <span class="cal-act">${detail}</span>
+        </div>
+      </div>`;
+    }
   });
   mount.innerHTML = html;
-
-  document.getElementById("postexam").innerHTML =
-    POSTEXAM.map(p => `<span class="tag">${p.date.slice(4)} &middot; ${p.time}</span>`).join("");
 })();
 </script>
 <script src="assets/role.js?v=20260729c"></script>

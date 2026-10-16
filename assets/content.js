@@ -34,7 +34,7 @@ const TRANSLATIONS = [
     same: true,
     was: "println(\"bounce: \" + bounce);",
     now: "System.out.println(\"bounce: \" + bounce);",
-    why: "You already do this &mdash; there are 81 <code>println</code> calls across last year's sketches. Same method, longer name. What changes is that it is now your <em>only</em> output, not a debug aid alongside the canvas."
+    why: "You already do this &mdash; one year of student sketches we measured has 81 <code>println</code> calls. Same method, longer name. What changes is that it is now your <em>only</em> output, not a debug aid alongside the canvas."
   },
   {
     was: "text(score, 10, 20);",

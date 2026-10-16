@@ -1,892 +1,117 @@
-/* Generated from the 2026-27 Secondary Planner. AP CS A = E block, Gold days (E(G) 26-27). */
+/* Course pacing: five 50-minute periods a week, about 28 weeks before the AP exam.
+
+   One entry per lesson or block, in order. `n` is the lesson number (1–65) and
+   links the entry to its lesson page; flex and review entries have n: null.
+   `days` is how many 50-minute periods the entry takes, and `plan` has one line
+   per period when it takes more than one.
+
+   Week and day numbers are computed at the bottom of this file. To re-pace the
+   course, change `days` (and `plan`), or move a flex day. Nothing else changes. */
+
+const PERIOD_MINUTES = 50;
+const DAYS_PER_WEEK = 5;
+
 const MEETINGS = [
-{
-"n": 1,
-"date": "Fri 04 Sep 2026",
-"iso": "2026-09-04",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 1",
-"topic": "Orientation \u2014 leaving the PDE",
-"act": "IDE setup, <code>main</code>, file naming, first compile error. <strong>Port project assigned.</strong>",
-"kind": "due",
-"gap": 0
-},
-{
-"n": 2,
-"date": "Wed 09 Sep 2026",
-"iso": "2026-09-09",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 1",
-"topic": "1.1\u20131.6 speed-run",
-"act": "Variables, types, expressions, casting, compound assignment. <code>float</code>\u2192<code>double</code>, integer division. Diagnostic quiz.",
-"kind": "quiz",
-"gap": 0
-},
-{
-"n": 3,
-"date": "Fri 11 Sep 2026",
-"iso": "2026-09-11",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 1",
-"topic": "1.7, 1.8, 1.11",
-"act": "APIs and libraries; comments and preconditions; the <code>Math</code> class.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 4,
-"date": "Tue 15 Sep 2026",
-"iso": "2026-09-15",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 1",
-"topic": "1.9\u20131.10",
-"act": "Method signatures; calling class methods. Mostly review.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 5,
-"date": "Thu 17 Sep 2026",
-"iso": "2026-09-17",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 1",
-"topic": "1.12\u20131.13",
-"act": "Objects as instances; instantiation and constructors.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 6,
-"date": "Tue 22 Sep 2026",
-"iso": "2026-09-22",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 1",
-"topic": "1.14 + reference semantics",
-"act": "Instance methods. <strong>Aliasing starts here</strong> \u2014 Java Visualizer, hand-drawn box-and-pointer traces.",
-"kind": "lab",
-"gap": 0
-},
-{
-"n": 7,
-"date": "Thu 24 Sep 2026",
-"iso": "2026-09-24",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 1",
-"topic": "1.15 Strings I",
-"act": "<code>length</code>, <code>substring</code>, <code>indexOf</code>. Index arithmetic until it is automatic.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 8,
-"date": "Mon 28 Sep 2026",
-"iso": "2026-09-28",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 1",
-"topic": "1.15 Strings II + Unit 4 preview",
-"act": "<code>equals</code> and <code>compareTo</code>; optional preview of <code>split</code> (topic 4.6). String practice.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 9,
-"date": "Wed 30 Sep 2026",
-"iso": "2026-09-30",
-"rot": "Gold 1",
-"time": "9:30\u201310:45",
-"unit": "Unit 1",
-"topic": "1.15 Strings III",
-"act": "String algorithms practice. <strong>Port project due.</strong>",
-"kind": "due",
-"gap": 0
-},
-{
-"n": 10,
-"date": "Fri 02 Oct 2026",
-"iso": "2026-10-02",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 1",
-"topic": "Review",
-"act": "Progress Checks 1.1\u20131.3. Loose ends.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 11,
-"date": "Tue 06 Oct 2026",
-"iso": "2026-10-06",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 1",
-"topic": "<strong>Unit 1 Test</strong>",
-"act": "Covers 1.1\u20131.15.",
-"kind": "test",
-"gap": 0
-},
-{
-"n": 12,
-"date": "Thu 08 Oct 2026",
-"iso": "2026-10-08",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 2",
-"topic": "2.1\u20132.3 speed-run",
-"act": "Algorithms with selection; boolean expressions; <code>if</code>. Confirm, don't teach.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 13,
-"date": "Mon 12 Oct 2026",
-"iso": "2026-10-12",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 2",
-"topic": "2.4\u20132.5",
-"act": "Nested <code>if</code>; compound boolean expressions.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 14,
-"date": "Wed 14 Oct 2026",
-"iso": "2026-10-14",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 2",
-"topic": "2.6 De Morgan's Laws I",
-"act": "<strong>New.</strong> Truth tables; what <code>!</code> does to <code>&amp;&amp;</code> and <code>||</code>.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 15,
-"date": "Fri 16 Oct 2026",
-"iso": "2026-10-16",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 2",
-"topic": "2.6 De Morgan's Laws II",
-"act": "Negating compound conditions. CodingBat Logic-1.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 16,
-"date": "Tue 20 Oct 2026",
-"iso": "2026-10-20",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 2",
-"topic": "2.7\u20132.8",
-"act": "<code>while</code> and <code>for</code>. Review \u2014 the work is <em>tracing</em>, not writing.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 17,
-"date": "Fri 23 Oct 2026",
-"iso": "2026-10-23",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 2",
-"topic": "2.10 String algorithms I",
-"act": "<strong>New.</strong> Looping through a string one character at a time.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 18,
-"date": "Tue 27 Oct 2026",
-"iso": "2026-10-27",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 2",
-"topic": "2.10 String algorithms II",
-"act": "CodingBat String-2. Building and comparing substrings.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 19,
-"date": "Thu 29 Oct 2026",
-"iso": "2026-10-29",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 2",
-"topic": "2.9, 2.11",
-"act": "Implementing selection/iteration algorithms; nested iteration.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 20,
-"date": "Tue 03 Nov 2026",
-"iso": "2026-11-03",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 2",
-"topic": "2.12 Runtime analysis",
-"act": "<strong>New, and easy points.</strong> Counting how many times a loop body runs.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 21,
-"date": "Thu 05 Nov 2026",
-"iso": "2026-11-05",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 2",
-"topic": "Magpie Chatbot Lab",
-"act": "College Board lab \u2014 pure <code>if</code> + <code>indexOf</code>. <em>Counts toward the lab requirement.</em> First timed MCQ set.",
-"kind": "lab",
-"gap": 0
-},
-{
-"n": 22,
-"date": "Mon 09 Nov 2026",
-"iso": "2026-11-09",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 2",
-"topic": "<strong>Unit 2 Test</strong>",
-"act": "Covers 2.1\u20132.12.",
-"kind": "test",
-"gap": 0
-},
-{
-"n": 23,
-"date": "Wed 11 Nov 2026",
-"iso": "2026-11-11",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 3",
-"topic": "3.1\u20133.2",
-"act": "Abstraction and program design; impact of program design.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 24,
-"date": "Fri 13 Nov 2026",
-"iso": "2026-11-13",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 3",
-"topic": "3.3 Anatomy of a class",
-"act": "Class header, instance variables. <strong>Full rigour on <code>private</code></strong> \u2014 zero access modifiers appeared in last year's work.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 25,
-"date": "Tue 17 Nov 2026",
-"iso": "2026-11-17",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 3",
-"topic": "3.4 Constructors",
-"act": "Parameters, initialising every field.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 26,
-"date": "Thu 19 Nov 2026",
-"iso": "2026-11-19",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 3",
-"topic": "3.4 continued",
-"act": "Overloaded constructors. Design practice before the break.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 27,
-"date": "Mon 30 Nov 2026",
-"iso": "2026-11-30",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 3",
-"topic": "3.5 Writing methods I",
-"act": "<strong>Return values</strong> \u2014 the measured gap. Last year only five methods returned anything.",
-"kind": "",
-"gap": 11
-},
-{
-"n": 28,
-"date": "Wed 02 Dec 2026",
-"iso": "2026-12-02",
-"rot": "Gold 4",
-"time": "10:55\u201312:10",
-"unit": "Unit 3",
-"topic": "3.5 Writing methods II",
-"act": "Accessors, mutators, <code>toString</code>.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 29,
-"date": "Fri 04 Dec 2026",
-"iso": "2026-12-04",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 3",
-"topic": "3.6 References",
-"act": "Passing and returning object references. Aliasing from the writing side.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 30,
-"date": "Tue 08 Dec 2026",
-"iso": "2026-12-08",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 3",
-"topic": "3.7 <code>static</code> I",
-"act": "<strong>Genuinely new.</strong> Class variables shared across instances.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 31,
-"date": "Thu 10 Dec 2026",
-"iso": "2026-12-10",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 3",
-"topic": "3.7 <code>static</code> II",
-"act": "Why a static method cannot touch an instance variable.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 32,
-"date": "Mon 14 Dec 2026",
-"iso": "2026-12-14",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 3",
-"topic": "3.8\u20133.9",
-"act": "Scope, access, and the <code>this</code> keyword.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 33,
-"date": "Wed 16 Dec 2026",
-"iso": "2026-12-16",
-"rot": "Gold 1",
-"time": "9:30\u201310:45",
-"unit": "Unit 3",
-"topic": "FRQ Question 2 practice",
-"act": "Write a complete class by hand. CupcakeMachine.",
-"kind": "frq",
-"gap": 0
-},
-{
-"n": 34,
-"date": "Wed 06 Jan 2027",
-"iso": "2027-01-06",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 3",
-"topic": "Re-entry + FRQ Q2 practice",
-"act": "Retrieval after the break, then StepTracker by hand. Progress Checks 3.1\u20133.2.",
-"kind": "frq",
-"gap": 21
-},
-{
-"n": 35,
-"date": "Fri 08 Jan 2027",
-"iso": "2027-01-08",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 3",
-"topic": "<strong>Unit 3 Test</strong>",
-"act": "Covers 3.1\u20133.9. <em>Skipped entirely: inheritance, <code>extends</code>, <code>super</code>, interfaces.</em>",
-"kind": "test",
-"gap": 0
-},
-{
-"n": 36,
-"date": "Tue 12 Jan 2027",
-"iso": "2027-01-12",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 4A",
-"topic": "4.1 Ethics and data",
-"act": "Ethical and social issues around data collection, including AI. <em>Practice 5 is 2\u201310% of the MCQ.</em>",
-"kind": "",
-"gap": 0
-},
-{
-"n": 37,
-"date": "Thu 14 Jan 2027",
-"iso": "2027-01-14",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 4A",
-"topic": "4.2 Data sets",
-"act": "<strong>New in 2025.</strong> Reasoning about which data answers a question.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 38,
-"date": "Wed 20 Jan 2027",
-"iso": "2027-01-20",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 4A",
-"topic": "4.3 Array creation and access",
-"act": "Review \u2014 but watch <code>.length</code> vs <code>.length()</code> vs <code>.size()</code>.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 39,
-"date": "Fri 22 Jan 2027",
-"iso": "2027-01-22",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 4A",
-"topic": "4.4 Array traversals",
-"act": "Standard traversal patterns.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 40,
-"date": "Tue 26 Jan 2027",
-"iso": "2027-01-26",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 4A",
-"topic": "4.4 Enhanced <code>for</code>",
-"act": "What the for-each loop cannot do. CodingBat Array-1.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 41,
-"date": "Thu 28 Jan 2027",
-"iso": "2027-01-28",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 4A",
-"topic": "4.5 Array algorithms I",
-"act": "Min, max, sum, count, search.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 42,
-"date": "Mon 01 Feb 2027",
-"iso": "2027-02-01",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 4A",
-"topic": "4.5 Array algorithms II",
-"act": "Shifting and rearranging. FRQ practice.",
-"kind": "frq",
-"gap": 0
-},
-{
-"n": 43,
-"date": "Wed 03 Feb 2027",
-"iso": "2027-02-03",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 4A",
-"topic": "<strong>Unit 4A Test</strong>",
-"act": "1D arrays and data sets.",
-"kind": "test",
-"gap": 0
-},
-{
-"n": 44,
-"date": "Fri 05 Feb 2027",
-"iso": "2027-02-05",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 4B",
-"topic": "4.6 File and Scanner",
-"act": "<strong>New to everyone.</strong> <code>File</code>, <code>Scanner</code>, <code>hasNext</code>. \u26a0\ufe0f <code>hasNextLine</code>/<code>hasNextInt</code> are <em>not</em> on the reference sheet.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 45,
-"date": "Tue 09 Feb 2027",
-"iso": "2027-02-09",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 4B",
-"topic": "4.6 Reading line by line",
-"act": "Inventory Auditor lab.",
-"kind": "lab",
-"gap": 0
-},
-{
-"n": 46,
-"date": "Thu 11 Feb 2027",
-"iso": "2027-02-11",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 4B",
-"topic": "4.6 Parsing with <code>split</code>",
-"act": "Weather Data Analyzer lab \u2014 nested loops over file data.",
-"kind": "lab",
-"gap": 0
-},
-{
-"n": 47,
-"date": "Tue 16 Feb 2027",
-"iso": "2027-02-16",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 4B",
-"topic": "Files wrap-up",
-"act": "Gradebook Validator lab + quiz.",
-"kind": "quiz",
-"gap": 0
-},
-{
-"n": 48,
-"date": "Thu 18 Feb 2027",
-"iso": "2027-02-18",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 4C",
-"topic": "4.7 Wrapper classes",
-"act": "<code>Integer</code>, <code>Double</code>, autoboxing.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 49,
-"date": "Mon 22 Feb 2027",
-"iso": "2027-02-22",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 4C",
-"topic": "4.8 ArrayList methods",
-"act": "<code>add</code>, <code>get</code>, <code>set</code>, <code>remove</code>, <code>size</code>.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 50,
-"date": "Wed 24 Feb 2027",
-"iso": "2027-02-24",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 4C",
-"topic": "4.9 ArrayList traversals",
-"act": "Index and for-each.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 51,
-"date": "Fri 26 Feb 2027",
-"iso": "2027-02-26",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 4C",
-"topic": "4.10 ArrayList algorithms",
-"act": "<strong>Removal during traversal</strong> \u2014 practise until it stops biting.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 52,
-"date": "Tue 02 Mar 2027",
-"iso": "2027-03-02",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 4C",
-"topic": "FRQ Question 3 practice",
-"act": "Data analysis with <code>ArrayList</code>. Two lists compared against each other.",
-"kind": "frq",
-"gap": 0
-},
-{
-"n": 53,
-"date": "Thu 04 Mar 2027",
-"iso": "2027-03-04",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 4C",
-"topic": "ArrayList quiz + MCQ set",
-"act": "Timed.",
-"kind": "quiz",
-"gap": 0
-},
-{
-"n": 54,
-"date": "Mon 08 Mar 2027",
-"iso": "2027-03-08",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 4D",
-"topic": "4.11 2D creation and access",
-"act": "<strong>Completely new.</strong> Open with the grid-project bridge: <code>characterX / 100</code> was the column index all along.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 55,
-"date": "Wed 10 Mar 2027",
-"iso": "2027-03-10",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 4D",
-"topic": "4.12 Nested loop traversals",
-"act": "Row-major order. <code>grid.length</code> vs <code>grid[0].length</code>.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 56,
-"date": "Fri 12 Mar 2027",
-"iso": "2027-03-12",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 4D",
-"topic": "4.13 2D algorithms",
-"act": "Row sums, column scans, finding a match.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 57,
-"date": "Tue 16 Mar 2027",
-"iso": "2027-03-16",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 4D",
-"topic": "Picture Lab I",
-"act": "2D arrays over pixels \u2014 mirroring. <em>Lab requirement.</em> The most Processing-like thing in the course.",
-"kind": "lab",
-"gap": 0
-},
-{
-"n": 58,
-"date": "Thu 18 Mar 2027",
-"iso": "2027-03-18",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 4D",
-"topic": "Picture Lab II",
-"act": "Collage and edge detection. Last meeting before spring break.",
-"kind": "lab",
-"gap": 0
-},
-{
-"n": 59,
-"date": "Tue 06 Apr 2027",
-"iso": "2027-04-06",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 4E",
-"topic": "Re-entry retrieval",
-"act": "Recall 2D arrays and <code>ArrayList</code> cold after nineteen days off. No new content.",
-"kind": "",
-"gap": 19
-},
-{
-"n": 60,
-"date": "Thu 08 Apr 2027",
-"iso": "2027-04-08",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 4E",
-"topic": "FRQ Question 4 practice",
-"act": "2D array question under time.",
-"kind": "frq",
-"gap": 0
-},
-{
-"n": 61,
-"date": "Mon 12 Apr 2027",
-"iso": "2027-04-12",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 4E",
-"topic": "<strong>Unit 4D Test</strong>",
-"act": "2D arrays.",
-"kind": "test",
-"gap": 0
-},
-{
-"n": 62,
-"date": "Wed 14 Apr 2027",
-"iso": "2027-04-14",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Unit 4E",
-"topic": "4.14 Searching",
-"act": "Sequential and binary search; when each applies.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 63,
-"date": "Fri 16 Apr 2027",
-"iso": "2027-04-16",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Unit 4E",
-"topic": "4.15 Sorting",
-"act": "Selection, insertion, merge. Comparative efficiency.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 64,
-"date": "Tue 20 Apr 2027",
-"iso": "2027-04-20",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Unit 4E",
-"topic": "4.16 Recursion",
-"act": "<strong>Tracing only.</strong> Base cases, unwinding, spotting infinite recursion. You will never be asked to write one.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 65,
-"date": "Thu 22 Apr 2027",
-"iso": "2027-04-22",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Unit 4E",
-"topic": "4.17 Recursive search/sort + quiz",
-"act": "Tracing merge sort and binary search.",
-"kind": "quiz",
-"gap": 0
-},
-{
-"n": 66,
-"date": "Mon 26 Apr 2027",
-"iso": "2027-04-26",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Review",
-"topic": "Full timed MCQ section",
-"act": "42 questions, 90 minutes, no notes. Diagnose honestly.",
-"kind": "test",
-"gap": 0
-},
-{
-"n": 67,
-"date": "Wed 28 Apr 2027",
-"iso": "2027-04-28",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Review",
-"topic": "Targeted reteach",
-"act": "Driven entirely by the diagnostic.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 68,
-"date": "Fri 30 Apr 2027",
-"iso": "2027-04-30",
-"rot": "Gold 4",
-"time": "10:15\u201311:30",
-"unit": "Review",
-"topic": "FRQ Q1 + Q2 under time",
-"act": "Both worth 7 points. Q1 Part B will need <code>String</code> methods.",
-"kind": "frq",
-"gap": 0
-},
-{
-"n": 69,
-"date": "Tue 04 May 2027",
-"iso": "2027-05-04",
-"rot": "Gold 1",
-"time": "8:50\u201310:05",
-"unit": "Review",
-"topic": "FRQ Q3 + Q4 under time",
-"act": "<code>ArrayList</code> (5 pts) and 2D array (6 pts).",
-"kind": "frq",
-"gap": 0
-},
-{
-"n": 70,
-"date": "Thu 06 May 2027",
-"iso": "2027-05-06",
-"rot": "Gold 2",
-"time": "2:25\u20133:40",
-"unit": "Review",
-"topic": "Java Quick Reference + Bluebook",
-"act": "Walk the reference sheet end to end. Sit a Bluebook practice test.",
-"kind": "",
-"gap": 0
-},
-{
-"n": 71,
-"date": "Mon 10 May 2027",
-"iso": "2027-05-10",
-"rot": "Gold 3",
-"time": "1:00\u20132:15",
-"unit": "Review",
-"topic": "Logistics",
-"act": "Exam mechanics, what to bring, timing strategy. No new content.",
-"kind": "",
-"gap": 0
-}
-] ;
-const POSTEXAM = [
-{
-"date": "Fri 14 May 2027",
-"rot": "Gold 1",
-"time": "8:50\u201310:05"
-},
-{
-"date": "Tue 18 May 2027",
-"rot": "Gold 2",
-"time": "2:25\u20133:40"
-},
-{
-"date": "Thu 20 May 2027",
-"rot": "Gold 3",
-"time": "1:00\u20132:15"
-},
-{
-"date": "Mon 24 May 2027",
-"rot": "Gold 4",
-"time": "10:15\u201311:30"
-},
-{
-"date": "Wed 26 May 2027",
-"rot": "Gold 1",
-"time": "9:30\u201310:45"
-},
-{
-"date": "Fri 28 May 2027",
-"rot": "Gold 2",
-"time": "2:25\u20133:40"
-},
-{
-"date": "Wed 02 Jun 2027",
-"rot": "Gold 3",
-"time": "1:00\u20132:15"
-}
-] ;
+  {"n":1,"unit":"Unit 1","topic":"Orientation — leaving the PDE","act":"IDE setup, <code>main</code>, file naming, first compile error. <strong>Port project assigned.</strong>","kind":"due","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":2,"unit":"Unit 1","topic":"1.1–1.6 speed-run","act":"Variables, types, expressions, casting, compound assignment. <code>float</code>→<code>double</code>, integer division. Diagnostic quiz.","kind":"quiz","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":3,"unit":"Unit 1","topic":"1.7, 1.8, 1.11","act":"APIs and libraries; comments and preconditions; the <code>Math</code> class.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":4,"unit":"Unit 1","topic":"1.9–1.10","act":"Method signatures; calling class methods. Mostly review.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":5,"unit":"Unit 1","topic":"1.12–1.13","act":"Objects as instances; instantiation and constructors.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":6,"unit":"Unit 1","topic":"1.14 + reference semantics","act":"Instance methods. <strong>Aliasing starts here</strong> — Java Visualizer, hand-drawn box-and-pointer traces.","kind":"lab","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":7,"unit":"Unit 1","topic":"1.15 Strings I","act":"<code>length</code>, <code>substring</code>, <code>indexOf</code>. Index arithmetic until it is automatic.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":8,"unit":"Unit 1","topic":"1.15 Strings II + Unit 4 preview","act":"<code>equals</code> and <code>compareTo</code>; optional preview of <code>split</code> (topic 4.6). String practice.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":9,"unit":"Unit 1","topic":"1.15 Strings III","act":"String algorithms practice. <strong>Port project due.</strong>","kind":"due","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":10,"unit":"Unit 1","topic":"Review","act":"Progress Checks 1.1–1.3. Loose ends.","kind":"","days":1,"plan":[]},
+  {"n":null,"unit":"Unit 1","topic":"Flex day","act":"Catch up, reteach, or review before the test.","kind":"flex","days":1,"plan":[]},
+  {"n":11,"unit":"Unit 1","topic":"<strong>Unit 1 Test</strong>","act":"Covers 1.1–1.15.","kind":"test","days":2,"plan":["Multiple-choice section.","Free-response section."]},
+  {"n":12,"unit":"Unit 2","topic":"2.1–2.3 speed-run","act":"Algorithms with selection; boolean expressions; <code>if</code>. Confirm, don't teach.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":13,"unit":"Unit 2","topic":"2.4–2.5","act":"Nested <code>if</code>; compound boolean expressions.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":14,"unit":"Unit 2","topic":"2.6 De Morgan's Laws I","act":"<strong>New.</strong> Truth tables; what <code>!</code> does to <code>&amp;&amp;</code> and <code>||</code>.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":15,"unit":"Unit 2","topic":"2.6 De Morgan's Laws II","act":"Negating compound conditions. CodingBat Logic-1.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":16,"unit":"Unit 2","topic":"2.7–2.8","act":"<code>while</code> and <code>for</code>. Review — the work is <em>tracing</em>, not writing.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":17,"unit":"Unit 2","topic":"2.10 String algorithms I","act":"<strong>New.</strong> Looping through a string one character at a time.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":18,"unit":"Unit 2","topic":"2.10 String algorithms II","act":"CodingBat String-2. Building and comparing substrings.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":19,"unit":"Unit 2","topic":"2.9, 2.11","act":"Implementing selection/iteration algorithms; nested iteration.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":20,"unit":"Unit 2","topic":"2.12 Runtime analysis","act":"<strong>New, and easy points.</strong> Counting how many times a loop body runs.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":21,"unit":"Unit 2","topic":"Magpie Chatbot Lab","act":"College Board lab — pure <code>if</code> + <code>indexOf</code>. <em>Counts toward the lab requirement.</em> First timed MCQ set.","kind":"lab","days":2,"plan":["Read the lab, plan, and reach the first checkpoint.","Finish the lab, verify it against the checks, and record evidence."]},
+  {"n":null,"unit":"Unit 2","topic":"Flex day","act":"Catch up, reteach, or review before the test.","kind":"flex","days":1,"plan":[]},
+  {"n":22,"unit":"Unit 2","topic":"<strong>Unit 2 Test</strong>","act":"Covers 2.1–2.12.","kind":"test","days":2,"plan":["Multiple-choice section.","Free-response section."]},
+  {"n":23,"unit":"Unit 3","topic":"3.1–3.2","act":"Abstraction and program design; impact of program design.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":24,"unit":"Unit 3","topic":"3.3 Anatomy of a class","act":"Class header, instance variables. <strong>Full rigour on <code>private</code></strong>: sketch code almost never uses access modifiers.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":25,"unit":"Unit 3","topic":"3.4 Constructors","act":"Parameters, initialising every field.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":26,"unit":"Unit 3","topic":"3.4 continued","act":"Overloaded constructors. Design practice.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":27,"unit":"Unit 3","topic":"3.5 Writing methods I","act":"<strong>Return values.</strong> Sketch methods rarely return anything; exam methods return constantly.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":28,"unit":"Unit 3","topic":"3.5 Writing methods II","act":"Accessors, mutators, <code>toString</code>.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":29,"unit":"Unit 3","topic":"3.6 References","act":"Passing and returning object references. Aliasing from the writing side.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":30,"unit":"Unit 3","topic":"3.7 <code>static</code> I","act":"<strong>Genuinely new.</strong> Class variables shared across instances.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":31,"unit":"Unit 3","topic":"3.7 <code>static</code> II","act":"Why a static method cannot touch an instance variable.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":32,"unit":"Unit 3","topic":"3.8–3.9","act":"Scope, access, and the <code>this</code> keyword.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":33,"unit":"Unit 3","topic":"FRQ Question 2 practice","act":"Write a complete class by hand. CupcakeMachine.","kind":"frq","days":1,"plan":[]},
+  {"n":34,"unit":"Unit 3","topic":"Retrieval + FRQ Q2 practice","act":"Rebuild the class pattern cold, then StepTracker by hand. Progress Checks 3.1–3.2. Works best right after a break.","kind":"frq","days":1,"plan":[]},
+  {"n":null,"unit":"Unit 3","topic":"Flex day","act":"Catch up, reteach, or review before the test.","kind":"flex","days":1,"plan":[]},
+  {"n":35,"unit":"Unit 3","topic":"<strong>Unit 3 Test</strong>","act":"Covers 3.1–3.9. <em>Skipped entirely: inheritance, <code>extends</code>, <code>super</code>, interfaces.</em>","kind":"test","days":2,"plan":["Multiple-choice section.","Free-response section."]},
+  {"n":36,"unit":"Unit 4A","topic":"4.1 Ethics and data","act":"Ethical and social issues around data collection, including AI. <em>Practice 5 is 2–10% of the MCQ.</em>","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":37,"unit":"Unit 4A","topic":"4.2 Data sets","act":"<strong>New in 2025.</strong> Reasoning about which data answers a question.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":38,"unit":"Unit 4A","topic":"4.3 Array creation and access","act":"Review — but watch <code>.length</code> vs <code>.length()</code> vs <code>.size()</code>.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":39,"unit":"Unit 4A","topic":"4.4 Array traversals","act":"Standard traversal patterns.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":40,"unit":"Unit 4A","topic":"4.4 Enhanced <code>for</code>","act":"What the for-each loop cannot do. CodingBat Array-1.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":41,"unit":"Unit 4A","topic":"4.5 Array algorithms I","act":"Min, max, sum, count, search.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":42,"unit":"Unit 4A","topic":"4.5 Array algorithms II","act":"Shifting and rearranging. FRQ practice.","kind":"frq","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":null,"unit":"Unit 4A","topic":"Flex day","act":"Catch up, reteach, or review before the test.","kind":"flex","days":1,"plan":[]},
+  {"n":43,"unit":"Unit 4A","topic":"<strong>Unit 4A Test</strong>","act":"1D arrays and data sets.","kind":"test","days":1,"plan":[]},
+  {"n":44,"unit":"Unit 4B","topic":"4.6 File and Scanner","act":"<strong>New to everyone.</strong> <code>File</code>, <code>Scanner</code>, <code>hasNext</code>. ⚠️ <code>hasNextLine</code>/<code>hasNextInt</code> are <em>not</em> on the reference sheet.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":45,"unit":"Unit 4B","topic":"4.6 Reading line by line","act":"Inventory Auditor lab.","kind":"lab","days":2,"plan":["Read the lab, plan, and reach the first checkpoint.","Finish the lab, verify it against the checks, and record evidence."]},
+  {"n":46,"unit":"Unit 4B","topic":"4.6 Parsing with <code>split</code>","act":"Weather Data Analyzer lab — nested loops over file data.","kind":"lab","days":2,"plan":["Read the lab, plan, and reach the first checkpoint.","Finish the lab, verify it against the checks, and record evidence."]},
+  {"n":47,"unit":"Unit 4B","topic":"Files wrap-up","act":"Gradebook Validator lab + quiz.","kind":"quiz","days":2,"plan":["Read the lab, plan, and reach the first checkpoint.","Finish the lab, verify it against the checks, and record evidence."]},
+  {"n":null,"unit":"Unit 4B","topic":"Flex day","act":"Catch up or extend the labs before the next section.","kind":"flex","days":1,"plan":[]},
+  {"n":48,"unit":"Unit 4C","topic":"4.7 Wrapper classes","act":"<code>Integer</code>, <code>Double</code>, autoboxing.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":49,"unit":"Unit 4C","topic":"4.8 ArrayList methods","act":"<code>add</code>, <code>get</code>, <code>set</code>, <code>remove</code>, <code>size</code>.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":50,"unit":"Unit 4C","topic":"4.9 ArrayList traversals","act":"Index and for-each.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":51,"unit":"Unit 4C","topic":"4.10 ArrayList algorithms","act":"<strong>Removal during traversal</strong> — practise until it stops biting.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":52,"unit":"Unit 4C","topic":"FRQ Question 3 practice","act":"Data analysis with <code>ArrayList</code>. Two lists compared against each other.","kind":"frq","days":1,"plan":[]},
+  {"n":53,"unit":"Unit 4C","topic":"ArrayList quiz + MCQ set","act":"Timed.","kind":"quiz","days":1,"plan":[]},
+  {"n":null,"unit":"Unit 4C","topic":"Flex day","act":"Catch up or extend the labs before the next section.","kind":"flex","days":1,"plan":[]},
+  {"n":54,"unit":"Unit 4D","topic":"4.11 2D creation and access","act":"<strong>Completely new.</strong> Open with a grid sketch: <code>x / cellSize</code> was a column index all along.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":55,"unit":"Unit 4D","topic":"4.12 Nested loop traversals","act":"Row-major order. <code>grid.length</code> vs <code>grid[0].length</code>.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":56,"unit":"Unit 4D","topic":"4.13 2D algorithms","act":"Row sums, column scans, finding a match.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":57,"unit":"Unit 4D","topic":"Picture Lab I","act":"2D arrays over pixels — mirroring. <em>Lab requirement.</em> The most Processing-like thing in the course.","kind":"lab","days":2,"plan":["Read the lab, plan, and reach the first checkpoint.","Finish the lab, verify it against the checks, and record evidence."]},
+  {"n":58,"unit":"Unit 4D","topic":"Picture Lab II","act":"Collage and edge detection.","kind":"lab","days":2,"plan":["Read the lab, plan, and reach the first checkpoint.","Finish the lab, verify it against the checks, and record evidence."]},
+  {"n":59,"unit":"Unit 4E","topic":"Retrieval","act":"Recall 2D arrays and <code>ArrayList</code> cold. No new content. Place it right after your longest break.","kind":"","days":1,"plan":[]},
+  {"n":60,"unit":"Unit 4E","topic":"FRQ Question 4 practice","act":"2D array question under time.","kind":"frq","days":1,"plan":[]},
+  {"n":null,"unit":"Unit 4E","topic":"Flex day","act":"Catch up, reteach, or review before the test.","kind":"flex","days":1,"plan":[]},
+  {"n":61,"unit":"Unit 4E","topic":"<strong>Unit 4D Test</strong>","act":"2D arrays.","kind":"test","days":1,"plan":[]},
+  {"n":62,"unit":"Unit 4E","topic":"4.14 Searching","act":"Sequential and binary search; when each applies.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":63,"unit":"Unit 4E","topic":"4.15 Sorting","act":"Selection, insertion, merge. Comparative efficiency.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":64,"unit":"Unit 4E","topic":"4.16 Recursion","act":"<strong>Tracing only.</strong> Base cases, unwinding, spotting infinite recursion. You will never be asked to write one.","kind":"","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":65,"unit":"Unit 4E","topic":"4.17 Recursive search/sort + quiz","act":"Tracing merge sort and binary search.","kind":"quiz","days":2,"plan":["Predict, model, and start the project: first missions.","Finish the missions, run the checks, AP transfer, exit slip."]},
+  {"n":null,"unit":"Review","topic":"Flex day","act":"Close out Unit 4 before the review block. Every school loses days; this is one to spend.","kind":"flex","days":1,"plan":[]},
+  {"n":null,"unit":"Review","topic":"Full timed MCQ section","kind":"test","days":2,"act":"42 questions, 90 minutes, no notes, split across two periods. Diagnose honestly.","plan":["Questions 1–21, 45 minutes.","Questions 22–42, 45 minutes. Score both halves."]},
+  {"n":null,"unit":"Review","topic":"Targeted reteach","kind":"","days":2,"act":"Driven entirely by the diagnostic.","plan":["The weakest topic from the diagnostic.","The second weakest, then retest the first."]},
+  {"n":null,"unit":"Review","topic":"FRQ Q1 + Q2 under time","kind":"frq","days":2,"act":"Both worth 7 points. Q1 Part B will need <code>String</code> methods.","plan":["Q1 Methods and Control Structures, then score it.","Q2 Class Design, then score it."]},
+  {"n":null,"unit":"Review","topic":"FRQ Q3 + Q4 under time","kind":"frq","days":2,"act":"<code>ArrayList</code> (5 points) and 2D array (6 points).","plan":["Q3 Data Analysis with ArrayList, then score it.","Q4 2D Array, then score it."]},
+  {"n":null,"unit":"Review","topic":"Java Quick Reference + Bluebook","kind":"","days":2,"act":"Walk the reference sheet end to end, then practice in the testing app.","plan":["The Java Quick Reference, end to end.","A timed Bluebook practice section."]},
+  {"n":null,"unit":"Review","topic":"Logistics","kind":"","days":1,"act":"Exam mechanics, what to bring, timing strategy. No new content.","plan":[]}
+];
+
+/* ---- computed: course day, week, and display labels ---- */
+(function () {
+  let day = 1;
+  MEETINGS.forEach((m) => {
+    m.firstDay = day;
+    m.lastDay = day + m.days - 1;
+    m.firstWeek = Math.ceil(m.firstDay / DAYS_PER_WEEK);
+    m.lastWeek = Math.ceil(m.lastDay / DAYS_PER_WEEK);
+    const days = m.days > 1 ? `Days ${m.firstDay}–${m.lastDay}` : `Day ${m.firstDay}`;
+    const weeks = m.firstWeek === m.lastWeek ? `Week ${m.firstWeek}` : `Weeks ${m.firstWeek}–${m.lastWeek}`;
+    m.when = `${weeks} · ${days}`;
+    m.length = m.days > 1 ? `${m.days} × ${PERIOD_MINUTES} min` : `${PERIOD_MINUTES} min`;
+    /* Older renderers read date/time/rot. */
+    m.date = m.when;
+    m.time = m.length;
+    m.rot = "";
+    day += m.days;
+  });
+})();
+
+const TOTAL_DAYS = MEETINGS.reduce((sum, m) => sum + m.days, 0);
+const TOTAL_WEEKS = Math.ceil(TOTAL_DAYS / DAYS_PER_WEEK);

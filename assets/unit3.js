@@ -5,8 +5,8 @@ var UNIT3_META = {
   slug: "unit3",
   name: "Unit 3",
   title: "Class Creation",
-  dates: "11 Nov – 8 Jan",
-  meetings: "13 meetings",
+  dates: "Weeks 10–14",
+  meetings: "25 days",
   topics: "3.1–3.9",
   weight: "10–18%",
   storageKey: "apcsa-workbook-v1"
@@ -16,7 +16,8 @@ function unit3Build(spec) {
   return {
     id: `u3l${spec.number}`, number: spec.number, unitLesson: spec.number - 22,
     lessonType: spec.lessonType || "build", topic: spec.topic, title: spec.title,
-    outcome: spec.outcome, deliverable: spec.deliverable, duration: "75 min",
+    outcome: spec.outcome, deliverable: spec.deliverable,
+    duration: spec.lessonType === "review" ? "1 day · 50 min" : "2 days · 2 × 50 min",
     ap: spec.ap, source: spec.source,
     download: spec.slug ? `../downloads/unit3/u3l${spec.number}-${spec.slug}.zip` : undefined,
     downloadLabel: spec.lessonType === "extended-lab" ? "verified lab project" : undefined,
@@ -320,7 +321,7 @@ public Ticket() {
     topic: "Assessment", title: "Unit 3 test",
     outcome: "Demonstrate class-design reasoning and complete-class writing without executing code.",
     deliverable: "Unit 3 assessment submitted through the classroom system",
-    duration: "75 min", ap: "Topics 3.1–3.9",
+    duration: "2 days · 2 × 50 min", ap: "Topics 3.1–3.9",
     source: "Local assessment blueprint; secure questions and keys are not published on this site.",
     assessment: {
       scope: ["Abstraction and program design", "Private instance variables", "Constructors and overloaded constructors", "Methods with return values", "Object references", "static state and methods", "Scope, access, and this", "Complete class writing"],

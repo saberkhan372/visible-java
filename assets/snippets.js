@@ -161,7 +161,7 @@ public class Distance extends PApplet {
     id: "strings",
     unit: "Unit 1",
     title: "Taking a string apart",
-    note: "You drew strings last year; you never opened one up. This example demonstrates all six String methods on the current Java Quick Reference. <code>split</code> is included as a Unit 4 preview; under the current exam specification, Question 1 Part B requires calls to String methods.",
+    note: "Sketches draw strings; they almost never open one up. This example demonstrates all six String methods on the current Java Quick Reference. <code>split</code> is included as a Unit 4 preview; under the current exam specification, Question 1 Part B requires calls to String methods.",
     processing: `void setup() {
   String s = "Processing";
   println(s.length());

@@ -5,8 +5,8 @@ var UNIT2_META = {
   slug: "unit2",
   name: "Unit 2",
   title: "Selection and Iteration",
-  dates: "8 Oct – 9 Nov",
-  meetings: "11 meetings",
+  dates: "Weeks 5–9",
+  meetings: "23 days",
   topics: "2.1–2.12",
   weight: "25–35%",
   storageKey: "apcsa-workbook-v1"
@@ -18,7 +18,7 @@ var UNIT2_LESSONS = [
     topic: "2.1–2.3", title: "Selection speed-run",
     outcome: "Trace an ordered decision and implement boundary-safe selection.",
     deliverable: "DecisionAudit.java with all six checks passing",
-    duration: "75 min", ap: "Selection · Boolean expressions · if statements",
+    duration: "2 days · 2 × 50 min", ap: "Selection · Boolean expressions · if statements",
     source: "Remixed from Unit 2 Labs — Conditionals and the positive/negative/even/odd classification task.",
     download: "../downloads/unit2/u2l12-selection-speed-run.zip",
     project: {
@@ -73,7 +73,7 @@ var UNIT2_LESSONS = [
     topic: "2.4–2.5", title: "Nested and compound decisions",
     outcome: "Choose branch order and parentheses that preserve a written rule.",
     deliverable: "Admission.java with all seven checks passing",
-    duration: "75 min", ap: "Nested if · Compound Boolean expressions",
+    duration: "2 days · 2 × 50 min", ap: "Nested if · Compound Boolean expressions",
     source: "Remixed from the Birthday, Goldilocks, and four-number conditional labs.",
     download: "../downloads/unit2/u2l13-compound-decisions.zip",
     project: {
@@ -114,7 +114,7 @@ var UNIT2_LESSONS = [
     topic: "2.6", title: "Prove De Morgan's laws",
     outcome: "Use a truth table to prove two Boolean expressions equivalent.",
     deliverable: "BooleanLab.java plus a completed four-row truth table",
-    duration: "75 min", ap: "Comparing Boolean expressions",
+    duration: "2 days · 2 × 50 min", ap: "Comparing Boolean expressions",
     source: "Remixed from Boolean Truth Tables HW and the propositional-logic activities.",
     present: { notes: {
       prediction: "Poll the room before revealing. Ask which operator must change when the whole condition is negated.",
@@ -160,7 +160,7 @@ var UNIT2_LESSONS = [
     topic: "2.6", title: "Negation repair shop",
     outcome: "Diagnose incorrect compound negations using counterexamples.",
     deliverable: "Eligibility.java with all eight checks passing",
-    duration: "75 min", ap: "Equivalent Boolean expressions · Logic errors",
+    duration: "2 days · 2 × 50 min", ap: "Equivalent Boolean expressions · Logic errors",
     source: "Remixed from Boolean quizzes, Venn-diagram practice, and CodingBat Logic-1 patterns.",
     download: "../downloads/unit2/u2l15-negation-repair.zip",
     project: {
@@ -202,7 +202,7 @@ return day != 1 && day != 7;`,
     topic: "2.7–2.8", title: "Trace loops before writing them",
     outcome: "Trace loop state and distinguish iteration count from final values.",
     deliverable: "LoopTrace.java plus one complete trace table",
-    duration: "75 min", ap: "while loops · for loops · Code analysis",
+    duration: "2 days · 2 × 50 min", ap: "while loops · for loops · Code analysis",
     source: "Remixed from Loop Programs 1 and the course's single-loop practice.",
     present: { notes: {
       prediction: "Have students trace the update after the last printed value; do not run the program yet.",
@@ -258,7 +258,7 @@ while (value <= 5) {
     topic: "2.10", title: "Scan a String safely",
     outcome: "Traverse every valid one-character substring without crossing a boundary.",
     deliverable: "StringScan.java with all five checks passing",
-    duration: "75 min", ap: "Implementing String algorithms",
+    duration: "2 days · 2 × 50 min", ap: "Implementing String algorithms",
     source: "Remixed from String Activity, String Four Corners, and the course's character-counting tasks.",
     download: "../downloads/unit2/u2l17-string-scan.zip",
     project: {
@@ -302,7 +302,7 @@ while (value <= 5) {
     topic: "2.10", title: "Build a String algorithm",
     outcome: "Accumulate a new String and manage an index that sometimes advances twice.",
     deliverable: "StringAlgorithms.java with six provided checks and one original test",
-    duration: "75 min", ap: "String algorithms · Loop invariants · Edge cases",
+    duration: "2 days · 2 × 50 min", ap: "String algorithms · Loop invariants · Edge cases",
     source: "Remixed from remove-all-letter, second-occurrence, and String-2 practice.",
     present: { notes: {
       prediction: "Mark the character pairs physically. Watch for students who reuse the middle characters.",
@@ -353,7 +353,7 @@ for (int i = 0; i < text.length(); i++) {
     topic: "2.9, 2.11", title: "Nested iteration patterns",
     outcome: "Assign one responsibility to each loop and predict total executions.",
     deliverable: "PatternLab.java with its staircase and factor-pair checks passing",
-    duration: "75 min", ap: "Selection/iteration algorithms · Nested iteration",
+    duration: "2 days · 2 × 50 min", ap: "Selection/iteration algorithms · Nested iteration",
     source: "Remixed from Nested Loop Matchup and Loop Programs 3.",
     download: "../downloads/unit2/u2l19-nested-iteration.zip",
     project: {
@@ -407,7 +407,7 @@ for (int i = 0; i < text.length(); i++) {
     topic: "2.12", title: "Count work, not milliseconds",
     outcome: "Determine informal runtime by counting loop-body executions.",
     deliverable: "RuntimeLab.java plus a three-row growth comparison",
-    duration: "75 min", ap: "Informal run-time analysis",
+    duration: "2 days · 2 × 50 min", ap: "Informal run-time analysis",
     source: "Remixed from loop-tracing practice and the CED runtime-analysis topic.",
     download: "../downloads/unit2/u2l20-runtime-counting.zip",
     project: {
@@ -452,7 +452,7 @@ for (int i = 0; i < text.length(); i++) {
     topic: "Magpie 2.0", title: "Chatbot lab and timed MCQ",
     outcome: "Test branch order in a chatbot and document one evidence-based repair.",
     deliverable: "Teacher-specified Magpie files plus the workbook evidence record in the LMS",
-    duration: "75 min", ap: "Selection · indexOf · Testing · Timed MCQ",
+    duration: "2 days · 2 × 50 min", ap: "Selection · indexOf · Testing · Timed MCQ",
     source: "Magpie 2.0 is distributed through AP Classroom; this public page supplies only original companion prompts.",
     present: { notes: {
       project: "Pause here while students obtain the authorized files from the LMS. Do not project secure source.",
@@ -501,7 +501,7 @@ for (int i = 0; i < text.length(); i++) {
     topic: "Assessment", title: "Unit 2 test",
     outcome: "Demonstrate Unit 2 reasoning under AP-style conditions without executing code.",
     deliverable: "Unit 2 assessment submitted through the classroom system",
-    duration: "75 min", ap: "Topics 2.1–2.12",
+    duration: "2 days · 2 × 50 min", ap: "Topics 2.1–2.12",
     source: "Local assessment blueprint; secure questions and keys are not published on this site.",
     assessment: {
       scope: ["Boolean expressions and De Morgan's laws", "if/else and branch order", "while and for loop traces", "String algorithms", "Nested iteration", "Informal runtime analysis"],

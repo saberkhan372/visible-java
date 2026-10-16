@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your first sketch — Visible Java</title>
+<meta name="description" content="Install Processing, switch to Java mode, and run your first sketch. Then set up a way to run plain Java for the port step.">
+<link rel="stylesheet" href="assets/site.css?v=20261015a">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java <span class="arrow">&middot;</span> <span class="logo-sub">Processing to AP CS A</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="path.html">Units</a>
+      <a href="examples.html">Compare</a>
+      <a href="translate.html">Translate</a>
+      <a href="port.html">Port</a>
+      <a href="traps.html">Traps</a>
+      <a href="frq.html">FRQ</a>
+      <a href="setup.html">Setup</a>
+      <a href="camp.html">Camp</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow"><a href="index.html#prepare">Get ready</a> &middot; about 15 minutes</span>
+    <h1>Your first sketch</h1>
+    <p class="lede">
+      Processing is a free editor for writing small Java programs that draw. This page gets it
+      installed and running one sketch. You are done when a circle slides down a window on
+      your screen.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Five steps</span>
+      <h2>Install, open, run</h2>
+    </div>
+
+    <ol class="ws-checklist">
+      <li><div>
+        <h3>Download Processing 4</h3>
+        <p>Go to <a href="https://processing.org/download">processing.org/download</a>, choose your operating system, and follow the instructions there. It is free.</p>
+        <p>Processing comes with its own copy of Java, so you do not need to install Java to run sketches.</p>
+      </div></li>
+      <li><div>
+        <h3>Open it</h3>
+        <p>The first time, your computer may ask you to confirm that you want to open an app downloaded from the internet. Say yes. An editor window opens with an empty sketch.</p>
+      </div></li>
+      <li><div>
+        <h3>Check that you are in Java mode</h3>
+        <p>The mode menu is in the top-right corner of the editor. It should say <strong>Java</strong>, which is the default. If it says anything else, such as p5.js or Python, open that menu and choose Java.</p>
+      </div></li>
+      <li><div>
+        <h3>Paste this sketch and press Run</h3>
+        <p>Run is the round &#9654; button at the top left. The keyboard shortcut is <kbd>&#8984;R</kbd> on a Mac or <kbd>Ctrl+R</kbd> on Windows and Linux.</p>
+<pre class="ws-code" data-file="MovingBall.pde">
+float y = 0;
+
+void setup() {
+  size(400, 400);
+}
+
+void draw() {
+  background(255);
+  circle(200, y, 40);
+  y = y + 2;
+}</pre>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;A square white window opens. A white circle with a black outline starts at the top center, slides straight down, and leaves the bottom in about three and a half seconds. At first you see only the circle&rsquo;s lower half, because its center starts on the top edge.</p>
+      </div></li>
+      <li><div>
+        <h3>Save it, and open the workshop files</h3>
+        <p>Choose <strong>File &rarr; Save</strong>. Processing saves every sketch as a folder holding a <code>.pde</code> file with the same name, so <code>MovingBall/MovingBall.pde</code>. Name sketches with letters, numbers, and underscores, starting with a letter.</p>
+        <p>To open the workshop sketches, unzip <a href="downloads/workshop/session-1-files.zip">session-1-files.zip</a> and use <strong>File &rarr; Open</strong> on, for example, <code>FrameByFrame/FrameByFrame.pde</code>.</p>
+      </div></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">If it doesn&rsquo;t work</span>
+      <h2>First-run problems</h2>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>What you see</th><th>What it usually means</th></tr></thead>
+        <tbody>
+          <tr><td>Run does nothing, and there is red text in the bottom panel</td><td class="why">That panel is the console. The red line is a compiler error, usually a missing semicolon or bracket from pasting. Copy the sketch again with the Copy button above.</td></tr>
+          <tr><td>A window flashes open and closes</td><td class="why">The sketch hit an error while running. Read the console. The error message names the line.</td></tr>
+          <tr><td>The editor looks different and Run is greyed out</td><td class="why">You are in another mode. Switch the top-right menu back to <strong>Java</strong>.</td></tr>
+          <tr><td>The window is blank</td><td class="why">The circle has already left the window. Press Stop (the square button) and Run again, and watch the top edge.</td></tr>
+          <tr><td>Processing asks to create a folder when you open a file</td><td class="why">Expected. A sketch has to live in a folder with its own name. Say yes.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="plain-java" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">For the port step</span>
+      <h2>Running plain Java</h2>
+      <p>
+        Each session ends by rewriting the sketch as standard Java with a <code>main</code>
+        method and no window. Processing is not the tool for that part. Use any one of these:
+      </p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3>The editor you already use</h3>
+        <p>BlueJ, jGRASP, IntelliJ IDEA, VS Code, Eclipse: any of them will do. Make a new class whose name matches the file, paste, and run.</p>
+      </div>
+      <div class="card">
+        <h3>The command line</h3>
+        <p>With Java 11 or newer installed, run a single file directly with no separate compile step:</p>
+        <p><code>java MovingBall.java</code></p>
+      </div>
+      <div class="card">
+        <h3>An online Java compiler</h3>
+        <p>Nothing to install. Paste the whole file. If the site asks for a class name, use the one after <code>public class</code>.</p>
+      </div>
+    </div>
+    <div class="stack">
+      <p>Test it with this file, which is in the Session 1 download as <code>plain-java/MovingBall.java</code>:</p>
+      <div class="ws-java">
+<pre class="ws-code" data-file="MovingBall.java">
+public class MovingBall {
+
+  public static void main(String[] args) {
+    double y = 0;
+
+    for (int frame = 1; frame <= 5; frame++) {
+      System.out.println("frame " + frame + ": drew at y = " + y);
+      y = y + 2;
+    }
+    System.out.println("after frame 5, y = " + y);
+  }
+}</pre>
+      </div>
+      <p class="ws-expect"><strong>Expect</strong> &nbsp;Six lines of text:</p>
+<pre class="ws-console">frame 1: drew at y = 0.0
+frame 2: drew at y = 2.0
+frame 3: drew at y = 4.0
+frame 4: drew at y = 6.0
+frame 5: drew at y = 8.0
+after frame 5, y = 10.0</pre>
+    </div>
+    <div class="note">
+      <p>
+        <strong>One rule in every editor:</strong> the file name matches the public class name
+        exactly. <code>public class MovingBall</code> lives in <code>MovingBall.java</code>.
+        Processing never asks you to think about this. Plain Java won&rsquo;t compile without it.
+      </p>
+    </div>
+    <div class="camp-actions">
+      <a class="camp-button primary" href="session-1.html">On to Session 1</a>
+      <a class="camp-button secondary" href="index.html#prepare">Back to the checklist</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap stack-sm">
+    <p>Checked with Processing 4.3.4 and Java 17. Questions: <a href="mailto:mrkhanatndv@gmail.com?subject=Visible%20Java%20setup">email Saber</a>.</p>
+    <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<script src="assets/content.js"></script>
+<script src="assets/workshop.js?v=20261015a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>

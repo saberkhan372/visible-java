@@ -5,8 +5,8 @@ var UNIT4_META = {
   slug: "unit4",
   name: "Unit 4",
   title: "Data Collections",
-  dates: "12 Jan – 22 Apr",
-  meetings: "30 meetings",
+  dates: "Weeks 15–26",
+  meetings: "58 days",
   topics: "4.1–4.17",
   weight: "30–40%",
   storageKey: "apcsa-workbook-v1"
@@ -17,7 +17,7 @@ function unit4Build(spec) {
     id: `u4l${spec.number}`, number: spec.number, unitLesson: spec.number - 35,
     lessonType: spec.lessonType || "build", arc: spec.arc,
     topic: spec.topic, title: spec.title, outcome: spec.outcome,
-    deliverable: spec.deliverable, duration: "75 min", ap: spec.ap, source: spec.source,
+    deliverable: spec.deliverable, duration: spec.lessonType === "review" ? "1 day · 50 min" : "2 days · 2 × 50 min", ap: spec.ap, source: spec.source,
     download: spec.slug ? `../downloads/unit4/u4l${spec.number}-${spec.slug}.zip` : undefined,
     downloadLabel: spec.downloadLabel,
     project: {
@@ -181,7 +181,7 @@ for (int value : values) {
   {
     id: "u4l43", number: 43, unitLesson: 8, lessonType: "assessment", arc: "4A · Data and arrays",
     topic: "Assessment", title: "Unit 4A test", outcome: "Demonstrate data-set and one-dimensional array reasoning without executing code.",
-    deliverable: "Unit 4A assessment submitted through the classroom system", duration: "75 min",
+    deliverable: "Unit 4A assessment submitted through the classroom system", duration: "1 day · 50 min",
     ap: "Topics 4.1–4.5", source: "Local assessment blueprint; secure questions and keys are not published on this site.",
     assessment: { scope: ["Ethical and social impacts of data use", "Matching data to questions", "Array creation and indexing", "Indexed and enhanced-for traversals", "Array algorithms and rearrangement"], conditions: ["Java Quick Reference available", "No compiler or autocomplete", "Show array traces", "Submit through the classroom system"] }
   },
@@ -376,7 +376,7 @@ while (i < values.size()) {
   {
     id: "u4l53", number: 53, unitLesson: 18, lessonType: "assessment", arc: "4C · ArrayList",
     topic: "Assessment", title: "ArrayList quiz and timed MCQ set", outcome: "Demonstrate wrapper, ArrayList method, traversal, and removal reasoning under time.",
-    deliverable: "Quiz and MCQ set submitted through the classroom system", duration: "75 min",
+    deliverable: "Quiz and MCQ set submitted through the classroom system", duration: "1 day · 50 min",
     ap: "Topics 4.7–4.10", source: "Local assessment blueprint; secure questions and keys are not published on this site.",
     assessment: { scope: ["Integer and Double wrappers", "add, get, set, remove, size", "Indexed and enhanced-for traversals", "Removal during traversal", "ArrayList data analysis"], conditions: ["Timed", "No compiler or autocomplete", "Trace list contents after each mutation", "Submit through the classroom system"] }
   },
@@ -489,10 +489,10 @@ for (int col = 0; col < grid[row].length; col++) {
   }),
   unit4Build({
     number: 59, arc: "4E · Retrieval and algorithms", lessonType: "review", topic: "Re-entry retrieval", title: "Recover collection patterns cold",
-    outcome: "Retrieve array, ArrayList, and 2D traversal patterns after spring break.",
+    outcome: "Retrieve array, ArrayList, and 2D traversal patterns cold, after time away.",
     deliverable: "Cold pattern sheet, corrections, and one targeted drill",
     ap: "Cumulative data-structure retrieval",
-    source: "Original re-entry cycle placed after the calendar's 19-day spring break.",
+    source: "Original re-entry cycle. Place it right after your longest break before the exam.",
     projectHeading: "Start from blank paper", baseline: "Do not open earlier lessons until the first retrieval pass is complete.",
     files: [["Blank pattern sheet", "Complete first", "Array, ArrayList, row-major, removal."], ["Prior workbook exports", "Open second", "Evidence for correction."], ["Targeted drill", "Complete last", "One weakest pattern."]],
     predict: "Write four count expressions from memory: String, array, ArrayList, and the current row of a 2D array.",
@@ -505,7 +505,7 @@ ArrayList:  i < list.size()
     missions: [["Cold headers", "Write four traversals from memory.", "No notes used."], ["Cold algorithms", "Sketch accumulator, removal, and 2D scan.", "Core invariants named."], ["Compare", "Use workbook exports to correct.", "Differences highlighted."], ["Target one gap", "Complete one five-minute drill.", "Drill matches weakest category."]],
     checks: [["headers", "Traversal headers", "four structures"], ["patterns", "Algorithm patterns", "accumulate/remove/2D"], ["correction", "Correction evidence", "differences marked"], ["target", "Targeted drill", "weakest gap practiced"]],
     apTransfer: "Explain which of the four structures can change size during traversal and how that affects the loop.",
-    reflection: "What survived nineteen days, and which syntax or invariant disappeared?"
+    reflection: "What survived the time away, and which syntax or invariant disappeared?"
   }),
   unit4Build({
     number: 60, arc: "4E · Retrieval and algorithms", lessonType: "review", topic: "FRQ Question 4", title: "Solve a 2D FRQ under time",
@@ -531,7 +531,7 @@ ArrayList:  i < list.size()
   {
     id: "u4l61", number: 61, unitLesson: 26, lessonType: "assessment", arc: "4E · Retrieval and algorithms",
     topic: "Assessment", title: "Unit 4D test", outcome: "Demonstrate 2D-array creation, traversal, and algorithm reasoning without executing code.",
-    deliverable: "2D array assessment submitted through the classroom system", duration: "75 min",
+    deliverable: "2D array assessment submitted through the classroom system", duration: "1 day · 50 min",
     ap: "Topics 4.11–4.13", source: "Local assessment blueprint; secure questions and keys are not published on this site.",
     assessment: { scope: ["2D creation and access", "Rows versus columns", "Row-major nested loops", "Rectangular arrays", "Row, column, and neighbor algorithms", "Picture/pixel transfer"], conditions: ["Java Quick Reference available", "No compiler or autocomplete", "Show coordinate traces", "Submit through the classroom system"] }
   },
