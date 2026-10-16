@@ -3,8 +3,9 @@
 Two things share this site:
 
 - **The Visible Java workshop** (`index.html`, `processing.html`, `session-1.html`): a free
-  CC Fest Camp for educators, four live online sessions in November–December 2026. Each
-  session runs a sketch, predicts it, changes it, and ports it to standard Java.
+  CC Fest Camp for educators: four workshops and a classroom studio on five Sundays,
+  November 8–December 13, 2026, 7–9 a.m. PT / 10 a.m.–noon ET. Each meeting is a 90-minute
+  core plus 30 optional studio minutes, and every session also works asynchronously.
 - **The AP CS A course** (`course.html` and everything it links to): a full four-unit course,
   paced for five 50-minute periods a week, that the workshop sessions draw on.
 
@@ -23,7 +24,9 @@ tissue is the Java/Processing comparison, translation layer, port exercise, and 
 |---|---|
 | `index.html` | **Workshop home.** Welcome, the run/predict/change/port pattern, the before-Session-1 checklist, the four sessions, and the library. |
 | `processing.html` | **Workshop.** Your first sketch: install Processing, Java mode, Run, first-run problems, and three ways to run plain Java. |
-| `session-1.html` | **Workshop.** Session 1, From sketch to Java: a 110-minute run of show with predictions, missions, port, AP transfer, take-home, and facilitator notes. Files in `downloads/workshop/session-1/`. |
+| `session-1.html` | **Workshop.** Session 1, Make state visible (Sun Nov 8): the template for every session. Eight-block run of show (90-minute core + 30 studio), predictions with answers, supported and extension missions, Java transfer, colleague exchange, exit evidence, an On your own route, and facilitator notes. Files in `downloads/workshop/session-1/`, including an editable student handout and teacher guide. |
+| `session-2.html`–`session-5.html` | **Workshop, in progress.** Make decisions visible (Nov 15), Make objects visible (Nov 22), Make learning transferable (Dec 6), Classroom studio (Dec 13). |
+| `downloads/workshop/visible-java-2026.ics` | Calendar file for the five meetings (15:00–17:00 UTC). |
 | `course.html` | Course start, for students. The gap, what was cut in 2025, where to go next. |
 | `calendar.html` | All 140 class days, week by week, for five 50-minute periods a week. Data in `assets/calendar.js`. |
 | `unit1.html` | Broad Unit 1 overview and workbook dashboard: reference visual, Java anchor, resume state, editor profile, export, and eleven typed lessons. |
@@ -103,7 +106,8 @@ Processing editor, or with Processing's command-line tool (`processing-java --sk
 
 ```bash
 cd downloads/workshop/session-1
-zip -qrX ../session-1-files.zip MovingBall FrameByFrame BouncingBall plain-java -x '.*'
+zip -qrX ../session-1-files.zip MovingBall FrameByFrame MovingBallCheckpoint FallingBall plain-java \
+  session-1-student-handout.md session-1-teacher-guide.md -x '.*'
 ```
 
 ## Verifying and building workbook projects

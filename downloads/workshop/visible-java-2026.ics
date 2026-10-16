@@ -1,0 +1,47 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CC Fest//Visible Java//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Visible Java
+BEGIN:VEVENT
+UID:visible-java-2026-session-1@ccfest.rocks
+DTSTAMP:20261015T000000Z
+DTSTART:20261108T150000Z
+DTEND:20261108T170000Z
+SUMMARY:Visible Java — Session 1: Make state visible
+DESCRIPTION:7–9 a.m. PT / 10 a.m.–noon ET. 90-minute core\, then 30 minutes of optional studio. The meeting link comes by email.
+END:VEVENT
+BEGIN:VEVENT
+UID:visible-java-2026-session-2@ccfest.rocks
+DTSTAMP:20261015T000000Z
+DTSTART:20261115T150000Z
+DTEND:20261115T170000Z
+SUMMARY:Visible Java — Session 2: Make decisions visible
+DESCRIPTION:7–9 a.m. PT / 10 a.m.–noon ET. 90-minute core\, then 30 minutes of optional studio. The meeting link comes by email.
+END:VEVENT
+BEGIN:VEVENT
+UID:visible-java-2026-session-3@ccfest.rocks
+DTSTAMP:20261015T000000Z
+DTSTART:20261122T150000Z
+DTEND:20261122T170000Z
+SUMMARY:Visible Java — Session 3: Make objects visible
+DESCRIPTION:7–9 a.m. PT / 10 a.m.–noon ET. 90-minute core\, then 30 minutes of optional studio. The meeting link comes by email.
+END:VEVENT
+BEGIN:VEVENT
+UID:visible-java-2026-session-4@ccfest.rocks
+DTSTAMP:20261015T000000Z
+DTSTART:20261206T150000Z
+DTEND:20261206T170000Z
+SUMMARY:Visible Java — Session 4: Make learning transferable
+DESCRIPTION:7–9 a.m. PT / 10 a.m.–noon ET. 90-minute core\, then 30 minutes of optional studio. The meeting link comes by email.
+END:VEVENT
+BEGIN:VEVENT
+UID:visible-java-2026-session-5@ccfest.rocks
+DTSTAMP:20261015T000000Z
+DTSTART:20261213T150000Z
+DTEND:20261213T170000Z
+SUMMARY:Visible Java — Session 5: Classroom studio
+DESCRIPTION:7–9 a.m. PT / 10 a.m.–noon ET. 90-minute core\, then 30 minutes of optional studio. The meeting link comes by email.
+END:VEVENT
+END:VCALENDAR
