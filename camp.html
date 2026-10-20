@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CC Fest Camp — Processing for AP Computer Science A</title>
 <meta name="description" content="A free CC Fest Camp for educators who want to teach AP Computer Science A through animation, interaction, visual models, and student-made projects.">
-<link rel="stylesheet" href="assets/site.css?v=20260801d">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@500;600&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=20261019a">
 </head>
 <body>
 
@@ -554,7 +555,7 @@
 <script>
   document.getElementById("theme").addEventListener("click", () => {
     const root = document.documentElement;
-    const dark = getComputedStyle(root).getPropertyValue("--ground").trim() === "#111917";
+    const dark = getComputedStyle(root).getPropertyValue("--scheme").trim() === "dark";
     root.setAttribute("data-theme", dark ? "light" : "dark");
   });
 </script>

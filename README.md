@@ -240,13 +240,21 @@ left-hand column as their own work.
 
 ## Design notes
 
-- Palette is derived from the Processing PDE's own syntax colors: keyword green `#33997E`,
-  function blue `#006699`, literal plum `#7D4793`. Green = the Processing side, blue = the
-  Java side, throughout.
-- Light and dark themes both defined via CSS custom properties in `assets/site.css`.
-  Respects OS preference; the button in the footer of `index.html` overrides it.
-- No web fonts (nothing to load, nothing to break offline). Serif headings, system sans
-  body, mono for code and labels.
+- The look follows the Visible Java design system (https://claude.ai/artifact/4tXdmTExG7MgAs2sRaSUFS):
+  a sketchbook covered in stickers. Pages sit on warm paper with a 24px dot grid; cards,
+  buttons, tags and code panels get a 2px outline and a hard offset shadow.
+- Five hues, each with one job, in three tokens (fill, `-soft` ground, text-safe `-ink`):
+  mint = Processing and the Run move, sun = predictions and the one primary button,
+  grape = objects and the Change move, sky = plain Java and the Port move, coral = traps
+  and errors only. Text on a bright fill is always `--on-fill`. Every text pair passes
+  4.5:1 in both themes. Code colours follow the Processing editor's own palette.
+- Light and dark themes are both defined as custom properties at the top of
+  `assets/site.css`. The site respects the OS preference; the footer button on workshop
+  pages overrides it (scripts read `--scheme`). The older names (`--sketch`, `--console`,
+  `--panel`…) remain as aliases because the canvas scripts read them.
+- Fonts come from Google Fonts: Fredoka for headings and labels, Atkinson Hyperlegible Next
+  for reading, Source Code Pro for code. Each falls back to a system face offline.
+  `teacher.html` skips the web fonts so its strict Content Security Policy stays intact.
 
 ## Deliberate omissions
 

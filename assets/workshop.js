@@ -57,7 +57,7 @@
   if (theme) {
     theme.addEventListener("click", () => {
       const root = document.documentElement;
-      const dark = getComputedStyle(root).getPropertyValue("--ground").trim() === "#111917";
+      const dark = getComputedStyle(root).getPropertyValue("--scheme").trim() === "dark";
       root.setAttribute("data-theme", dark ? "light" : "dark");
     });
   }
