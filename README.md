@@ -251,19 +251,24 @@ left-hand column as their own work.
   the illustration and content structure are specific to Visible Java.
 - Claude's color semantics remain: mint = Processing/Run, sun = prediction/primary action,
   grape = objects/Change, sky = Java/Port, coral = traps/errors. Bright fills use
-  `--on-fill`; quieter surfaces use the text-safe `-ink` colors. Offset shadows and the
-  repeated dot-grid background have been removed to make teaching content easier to scan.
+  `--on-fill`; quieter surfaces use the text-safe `-ink` colors.
+- The playful layer sits on top of that layout, in one block at the end of
+  `assets/site.css` ("Playful skin"): Fredoka headings, sticker buttons and tags (2px
+  outline, pill shape, hard offset shadow), and the dot grid behind each landing hero.
+  Rows, panels and bands keep their thin rules so teaching content stays easy to scan.
+- The logo, `assets/visible-java-icon.svg`, is "Bloom": a grid of dots on a sun tile with
+  three objects popping off it in mint, sky and grape. It is the masthead mark and every
+  page's browser-tab icon.
 - Light/dark themes and compatibility tokens remain in `assets/site.css`. Theme buttons
-  read `--scheme`. Typography uses system sans for display, Atkinson Hyperlegible Next
-  for reading, and Source Code Pro for code, with local fallbacks. `teacher.html` keeps
-  its strict CSP and loads no web fonts.
+  read `--scheme`. Typography uses Fredoka for display, Atkinson Hyperlegible Next
+  for reading, and Source Code Pro for code, all from Google Fonts with local fallbacks.
+  `teacher.html` keeps its strict CSP and loads no web fonts.
 - `assets/studio.js` powers the home illustration. It is a deterministic visual model,
   not a Java compiler. Nothing moves automatically; Step, Reset, and a labeled range
   input control it. Both code excerpts describe the same update rule. Without JavaScript,
   the illustration and Processing excerpt remain visible and inactive controls stay hidden.
-- Browser visual QA is still required for this pass: the browser-control runtime and
-  local Chromium could not start in the current environment. Static verification does
-  not establish responsive layout or keyboard behavior.
+- Browser checks: the landing pages, a session and a workbook lesson have been rendered
+  at desktop width in light and dark, and ten pages at 375px with no sideways scroll.
 
 ## Deliberate omissions
 
