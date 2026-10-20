@@ -1961,3 +1961,41 @@ h1, h2, h3, h4, .logo { font-weight: 600; }
   .studio-page main > section:first-of-type { background-image: none; }
   :is(.camp-button, .reveal-btn, .tag, .chip) { box-shadow: none; }
 }
+
+/* ============================================================
+   Misprint (October 20): the landing headlines carry riso-style
+   ghost plates in pink, aqua and yellow, like colour layers
+   printed slightly out of line. The ghosts sit under crisp ink
+   text and scale with the type (em offsets). They drift for about
+   4.5 seconds when the page opens, then rest as a faint static
+   misprint; hovering the headline plays one more drift. With
+   reduced motion, only the static misprint shows.
+   ============================================================ */
+:root {
+  --riso-pink:   rgb(255 72 176 / .55);
+  --riso-aqua:   rgb(0 169 224 / .5);
+  --riso-yellow: rgb(255 208 0 / .75);
+  --misprint-rest:  -0.02em 0 var(--riso-pink), 0.02em 0.01em var(--riso-aqua), 0.03em -0.01em var(--riso-yellow);
+  --misprint-drift: -0.04em 0.01em var(--riso-pink), 0.035em -0.015em var(--riso-aqua), 0.05em 0.015em var(--riso-yellow);
+  --misprint-swap:  -0.015em -0.015em var(--riso-pink), 0.045em 0.01em var(--riso-aqua), 0.02em 0 var(--riso-yellow);
+}
+:root[data-theme="dark"] { --riso-pink: rgb(255 72 176 / .5); --riso-aqua: rgb(0 169 224 / .55); --riso-yellow: rgb(255 208 0 / .45); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --riso-pink: rgb(255 72 176 / .5); --riso-aqua: rgb(0 169 224 / .55); --riso-yellow: rgb(255 208 0 / .45); }
+}
+.studio-hero h1, .directory-title { text-shadow: var(--misprint-rest); }
+@keyframes vj-misprint {
+  0%, 100% { text-shadow: var(--misprint-rest); }
+  35%      { text-shadow: var(--misprint-drift); }
+  70%      { text-shadow: var(--misprint-swap); }
+}
+@keyframes vj-misprint-again {
+  0%, 100% { text-shadow: var(--misprint-rest); }
+  35%      { text-shadow: var(--misprint-drift); }
+  70%      { text-shadow: var(--misprint-swap); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .studio-hero h1, .directory-title { animation: vj-misprint 1.5s ease-in-out 3; }
+  .studio-hero h1:hover, .directory-title:hover { animation: vj-misprint-again 1.5s ease-in-out 1; }
+}
+@media print { .studio-hero h1, .directory-title { text-shadow: none; } }
