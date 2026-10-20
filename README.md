@@ -22,12 +22,13 @@ tissue is the Java/Processing comparison, translation layer, port exercise, and 
 
 | File | What it is |
 |---|---|
-| `index.html` | **Workshop home.** Welcome, the run/predict/change/port pattern, the before-Session-1 checklist, the four sessions, and the library. |
+| `index.html` | **Workshop home.** Interactive state model, five-session schedule, the four learning moves, and a short preparation checklist. |
 | `processing.html` | **Workshop.** Your first sketch: install Processing, Java mode, Run, first-run problems, and three ways to run plain Java. |
 | `session-1.html` | **Workshop.** Session 1, Make state visible (Sun Nov 8): the template for every session. Eight-block run of show (90-minute core + 30 studio), predictions with answers, supported and extension missions, Java transfer, colleague exchange, exit evidence, an On your own route, and facilitator notes. Files in `downloads/workshop/session-1/`, including an editable student handout and teacher guide. |
 | `session-2.html`–`session-5.html` | **Workshop.** Make decisions visible (Nov 15), Make objects visible (Nov 22), Make learning transferable (Dec 6), and the Classroom studio (Dec 13), all on the Session 1 template. Files in `downloads/workshop/session-2/`–`session-5/`, each with a student handout and teacher guide. |
 | `downloads/workshop/visible-java-2026.ics` | Calendar file for the five meetings (15:00–17:00 UTC). |
-| `course.html` | Course start, for students. The gap, what was cut in 2025, where to go next. |
+| `course.html` | Course entry for students: direct unit routes, first lesson, pacing calendar, and the Processing-to-Java connection. |
+| `library.html` | Task-based directory for comparing, translating, porting, predicting output, and editor setup. |
 | `calendar.html` | All 140 class days, week by week, for five 50-minute periods a week. Data in `assets/calendar.js`. |
 | `unit1.html` | Broad Unit 1 overview and workbook dashboard: reference visual, Java anchor, resume state, editor profile, export, and eleven typed lessons. |
 | `unit1/lesson-01.html`–`lesson-11.html` | Workbook lessons with predictions, verified projects, missions, evidence, AP transfer, optional Processing prompts, review, and assessment shapes. Data in `assets/unit1.js`; behavior in `assets/workbook.js`. |
@@ -46,7 +47,7 @@ tissue is the Java/Processing comparison, translation layer, port exercise, and 
 | `traps.html` | **Original.** 18 predict-the-output problems. |
 | `frq.html` | The four FRQ types, triage of old released questions, how to read a prompt. |
 | `setup.html` | Leaving the PDE: IDEs, keeping graphics, week-one compiler errors. |
-| `camp.html` | CC Fest Camp concept, session arc, sample materials, FAQ, and Google Forms interest form. |
+| `camp.html` | Interest-list entry and FAQ. The form field mapping is preserved; the workshop home owns the schedule. |
 | `tools/create-processing-workshop-form.gs` | Run-once Google Apps Script that creates the interest form and linked response spreadsheet. Named before the program was called CC Fest Camp. |
 
 ### Interest form
@@ -230,8 +231,12 @@ because students copy them directly. The `papplet` version needs Processing's `c
 the classpath and uses `PApplet.main("ClassName")`; note `size()` belongs in `settings()`,
 not `setup()`, when running outside the PDE.
 
-Prose changes are plain HTML in the page files. The nav is duplicated across the pages — if you add one, add the link everywhere.
-Unit pages are not in the top nav; they hang off `path.html`.
+Prose changes are plain HTML. The three primary routes are **Workshop, Course, Library**;
+contextual links sit underneath. The interest-list action appears only in the workshop area.
+Headers are static HTML, so navigation works without JavaScript. After changing navigation
+in `tools/update-navigation.py`, run `python3 tools/update-navigation.py`; use `--check`
+to detect drift without writing. Its page list includes only root HTML and the four known
+lesson directories. Unit pages are reached through `course.html`, `path.html`, and the calendar.
 
 **`port.html` uses real code from last year's sketches** (`Objects_with_arrays_and_nested_loops.pde`
 and the Unit 3 grid project). If you change the Processing course, swap those examples for
@@ -240,26 +245,30 @@ left-hand column as their own work.
 
 ## Design notes
 
-- The look follows the Visible Java design system (https://claude.ai/artifact/4tXdmTExG7MgAs2sRaSUFS):
-  a sketchbook covered in stickers. Pages sit on warm paper with a 24px dot grid; cards,
-  buttons, tags and code panels get a 2px outline and a hard offset shadow.
-- Five hues, each with one job, in three tokens (fill, `-soft` ground, text-safe `-ink`):
-  mint = Processing and the Run move, sun = predictions and the one primary button,
-  grape = objects and the Change move, sky = plain Java and the Port move, coral = traps
-  and errors only. Text on a bright fill is always `--on-fill`. Every text pair passes
-  4.5:1 in both themes. Code colours follow the Processing editor's own palette.
-- Light and dark themes are both defined as custom properties at the top of
-  `assets/site.css`. The site respects the OS preference; the footer button on workshop
-  pages overrides it (scripts read `--scheme`). The older names (`--sketch`, `--console`,
-  `--panel`…) remain as aliases because the canvas scripts read them.
-- Fonts come from Google Fonts: Fredoka for headings and labels, Atkinson Hyperlegible Next
-  for reading, Source Code Pro for code. Each falls back to a system face offline.
-  `teacher.html` skips the web fonts so its strict Content Security Policy stays intact.
+- The current direction is a creative-coding field guide: oversized type, open space,
+  thin rules, numbered lesson rows, and a working state illustration. CC Fest's
+  [current design](https://ccfest.rocks/) is the reference for scale and section rhythm;
+  the illustration and content structure are specific to Visible Java.
+- Claude's color semantics remain: mint = Processing/Run, sun = prediction/primary action,
+  grape = objects/Change, sky = Java/Port, coral = traps/errors. Bright fills use
+  `--on-fill`; quieter surfaces use the text-safe `-ink` colors. Offset shadows and the
+  repeated dot-grid background have been removed to make teaching content easier to scan.
+- Light/dark themes and compatibility tokens remain in `assets/site.css`. Theme buttons
+  read `--scheme`. Typography uses system sans for display, Atkinson Hyperlegible Next
+  for reading, and Source Code Pro for code, with local fallbacks. `teacher.html` keeps
+  its strict CSP and loads no web fonts.
+- `assets/studio.js` powers the home illustration. It is a deterministic visual model,
+  not a Java compiler. Nothing moves automatically; Step, Reset, and a labeled range
+  input control it. Both code excerpts describe the same update rule. Without JavaScript,
+  the illustration and Processing excerpt remain visible and inactive controls stay hidden.
+- Browser visual QA is still required for this pass: the browser-control runtime and
+  local Chromium could not start in the current environment. Static verification does
+  not establish responsive layout or keyboard behavior.
 
 ## Deliberate omissions
 
-- **No code execution.** Bluebook has no Run button either — committing to an answer before
-  revealing it *is* the exam skill. This also drops the heaviest technical dependency.
+- **No Java code execution.** Prediction exercises ask learners to commit before revealing
+  an answer. The homepage has a small JavaScript state illustration, not an editor or compiler.
 - **No hosted PDFs.** Released FRQs and the College Board lab guides are public on AP
   Central — link to those. The textbook PDF and the publisher's lab exercises in
   `AP Computer Science A 26-27/` should stay behind the LMS.
