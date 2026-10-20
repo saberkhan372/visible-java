@@ -1999,3 +1999,85 @@ h1, h2, h3, h4, .logo { font-weight: 600; }
   .studio-hero h1:hover, .directory-title:hover { animation: vj-misprint-again 1.5s ease-in-out 1; }
 }
 @media print { .studio-hero h1, .directory-title { text-shadow: none; } }
+
+/* ============================================================
+   Motion kit (October 20), from Saber's two moshed poster clips:
+   the riso misprint (ghost plates drifting) and the colour cycle
+   (the palette stepping through hues). Every piece is short and
+   tied to a moment: a page opening (under 5 seconds), a heading
+   scrolling into view, or a hover. Nothing loops. Lesson pages
+   only get the logo hover. Reduced motion turns all of it off.
+   ============================================================ */
+@property --dot-tint {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #ead9b6;
+}
+.studio-page main > section:first-of-type {
+  --dot-tint: var(--grid-dot);
+  background-image: radial-gradient(circle, var(--dot-tint) 1.5px, transparent 1.75px);
+}
+
+/* 1. Colour cycle: the hero's dot grid steps through the four move colours once. */
+@keyframes vj-dot-cycle {
+  0%   { --dot-tint: var(--mint); }
+  25%  { --dot-tint: var(--sun); }
+  50%  { --dot-tint: var(--grape); }
+  75%  { --dot-tint: var(--sky); }
+  100% { --dot-tint: var(--grid-dot); }
+}
+
+/* 2. Colour cycle: the logo steps around the colour wheel on hover or focus. */
+@keyframes vj-hue-cycle {
+  from { filter: hue-rotate(0deg); }
+  to   { filter: hue-rotate(360deg); }
+}
+
+/* 3. Colour cycle: a row's number steps through the move colours on hover. */
+@keyframes vj-number-cycle {
+  0%, 100% { color: var(--mint-ink); }
+  25% { color: var(--sun-ink); }
+  50% { color: var(--grape-ink); }
+  75% { color: var(--sky-ink); }
+}
+
+/* 4. Misprint: section headings come into register as they scroll into view. */
+@keyframes vj-misprint-in {
+  0%   { text-shadow: var(--misprint-drift); }
+  55%  { text-shadow: var(--misprint-swap); }
+  100% { text-shadow: 0 0 transparent, 0 0 transparent, 0 0 transparent; }
+}
+
+/* 5. The four moves' colour bars draw in as the band scrolls into view. */
+@keyframes vj-bar-in {
+  from { background-size: 0% 3px; }
+  to   { background-size: 100% 3px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .studio-page main > section:first-of-type { animation: vj-dot-cycle 2.4s steps(1, jump-end) 0.3s both; }
+  .logo:hover::before, .logo:focus-visible::before { animation: vj-hue-cycle 1.2s steps(6, jump-start) 1; }
+  .session-index a:hover .index-number, .session-index a:focus-visible .index-number,
+  .resource-index > a:hover .index-number, .resource-index > a:focus-visible .index-number {
+    animation: vj-number-cycle 0.9s steps(1, jump-end) 1;
+  }
+  @supports (animation-timeline: view()) {
+    .section-intro h2, .route-grid h2 {
+      animation: vj-misprint-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+    .method-sequence li {
+      border-top-color: transparent;
+      background: linear-gradient(var(--bar), var(--bar)) top left / 0% 3px no-repeat border-box;
+      animation: vj-bar-in linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
+    .method-sequence li:nth-child(1) { --bar: var(--mint); }
+    .method-sequence li:nth-child(2) { --bar: var(--sun);   animation-range: entry 10% cover 34%; }
+    .method-sequence li:nth-child(3) { --bar: var(--grape); animation-range: entry 10% cover 38%; }
+    .method-sequence li:nth-child(4) { --bar: var(--sky);   animation-range: entry 10% cover 42%; }
+  }
+}
+@media print { .studio-page main > section:first-of-type { background-image: none; animation: none; } }

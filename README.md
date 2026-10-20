@@ -259,6 +259,14 @@ left-hand column as their own work.
 - The logo, `assets/visible-java-icon.svg`, is "Bloom": a grid of dots on a sun tile with
   three objects popping off it in mint, sky and grape. It is the masthead mark and every
   page's browser-tab icon.
+- Motion comes from two effects, a riso misprint (pink, aqua and yellow ghost plates) and a
+  colour cycle (the palette stepping through hues), and every piece is short and tied to a
+  moment: the landing headlines drift for about 4.5 seconds on load, the hero dot grid steps
+  once through the move colours, section headings come into register as they scroll in, the
+  four moves' colour bars draw in, and the logo and numbered rows cycle colour on hover.
+  Nothing loops, lessons stay still apart from the logo, and `prefers-reduced-motion` turns
+  all of it off. The rules are the "Misprint" and "Motion kit" blocks at the end of
+  `assets/site.css`.
 - Light/dark themes and compatibility tokens remain in `assets/site.css`. Theme buttons
   read `--scheme`. Typography uses Fredoka for display, Atkinson Hyperlegible Next
   for reading, and Source Code Pro for code, all from Google Fonts with local fallbacks.
