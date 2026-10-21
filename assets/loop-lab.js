@@ -142,11 +142,14 @@
       output: lab.querySelector("[data-output]"),
       verdict: lab.querySelector("[data-verdict]"),
       countsWrap: lab.querySelector("[data-counts-wrap]"),
-      counts: lab.querySelector("[data-counts]")
+      counts: lab.querySelector("[data-counts]"),
+      passTable: lab.querySelector("[data-pass-table]")
     };
-    let plan = null;     // { n, rows: [{spaces, stars, rawSpaces, rawStars}], events, target }
+    let plan = null;     // { n, rows: [{spaces, stars, rawSpaces, rawStars, begin, starsAt}], events, target }
     let cursor = 0;      // events already printed
     let timer = null;
+    let passRows = [];   // trace table cells, one entry per pass plus the final check
+    const guesses = { s: {}, k: {} };  // predictions typed into the trace table, by row
 
     const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
 
@@ -165,10 +168,13 @@
           const rawSpaces = spacesFn(env), rawStars = starsFn(env);
           const spaces = Math.max(0, rawSpaces), stars = Math.max(0, rawStars);
           if (spaces + stars > MAX_WIDTH) throw new Error(`Row ${r} would be ${spaces + stars} characters wide. Keep each row to ${MAX_WIDTH} or fewer.`);
-          rows.push({ spaces, stars, rawSpaces, rawStars });
+          /* begin: this row's first print. starsAt: the print that shows the star loop has started. */
+          const begin = events.length;
           for (let s = 1; s <= spaces; s += 1) events.push({ kind: "space", row: r, i: s, of: spaces });
+          const starsAt = events.length;
           for (let k = 1; k <= stars; k += 1) events.push({ kind: "star", row: r, i: k, of: stars });
           events.push({ kind: "newline", row: r });
+          rows.push({ spaces, stars, rawSpaces, rawStars, begin, starsAt });
         }
         plan = { n, rows, events, target };
         ui.error.hidden = true;
@@ -180,6 +186,7 @@
       cursor = 0;
       renderCode();
       renderCounts();
+      buildPassTable();
       render();
     }
 
@@ -230,6 +237,104 @@
       const thead = el("thead"); thead.append(head);
       const tbody = el("tbody"); tbody.append(...body);
       ui.counts.replaceChildren(thead, tbody);
+    }
+
+    /* Trace table: a row per check of row <= ROWS. Each count stays a blank to predict
+       until its inner loop starts, then shows the value the expression gave. */
+    function buildPassTable() {
+      passRows = [];
+      if (!plan) { ui.passTable.replaceChildren(); return; }
+      const caption = el("caption", "sr-only", "Trace table: one row per pass of the outer loop");
+      const head = el("tr");
+      head.append(el("th", null, "row"), el("th", null, "row <= ROWS"));
+      [["spaces", ui.spaces.value], ["stars", ui.stars.value]].forEach(([label, expr]) => {
+        const th = el("th", null, label);
+        th.append(el("code", "trace-expr", expr.trim()));
+        head.append(th);
+      });
+      const thead = el("thead"); thead.append(head);
+      const tbody = el("tbody");
+      for (let r = 1; r <= plan.n + 1; r += 1) {
+        const tr = el("tr");
+        tr.append(el("th", null, String(r)));
+        const cond = el("td");
+        tr.append(cond);
+        if (r > plan.n) {
+          const end = el("td", "trace-end");
+          end.colSpan = 2;
+          tr.append(end);
+          passRows.push({ tr, cond, end });
+        } else {
+          const sp = el("td"), st = el("td");
+          tr.append(sp, st);
+          passRows.push({ tr, cond, sp, st });
+        }
+        tbody.append(tr);
+      }
+      ui.passTable.replaceChildren(caption, thead, tbody);
+    }
+
+    /* Only touch a cell when what it shows changes, so a half-typed prediction keeps focus. */
+    function setCell(cell, state, fill) {
+      if (cell.dataset.state === state) return;
+      cell.dataset.state = state;
+      fill();
+    }
+
+    function countCell(cell, r, key, raw, count) {
+      const label = key === "s" ? "spaces" : "stars";
+      if (raw === null) {
+        setCell(cell, "blank", () => {
+          cell.className = "trace-blank";
+          const input = el("input", "trace-guess");
+          input.type = "text";
+          input.inputMode = "numeric";
+          input.autocomplete = "off";
+          input.spellcheck = false;
+          input.value = guesses[key][r] || "";
+          input.setAttribute("aria-label", `Predict ${label} for row ${r}`);
+          input.addEventListener("input", () => { guesses[key][r] = input.value.trim(); });
+          cell.replaceChildren(input);
+        });
+        return;
+      }
+      const guess = guesses[key][r] || "";
+      setCell(cell, `${raw}|${guess}`, () => {
+        cell.className = "";
+        const parts = [el("span", raw < 0 ? "trace-none" : null, String(raw))];
+        if (raw < 0) parts.push(el("span", "trace-note", ` (runs ${count} times)`));
+        if (guess) {
+          const ok = Number(guess) === raw || Number(guess) === count;
+          parts.push(ok ? el("span", "trace-ok", " ✓") : el("span", "trace-miss", ` you said ${guess}`));
+          if (ok) parts[parts.length - 1].append(el("span", "sr-only", " matches your prediction"));
+        }
+        cell.replaceChildren(...parts);
+      });
+    }
+
+    function renderPassTable(nowRow) {
+      if (!plan) return;
+      const finished = cursor >= plan.events.length;
+      passRows.forEach((ref, idx) => {
+        const r = idx + 1;
+        ref.tr.classList.toggle("is-now", r === nowRow);
+        if (ref.end) {
+          setCell(ref.cond, finished ? "false" : "", () => {
+            ref.cond.className = finished ? "trace-false" : "";
+            ref.cond.textContent = finished ? "false" : "";
+          });
+          setCell(ref.end, finished ? "end" : "", () => { ref.end.textContent = finished ? "the loop ends" : ""; });
+          return;
+        }
+        const row = plan.rows[idx];
+        const started = cursor > row.begin;
+        setCell(ref.cond, started ? "true" : "", () => {
+          ref.cond.className = started ? "trace-true" : "";
+          ref.cond.textContent = started ? "true" : "";
+        });
+        countCell(ref.sp, r, "s", started ? row.rawSpaces : null, row.spaces);
+        countCell(ref.st, r, "k", cursor > row.starsAt ? row.rawStars : null, row.stars);
+      });
     }
 
     function segment(spaces, stars, dots) {
@@ -301,6 +406,7 @@
 
       /* Trace line and code highlight for the last print. */
       const last = cursor > 0 ? plan.events[cursor - 1] : null;
+      renderPassTable(!last ? null : cursor >= plan.events.length ? plan.n + 1 : last.row);
       const totals = printed.reduce((a, p) => ({ s: a.s + p.spaces, k: a.k + p.stars, n: a.n + (p.done ? 1 : 0) }), { s: 0, k: 0, n: 0 });
       if (!last) {
         ui.trace.textContent = "Ready. Predict the first row, then step through it.";
@@ -373,36 +479,148 @@
   const counter = document.querySelector("[data-count-lab]");
   if (counter) {
     const MAX_PASSES = 10000;
+    const MAX_STEPS = 10000;    // runs of one multiplying or dividing loop
+    const MAX_WORK = 2000000;   // loop steps stepped through for one count
     const SHOW_ROWS = 30;
     const SHOW_DOTS = 50;
+    const COMPARE = {
+      "<": (v, b) => v < b, "<=": (v, b) => v <= b, ">": (v, b) => v > b, ">=": (v, b) => v >= b, "!=": (v, b) => v !== b
+    };
+    const PRESETS = {
+      grid: ["1", "<=", "50", "x++", "1", "<=", "20", "y++"],
+      triangle: ["1", "<=", "10", "x++", "1", "<=", "x", "y++"],
+      shrinking: ["1", "<=", "4", "x++", "x", "<=", "4", "y++"],
+      zero: ["0", "<", "10", "x++", "0", "<", "x", "y++"],
+      down: ["10", ">", "0", "x--", "1", "<=", "x", "y++"],
+      doubling: ["1", "<", "100", "x *= 2", "1", "<=", "3", "y++"],
+      skips: ["0", "!=", "10", "x += 3", "1", "<=", "2", "y++"]
+    };
     const ui = {
       a: counter.querySelector("[data-a]"),
+      opA: counter.querySelector("[data-op-a]"),
       b: counter.querySelector("[data-b]"),
+      stepA: counter.querySelector("[data-step-a]"),
       c: counter.querySelector("[data-c]"),
+      opC: counter.querySelector("[data-op-c]"),
       d: counter.querySelector("[data-d]"),
+      stepC: counter.querySelector("[data-step-c]"),
       error: counter.querySelector("[data-count-error]"),
       guess: counter.querySelector("[data-guess]"),
+      never: counter.querySelector("[data-never]"),
       guessError: counter.querySelector("[data-guess-error]"),
       check: counter.querySelector("[data-check]"),
       show: counter.querySelector("[data-show]"),
       result: counter.querySelector("[data-result]"),
       field: counter.querySelector("[data-dots-field]")
     };
+    const fields = [ui.a, ui.opA, ui.b, ui.stepA, ui.c, ui.opC, ui.d, ui.stepC];
     let model = null;
+
+    /* A for-loop update (x++, x--, x += 2, x = x * 2 …) as { kind, by, text }.
+       kind is add, mul or div; by gives the amount, and may use x in the inner loop. */
+    function parseUpdate(src, v, names) {
+      const s = String(src).trim().replace(/;\s*$/, "").trim();
+      if (!s) throw new Error(`Write an update for ${v}, like ${v}++.`);
+      const named = (name, step) => {
+        if (name !== v) throw new Error(`This update has to change ${v}, not ${name}.`);
+        return { ...step, text: s };
+      };
+      const step = (op, fn) => (op === "+" ? { kind: "add", by: fn }
+        : op === "-" ? { kind: "add", by: (env) => -fn(env) }
+        : op === "*" ? { kind: "mul", by: fn }
+        : { kind: "div", by: fn });
+      let m = s.match(/^([A-Za-z_]\w*)\s*(\+\+|--)$/) || s.match(/^(\+\+|--)\s*([A-Za-z_]\w*)$/);
+      if (m) {
+        const prefix = m[1] === "++" || m[1] === "--";
+        const up = (prefix ? m[1] : m[2]) === "++";
+        return named(prefix ? m[2] : m[1], { kind: "add", by: () => (up ? 1 : -1) });
+      }
+      m = s.match(/^([A-Za-z_]\w*)\s*([-+*/])=\s*(.+)$/);
+      if (m) return named(m[1], step(m[2], compile(m[3], names)));
+      m = s.match(/^([A-Za-z_]\w*)\s*=\s*([A-Za-z_]\w*)\s*([-+*/])\s*(.+)$/);
+      if (m && m[1] === m[2]) return named(m[1], step(m[3], compile(m[4], names)));
+      throw new Error(`Write the update like ${v}++, ${v} += 2 or ${v} *= 2.`);
+    }
+
+    const next = (v, kind, by) => (kind === "add" ? (v + by) | 0 : kind === "mul" ? Math.imul(v, by) : Math.trunc(v / by) | 0);
+
+    /* How many times one loop runs: for (v = start; v OP bound; update), with Java's int rules.
+       Adding loops are counted with arithmetic; multiplying and dividing ones are stepped,
+       watching for a value that repeats (then the loop can never stop). */
+    function runs(start, op, bound, kind, by, work) {
+      const test = COMPARE[op];
+      if (!test(start, bound)) return { count: 0, first: start, last: start, end: start };
+      if (kind === "div" && by === 0) throw new Error("That update divides by zero. Java would stop with an ArithmeticException.");
+      if (kind === "add") {
+        if (by === 0) return { forever: "stuck", at: start };
+        let count;
+        if (op === "<" || op === "<=") {
+          if (by < 0) return { forever: "away" };
+          count = Math.floor(((op === "<=" ? bound : bound - 1) - start) / by) + 1;
+        } else if (op === ">" || op === ">=") {
+          if (by > 0) return { forever: "away" };
+          count = Math.floor((start - (op === ">=" ? bound : bound + 1)) / -by) + 1;
+        } else {
+          const gap = bound - start;
+          if (gap % by !== 0 || gap / by < 0) return { forever: "skips", seq: [0, 1, 2, 3].map((i) => start + i * by) };
+          count = gap / by;
+        }
+        return { count, first: start, last: start + (count - 1) * by, end: start + count * by };
+      }
+      const seen = new Set();
+      let v = start, last = start;
+      while (test(v, bound)) {
+        if (seen.has(v)) return { forever: v === last ? "stuck" : "cycle", at: v, seq: [...seen].slice(0, 4) };
+        if (seen.size >= MAX_STEPS) return { forever: "long" };
+        work.steps += 1;
+        if (work.steps > MAX_WORK) throw new Error("That’s more work than this lab will step through. Try smaller numbers.");
+        seen.add(v);
+        last = v;
+        v = next(v, kind, by);
+      }
+      return { count: seen.size, first: start, last, end: v };
+    }
+
+    /* Both loops: each pass of the outer loop, and how many times the inner body runs on it.
+       A loop that never stops still gets its first passes, so there is something to draw. */
+    function simulate(spec) {
+      const { outer, inner } = spec;
+      const work = { steps: 0 };
+      const byA = outer.step.by({});
+      const head = runs(outer.start, outer.op, outer.bound, outer.step.kind, byA, work);
+      const limit = head.forever ? SHOW_ROWS : head.count;
+      if (limit > MAX_PASSES) throw new Error(`That outer loop runs ${limit.toLocaleString()} times. Keep it to ${MAX_PASSES.toLocaleString()} or fewer.`);
+      const passes = [];
+      let x = outer.start;
+      for (let i = 0; i < limit && COMPARE[outer.op](x, outer.bound); i += 1) {
+        const env = { x };
+        const lo = inner.startFn(env), hi = inner.boundFn(env);
+        const run = runs(lo, inner.op, hi, inner.step.kind, inner.step.by(env), work);
+        if (run.forever) return { passes, forever: { ...run, loop: "inner", x, start: lo, bound: hi } };
+        passes.push({ x, count: run.count, first: run.first, last: run.last, end: run.end, bound: hi });
+        x = next(x, outer.step.kind, byA);
+      }
+      if (head.forever) return { passes, forever: { ...head, loop: "outer", start: outer.start, bound: outer.bound } };
+      return { passes, total: passes.reduce((sum, p) => sum + p.count, 0), end: head.end };
+    }
 
     function compute() {
       try {
-        const a = compile(ui.a.value, [])({});
-        const b = compile(ui.b.value, [])({});
-        const cFn = compile(ui.c.value, ["x"]);
-        const dFn = compile(ui.d.value, ["x"]);
-        const passes = [];
-        if (b - a + 1 > MAX_PASSES) throw new Error(`That outer loop runs ${(b - a + 1).toLocaleString()} times. Keep it to ${MAX_PASSES.toLocaleString()} or fewer.`);
-        for (let x = a; x <= b; x += 1) {
-          const lo = cFn({ x }), hi = dFn({ x });
-          passes.push({ x, count: Math.max(0, hi - lo + 1) });
-        }
-        model = { a, b, passes, total: passes.reduce((sum, p) => sum + p.count, 0) };
+        const spec = {
+          outer: {
+            start: compile(ui.a.value, [])({}),
+            op: ui.opA.value,
+            bound: compile(ui.b.value, [])({}),
+            step: parseUpdate(ui.stepA.value, "x", [])
+          },
+          inner: {
+            startFn: compile(ui.c.value, ["x"]),
+            op: ui.opC.value,
+            boundFn: compile(ui.d.value, ["x"]),
+            step: parseUpdate(ui.stepC.value, "y", ["x"])
+          }
+        };
+        model = { spec, ...simulate(spec) };
         ui.error.hidden = true;
       } catch (err) {
         model = null;
@@ -414,9 +632,28 @@
       ui.field.hidden = true;
     }
 
+    /* Why a loop never stops, using the values it actually takes. */
+    function whyForever(f) {
+      const outer = f.loop === "outer";
+      const v = outer ? "x" : "y";
+      const { op, step } = outer ? model.spec.outer : model.spec.inner;
+      const cond = `${v} ${op} ${f.bound}`;
+      const where = outer ? "" : `On the pass where x = ${f.x}, `;
+      let why;
+      if (f.forever === "away") why = `${v} starts at ${f.start} and ${step.text} moves it away from ${f.bound}, so ${cond} stays true.`;
+      else if (f.forever === "skips") why = `${v} goes ${f.seq.join(", ")}, … and never equals ${f.bound}, so ${cond} stays true.`;
+      else if (f.forever === "stuck") why = `${v} reaches ${f.at}, and ${step.text} leaves it at ${f.at}, so ${cond} stays true.`;
+      else if (f.forever === "cycle") why = `${v} keeps cycling through ${f.seq.join(", ")}, …, so ${cond} stays true.`;
+      else why = `${cond} is still true after ${MAX_STEPS.toLocaleString()} runs, so as far as this lab can tell it never stops.`;
+      const strictly = f.forever === "away" || f.forever === "skips"
+        ? " (Strictly, Java’s int would eventually overflow and wrap around, which could end it hundreds of millions of passes later. Treat it as an infinite loop.)" : "";
+      return `${where}${why} The ${outer ? "outer" : "inner"} loop never stops.${strictly}`;
+    }
+
     function explain() {
-      const { passes, total } = model;
-      if (!passes.length) return "The outer loop’s condition is false from the start, so neither loop body runs.";
+      const { passes, total, forever, spec } = model;
+      if (forever) return whyForever(forever);
+      if (!passes.length) return `x starts at ${spec.outer.start}, and ${spec.outer.start} ${spec.outer.op} ${spec.outer.bound} is false, so neither loop body runs.`;
       const same = passes.every((p) => p.count === passes[0].count);
       if (same) {
         return `${plural(passes.length, "pass", "passes")} of the outer loop × ${plural(passes[0].count, "run", "runs")} of the inner loop each = ${total.toLocaleString()}.`;
@@ -426,16 +663,112 @@
       return `The inner loop runs a different number of times on each pass: ${shown} = ${total.toLocaleString()}.`;
     }
 
+    /* The first few values a loop variable takes, for messages. */
+    function values(start, op, bound, kind, by) {
+      const out = [];
+      let v = start;
+      while (out.length < 4 && COMPARE[op](v, bound)) { out.push(v); v = next(v, kind, by); }
+      return out.join(", ") + (COMPARE[op](v, bound) ? ", …" : "");
+    }
+
+    /* A wrong count usually matches a common slip. Return the first slip that gives this guess. */
+    function diagnose(guess) {
+      const { passes, total, spec, end } = model;
+      const P = passes.length;
+      if (!P) return null;
+      const { outer, inner } = spec;
+      const counts = passes.map((p) => p.count);
+      const same = counts.every((c) => c === counts[0]);
+      const first = passes[0], last = passes[P - 1];
+      const sample = passes.find((p) => p.count > 0);
+      const slips = [];
+      const slip = (value, text) => { if (value !== total) slips.push([value, text]); };
+
+      slip(P, `${P} is how many passes the outer loop makes. The inner loop runs on every one of those passes, so count its runs too.`);
+      if (same && P > 1) {
+        const c = counts[0];
+        slip(c, `${c} is one pass of the inner loop. The outer loop makes ${plural(P, "pass", "passes")}, so it’s ${P} × ${c}.`);
+        slip(P + c, `Adding the two loops gives ${P} + ${c}, but the inner loop runs ${plural(c, "time", "times")} on each of the ${P} passes, so multiply: ${P} × ${c}.`);
+        if (sample) {
+          const ends = `x runs ${first.x} through ${last.x}, and y runs ${sample.first} through ${sample.last}.`;
+          slip((P - 1) * (c - 1), `That’s ${P - 1} × ${c - 1}, one short on both loops. Count both ends: ${ends}`);
+          slip((P + 1) * (c + 1), `That’s ${P + 1} × ${c + 1}, one too many on both loops. Count only the values that pass the test: ${ends}`);
+        }
+      } else if (!same) {
+        [first.count, last.count, Math.max(...counts)].forEach((k) => slip(P * k, `${P} × ${k} treats every pass alike, but the inner loop’s bounds use x, so each pass runs a different number of times. Add the passes up instead.`));
+      }
+      slip(total - last.count, `One pass short. The outer loop also runs for x = ${last.x}, because ${last.x} ${outer.op} ${outer.bound} is still true.`);
+      slip(total - first.count, `One pass short. The outer loop starts at x = ${first.x}, and that pass counts too.`);
+      try {
+        const env = { x: end };
+        const extra = runs(inner.startFn(env), inner.op, inner.boundFn(env), inner.step.kind, inner.step.by(env), { steps: 0 });
+        if (!extra.forever && extra.count > 0) slip(total + extra.count, `One pass too many. The outer loop stops at x = ${end}, because ${end} ${outer.op} ${outer.bound} is false.`);
+      } catch (err) { /* that extra pass can’t be counted, so there’s nothing to compare */ }
+      if (sample) {
+        const ran = passes.filter((p) => p.count > 0).length;
+        slip(total - ran, `One run short on each pass. For x = ${sample.x}, the inner loop runs for y = ${sample.first} through ${sample.last}: ${plural(sample.count, "time", "times")}, counting both ends.`);
+        slip(total + P, `One run too many on each pass. For x = ${sample.x}, the inner loop stops at y = ${sample.end}, because ${sample.end} ${inner.op} ${sample.bound} is false.`);
+      }
+
+      /* Counting by ones when the update jumps. */
+      const byOne = (op, step, env) => {
+        const up = op === "<" || op === "<=" || (op === "!=" && (step.kind === "mul" || (step.kind === "add" && step.by(env) > 0)));
+        return { kind: "add", by: () => (up ? 1 : -1), text: "" };
+      };
+      const unit = (step, env) => step.kind === "add" && Math.abs(step.by(env)) === 1;
+      if (!unit(outer.step, {})) {
+        try {
+          const alt = simulate({ outer: { ...outer, step: byOne(outer.op, outer.step, {}) }, inner });
+          const xs = passes.slice(0, 4).map((p) => p.x).join(", ") + (P > 4 ? ", …" : "");
+          if (!alt.forever) slip(alt.total, `That’s the count if x changed by 1 each pass. With ${outer.step.text}, x goes ${xs}${xs.endsWith("…") ? "" : "."}`);
+        } catch (err) { /* no by-ones version to compare */ }
+      }
+      if (sample && !unit(inner.step, { x: sample.x })) {
+        try {
+          const alt = simulate({ outer, inner: { ...inner, step: byOne(inner.op, inner.step, { x: sample.x }) } });
+          const ys = values(sample.first, inner.op, sample.bound, inner.step.kind, inner.step.by({ x: sample.x }));
+          if (!alt.forever) slip(alt.total, `That’s the count if y changed by 1 each time. With ${inner.step.text}, it jumps: for x = ${sample.x}, y goes ${ys}${ys.endsWith("…") ? "" : "."}`);
+        } catch (err) { /* no by-ones version to compare */ }
+      }
+      const hit = slips.find(([value]) => value === guess);
+      return hit ? hit[1] : null;
+    }
+
     function reveal(guess) {
       if (!model) return;
-      const { total } = model;
+      const { total, forever, passes, spec } = model;
+      const times = forever ? "" : plural(total, "time", "times");
       const head = el("p", "lab-result-head");
-      if (guess == null) head.textContent = `It prints Hi ${plural(total, "time", "times")}.`;
-      else if (guess === total) head.textContent = `Correct. It prints Hi ${plural(total, "time", "times")}.`;
-      else head.textContent = `Not quite. It prints Hi ${plural(total, "time", "times")}; you said ${guess.toLocaleString()}.`;
-      ui.result.replaceChildren(head, el("p", null, explain()));
+      let note = null;
+      if (forever) {
+        if (guess == null) head.textContent = "This loop never stops.";
+        else if (guess === "never") head.textContent = "Correct. This loop never stops.";
+        else head.textContent = `Not quite. This loop never stops; you said ${guess.toLocaleString()}.`;
+      } else if (guess == null) {
+        head.textContent = `It prints Hi ${times}.`;
+      } else if (guess === "never") {
+        head.textContent = `It does stop. It prints Hi ${times}.`;
+        const { outer } = spec;
+        note = ["Why it stops: ", passes.length
+          ? `x reaches ${model.end}, and ${model.end} ${outer.op} ${outer.bound} is false, so the outer loop ends after ${plural(passes.length, "pass", "passes")}.`
+          : `${outer.start} ${outer.op} ${outer.bound} is false from the start, so the loop never begins.`];
+      } else if (guess === total) {
+        head.textContent = `Correct. It prints Hi ${times}.`;
+      } else {
+        head.textContent = `Not quite. It prints Hi ${times}; you said ${guess.toLocaleString()}.`;
+        const slip = diagnose(guess);
+        if (slip) note = ["Likely mistake: ", slip];
+        else if (passes.length) note = ["Try this: ", `write down the first and last values of x (${passes[0].x} and ${passes[passes.length - 1].x}), and how many times the inner loop runs on each of those passes. Then decide whether to multiply or add.`];
+      }
+      const parts = [head, el("p", null, explain())];
+      if (note) {
+        const p = el("p", "lab-mistake");
+        p.append(el("strong", null, note[0]), document.createTextNode(note[1]));
+        parts.push(p);
+      }
+      ui.result.replaceChildren(...parts);
 
-      const rows = model.passes.slice(0, SHOW_ROWS).map((p, i) => {
+      const rows = passes.slice(0, SHOW_ROWS).map((p, i) => {
         const row = el("div", "lab-dot-row");
         row.style.setProperty("--i", String(i));
         row.append(el("span", "x", `x = ${p.x}`));
@@ -444,16 +777,24 @@
         row.append(el("span", "n", p.count.toLocaleString()));
         return row;
       });
-      if (model.passes.length > SHOW_ROWS) rows.push(el("p", "lab-more", `…and ${plural(model.passes.length - SHOW_ROWS, "more pass", "more passes")}.`));
+      if (forever && forever.loop === "inner" && rows.length < SHOW_ROWS) {
+        const row = el("div", "lab-dot-row");
+        row.style.setProperty("--i", String(rows.length));
+        row.append(el("span", "x", `x = ${forever.x}`), el("span", "d", "●".repeat(SHOW_DOTS)), el("span", "n", "∞"));
+        rows.push(row);
+      }
+      if (forever) rows.push(el("p", "lab-more", "…and it never stops."));
+      else if (passes.length > SHOW_ROWS) rows.push(el("p", "lab-more", `…and ${plural(passes.length - SHOW_ROWS, "more pass", "more passes")}.`));
       ui.field.replaceChildren(...rows);
       ui.field.setAttribute("aria-hidden", "true");
-      ui.field.hidden = false;
+      ui.field.hidden = !rows.length;
     }
 
     ui.check.addEventListener("click", () => {
+      if (ui.never.checked) { ui.guessError.hidden = true; reveal("never"); return; }
       const raw = ui.guess.value.trim();
       if (raw === "" || !Number.isInteger(Number(raw))) {
-        ui.guessError.textContent = "Enter a whole number first, or choose Just show me.";
+        ui.guessError.textContent = "Enter a whole number or tick It never stops, or choose Just show me.";
         ui.guessError.hidden = false;
         ui.guess.focus();
         return;
@@ -463,15 +804,16 @@
     });
     ui.show.addEventListener("click", () => { ui.guessError.hidden = true; reveal(null); });
     ui.guess.addEventListener("input", () => { ui.guessError.hidden = true; });
+    ui.never.addEventListener("change", () => { ui.guess.disabled = ui.never.checked; ui.guessError.hidden = true; });
     counter.querySelectorAll("[data-preset]").forEach((button) => {
       button.addEventListener("click", () => {
-        const [a, b, c, d] = button.dataset.preset.split(",");
-        ui.a.value = a; ui.b.value = b; ui.c.value = c; ui.d.value = d;
+        PRESETS[button.dataset.preset].forEach((value, i) => { fields[i].value = value; });
         ui.guess.value = "";
+        ui.guess.disabled = ui.never.checked = false;
         compute();
       });
     });
-    [ui.a, ui.b, ui.c, ui.d].forEach((input) => input.addEventListener("input", compute));
+    fields.forEach((input) => input.addEventListener("input", compute));
     compute();
   }
 })();

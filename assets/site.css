@@ -2141,8 +2141,8 @@ h1, h2, h3, h4, .logo { font-weight: 600; }
 .lab-counts summary { cursor: pointer; font-weight: 700; }
 .lab-counts summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
 .lab-counts p { margin-top: var(--space-2); font-size: 15px; line-height: 24px; color: var(--ink-soft); }
-.lab-table-wrap { overflow-x: auto; }
-.lab-counts table { margin-top: var(--space-2); border-collapse: collapse; font: 400 15px/22px var(--font-mono); }
+.lab-table-wrap { position: relative; overflow-x: auto; }
+.lab-counts table { width: auto; margin-top: var(--space-2); border-collapse: collapse; font: 400 15px/22px var(--font-mono); }
 .lab-counts th, .lab-counts td { padding: 4px 14px; text-align: right; border: 1px solid var(--hairline); }
 .lab-counts th { font: 600 13px/18px var(--font-display); color: var(--ink-soft); }
 
@@ -2171,3 +2171,63 @@ h1, h2, h3, h4, .logo { font-weight: 600; }
   .lab, .lab-count { grid-template-columns: minmax(0, 1fr); }
   .lab-controls, .lab-code, .lab-run { grid-column: 1; grid-row: auto; }
 }
+
+/* ============ Loop lab · while-loop tracer ============ */
+.trace-group { display: flex; flex-direction: column; gap: var(--space-2); margin: 0; padding: 0; border: 0; min-width: 0; }
+.trace-group legend { padding: 0; margin-bottom: 6px; font-weight: 700; font-size: 15px; line-height: 22px; color: var(--ink); }
+.trace-group > input, .trace-decl input, .trace-inline input {
+  box-sizing: border-box; min-height: 40px; padding: 6px 10px; min-width: 0;
+  font: 400 15px/1.4 var(--font-mono); color: var(--ink); background: var(--card);
+  border: var(--stroke-2) solid var(--outline); border-radius: var(--radius-md);
+}
+.trace-decl { display: grid; grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr) auto; align-items: center; gap: 6px; }
+.trace-decl code, .trace-inline code { padding: 0; background: none; font-size: 15px; font-weight: 400; }
+.trace-inline { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 6px; font-weight: 400; }
+.lab-hint { margin: 0; font-size: 14px; line-height: 22px; color: var(--ink-soft); }
+.trace-predict { max-width: 360px; }
+.trace-predict input { max-width: 140px; }
+.trace-table { width: auto; border-collapse: collapse; font: 400 15px/22px var(--font-mono); color: var(--ink); }
+.trace-table th, .trace-table td { padding: 5px 14px; text-align: right; border: 1px solid var(--hairline); white-space: pre; }
+.trace-table thead th { font: 600 13px/18px var(--font-display); color: var(--ink-soft); text-align: right; background: var(--sunken); }
+.trace-table tbody th { font-weight: 400; color: var(--code-gutter); }
+.trace-table .trace-true { color: var(--mint-ink); }
+.trace-table .trace-false { color: var(--coral-ink); font-weight: 600; }
+.trace-table .trace-none { color: var(--ink-soft); }
+.trace-table .is-changed { font-weight: 700; }
+.trace-table .is-latest { background: var(--sun-soft); }
+.trace-table .trace-printed { text-align: left; color: var(--sky-ink); }
+.trace-table tr.is-start td, .trace-table tr.is-start th { color: var(--ink-soft); }
+.trace-output { display: flex; flex-direction: column; gap: 4px; }
+.trace-output pre { padding: var(--space-2) var(--space-3); background: var(--code-bg); border: var(--stroke-2) solid var(--outline); border-radius: var(--radius-md); font-size: 15px; line-height: 22px; white-space: pre-wrap; }
+
+/* ============ Loop lab · pattern trace table and loop headers ============ */
+.lab-run-grid { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--space-4) var(--space-5); }
+.lab-run-grid .lab-console { flex: 0 1 auto; max-width: 100%; min-width: 0; }
+.lab-pass { display: flex; flex-direction: column; gap: 6px; flex: 0 1 auto; max-width: 100%; min-width: 0; }
+.lab-pass .lab-hint { max-width: 34ch; }
+.trace-table thead th .trace-expr { display: block; margin-top: 2px; padding: 0; background: none; font: 400 12px/16px var(--font-mono); color: var(--ink); white-space: normal; overflow-wrap: anywhere; max-width: 14ch; margin-left: auto; }
+.trace-table td.trace-blank { padding: 3px 6px; }
+.trace-guess {
+  box-sizing: border-box; width: 3.4em; min-height: 32px; padding: 2px 6px; text-align: right;
+  font: 400 15px/1.4 var(--font-mono); color: var(--ink); background: var(--card);
+  border: 1px dashed var(--ink-soft); border-radius: var(--radius-sm);
+}
+.trace-guess:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; border-style: solid; }
+.trace-table .trace-note { color: var(--ink-soft); font-size: 13px; }
+.trace-table .trace-ok { color: var(--mint-ink); font-weight: 700; }
+.trace-table .trace-miss { color: var(--coral-ink); font-size: 13px; }
+.trace-table .trace-end { text-align: left; color: var(--ink-soft); font-family: var(--font-body); }
+.trace-table tr.is-now > * { background: var(--sun-soft); }
+.lab-loopline select {
+  box-sizing: border-box; min-height: 40px; padding: 4px 6px;
+  font: 400 15px/1.4 var(--font-mono); color: var(--ink); background: var(--card);
+  border: var(--stroke-2) solid var(--outline); border-radius: var(--radius-md);
+}
+.lab-loopline input.lab-step { width: 5.8em; }
+.lab-chunk { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.lab-guess-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); }
+.lab-guess-row input[type="number"]:disabled { opacity: .45; }
+.lab-guess-row .lab-toggle { font-weight: 400; }
+.lab-guess-row .lab-toggle input { min-height: 0; padding: 0; }
+.lab-result .lab-mistake { padding: var(--space-2) var(--space-3); background: var(--sun-soft); border-left: 4px solid var(--sun-ink); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.lab-result .lab-mistake strong { font-family: var(--font-display); font-weight: 600; }

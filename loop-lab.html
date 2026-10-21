@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Loop lab — Visible Java</title>
-<meta name="description" content="Make nested loops visible: build star patterns one print at a time, and predict how many times an inner loop runs.">
+<meta name="description" content="Make loops visible: build star patterns one print at a time, predict how many times a nested loop runs, and trace a while loop step by step.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@500;600;700&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261020d"><link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css?v=20261020e"><link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
 </head>
 <body>
 
@@ -38,7 +38,7 @@
 
 <section>
   <div class="wrap stack">
-    <span class="eyebrow">Nested loops · Unit 2</span>
+    <span class="eyebrow">Loops · Unit 2</span>
     <h1>Loop lab</h1>
     <p class="lede">
       In a pattern, each row is one pass of the outer loop. The inner loops decide how many
@@ -58,6 +58,7 @@
       <span class="eyebrow">01 · Patterns</span>
       <h2>Build a shape, one print at a time</h2>
       <p>Pick a shape to match. Write how many spaces and stars row number <code>row</code> needs, using <code>row</code>, <code>ROWS</code>, whole numbers and <code>+ - * / %</code>. <code>Math.min</code>, <code>Math.max</code> and <code>Math.abs</code> work too.</p>
+      <p>The trace table gets a row each time <code>row &lt;= ROWS</code> is checked, including the last check, the one that ends the loop. Predict each row’s counts in the blanks, then step to see if you were right.</p>
     </div>
 
     <div class="lab" data-pattern-lab>
@@ -99,7 +100,14 @@
           <button type="button" class="reveal-btn" data-reset>Reset</button>
         </div>
         <p class="lab-trace" aria-live="polite" data-trace></p>
-        <div class="lab-console" data-output></div>
+        <div class="lab-run-grid">
+          <div class="lab-console" data-output></div>
+          <div class="lab-pass">
+            <span class="lab-head">Trace table</span>
+            <div class="lab-table-wrap"><table class="trace-table" data-pass-table></table></div>
+            <p class="lab-hint">Fill in the blanks before you step. Each one fills in when its loop starts.</p>
+          </div>
+        </div>
         <p class="lab-verdict" aria-live="polite" data-verdict></p>
         <details class="lab-counts" data-counts-wrap>
           <summary>Stuck? Count each row of the target first</summary>
@@ -116,31 +124,42 @@
     <div class="stack-sm">
       <span class="eyebrow">02 · Counting</span>
       <h2>How many times does the inner body run?</h2>
-      <p>Set the bounds, commit to a number, then check. Each dot is one run of the inner body, and each row of dots is one pass of the outer loop. The inner bounds may use <code>x</code>.</p>
+      <p>Change any part of either loop header: where it starts, how it compares, where it ends and how it updates. Then commit to a number, or decide the loop never stops, and check. Each dot is one run of the inner body, and each row of dots is one pass of the outer loop. The inner loop may use <code>x</code>.</p>
     </div>
 
     <div class="lab lab-count" data-count-lab>
       <div class="lab-panel lab-count-code">
         <div class="lab-presets" role="group" aria-label="Examples">
-          <button type="button" class="reveal-btn" data-preset="1,50,1,20">50 by 20</button>
-          <button type="button" class="reveal-btn" data-preset="1,10,1,x">Triangle</button>
-          <button type="button" class="reveal-btn" data-preset="1,4,x,4">Shrinking rows</button>
-          <button type="button" class="reveal-btn" data-preset="0,9,0,x - 1">Starts at 0</button>
+          <button type="button" class="reveal-btn" data-preset="grid">50 by 20</button>
+          <button type="button" class="reveal-btn" data-preset="triangle">Triangle</button>
+          <button type="button" class="reveal-btn" data-preset="shrinking">Shrinking rows</button>
+          <button type="button" class="reveal-btn" data-preset="zero">Starts at 0</button>
+          <button type="button" class="reveal-btn" data-preset="down">Counts down</button>
+          <button type="button" class="reveal-btn" data-preset="doubling">Doubling</button>
+          <button type="button" class="reveal-btn" data-preset="skips">Does it stop?</button>
         </div>
         <div class="lab-loopline">
-          <code>for (int x = </code><input type="text" value="1" aria-label="Outer loop start" spellcheck="false" autocomplete="off" data-a><code>; x &lt;= </code><input type="text" value="50" aria-label="Outer loop end" spellcheck="false" autocomplete="off" data-b><code>; x++)</code>
+          <span class="lab-chunk"><code>for (int x = </code><input type="text" value="1" aria-label="Outer loop start" spellcheck="false" autocomplete="off" data-a></span><span class="lab-chunk"><code>; x </code><select aria-label="Outer loop comparison" data-op-a>
+            <option value="&lt;">&lt;</option><option value="&lt;=" selected>&lt;=</option><option value="&gt;">&gt;</option><option value="&gt;=">&gt;=</option><option value="!=">!=</option>
+          </select><input type="text" value="50" aria-label="Outer loop bound" spellcheck="false" autocomplete="off" data-b></span><span class="lab-chunk"><code>; </code><input type="text" class="lab-step" value="x++" aria-label="Outer loop update" spellcheck="false" autocomplete="off" autocapitalize="off" data-step-a><code>)</code></span>
         </div>
         <div class="lab-loopline lab-indent">
-          <code>for (int y = </code><input type="text" value="1" aria-label="Inner loop start" spellcheck="false" autocomplete="off" data-c><code>; y &lt;= </code><input type="text" value="20" aria-label="Inner loop end" spellcheck="false" autocomplete="off" data-d><code>; y++)</code>
+          <span class="lab-chunk"><code>for (int y = </code><input type="text" value="1" aria-label="Inner loop start" spellcheck="false" autocomplete="off" data-c></span><span class="lab-chunk"><code>; y </code><select aria-label="Inner loop comparison" data-op-c>
+            <option value="&lt;">&lt;</option><option value="&lt;=" selected>&lt;=</option><option value="&gt;">&gt;</option><option value="&gt;=">&gt;=</option><option value="!=">!=</option>
+          </select><input type="text" value="20" aria-label="Inner loop bound" spellcheck="false" autocomplete="off" data-d></span><span class="lab-chunk"><code>; </code><input type="text" class="lab-step" value="y++" aria-label="Inner loop update" spellcheck="false" autocomplete="off" autocapitalize="off" data-step-c><code>)</code></span>
         </div>
         <div class="lab-loopline lab-indent2"><code>System.out.println("Hi");</code></div>
+        <p class="lab-hint">Updates can be <code>x++</code>, <code>x--</code>, <code>x += 2</code>, <code>x -= 2</code>, <code>x *= 2</code> or <code>x /= 2</code>, with any whole number.</p>
         <p class="lab-error" role="alert" data-count-error hidden></p>
       </div>
 
       <div class="lab-panel lab-count-check">
-        <label class="lab-field"><span>How many times will it print <code>Hi</code>?</span>
-          <input type="number" inputmode="numeric" step="1" data-guess>
-        </label>
+        <div class="lab-field"><label for="count-guess">How many times will it print <code>Hi</code>?</label>
+          <div class="lab-guess-row">
+            <input type="number" inputmode="numeric" step="1" id="count-guess" data-guess>
+            <label class="lab-toggle"><input type="checkbox" data-never> It never stops</label>
+          </div>
+        </div>
         <div class="lab-buttons">
           <button type="button" class="camp-button primary" data-check>Check</button>
           <button type="button" class="reveal-btn" data-show>Just show me</button>
@@ -148,6 +167,71 @@
         <p class="lab-error" role="alert" data-guess-error hidden></p>
         <div class="lab-result" aria-live="polite" data-result></div>
         <div class="lab-dots" data-dots-field hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tracing">
+  <div class="wrap stack-lg">
+    <div class="stack-sm">
+      <span class="eyebrow">03 · Tracing</span>
+      <h2>Trace a while loop, one step at a time</h2>
+      <p>Each step either checks the condition or runs one statement. The trace table gets a row for every pass through the body, so you can see exactly when each variable changes and why the loop stops. Pick an example or write your own.</p>
+    </div>
+
+    <div class="lab lab-trace-lab" data-trace-lab>
+      <div class="lab-panel lab-controls">
+        <label class="lab-field">Example
+          <select data-trace-preset>
+            <option value="countdown">Count down</option>
+            <option value="digits">Digit sum</option>
+            <option value="doubling">Doubling</option>
+            <option value="skip">Skip counting</option>
+            <option value="gcd">Euclid’s GCD</option>
+            <option value="never">Does it ever stop?</option>
+          </select>
+        </label>
+        <fieldset class="trace-group">
+          <legend>Variables</legend>
+          <div class="trace-decl"><code>int</code><input type="text" aria-label="Variable 1 name" spellcheck="false" autocomplete="off" data-var-name><code>=</code><input type="text" aria-label="Variable 1 starting value" spellcheck="false" autocomplete="off" data-var-value><code>;</code></div>
+          <div class="trace-decl"><code>int</code><input type="text" aria-label="Variable 2 name" spellcheck="false" autocomplete="off" data-var-name><code>=</code><input type="text" aria-label="Variable 2 starting value" spellcheck="false" autocomplete="off" data-var-value><code>;</code></div>
+          <div class="trace-decl"><code>int</code><input type="text" aria-label="Variable 3 name" spellcheck="false" autocomplete="off" data-var-name><code>=</code><input type="text" aria-label="Variable 3 starting value" spellcheck="false" autocomplete="off" data-var-value><code>;</code></div>
+          <div class="trace-decl"><code>int</code><input type="text" aria-label="Variable 4 name" spellcheck="false" autocomplete="off" data-var-name><code>=</code><input type="text" aria-label="Variable 4 starting value" spellcheck="false" autocomplete="off" data-var-value><code>;</code></div>
+        </fieldset>
+        <label class="lab-field">Condition
+          <span class="trace-inline"><code>while (</code><input type="text" spellcheck="false" autocomplete="off" data-condition><code>)</code></span>
+        </label>
+        <fieldset class="trace-group">
+          <legend>Body, in order</legend>
+          <input type="text" aria-label="Body statement 1" spellcheck="false" autocomplete="off" data-statement>
+          <input type="text" aria-label="Body statement 2" spellcheck="false" autocomplete="off" data-statement>
+          <input type="text" aria-label="Body statement 3" spellcheck="false" autocomplete="off" data-statement>
+          <input type="text" aria-label="Body statement 4" spellcheck="false" autocomplete="off" data-statement>
+        </fieldset>
+        <p class="lab-hint">Leave a box empty to skip it. Statements can be <code>x = …</code>, <code>x += …</code> (and <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>), <code>x++</code>, <code>x--</code>, or <code>System.out.println(…)</code>.</p>
+        <p class="lab-error" role="alert" data-trace-error hidden></p>
+      </div>
+
+      <figure class="lab-panel lab-code">
+        <figcaption><span>Java</span><span class="lab-code-note">updates as you type</span></figcaption>
+        <pre data-trace-code tabindex="0" aria-label="The while loop being traced"></pre>
+      </figure>
+
+      <div class="lab-panel lab-run">
+        <label class="lab-field trace-predict"><span>Predict: how many times will the body run?</span>
+          <input type="number" inputmode="numeric" step="1" min="0" data-trace-guess>
+        </label>
+        <div class="lab-buttons">
+          <button type="button" class="camp-button primary" data-trace-run>Run it</button>
+          <button type="button" class="reveal-btn" data-trace-step>Step</button>
+          <button type="button" class="reveal-btn" data-trace-pass>Finish this pass</button>
+          <button type="button" class="reveal-btn" data-trace-reset>Reset</button>
+        </div>
+        <p class="lab-trace" aria-live="polite" data-trace-say></p>
+        <div class="lab-table-wrap"><table class="trace-table" data-trace-table></table></div>
+        <div class="trace-output" data-trace-output-wrap hidden><span class="lab-head">Console</span><pre data-trace-output></pre></div>
+        <p class="lab-verdict" aria-live="polite" data-trace-verdict></p>
       </div>
     </div>
   </div>
@@ -161,7 +245,8 @@
   </div>
 </footer>
 
-<script src="assets/loop-lab.js?v=20261020a"></script>
+<script src="assets/loop-lab.js?v=20261020b"></script>
+<script src="assets/while-tracer.js?v=20261020a"></script>
 <script src="assets/role.js?v=20260729c"></script>
 </body>
 </html>
