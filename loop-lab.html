@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loop lab — Visible Java</title>
+<meta name="description" content="Make nested loops visible: build star patterns one print at a time, and predict how many times an inner loop runs.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@500;600;700&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=20261020d"><link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java<span class="logo-sub">A CC Fest learning studio</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="library.html" aria-current="true">Library</a>
+    </nav>
+  </div>
+</header>
+<nav class="section-nav" aria-label="Library navigation">
+  <div class="wrap">
+      <a href="library.html">All resources</a>
+      <a href="examples.html">Compare</a>
+      <a href="translate.html">Translate</a>
+      <a href="port.html">Port a sketch</a>
+      <a href="traps.html">Predict output</a>
+      <a href="loop-lab.html" aria-current="page">Loop lab</a>
+      <a href="setup.html">Java setup</a>
+  </div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+
+<section>
+  <div class="wrap stack">
+    <span class="eyebrow">Nested loops · Unit 2</span>
+    <h1>Loop lab</h1>
+    <p class="lede">
+      In a pattern, each row is one pass of the outer loop. The inner loops decide how many
+      spaces and stars that row gets. Write those two counts, then watch every
+      <code>print</code> happen.
+    </p>
+    <p>
+      Predict first, then run. If you can say what a row will look like before it prints,
+      you understand the loops.
+    </p>
+  </div>
+</section>
+
+<section id="patterns">
+  <div class="wrap stack-lg">
+    <div class="stack-sm">
+      <span class="eyebrow">01 · Patterns</span>
+      <h2>Build a shape, one print at a time</h2>
+      <p>Pick a shape to match. Write how many spaces and stars row number <code>row</code> needs, using <code>row</code>, <code>ROWS</code>, whole numbers and <code>+ - * / %</code>. <code>Math.min</code>, <code>Math.max</code> and <code>Math.abs</code> work too.</p>
+    </div>
+
+    <div class="lab" data-pattern-lab>
+      <div class="lab-panel lab-controls">
+        <label class="lab-field">Shape to match
+          <select data-target>
+            <option value="free">No target (free build)</option>
+            <option value="staircase" selected>Staircase</option>
+            <option value="upside">Upside down</option>
+            <option value="right">Lean right</option>
+            <option value="rightDown">Lean right, upside down</option>
+            <option value="pyramid">Pyramid</option>
+            <option value="diamond">Diamond</option>
+          </select>
+        </label>
+        <label class="lab-field"><span>Rows (<code>ROWS</code>)</span>
+          <input type="number" min="1" max="12" step="1" value="5" inputmode="numeric" data-rows>
+        </label>
+        <label class="lab-field">Spaces before the stars
+          <input type="text" value="0" spellcheck="false" autocomplete="off" autocapitalize="off" data-spaces>
+        </label>
+        <label class="lab-field">Stars in the row
+          <input type="text" value="row" spellcheck="false" autocomplete="off" autocapitalize="off" data-stars>
+        </label>
+        <p class="lab-error" role="alert" data-error hidden></p>
+        <label class="lab-toggle"><input type="checkbox" checked data-dots> Show spaces as dots</label>
+      </div>
+
+      <figure class="lab-panel lab-code">
+        <figcaption><span>Java</span><span class="lab-code-note">updates as you type</span></figcaption>
+        <pre data-code tabindex="0" aria-label="The nested loops for this pattern"></pre>
+      </figure>
+
+      <div class="lab-panel lab-run">
+        <div class="lab-buttons">
+          <button type="button" class="camp-button primary" data-run>Run it</button>
+          <button type="button" class="reveal-btn" data-step>Step one print</button>
+          <button type="button" class="reveal-btn" data-finish-row>Finish the row</button>
+          <button type="button" class="reveal-btn" data-reset>Reset</button>
+        </div>
+        <p class="lab-trace" aria-live="polite" data-trace></p>
+        <div class="lab-console" data-output></div>
+        <p class="lab-verdict" aria-live="polite" data-verdict></p>
+        <details class="lab-counts" data-counts-wrap>
+          <summary>Stuck? Count each row of the target first</summary>
+          <div class="lab-table-wrap"><table data-counts></table></div>
+          <p>Read down each column. When <code>row</code> goes up by one, what happens to the spaces? To the stars? That change is your expression.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="counting">
+  <div class="wrap stack-lg">
+    <div class="stack-sm">
+      <span class="eyebrow">02 · Counting</span>
+      <h2>How many times does the inner body run?</h2>
+      <p>Set the bounds, commit to a number, then check. Each dot is one run of the inner body, and each row of dots is one pass of the outer loop. The inner bounds may use <code>x</code>.</p>
+    </div>
+
+    <div class="lab lab-count" data-count-lab>
+      <div class="lab-panel lab-count-code">
+        <div class="lab-presets" role="group" aria-label="Examples">
+          <button type="button" class="reveal-btn" data-preset="1,50,1,20">50 by 20</button>
+          <button type="button" class="reveal-btn" data-preset="1,10,1,x">Triangle</button>
+          <button type="button" class="reveal-btn" data-preset="1,4,x,4">Shrinking rows</button>
+          <button type="button" class="reveal-btn" data-preset="0,9,0,x - 1">Starts at 0</button>
+        </div>
+        <div class="lab-loopline">
+          <code>for (int x = </code><input type="text" value="1" aria-label="Outer loop start" spellcheck="false" autocomplete="off" data-a><code>; x &lt;= </code><input type="text" value="50" aria-label="Outer loop end" spellcheck="false" autocomplete="off" data-b><code>; x++)</code>
+        </div>
+        <div class="lab-loopline lab-indent">
+          <code>for (int y = </code><input type="text" value="1" aria-label="Inner loop start" spellcheck="false" autocomplete="off" data-c><code>; y &lt;= </code><input type="text" value="20" aria-label="Inner loop end" spellcheck="false" autocomplete="off" data-d><code>; y++)</code>
+        </div>
+        <div class="lab-loopline lab-indent2"><code>System.out.println("Hi");</code></div>
+        <p class="lab-error" role="alert" data-count-error hidden></p>
+      </div>
+
+      <div class="lab-panel lab-count-check">
+        <label class="lab-field"><span>How many times will it print <code>Hi</code>?</span>
+          <input type="number" inputmode="numeric" step="1" data-guess>
+        </label>
+        <div class="lab-buttons">
+          <button type="button" class="camp-button primary" data-check>Check</button>
+          <button type="button" class="reveal-btn" data-show>Just show me</button>
+        </div>
+        <p class="lab-error" role="alert" data-guess-error hidden></p>
+        <div class="lab-result" aria-live="polite" data-result></div>
+        <div class="lab-dots" data-dots-field hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Loop lab runs in your browser. It follows Java's whole-number arithmetic (so <code>7 / 2</code> is <code>3</code>), but it doesn't compile or run Java.</p>
+  </div>
+</footer>
+
+<script src="assets/loop-lab.js?v=20261020a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>

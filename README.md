@@ -28,7 +28,7 @@ tissue is the Java/Processing comparison, translation layer, port exercise, and 
 | `session-2.html`–`session-5.html` | **Workshop.** Make decisions visible (Nov 15), Make objects visible (Nov 22), Make learning transferable (Dec 6), and the Classroom studio (Dec 13), all on the Session 1 template. Files in `downloads/workshop/session-2/`–`session-5/`, each with a student handout and teacher guide. |
 | `downloads/workshop/visible-java-2026.ics` | Calendar file for the five meetings (15:00–17:00 UTC). |
 | `course.html` | Course entry for students: direct unit routes, first lesson, pacing calendar, and the Processing-to-Java connection. |
-| `library.html` | Task-based directory for comparing, translating, porting, predicting output, and editor setup. |
+| `library.html` | Task-based directory for comparing, translating, porting, predicting output, the loop lab, and editor setup. |
 | `calendar.html` | All 140 class days, week by week, for five 50-minute periods a week. Data in `assets/calendar.js`. |
 | `unit1.html` | Broad Unit 1 overview and workbook dashboard: reference visual, Java anchor, resume state, editor profile, export, and eleven typed lessons. |
 | `unit1/lesson-01.html`–`lesson-11.html` | Workbook lessons with predictions, verified projects, missions, evidence, AP transfer, optional Processing prompts, review, and assessment shapes. Data in `assets/unit1.js`; behavior in `assets/workbook.js`. |
@@ -45,6 +45,7 @@ tissue is the Java/Processing comparison, translation layer, port exercise, and 
 | `translate.html` | **Original.** Every Processing habit → its AP CS A replacement. |
 | `port.html` | **Original.** Port a sketch students already wrote into exam-legal Java, mapped onto FRQ types. |
 | `traps.html` | **Original.** 18 predict-the-output problems. |
+| `loop-lab.html` | **Original.** Loop lab: build star patterns one `print` at a time (spaces shown as dots, rows checked against a target shape), and predict how many times a nested loop body runs. Logic in `assets/loop-lab.js`, which parses `row`/`ROWS`/`x` expressions with Java int arithmetic and never runs typed code. |
 | `frq.html` | The four FRQ types, triage of old released questions, how to read a prompt. |
 | `setup.html` | Leaving the PDE: IDEs, keeping graphics, week-one compiler errors. |
 | `camp.html` | Interest-list entry and FAQ. The form field mapping is preserved; the workshop home owns the schedule. |
