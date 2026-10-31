@@ -10,7 +10,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 LIBRARY = {"library.html", "examples.html", "translate.html", "port.html", "traps.html", "loop-lab.html", "setup.html"}
-WORKSHOP = {"index.html", "camp.html", "processing.html", *[f"session-{n}.html" for n in range(1, 6)]}
+WORKSHOP = {"index.html", "camp.html", "processing.html", "readiness.html", "about.html", *[f"session-{n}.html" for n in range(1, 6)]}
 
 
 def page_paths():
@@ -31,11 +31,12 @@ def header(path):
     primary = "\n      ".join(link(target, label, label == area) for target, label in
                               [("index.html", "Workshop"), ("course.html", "Course"), ("library.html", "Library")])
     if area == "Workshop":
-        secondary = [("index.html#sessions", "All sessions"), ("processing.html", "Get ready")]
+        secondary = [("index.html#sessions", "All sessions"), ("readiness.html", "Get ready")]
         if name.startswith("session-"):
             secondary += [(name, f"Session {name[8]}"), (name + "#on-your-own", "On your own")]
         else:
             secondary += [("index.html#your-way", "On your own")]
+        secondary += [("about.html", "About")]
     elif area == "Course":
         secondary = [("course.html", "Course home"), ("path.html", "Unit map"), ("calendar.html", "Pacing calendar"), ("frq.html", "Free response")]
     else:
