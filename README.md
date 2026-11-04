@@ -96,10 +96,10 @@ an untouched page need not create state. Teacher role and temporary display name
 
 Everything in `downloads/workshop/` is checked against Processing 4.3.4 and its bundled Java 17.
 The page copy quotes real console output, so re-run these after any change to a sketch or `.java`
-file. On a Mac with Processing in `/Applications` (adjust `JDK` for other versions):
+file. On a Mac with Processing in `/Applications`, this finds the bundled Java for any version:
 
 ```bash
-JDK=/Applications/Processing.app/Contents/PlugIns/jdk-17.0.8+7/Contents/Home/bin
+JDK=$(dirname "$(find /Applications/Processing.app/Contents -type f -path '*/bin/java' | head -1)")
 for f in downloads/workshop/session-1/plain-java/*.java; do "$JDK/java" "$f"; done
 ```
 

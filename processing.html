@@ -108,6 +108,7 @@ void draw() {
           <tr><td>A window flashes open and closes</td><td class="why">The sketch hit an error while running. Read the console. The error message names the line.</td></tr>
           <tr><td>The editor looks different and Run is greyed out</td><td class="why">You are in another mode. Switch the top-right menu back to <strong>Java</strong>.</td></tr>
           <tr><td>The window is blank</td><td class="why">The circle has already left the window. Press Stop (the square button) and Run again, and watch the top edge.</td></tr>
+          <tr><td>The console shows a warning that Processing now sets <code>pixelDensity</code></td><td class="why">Expected on high-density screens, and your sketch still ran. It is not part of your program&rsquo;s output, so ignore it when you compare console lines. To turn it off, add <code>pixelDensity(1);</code> to <code>setup()</code>.</td></tr>
           <tr><td>Processing asks to create a folder when you open a file</td><td class="why">Expected. A sketch has to live in a folder with its own name. Say yes.</td></tr>
         </tbody>
       </table>
