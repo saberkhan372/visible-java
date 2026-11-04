@@ -55,3 +55,7 @@ Assess the explanations, not the fixed sketch. A student who can name a value th
 condition wrongly true or false has understood it. A student who changed numbers until it
 worked has not, even if the sketch now runs. Question 1 and question 4 are the strongest
 evidence.
+
+## Optional bridge: `KeyScan.java`
+
+For AP CS A teachers. It prints `2`, `2`, `pp`, `0`, and practices the `String` methods that free-response Question 1 Part B requires. Everyone else can skip it.

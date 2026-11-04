@@ -10,8 +10,9 @@ Two things share this site:
   paced for five 50-minute periods a week, that the workshop sessions draw on.
 
 **What makes the course distinctive:** every new idea is anchored to something students
-can build in Processing. Students who have written sketches start ahead; students who
-haven't can follow every lesson in plain Java.
+can build in Processing. Students who have written sketches start ahead. Students who
+haven't can follow every lesson in plain Java, but the 140-day pace assumes prior
+programming; `path.html` gives a re-paced split for first-time programmers.
 
 **Design principle: make the local material coherent.** The course folder is the curriculum
 source: existing handouts, labs, assessments, and examples are remixed into the current
@@ -103,7 +104,7 @@ for f in downloads/workshop/session-1/plain-java/*.java; do "$JDK/java" "$f"; do
 ```
 
 Sessions 1–3: each `.java` file runs as a single file with no compile step. Session 3 keeps
-`BallWorld/` and `ArrayTrace/` in separate folders because each declares its own `Ball` class.
+`BallWorld/`, `ArrayTrace/`, and `GridScan/` in separate folders because each declares its own `Ball` class.
 Session 4 is a multi-file project: compile the folder, then run the demo and the checks:
 
 ```bash
