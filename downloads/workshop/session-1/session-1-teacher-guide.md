@@ -57,3 +57,11 @@ The console prints `0.0`, not `0`, because `y` is a `float`.
 
 Assess the reasoning, not the visual polish. Evidence of understanding: a prediction table
 with errors corrected and explained, and a correct answer to Explain question 3.
+
+## Added for the four-part format
+
+**`SetupDraw`** prints `setup ran`, then `draw ran: 1`, `2`, `3`. Use it to separate what runs once from what repeats.
+
+**`FaceDrift`** shows integer division: `1 / 2` is 0, so the eyes stay still. With `1.0 / 2`, they follow the mouse. `IntegerTrace.java` prints `0`, `50.0`, `3`, `3.5`.
+
+**`PumpkinStamp`** is a draft starter for the guided practice. Joshua Hans may replace it with his own project. Look for arguments that change the drawing, not for polish.

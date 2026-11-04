@@ -1,4 +1,4 @@
-// Session 3, optional studio bridge: the BallGrid sketch as a 2D array method.
+// Session 3, optional bridge: the BallGrid sketch as a 2D array method.
 // AP free-response Question 4 asks for one method over a 2D array. No window here.
 // Predict the count and the row-by-row output before you run it.
 

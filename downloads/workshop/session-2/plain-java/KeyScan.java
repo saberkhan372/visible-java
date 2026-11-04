@@ -1,4 +1,4 @@
-// Session 2, optional studio bridge: the key log as a String.
+// Session 2, optional bridge: the key log as a String.
 // AP free-response Question 1 Part B always calls String methods, and sketches rarely do.
 // Every String method here is on the Java Quick Reference. Predict each line before you run it.
 

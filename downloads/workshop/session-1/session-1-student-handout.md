@@ -51,3 +51,9 @@ Answer in full sentences.
 1. Which variables are this program's state?
 2. `draw()` runs over and over. Who calls it?
 3. Why does the ball stop moving if `float y = 0;` is moved inside `draw()`?
+
+## Go further: write a method
+
+1. Open `PumpkinStamp`. Predict what changes if `drawPumpkin` gets `40` instead of `80`. Then try it.
+2. Write a new method with at least two arguments.
+3. Call it from `keyPressed()`. You are done when a new key stamps your drawing at the mouse.

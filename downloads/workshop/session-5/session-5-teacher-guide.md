@@ -1,6 +1,6 @@
-# Studio guide: Classroom studio
+# Showcase guide
 
-For Meeting 5. No new Java. Participants bring one lesson package from any session,
+For Session 5, the showcase. No new Java. Participants bring one lesson package from any session,
 test it on colleagues, get structured feedback, and revise it.
 
 ## The package checklist
@@ -85,3 +85,10 @@ sentence explaining it.
 ## Grouping
 
 Most participants do not teach AP CS A. Mix groups where you can, so that AP and non-AP teachers test each other's lessons. Keep the AP link optional, and ask each presenter to say who the lesson is for before the group tries it.
+
+## Running the showcase
+
+- Open sign-ups in Google Classroom after Session 4 and close them Wednesday, December 9.
+- Give each live share five minutes. Up to twelve fit in the hour.
+- With more than twelve, use breakout rooms so everyone who signs up can share.
+- Ask independent participants for work to show, and present it in the 20-minute gallery with their permission.

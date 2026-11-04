@@ -34,7 +34,7 @@
 </nav>
 
 <main id="main-content" tabindex="-1">
-<nav class="session-jumps wrap" aria-label="On this page"><span class="eyebrow">In this session</span><a href="#predict">Predict</a><a href="#demo">Demo</a><a href="#build">Build</a><a href="#transfer">Java transfer</a><a href="#exchange">Exchange</a><a href="#exit">Exit evidence</a><a href="#studio">Studio</a><a href="#on-your-own">On your own</a></nav>
+<nav class="session-jumps wrap" aria-label="On this page"><span class="eyebrow">In this session</span><a href="#predict">Predict</a><a href="#demo">Demo</a><a href="#transfer">Java transfer</a><a href="#build">Build</a><a href="#exchange">Exchange</a><a href="#exit">Exit evidence</a><a href="#studio">Go further</a><a href="#on-your-own">On your own</a></nav>
 
 <section>
   <div class="wrap stack-lg">
@@ -64,18 +64,14 @@
 <section>
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">Run of show &middot; 90-minute core, then 30 minutes of optional studio</span>
-      <h2>Two hours, eight blocks</h2>
+      <span class="eyebrow">Run of show &middot; two hours, four parts</span>
+      <h2>Four parts, thirty minutes each</h2>
     </div>
     <div class="ws-agenda">
-      <div class="step"><div class="step-label">0:00<b>10 min &middot; 7:00 PT</b></div><div class="step-body"><p><a href="#predict"><strong>Predict and discuss.</strong></a> A prepared collection of four balls: which one stops first?</p></div></div>
-      <div class="step"><div class="step-label">0:10<b>15 min &middot; 7:10 PT</b></div><div class="step-body"><p><a href="#demo"><strong>Short demo.</strong></a> Count the active balls in the console, then take the picture away.</p></div></div>
-      <div class="step"><div class="step-label">0:25<b>25 min &middot; 7:25 PT</b></div><div class="step-body"><p><a href="#build"><strong>Guided build.</strong></a> Move the drawing out of <code>Ball</code>, name the rule, and write <code>countActive()</code>. Then independent extensions.</p></div></div>
-      <div class="step"><div class="step-label">0:50<b>5 min &middot; 7:50 PT</b></div><div class="step-body"><p><strong>Break.</strong></p></div></div>
-      <div class="step"><div class="step-label">0:55<b>15 min &middot; 7:55 PT</b></div><div class="step-body"><p><a href="#transfer"><strong>Java transfer.</strong></a> The model in three files, output that matches, and tests predicted before they run.</p></div></div>
-      <div class="step"><div class="step-label">1:10<b>15 min &middot; 8:10 PT</b></div><div class="step-body"><p><a href="#exchange"><strong>Adapt and exchange.</strong></a> Change one prompt, try it on a partner, revise. Focus: what counts as evidence that a student understands a query.</p></div></div>
-      <div class="step"><div class="step-label">1:25<b>5 min &middot; 8:25 PT</b></div><div class="step-body"><p><a href="#exit"><strong>Exit evidence and next step.</strong></a></p></div></div>
-      <div class="step"><div class="step-label">1:30<b>30 min &middot; 8:30 PT</b></div><div class="step-body"><p><a href="#studio"><strong>Optional studio.</strong></a> An AP-style testing question, and building your lesson package.</p></div></div>
+      <div class="step"><div class="step-label">Part 1<b>30 min &middot; 7:00 PT</b></div><div class="step-body"><p><strong>Check in.</strong> Housekeeping, loose ends, and a look at work people chose to post in Google Classroom.</p></div></div>
+      <div class="step"><div class="step-label">Part 2<b>30 min &middot; 7:30 PT</b></div><div class="step-body"><p><a href="#predict"><strong>Concept and live coding.</strong></a> Saber covers separating the model from the drawing, then a short Java transfer.</p></div></div>
+      <div class="step"><div class="step-label">Part 3<b>30 min &middot; 8:00 PT</b></div><div class="step-body"><p><a href="#build"><strong>Guided practice.</strong></a> Joshua Hans leads one main activity, with breakouts.</p></div></div>
+      <div class="step"><div class="step-label">Part 4<b>30 min &middot; 8:30 PT</b></div><div class="step-body"><p><strong>Guest and close.</strong> Guest to be announced, then five minutes to close.</p></div></div>
     </div>
   </div>
 </section>
@@ -83,7 +79,7 @@
 <section id="predict" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">0:00 &middot; 10 minutes &middot; Predict and discuss</span>
+      <span class="eyebrow">Part 2 &middot; Concept &middot; Predict</span>
       <h2>A prepared collection</h2>
       <p>Four balls, prepared for you in an <code>ArrayList</code>. Each one counts its bounces and stops for good on its third, turning gray. <strong>Before anyone presses Run</strong>, answer the two questions. Then open <code>ActiveBalls</code> from the download and run it.</p>
     </div>
@@ -170,7 +166,7 @@ class Ball {
 <section id="demo" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">0:10 &middot; 15 minutes &middot; Short demo</span>
+      <span class="eyebrow">Part 2 &middot; Concept &middot; Live coding</span>
       <h2>Count it, then take the picture away</h2>
       <p>
         The facilitator runs <code>ActiveTrace</code>: <code>ActiveBalls</code> plus a few lines
@@ -280,64 +276,10 @@ frame 265: 0 active</pre>
   </div>
 </section>
 
-<section id="build" class="ws-block">
-  <div class="wrap stack-lg">
-    <div class="stack">
-      <span class="eyebrow">0:25 &middot; 25 minutes &middot; Guided build</span>
-      <h2>Pull the model out, with the picture on</h2>
-      <p>Work in <code>ActiveBalls</code>. Every supported mission has to leave the picture exactly as it was, so the running sketch is your first test. The supported missions end at <code>ModelViewCheckpoint</code>. If you fall behind, open that and carry on from there.</p>
-    </div>
-    <h3>Supported</h3>
-    <div class="grid">
-      <article class="ws-mission">
-        <span class="eyebrow">Mission 1</span>
-        <h3>Take the drawing out</h3>
-        <p>Move <code>show()</code> out of <code>Ball</code> and into the sketch as <code>void drawBall(Ball b)</code>, using <code>b.x</code>, <code>b.y</code>, and <code>b.bounces</code>. Change <code>move()</code> to <code>move(int w, int h)</code>, use <code>w</code> and <code>h</code> where it said <code>width</code> and <code>height</code>, and call <code>b.move(width, height);</code> and <code>drawBall(b);</code>.</p>
-        <p class="ws-expect"><strong>Expect</strong> &nbsp;No visible change. <code>Ball</code> no longer uses anything that belongs to Processing.</p>
-      </article>
-      <article class="ws-mission">
-        <span class="eyebrow">Mission 2</span>
-        <h3>Name the rule</h3>
-        <p>Add <code>boolean isActive() { return bounces &lt; 3; }</code> to <code>Ball</code>. Use <code>isActive()</code> in <code>move()</code> and in <code>drawBall()</code> in place of each <code>bounces &lt; 3</code>.</p>
-        <p class="ws-expect"><strong>Expect</strong> &nbsp;No visible change. The rule now lives in one place, so question 6&rsquo;s bug can&rsquo;t happen anymore.</p>
-      </article>
-      <article class="ws-mission">
-        <span class="eyebrow">Mission 3</span>
-        <h3>Ask the collection</h3>
-        <p>In the sketch, write <code>int countActive()</code>: loop over <code>balls</code>, count the ones where <code>isActive()</code> is true, and return the count. Add <code>textSize(16);</code> to <code>setup()</code>, and show it with <code>fill(0); text(countActive() + " active", 10, 25);</code></p>
-        <p class="ws-expect"><strong>Expect</strong> &nbsp;&ldquo;4 active&rdquo; in the corner, dropping by one as each ball stops, and reaching 0 about four and a half seconds in. This is <code>ModelViewCheckpoint</code>.</p>
-      </article>
-    </div>
-    <h3>Independent extension</h3>
-    <div class="grid">
-      <article class="ws-mission stretch">
-        <span class="eyebrow">Extension 1</span>
-        <h3>Clear the stopped balls</h3>
-        <p>Write <code>int removeInactive()</code>: loop through <code>balls</code> backward, remove every ball that is not active, and return how many you removed. Call it when the <code>c</code> key is pressed, and print the result.</p>
-        <p class="ws-expect"><strong>Expect</strong> &nbsp;<code>c</code> makes the gray balls disappear, and the console reports how many went. An <code>ArrayList</code> can shrink. An array can&rsquo;t.</p>
-      </article>
-      <article class="ws-mission stretch">
-        <span class="eyebrow">Extension 2</span>
-        <h3>Add by clicking</h3>
-        <p>Add <code>mousePressed()</code>: add a new <code>Ball</code> at the mouse, kept inside the walls with <code>constrain</code>, with speeds from <code>random(-6, 6)</code>.</p>
-        <p class="ws-expect"><strong>Expect</strong> &nbsp;Each click adds a white ball and raises the count by one. The input stays in the sketch. The model only receives a new ball. One answer to both extensions is <code>ModelViewComplete</code>.</p>
-      </article>
-    </div>
-    <details class="ws-facilitator">
-      <summary>Facilitator notes</summary>
-      <div>
-        <p>&ldquo;Refactor with the picture on&rdquo; is the move to teach. A change that breaks the picture is caught in seconds, and students trust a change once the sketch still looks right.</p>
-        <p>Mission 3 is a complete free-response Question 3 answer in miniature: loop, condition, count, return. Point out that it calls <code>isActive()</code> instead of repeating <code>bounces &lt; 3</code>. Calling the method you were given is how those questions work.</p>
-        <p>In extension 1, someone will remove inside a <code>for (Ball b : balls)</code> loop. Java stops that with a <code>ConcurrentModificationException</code>. Someone else will loop forward with an index and skip a ball. The tests in the transfer catch that one.</p>
-      </div>
-    </details>
-  </div>
-</section>
-
 <section id="transfer" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">0:55 &middot; 15 minutes &middot; Java transfer</span>
+      <span class="eyebrow">Part 2 &middot; About 5 minutes live &middot; Java transfer</span>
       <h2>The model, with no window at all</h2>
       <p>
         <code>Ball.java</code> is the model from the right-hand side above, in full.
@@ -440,7 +382,7 @@ public class BallModel {
   }
 }</pre>
     </div>
-    <p>Put <code>Ball.java</code>, <code>BallModel.java</code>, and <code>BallModelTest.java</code> in one folder. In an IDE, make one project. From a terminal, run <code>javac *.java</code>, then <code>java BallModel</code>. <strong>The test: the output must match the <code>ActiveTrace</code> console line for line.</strong></p>
+    <p>Put <code>Ball.java</code>, <code>BallModel.java</code>, and <code>BallModelTest.java</code> in one folder. In an IDE, make one project. From a terminal, run <code>javac *.java</code>, then <code>java BallModel</code>. In the session, trace one file together in about five minutes, and run the rest on your own. <strong>The test: the output must match the <code>ActiveTrace</code> console line for line.</strong></p>
 <pre class="ws-console">frame 91: 3 active
 frame 131: 2 active
 frame 256: 1 active
@@ -557,17 +499,71 @@ FAIL  after 260 frames, size after: expected 1, got 2</pre>
   </div>
 </section>
 
+<section id="build" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Part 3 &middot; Guided practice with Joshua Hans</span>
+      <h2>Pull the model out, with the picture on</h2>
+      <p>Work in <code>ActiveBalls</code>. Every supported mission has to leave the picture exactly as it was, so the running sketch is your first test. The supported missions end at <code>ModelViewCheckpoint</code>. If you fall behind, open that and carry on from there.</p>
+    </div>
+    <h3>Supported</h3>
+    <div class="grid">
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 1</span>
+        <h3>Take the drawing out</h3>
+        <p>Move <code>show()</code> out of <code>Ball</code> and into the sketch as <code>void drawBall(Ball b)</code>, using <code>b.x</code>, <code>b.y</code>, and <code>b.bounces</code>. Change <code>move()</code> to <code>move(int w, int h)</code>, use <code>w</code> and <code>h</code> where it said <code>width</code> and <code>height</code>, and call <code>b.move(width, height);</code> and <code>drawBall(b);</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;No visible change. <code>Ball</code> no longer uses anything that belongs to Processing.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 2</span>
+        <h3>Name the rule</h3>
+        <p>Add <code>boolean isActive() { return bounces &lt; 3; }</code> to <code>Ball</code>. Use <code>isActive()</code> in <code>move()</code> and in <code>drawBall()</code> in place of each <code>bounces &lt; 3</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;No visible change. The rule now lives in one place, so question 6&rsquo;s bug can&rsquo;t happen anymore.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 3</span>
+        <h3>Ask the collection</h3>
+        <p>In the sketch, write <code>int countActive()</code>: loop over <code>balls</code>, count the ones where <code>isActive()</code> is true, and return the count. Add <code>textSize(16);</code> to <code>setup()</code>, and show it with <code>fill(0); text(countActive() + " active", 10, 25);</code></p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;&ldquo;4 active&rdquo; in the corner, dropping by one as each ball stops, and reaching 0 about four and a half seconds in. This is <code>ModelViewCheckpoint</code>.</p>
+      </article>
+    </div>
+    <h3>Independent extension</h3>
+    <div class="grid">
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 1</span>
+        <h3>Clear the stopped balls</h3>
+        <p>Write <code>int removeInactive()</code>: loop through <code>balls</code> backward, remove every ball that is not active, and return how many you removed. Call it when the <code>c</code> key is pressed, and print the result.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;<code>c</code> makes the gray balls disappear, and the console reports how many went. An <code>ArrayList</code> can shrink. An array can&rsquo;t.</p>
+      </article>
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 2</span>
+        <h3>Add by clicking</h3>
+        <p>Add <code>mousePressed()</code>: add a new <code>Ball</code> at the mouse, kept inside the walls with <code>constrain</code>, with speeds from <code>random(-6, 6)</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;Each click adds a white ball and raises the count by one. The input stays in the sketch. The model only receives a new ball. One answer to both extensions is <code>ModelViewComplete</code>.</p>
+      </article>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>&ldquo;Refactor with the picture on&rdquo; is the move to teach. A change that breaks the picture is caught in seconds, and students trust a change once the sketch still looks right.</p>
+        <p>Mission 3 is a complete free-response Question 3 answer in miniature: loop, condition, count, return. Point out that it calls <code>isActive()</code> instead of repeating <code>bounces &lt; 3</code>. Calling the method you were given is how those questions work.</p>
+        <p>In extension 1, someone will remove inside a <code>for (Ball b : balls)</code> loop. Java stops that with a <code>ConcurrentModificationException</code>. Someone else will loop forward with an index and skip a ball. The tests in the transfer catch that one.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
 <section id="exchange" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">1:10 &middot; 15 minutes &middot; Adapt and exchange</span>
+      <span class="eyebrow">After the session &middot; Optional</span>
       <h2>What counts as evidence?</h2>
       <p>Use a group you teach or plan to teach, or yourself as a learner. Work in pairs for the exchange; the first revision happens inside the core session.</p>
     </div>
     <ol class="ws-checklist">
-      <li><div><h3>Adapt &middot; 4 minutes</h3><p>Open your copy of the handout in this session&rsquo;s Google Classroom assignment, or <a href="downloads/workshop/session-4/session-4-student-handout.md">download it &darr;</a>. Change one prompt for your learners. Keep the prediction before Run and a way to check the answer.</p></div></li>
-      <li><div><h3>Exchange &middot; 7 minutes</h3><p>Use a minute to pair up, then three minutes each to try the opening instructions. Ask: Who is this for? What will learners predict? Where might they get stuck? Give one specific suggestion, using the discussion prompt below to focus your feedback.</p></div></li>
-      <li><div><h3>Revise &middot; 4 minutes</h3><p>Make one change, then turn in your copy on the Google Classroom assignment with one sentence: what did you change, for whom, and why?</p></div></li>
+      <li><div><h3>Adapt</h3><p>Open your copy of the handout in this session&rsquo;s Google Classroom assignment, or <a href="downloads/workshop/session-4/session-4-student-handout.md">download it &darr;</a>. Change one prompt for your learners. Keep the prediction before Run and a way to check the answer.</p></div></li>
+      <li><div><h3>Exchange</h3><p>Use a minute to pair up, then three minutes each to try the opening instructions. Ask: Who is this for? What will learners predict? Where might they get stuck? Give one specific suggestion, using the discussion prompt below to focus your feedback.</p></div></li>
+      <li><div><h3>Revise</h3><p>Make one change, and write one sentence: what did you change, for whom, and why? If you would like it shown at the next check-in, post it in Google Classroom. Posting is optional.</p></div></li>
     </ol>
     <div class="note">
       <p><strong>Discussion prompt.</strong> A student&rsquo;s <code>countActive()</code> passes every test. What else would you want to see before you were sure they understand it? Which would you assess: the sketch, the tests they wrote, or a written explanation?</p>
@@ -580,7 +576,7 @@ FAIL  after 260 frames, size after: expected 1, got 2</pre>
       <summary>Facilitator notes</summary>
       <div>
         <p>Pair educators with different teaching backgrounds when possible. This prompt feeds directly into the assessment criteria in the lesson package, so ask each group to keep their best sentence.</p>
-        <p>Have each participant save their revision and explanation in Google Classroom. These drafts start Session 5&rsquo;s studio. If someone has no partner, they can read the instructions as a learner, flag a sticking point, and request feedback in Classroom.</p>
+        <p>Invite participants to post a revision in Google Classroom if they want it shown at the next check-in. These drafts can become Session 5 showcase shares. If someone has no partner, they can read the instructions as a learner, flag a sticking point, and request feedback in Classroom.</p>
       </div>
     </details>
   </div>
@@ -589,12 +585,12 @@ FAIL  after 260 frames, size after: expected 1, got 2</pre>
 <section id="exit" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">1:25 &middot; 5 minutes &middot; Exit evidence and next step</span>
+      <span class="eyebrow">Part 4 &middot; Close</span>
       <h2>Before you go</h2>
     </div>
     <ol class="ws-checklist">
       <li><div><h3>Exit evidence</h3><p>Post your answer to question 5 in one sentence: the window went blank but the console didn&rsquo;t change. What does that tell you about the model?</p></div></li>
-      <li><div><h3>Next step</h3><p>The classroom studio, <strong>Sunday, December 13</strong>. Bring one lesson package from any session, finished or not. You will test it with colleagues and revise it.</p></div></li>
+      <li><div><h3>Next step</h3><p>The showcase, <strong>Sunday, December 13</strong>. Sign up in Google Classroom by December 9 to share something you made or adapted.</p></div></li>
     </ol>
   </div>
 </section>
@@ -602,9 +598,9 @@ FAIL  after 260 frames, size after: expected 1, got 2</pre>
 <section id="studio" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">1:30 &middot; 30 minutes &middot; Optional studio</span>
-      <h2>Studio</h2>
-      <p>Stay for whichever helps: one-on-one troubleshooting, the extensions, this AP-style question, or the lesson package.</p>
+      <span class="eyebrow">After the session &middot; Optional</span>
+      <h2>Go further</h2>
+      <p>Choose whichever helps: the extensions, this AP-style question, or the lesson package.</p>
     </div>
     <article class="trap">
       <div class="trap-head"><span class="eyebrow">AP-style multiple choice</span><h3>Which call shows the error?</h3></div>
@@ -651,7 +647,7 @@ public static int countBetween(ArrayList&lt;Double&gt; ys, double top, double bo
       <li><div><h3>Build</h3><p>Missions 1&ndash;3, and the extensions if you want more. Compare with <code>ModelViewCheckpoint</code> and <code>ModelViewComplete</code>. About 25 minutes.</p></div></li>
       <li><div><h3>Transfer</h3><p>Write <code>countActive()</code> from its header first. Then compile the three Java files, run <code>BallModel</code>, and predict every line of <code>BallModelTest</code> before you run it. About 20 minutes.</p></div></li>
       <li><div><h3>Adapt &middot; about 8 minutes</h3><p>Open your copy of the handout in this session&rsquo;s Google Classroom assignment, or <a href="downloads/workshop/session-4/session-4-student-handout.md">download it &darr;</a>. Change one prompt for a group you teach or plan to teach, or for yourself as a learner. Read the opening instructions as a learner and revise one likely sticking point. Use the <a href="#exchange">discussion prompt</a> and example response to check your thinking.</p></div></li>
-      <li><div><h3>Exchange &middot; about 7 minutes, plus a later reply</h3><p>Post your draft in the workshop&rsquo;s Google Classroom. The invite link is in your email. Include: Who is this for? What will learners predict? Where might they get stuck? Try another participant&rsquo;s opening instructions and leave one specific suggestion. If no draft is available yet, return later; you can continue without waiting for a partner.</p></div></li>
+      <li><div><h3>Exchange &middot; about 7 minutes, plus a later reply</h3><p>If you want feedback, or want your work shown at the next check-in, post your draft in the workshop&rsquo;s Google Classroom. The invite link is in your email. Include: Who is this for? What will learners predict? Where might they get stuck? Try another participant&rsquo;s opening instructions and leave one specific suggestion. If no draft is available yet, return later; you can continue without waiting for a partner.</p></div></li>
       <li><div><h3>Return and revise</h3><p>When feedback arrives, save a revision and explain what changed, for whom, and why. For more development time, try the <a href="#studio">optional studio task</a>. The teacher guide has explained answers and likely misconceptions.</p></div></li>
     </ol>
   </div>
@@ -685,7 +681,7 @@ public static int countBetween(ArrayList&lt;Double&gt; ys, double top, double bo
     <nav class="lesson-pager" aria-label="Workshop pages">
       <a href="session-3.html">&larr; Session 3, Nov 22</a>
       <a href="index.html#sessions">All sessions</a>
-      <a href="session-5.html">Studio, Dec 13 &rarr;</a>
+      <a href="session-5.html">Showcase, Dec 13 &rarr;</a>
     </nav>
   </div>
 </section>

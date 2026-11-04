@@ -34,7 +34,7 @@
 </nav>
 
 <main id="main-content" tabindex="-1">
-<nav class="session-jumps wrap" aria-label="On this page"><span class="eyebrow">In this session</span><a href="#predict">Predict</a><a href="#demo">Demo</a><a href="#build">Build</a><a href="#transfer">Java transfer</a><a href="#exchange">Exchange</a><a href="#exit">Exit evidence</a><a href="#studio">Studio</a><a href="#on-your-own">On your own</a></nav>
+<nav class="session-jumps wrap" aria-label="On this page"><span class="eyebrow">In this session</span><a href="#setup-draw">Setup and draw</a><a href="#predict">Predict</a><a href="#integer-division">Integer division</a><a href="#transfer">Java transfer</a><a href="#pumpkin">Pumpkin stamp</a><a href="#exchange">Exchange</a><a href="#exit">Exit evidence</a><a href="#studio">Go further</a><a href="#on-your-own">On your own</a></nav>
 
 <section>
   <div class="wrap stack-lg">
@@ -42,17 +42,17 @@
       <span class="eyebrow"><a href="index.html#sessions">Session 01</a> &middot; Sunday, November 8 &middot; 7&ndash;9 a.m. PT / 10 a.m.&ndash;noon ET</span>
       <h1>Make state visible</h1>
       <p class="lede">
-        One ball, moving down a window. You predict where it will be, change what it
-        remembers, and then call <code>draw()</code> yourself in plain Java. By the end,
-        &ldquo;a variable holds state&rdquo; and &ldquo;a method is called repeatedly&rdquo; are things you
-        have watched happen.
+        A sketch is a Java program with its loop hidden. You predict which lines run once and
+        which run again, watch integer division break a drawing, and write a method of your
+        own with a pumpkin stamp. Art Simon then joins to talk about teaching AP Java with
+        Processing.
       </p>
     </div>
     <dl class="camp-logistics">
-      <div><dt>Java ideas</dt><dd>Variables as state, assignment and expressions, scope, methods that something else calls, and calling a method yourself.</dd></div>
-      <div><dt>AP link</dt><dd>AP CS A Unit 1: variables, expressions, and tracing values through repeated execution. <strong>Outside AP:</strong> an intro programming, creative coding, or physics-of-motion lesson.</dd></div>
-      <div><dt>Files</dt><dd><a href="downloads/workshop/session-1-files.zip">session-1-files.zip</a>: starter, prediction, checkpoint, and completed sketches; three Java files; an editable student handout and teacher guide.</dd></div>
-      <div><dt>You leave with</dt><dd>A starter sketch, a prediction sheet, its plain-Java counterpart, and a 30-minute classroom activity.</dd></div>
+      <div><dt>Java ideas</dt><dd>The roles of <code>setup()</code> and <code>draw()</code>, variables as state, integer division, and methods with arguments.</dd></div>
+      <div><dt>AP link</dt><dd>AP CS A Unit 1: variables, expressions, integer division, calling methods, and tracing values. <strong>Outside AP:</strong> an intro programming, creative coding, or physics-of-motion lesson.</dd></div>
+      <div><dt>Files</dt><dd><a href="downloads/workshop/session-1-files.zip">session-1-files.zip</a>: concept, pumpkin, checkpoint, and completed sketches; four Java files; an editable student handout and teacher guide.</dd></div>
+      <div><dt>You leave with</dt><dd>A pumpkin stamp with a method of your own, a prediction sheet, its plain-Java counterpart, and a 30-minute classroom activity.</dd></div>
     </dl>
     <div class="note">
       <p><strong>Both routes:</strong> leave with one adapted handout for a group you teach or plan to teach, or for yourself as a learner. <a href="index.html#your-way">How live and independent participation work</a>.</p>
@@ -64,26 +64,55 @@
 <section>
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">Run of show &middot; 90-minute core, then 30 minutes of optional studio</span>
-      <h2>Two hours, eight blocks</h2>
+      <span class="eyebrow">Run of show &middot; two hours, four parts</span>
+      <h2>Four parts, thirty minutes each</h2>
     </div>
     <div class="ws-agenda">
-      <div class="step"><div class="step-label">0:00<b>10 min &middot; 7:00 PT</b></div><div class="step-body"><p><a href="#predict"><strong>Predict and discuss.</strong></a> Read the sketch, call what it will do, then run it.</p></div></div>
-      <div class="step"><div class="step-label">0:10<b>15 min &middot; 7:10 PT</b></div><div class="step-body"><p><a href="#demo"><strong>Short demo.</strong></a> Slow it to one frame a second, break it on purpose, and see what Processing hides.</p></div></div>
-      <div class="step"><div class="step-label">0:25<b>25 min &middot; 7:25 PT</b></div><div class="step-body"><p><a href="#build"><strong>Guided build.</strong></a> Supported missions to the checkpoint, with an independent extension.</p></div></div>
-      <div class="step"><div class="step-label">0:50<b>5 min &middot; 7:50 PT</b></div><div class="step-body"><p><strong>Break.</strong></p></div></div>
-      <div class="step"><div class="step-label">0:55<b>15 min &middot; 7:55 PT</b></div><div class="step-body"><p><a href="#transfer"><strong>Java transfer.</strong></a> Same output with no window, then call <code>draw()</code> yourself.</p></div></div>
-      <div class="step"><div class="step-label">1:10<b>15 min &middot; 8:10 PT</b></div><div class="step-body"><p><a href="#exchange"><strong>Adapt and exchange.</strong></a> Change one prompt, try it on a partner, revise. Focus: where this fits in your teaching, and what you would assess.</p></div></div>
-      <div class="step"><div class="step-label">1:25<b>5 min &middot; 8:25 PT</b></div><div class="step-body"><p><a href="#exit"><strong>Exit evidence and next step.</strong></a></p></div></div>
-      <div class="step"><div class="step-label">1:30<b>30 min &middot; 8:30 PT</b></div><div class="step-body"><p><a href="#studio"><strong>Optional studio.</strong></a> Troubleshooting, the extension, an AP-style question, and adapting the activity for your class.</p></div></div>
+      <div class="step"><div class="step-label">Part 1<b>30 min &middot; 7:00 PT</b></div><div class="step-body"><p><strong>Check in.</strong> Recording consent, introductions, and a first sketch running in Pickcode. Join early if you can, using the directions in Google Classroom.</p></div></div>
+      <div class="step"><div class="step-label">Part 2<b>30 min &middot; 7:30 PT</b></div><div class="step-body"><p><a href="#setup-draw"><strong>Concept and live coding.</strong></a> Saber covers <code>setup()</code>, <code>draw()</code>, state, integer division, and a short Java transfer.</p></div></div>
+      <div class="step"><div class="step-label">Part 3<b>30 min &middot; 8:00 PT</b></div><div class="step-body"><p><a href="#pumpkin"><strong>Guided practice.</strong></a> Joshua Hans leads the pumpkin stamp, one main activity with breakouts.</p></div></div>
+      <div class="step"><div class="step-label">Part 4<b>30 min &middot; 8:30 PT</b></div><div class="step-body"><p><strong>Guest and close.</strong> Art Simon on teaching AP Java with Processing, then five minutes to close.</p></div></div>
     </div>
+  </div>
+</section>
+
+<section id="setup-draw" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Part 2 &middot; Concept &middot; Setup and draw</span>
+      <h2>Which lines run once?</h2>
+      <p>Read this sketch. <strong>Before anyone presses Run</strong>, predict the first four lines of the console. Then open <code>SetupDraw</code> and run it.</p>
+    </div>
+<pre class="ws-code" data-file="SetupDraw/SetupDraw.pde">
+// Session 1 concept: which lines run once, and which run again and again?
+// Predict the console, then press Run.
+
+int frames = 0;
+
+void setup() {
+  size(400, 200);
+  println("setup ran");
+}
+
+void draw() {
+  frames = frames + 1;
+  background(255);
+  fill(0);
+  text(frames, 190, 100);
+
+  if (frames &lt;= 3) {
+    println("draw ran: " + frames);
+  }
+}
+</pre>
+    <p class="ws-expect"><strong>Expect</strong> &nbsp;<code>setup ran</code>, then <code>draw ran: 1</code>, <code>draw ran: 2</code>, <code>draw ran: 3</code>. <code>frames</code> sits outside both methods, so it keeps its value between frames.</p>
   </div>
 </section>
 
 <section id="predict" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">0:00 &middot; 10 minutes &middot; Predict and discuss</span>
+      <span class="eyebrow">Part 2 &middot; Concept &middot; Predict</span>
       <h2>Call it before you run it</h2>
       <p>Read this sketch. <strong>Before anyone presses Run</strong>, answer the two questions. Then open <code>MovingBall</code> from the download and run it.</p>
     </div>
@@ -108,7 +137,7 @@ void draw() {
       <li>
         <p>Nothing in the sketch calls <code>draw()</code>. So who does?</p>
         <button class="reveal-btn" type="button" aria-controls="q2">Show answer</button>
-        <div class="answer" id="q2" hidden><p><span class="out">Processing does</span> About 60 times a second. You will call it yourself in plain Java at 0:55.</p></div>
+        <div class="answer" id="q2" hidden><p><span class="out">Processing does</span> About 60 times a second. You will call it yourself in plain Java in the transfer.</p></div>
       </li>
     </ol>
     <details class="ws-facilitator">
@@ -124,7 +153,7 @@ void draw() {
 <section id="demo" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">0:10 &middot; 15 minutes &middot; Short demo</span>
+      <span class="eyebrow">Part 2 &middot; Concept &middot; Live coding</span>
       <h2>Slow it down, break it, open it up</h2>
       <p>
         The facilitator runs <code>FrameByFrame</code>: the same ball at one frame per second,
@@ -230,68 +259,62 @@ void draw() {
   </div>
 </section>
 
-<section id="build" class="ws-block">
+<section id="integer-division" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">0:25 &middot; 25 minutes &middot; Guided build</span>
-      <h2>Change what it remembers</h2>
-      <p>Work in <code>MovingBall</code>. Before each run, say what you expect. The supported missions end at <code>MovingBallCheckpoint</code>. If you fall behind, open that and carry on from there.</p>
+      <span class="eyebrow">Part 2 &middot; Concept &middot; Trap</span>
+      <h2>Why won&rsquo;t the eyes follow the mouse?</h2>
+      <p>Open <code>FaceDrift</code> and move the mouse. Predict what will change if you write <code>1.0 / 2</code> instead of <code>1 / 2</code>. Then try it.</p>
     </div>
-    <h3>Supported</h3>
-    <div class="grid">
-      <article class="ws-mission">
-        <span class="eyebrow">Mission 1</span>
-        <h3>Faster</h3>
-        <p>Change the <code>2</code> in <code>y = y + 2;</code> to <code>5</code>.</p>
-        <p class="ws-expect"><strong>Expect</strong> &nbsp;It leaves the window in under a second and a half. In <code>FrameByFrame</code>, frame 5 would draw at <code>20.0</code>.</p>
-      </article>
-      <article class="ws-mission">
-        <span class="eyebrow">Mission 2</span>
-        <h3>Name the speed</h3>
-        <p>Add <code>float ySpeed = 2;</code> and change the update to <code>y = y + ySpeed;</code>.</p>
-        <p class="ws-expect"><strong>Expect</strong> &nbsp;No visible change. That is the point: speed is state now, so the program could change it.</p>
-      </article>
-      <article class="ws-mission">
-        <span class="eyebrow">Mission 3</span>
-        <h3>A second direction</h3>
-        <p>Add <code>float x = 0;</code> and <code>float xSpeed = 1.5;</code>. Draw with <code>circle(x, y, 40);</code> and add <code>x = x + xSpeed;</code>.</p>
-        <p class="ws-expect"><strong>Expect</strong> &nbsp;It moves diagonally down and to the right and leaves through the bottom about three-quarters of the way across. This is <code>MovingBallCheckpoint</code>.</p>
-      </article>
+<pre class="ws-code" data-file="FaceDrift/FaceDrift.pde">
+// Session 1 concept: integer division you can see.
+// Move the mouse. Why won't the eyes follow it?
+// Predict what changes if you write 1.0 / 2 instead of 1 / 2. Then try it.
+
+void setup() {
+  size(400, 400);
+}
+
+void draw() {
+  background(255);
+  circle(200, 200, 240);
+
+  float eyeShift = 1 / 2 * mouseX;
+  circle(150 + eyeShift / 10, 170, 30);
+  circle(250 + eyeShift / 10, 170, 30);
+}
+</pre>
+    <p class="ws-expect"><strong>Expect</strong> &nbsp;With <code>1 / 2</code>, the eyes stay still. In Java, an <code>int</code> divided by an <code>int</code> is an <code>int</code>, so <code>1 / 2</code> is 0. With <code>1.0 / 2</code>, the eyes follow the mouse.</p>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/IntegerTrace.java">
+// Session 1, Java transfer: the FaceDrift bug with no window.
+// In Java, an int divided by an int is an int. Predict every line before you run it.
+
+public class IntegerTrace {
+
+  public static void main(String[] args) {
+    int mouseX = 100;
+
+    System.out.println(1 / 2 * mouseX);
+    System.out.println(1.0 / 2 * mouseX);
+    System.out.println(7 / 2);
+    System.out.println(7 / 2.0);
+  }
+}
+</pre>
     </div>
-    <h3>Independent extension</h3>
-    <div class="grid">
-      <article class="ws-mission stretch">
-        <span class="eyebrow">Extension 1</span>
-        <h3>See every frame</h3>
-        <p>Delete <code>background(255);</code> from <code>draw()</code>, and add it to <code>setup()</code> instead.</p>
-        <p class="ws-expect"><strong>Expect</strong> &nbsp;A trail. Every frame stays on screen, so the whole history of the state is visible at once.</p>
-      </article>
-      <article class="ws-mission stretch">
-        <span class="eyebrow">Extension 2</span>
-        <h3>Let speed change too</h3>
-        <p>Start <code>ySpeed</code> at 0 and add <code>ySpeed = ySpeed + 0.2;</code> at the end of <code>draw()</code>.</p>
-        <p class="ws-expect"><strong>Expect</strong> &nbsp;It starts slowly and speeds up, and with the trail on, the path curves like a thrown ball. One answer is <code>FallingBall</code>.</p>
-      </article>
-    </div>
-    <details class="ws-facilitator">
-      <summary>Facilitator notes</summary>
-      <div>
-        <p>Mission 2 matters more than it looks: it turns a magic number into a variable, and Session 3 turns that variable into a field.</p>
-        <p>Experienced Java teachers will finish fast. Point them to the extensions and to the <a href="#studio">studio</a> question rather than to helping neighbors: they came to learn too.</p>
-        <p>No conditionals in this session on purpose. Someone will want the ball to bounce. Tell them that is exactly where Session 2 starts.</p>
-      </div>
-    </details>
+    <p class="ws-expect"><strong>Expect</strong> &nbsp;<code>0</code>, <code>50.0</code>, <code>3</code>, <code>3.5</code>.</p>
   </div>
 </section>
 
 <section id="transfer" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">0:55 &middot; 15 minutes &middot; Java transfer</span>
+      <span class="eyebrow">Part 2 &middot; About 5 minutes live &middot; Java transfer</span>
       <h2>Same state, no window</h2>
       <p>
         AP Java has no animation loop and no screen. So you write the loop, and each frame
-        becomes a line of text. <strong>The test: the output must match the
+        becomes a line of text. In the session, trace one file together in about five minutes, and run the rest on your own. <strong>The test: the output must match the
         <code>FrameByFrame</code> console line for line.</strong> Run each file with any
         method from <a href="processing.html#plain-java">Running plain Java</a>.
       </p>
@@ -391,17 +414,130 @@ frame 5: y = 20, ySpeed = 10</pre>
   </div>
 </section>
 
+<section id="pumpkin" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Part 3 &middot; Guided practice with Joshua Hans</span>
+      <h2>Stamp a pumpkin</h2>
+      <p>Press <code>p</code> to stamp a pumpkin at the mouse. <code>drawPumpkin</code> is a method with arguments, and this time you call it yourself. The starter is in the Pickcode lesson and in <code>PumpkinStamp</code>.</p>
+    </div>
+<pre class="ws-code" data-file="PumpkinStamp/PumpkinStamp.pde">
+// Session 1 guided practice: a pumpkin stamp.
+// Press p to stamp a pumpkin at the mouse. drawPumpkin is a method with arguments.
+// Add your own method, and a key that calls it.
+
+void setup() {
+  size(600, 400);
+  background(40, 50, 70);
+}
+
+void draw() {
+  // draw() stays empty so every stamp stays on the screen.
+}
+
+void keyPressed() {
+  if (key == 'p') {
+    drawPumpkin(mouseX, mouseY, 80);
+  }
+}
+
+void drawPumpkin(float x, float y, float size) {
+  noStroke();
+
+  fill(70, 120, 60);
+  rect(x - size / 12, y - size * 0.65, size / 6, size / 4);
+
+  fill(240, 130, 40);
+  ellipse(x - size / 3, y, size / 2, size);
+  ellipse(x + size / 3, y, size / 2, size);
+  ellipse(x, y, size / 2, size);
+}
+</pre>
+    <div class="grid">
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 1</span>
+        <h3>Change an argument</h3>
+        <p>Predict what changes if the call passes <code>40</code> instead of <code>80</code>. Then try it.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 2</span>
+        <h3>Add your own method</h3>
+        <p>Write a method that draws something new for the scene. Give it at least two arguments.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 3</span>
+        <h3>Give it a key</h3>
+        <p>Call your method from <code>keyPressed()</code>. You are done when a new key stamps your drawing at the mouse.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="build" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">After the session &middot; Optional</span>
+      <h2>Change what it remembers</h2>
+      <p>Work in <code>MovingBall</code>. Before each run, say what you expect. The supported missions end at <code>MovingBallCheckpoint</code>. If you fall behind, open that and carry on from there.</p>
+    </div>
+    <h3>Supported</h3>
+    <div class="grid">
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 1</span>
+        <h3>Faster</h3>
+        <p>Change the <code>2</code> in <code>y = y + 2;</code> to <code>5</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;It leaves the window in under a second and a half. In <code>FrameByFrame</code>, frame 5 would draw at <code>20.0</code>.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 2</span>
+        <h3>Name the speed</h3>
+        <p>Add <code>float ySpeed = 2;</code> and change the update to <code>y = y + ySpeed;</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;No visible change. That is the point: speed is state now, so the program could change it.</p>
+      </article>
+      <article class="ws-mission">
+        <span class="eyebrow">Mission 3</span>
+        <h3>A second direction</h3>
+        <p>Add <code>float x = 0;</code> and <code>float xSpeed = 1.5;</code>. Draw with <code>circle(x, y, 40);</code> and add <code>x = x + xSpeed;</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;It moves diagonally down and to the right and leaves through the bottom about three-quarters of the way across. This is <code>MovingBallCheckpoint</code>.</p>
+      </article>
+    </div>
+    <h3>Independent extension</h3>
+    <div class="grid">
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 1</span>
+        <h3>See every frame</h3>
+        <p>Delete <code>background(255);</code> from <code>draw()</code>, and add it to <code>setup()</code> instead.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;A trail. Every frame stays on screen, so the whole history of the state is visible at once.</p>
+      </article>
+      <article class="ws-mission stretch">
+        <span class="eyebrow">Extension 2</span>
+        <h3>Let speed change too</h3>
+        <p>Start <code>ySpeed</code> at 0 and add <code>ySpeed = ySpeed + 0.2;</code> at the end of <code>draw()</code>.</p>
+        <p class="ws-expect"><strong>Expect</strong> &nbsp;It starts slowly and speeds up, and with the trail on, the path curves like a thrown ball. One answer is <code>FallingBall</code>.</p>
+      </article>
+    </div>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Mission 2 matters more than it looks: it turns a magic number into a variable, and Session 3 turns that variable into a field.</p>
+        <p>Experienced Java teachers will finish fast. Point them to the extensions and to the <a href="#studio">studio</a> question rather than to helping neighbors: they came to learn too.</p>
+        <p>No conditionals in this session on purpose. Someone will want the ball to bounce. Tell them that is exactly where Session 2 starts.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
 <section id="exchange" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">1:10 &middot; 15 minutes &middot; Adapt and exchange</span>
+      <span class="eyebrow">After the session &middot; Optional</span>
       <h2>Where does this go in your teaching?</h2>
       <p>Use a group you teach or plan to teach, or yourself as a learner. Work in pairs for the exchange; the first revision happens inside the core session.</p>
     </div>
     <ol class="ws-checklist">
-      <li><div><h3>Adapt &middot; 4 minutes</h3><p>Open your copy of the handout in this session&rsquo;s Google Classroom assignment, or <a href="downloads/workshop/session-1/session-1-student-handout.md">download it &darr;</a>. Change one prompt for your learners. Keep the prediction before Run and a way to check the answer.</p></div></li>
-      <li><div><h3>Exchange &middot; 7 minutes</h3><p>Use a minute to pair up, then three minutes each to try the opening instructions. Ask: Who is this for? What will learners predict? Where might they get stuck? Give one specific suggestion, using the discussion prompt below to focus your feedback.</p></div></li>
-      <li><div><h3>Revise &middot; 4 minutes</h3><p>Make one change, then turn in your copy on the Google Classroom assignment with one sentence: what did you change, for whom, and why?</p></div></li>
+      <li><div><h3>Adapt</h3><p>Open your copy of the handout in this session&rsquo;s Google Classroom assignment, or <a href="downloads/workshop/session-1/session-1-student-handout.md">download it &darr;</a>. Change one prompt for your learners. Keep the prediction before Run and a way to check the answer.</p></div></li>
+      <li><div><h3>Exchange</h3><p>Use a minute to pair up, then three minutes each to try the opening instructions. Ask: Who is this for? What will learners predict? Where might they get stuck? Give one specific suggestion, using the discussion prompt below to focus your feedback.</p></div></li>
+      <li><div><h3>Revise</h3><p>Make one change, and write one sentence: what did you change, for whom, and why? If you would like it shown at the next check-in, post it in Google Classroom. Posting is optional.</p></div></li>
     </ol>
     <div class="note">
       <p><strong>Discussion prompt.</strong> Where in your course would a moving ball fit, and what would you ask students to predict first? When students do this activity, what would you assess: the sketch, the prediction table, or the explanation?</p>
@@ -414,7 +550,7 @@ frame 5: y = 20, ySpeed = 10</pre>
       <summary>Facilitator notes</summary>
       <div>
         <p>Pair educators with different teaching backgrounds when possible. The non-AP answers are often the most inventive placements, and the AP answers bring the tracing rigor.</p>
-        <p>Have each participant save their revision and explanation in Google Classroom. These drafts start Session 5&rsquo;s studio. If someone has no partner, they can read the instructions as a learner, flag a sticking point, and request feedback in Classroom.</p>
+        <p>Invite participants to post a revision in Google Classroom if they want it shown at the next check-in. These drafts can become Session 5 showcase shares. If someone has no partner, they can read the instructions as a learner, flag a sticking point, and request feedback in Classroom.</p>
       </div>
     </details>
   </div>
@@ -423,7 +559,7 @@ frame 5: y = 20, ySpeed = 10</pre>
 <section id="exit" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">1:25 &middot; 5 minutes &middot; Exit evidence and next step</span>
+      <span class="eyebrow">Part 4 &middot; Close</span>
       <h2>Before you go</h2>
     </div>
     <ol class="ws-checklist">
@@ -436,9 +572,9 @@ frame 5: y = 20, ySpeed = 10</pre>
 <section id="studio" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">1:30 &middot; 30 minutes &middot; Optional studio</span>
-      <h2>Studio</h2>
-      <p>Stay for whichever helps: one-on-one troubleshooting, the extensions, this AP-style question, or the classroom adaptation task.</p>
+      <span class="eyebrow">After the session &middot; Optional</span>
+      <h2>Go further</h2>
+      <p>Choose whichever helps: the extensions, this AP-style question, or the classroom adaptation task.</p>
     </div>
     <article class="trap">
       <div class="trap-head"><span class="eyebrow">AP-style multiple choice</span><h3>What is printed?</h3></div>
@@ -476,12 +612,12 @@ System.out.println(y + " " + speed);</pre>
       <p>Everything from the live session, in order. Answers are behind the Show buttons on this page.</p>
     </div>
     <ol class="ws-checklist">
-      <li><div><h3>Set up</h3><p><a href="processing.html">Your first sketch</a>, then download <a href="downloads/workshop/session-1-files.zip">session-1-files.zip</a>. About 15 minutes.</p></div></li>
-      <li><div><h3>Predict</h3><p>Answer questions 1&ndash;6 on paper <em>before</em> running anything, then check them. About 20 minutes.</p></div></li>
-      <li><div><h3>Build</h3><p>Missions 1&ndash;3, and the extensions if you want more. Compare with <code>MovingBallCheckpoint</code> and <code>FallingBall</code>. About 25 minutes.</p></div></li>
-      <li><div><h3>Transfer</h3><p>Run the three Java files. Trace <code>FallingTrace</code> before you run it. About 15 minutes.</p></div></li>
+      <li><div><h3>Set up</h3><p>Join Pickcode, or use <a href="processing.html">Your first sketch</a> for the desktop editor, then download <a href="downloads/workshop/session-1-files.zip">session-1-files.zip</a>. About 15 minutes.</p></div></li>
+      <li><div><h3>Predict</h3><p>Predict and run <code>SetupDraw</code> and <code>FaceDrift</code>. Then answer questions 1&ndash;6 on paper <em>before</em> running anything, then check them. About 20 minutes.</p></div></li>
+      <li><div><h3>Build</h3><p>Do the <a href="#pumpkin">pumpkin stamp</a> missions. For more, try the ball missions and extensions, and compare with <code>MovingBallCheckpoint</code> and <code>FallingBall</code>. About 25 minutes.</p></div></li>
+      <li><div><h3>Transfer</h3><p>Run the four Java files. Trace <code>FallingTrace</code> before you run it. About 15 minutes.</p></div></li>
       <li><div><h3>Adapt &middot; about 8 minutes</h3><p>Open your copy of the handout in this session&rsquo;s Google Classroom assignment, or <a href="downloads/workshop/session-1/session-1-student-handout.md">download it &darr;</a>. Change one prompt for a group you teach or plan to teach, or for yourself as a learner. Read the opening instructions as a learner and revise one likely sticking point. Use the <a href="#exchange">discussion prompt</a> and example response to check your thinking.</p></div></li>
-      <li><div><h3>Exchange &middot; about 7 minutes, plus a later reply</h3><p>Post your draft in the workshop&rsquo;s Google Classroom. The invite link is in your email. Include: Who is this for? What will learners predict? Where might they get stuck? Try another participant&rsquo;s opening instructions and leave one specific suggestion. If no draft is available yet, return later; you can continue without waiting for a partner.</p></div></li>
+      <li><div><h3>Exchange &middot; about 7 minutes, plus a later reply</h3><p>If you want feedback, or want your work shown at the next check-in, post your draft in the workshop&rsquo;s Google Classroom. The invite link is in your email. Include: Who is this for? What will learners predict? Where might they get stuck? Try another participant&rsquo;s opening instructions and leave one specific suggestion. If no draft is available yet, return later; you can continue without waiting for a partner.</p></div></li>
       <li><div><h3>Return and revise</h3><p>When feedback arrives, save a revision and explain what changed, for whom, and why. For more development time, try the <a href="#studio">optional studio task</a>. The teacher guide has explained answers and likely misconceptions.</p></div></li>
     </ol>
   </div>
@@ -524,7 +660,7 @@ System.out.println(y + " " + speed);</pre>
 
 <footer>
   <div class="wrap stack-sm">
-    <p>Every sketch and Java file on this page was run with Processing 4.3.4 and Java 17. Every expected output shown is real output.</p>
+    <p>The original sketches and Java files on this page were run with Processing 4.3.4 and Java 17. <code>SetupDraw</code>, <code>FaceDrift</code>, <code>PumpkinStamp</code>, and <code>IntegerTrace</code> were tested with Processing&rsquo;s core library. Every expected output shown is real output.</p>
     <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
   </div>
 </footer>

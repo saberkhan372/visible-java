@@ -3,9 +3,8 @@
 Two things share this site:
 
 - **The Visible Java workshop** (`index.html`, `processing.html`, `session-1.html`): a free
-  CC Fest Camp for educators: four workshops and a classroom studio on five Sundays,
-  November 8–December 13, 2026, 7–9 a.m. PT / 10 a.m.–noon ET. Each meeting is a 90-minute
-  core plus 30 optional studio minutes, and every session also works asynchronously.
+  CC Fest Camp for educators: four lessons and a showcase on five Sundays,
+  November 8–December 13, 2026, 7–9 a.m. PT / 10 a.m.–noon ET. Each lesson has four 30-minute parts (check-in, concept, guided practice, guest), and every session also works asynchronously. The workshop uses a Pickcode class in the browser; desktop Processing is optional.
 - **The AP CS A course** (`course.html` and everything it links to): a full four-unit course,
   paced for five 50-minute periods a week, that the workshop sessions draw on.
 
@@ -25,8 +24,8 @@ tissue is the Java/Processing comparison, translation layer, port exercise, and 
 |---|---|
 | `index.html` | **Workshop home.** Interactive state model, five-session schedule, the four learning moves, and a short preparation checklist. |
 | `processing.html` | **Workshop.** Your first sketch: install Processing, Java mode, Run, first-run problems, and three ways to run plain Java. |
-| `session-1.html` | **Workshop.** Session 1, Make state visible (Sun Nov 8): the template for every session. Eight-block run of show (90-minute core + 30 studio), predictions with answers, supported and extension missions, Java transfer, colleague exchange, exit evidence, an On your own route, and facilitator notes. Files in `downloads/workshop/session-1/`, including an editable student handout and teacher guide. |
-| `session-2.html`–`session-5.html` | **Workshop.** Make decisions visible (Nov 15), Make objects visible (Nov 22), Make learning transferable (Dec 6), and the Classroom studio (Dec 13), all on the Session 1 template. Files in `downloads/workshop/session-2/`–`session-5/`, each with a student handout and teacher guide. |
+| `session-1.html` | **Workshop.** Session 1, Make state visible (Sun Nov 8): the template for every session. Four-part run of show, predictions with answers, supported and extension missions, Java transfer, colleague exchange, exit evidence, an On your own route, and facilitator notes. Files in `downloads/workshop/session-1/`, including an editable student handout and teacher guide. |
+| `session-2.html`–`session-5.html` | **Workshop.** Make decisions visible (Nov 15), Make objects visible (Nov 22), Make learning transferable (Dec 6), and the Showcase (Dec 13), all on the Session 1 template. Files in `downloads/workshop/session-2/`–`session-5/`, each with a student handout and teacher guide. |
 | `downloads/workshop/visible-java-2026.ics` | Calendar file for the five meetings (15:00–17:00 UTC). |
 | `course.html` | Course entry for students: direct unit routes, first lesson, pacing calendar, and the Processing-to-Java connection. |
 | `library.html` | Task-based directory for comparing, translating, porting, predicting output, the loop lab, and editor setup. |
