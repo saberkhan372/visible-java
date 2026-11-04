@@ -9,7 +9,7 @@ import argparse
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-LIBRARY = {"library.html", "examples.html", "translate.html", "port.html", "traps.html", "loop-lab.html", "setup.html"}
+LIBRARY = {"library.html", "labs.html", "examples.html", "translate.html", "port.html", "traps.html", "loop-lab.html", "setup.html"}
 WORKSHOP = {"index.html", "camp.html", "processing.html", "readiness.html", "about.html", *[f"session-{n}.html" for n in range(1, 6)]}
 
 
@@ -40,7 +40,7 @@ def header(path):
     elif area == "Course":
         secondary = [("course.html", "Course home"), ("path.html", "Unit map"), ("calendar.html", "Pacing calendar"), ("frq.html", "Free response")]
     else:
-        secondary = [("library.html", "All resources"), ("examples.html", "Compare"), ("translate.html", "Translate"), ("port.html", "Port a sketch"), ("traps.html", "Predict output"), ("loop-lab.html", "Loop lab"), ("setup.html", "Java setup")]
+        secondary = [("library.html", "All resources"), ("examples.html", "Compare"), ("translate.html", "Translate"), ("port.html", "Port a sketch"), ("traps.html", "Predict output"), ("loop-lab.html", "Loop lab"), ("labs.html", "Visible labs"), ("setup.html", "Java setup")]
     context = "\n      ".join(link(target, label, target == name) for target, label in secondary)
     join = link("camp.html#interest", 'Join the interest list <span aria-hidden="true">↗</span>', name == "camp.html", "nav-join") if area == "Workshop" else ""
     join_line = "\n    " + join if join else ""

@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visible labs — Visible Java</title>
+<meta name="description" content="Three Processing labs for the topics sketches rarely reach: String methods, 2D arrays, and reading text files.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@500;600;700&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=20261020e"><link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java<span class="logo-sub">A CC Fest learning studio</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="library.html" aria-current="true">Library</a>
+    </nav>
+  </div>
+</header>
+<nav class="section-nav" aria-label="Library navigation">
+  <div class="wrap">
+      <a href="library.html">All resources</a>
+      <a href="examples.html">Compare</a>
+      <a href="translate.html">Translate</a>
+      <a href="port.html">Port a sketch</a>
+      <a href="traps.html">Predict output</a>
+      <a href="loop-lab.html">Loop lab</a>
+      <a href="labs.html" aria-current="page">Visible labs</a>
+      <a href="setup.html">Java setup</a>
+  </div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Library &middot; Optional labs</span>
+      <h1>Visible labs</h1>
+      <p class="lede">Three short labs for the topics student sketches rarely reach: <code>String</code> methods, 2D arrays, and reading a text file. Use them in a studio, on your own, or with a class.</p>
+      <p>Each lab has a sketch you can click, questions to answer first, and a plain-Java version in exam form. <a href="downloads/workshop/labs-files.zip">Download all three labs</a> &darr;. They are not part of the five session cores.</p>
+    </div>
+  </div>
+</section>
+
+<section id="string-tiles" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Lab 1 &middot; about 25 minutes</span>
+      <h2>String tiles</h2>
+      <p>A word becomes a row of numbered tiles, and a window slides along it. You can see which indexes <code>substring</code> uses and where the scan has to stop.</p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="StringTiles/StringTiles.pde">
+// Visible lab 1: String tiles.
+// Click to slide the window along the word. The sketch checks one window at a time.
+// Before you click, predict: where will the first match be? How many will there be?
+
+String word = "banana";
+String target = "ana";
+int start = 0;
+int cell = 80;
+
+void setup() {
+  size(640, 300);
+  textAlign(CENTER, CENTER);
+  report();
+}
+
+void draw() {
+  background(255);
+  String window = word.substring(start, start + target.length());
+
+  for (int i = 0; i &lt; word.length(); i++) {
+    int x = 40 + i * cell;
+
+    if (i &gt;= start &amp;&amp; i &lt; start + target.length()) {
+      if (window.equals(target)) {
+        fill(170, 230, 190);
+      } else {
+        fill(255, 225, 130);
+      }
+    } else {
+      fill(240);
+    }
+    rect(x, 50, cell, cell);
+
+    fill(0);
+    textSize(36);
+    text(word.substring(i, i + 1), x + cell / 2, 88);
+    textSize(14);
+    text(i, x + cell / 2, 145);
+  }
+
+  fill(0);
+  textSize(18);
+  text("word.substring(" + start + ", " + (start + target.length()) + ") is \"" + window + "\"", width / 2, 195);
+  text("word.indexOf(\"" + target + "\") is " + word.indexOf(target), width / 2, 225);
+  text("Click to move the window", width / 2, 260);
+}
+
+void mousePressed() {
+  start = start + 1;
+  if (start &gt; word.length() - target.length()) {
+    start = 0;
+  }
+  report();
+}
+
+void report() {
+  String window = word.substring(start, start + target.length());
+  println(start + ": " + window + " " + window.equals(target));
+}
+</pre>
+    </div>
+    <article class="ws-mission stretch">
+      <span class="eyebrow">Predict, then click</span>
+      <h3>Before you run it</h3>
+      <ol class="plain"><li>What does <code>word.substring(0, 3)</code> give?</li><li>Where is the first match of <code>"ana"</code>, and how many matches are there?</li><li>What is the last start value that fits? Why does the code stop there?</li></ol><p>Then change <code>target</code> to <code>"na"</code> and predict again.</p>
+    </article>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/StringScan/StringScan.java">
+// Visible lab 1, Java transfer: the sliding window with no tiles.
+// Predict every line before you run it.
+
+public class StringScan {
+
+  /** Returns how many times target appears in word, counting overlaps. */
+  public static int countMatches(String word, String target) {
+    int count = 0;
+    for (int start = 0; start &lt;= word.length() - target.length(); start++) {
+      String window = word.substring(start, start + target.length());
+      if (window.equals(target)) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  public static void main(String[] args) {
+    System.out.println("banana".indexOf("ana"));
+    System.out.println(countMatches("banana", "ana"));
+    System.out.println(countMatches("banana", "x"));
+  }
+}
+</pre>
+    </div>
+    <p class="ws-expect"><strong>Expect</strong> &nbsp;<code>1</code>, <code>2</code>, <code>0</code>.</p>
+    <p><code>indexOf</code> reports only the first match, at index 1. The loop finds both, because the matches overlap at index 3. The end index of <code>substring</code> is excluded, which is why the last valid start is <code>word.length() - target.length()</code>.</p>
+    <aside class="note"><h3>Where this goes</h3><p>Free-response Question 1 Part B always calls <code>String</code> methods. In the course, see Lessons <a href="unit1/lesson-07.html">7</a>&ndash;<a href="unit1/lesson-09.html">9</a> and <a href="unit2/lesson-17.html">17</a>&ndash;<a href="unit2/lesson-18.html">18</a>. Outside AP CS A, this works as a first look at searching text.</p></aside>
+  </div>
+</section>
+
+<section id="grid-totals" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Lab 2 &middot; about 25 minutes</span>
+      <h2>Grid totals</h2>
+      <p>A 2D array becomes tiles you can click. Each click changes one element, and methods recompute the row and column totals beside the grid.</p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="GridTotals/GridTotals.pde">
+// Visible lab 2: Grid totals.
+// Click a tile to turn it on or off. The totals are computed by methods, not counted by eye.
+// Before you click, predict: which index changes, and which two totals change with it?
+
+int[][] tiles = {
+  {1, 0, 0, 1, 0, 0},
+  {0, 1, 0, 0, 1, 0},
+  {1, 1, 1, 0, 0, 0},
+  {0, 0, 1, 0, 1, 1}
+};
+int cell = 70;
+
+void setup() {
+  size(500, 360);
+  textAlign(CENTER, CENTER);
+  textSize(18);
+}
+
+void draw() {
+  background(255);
+
+  for (int row = 0; row &lt; tiles.length; row++) {
+    for (int col = 0; col &lt; tiles[0].length; col++) {
+      if (tiles[row][col] == 1) {
+        fill(120, 170, 230);
+      } else {
+        fill(240);
+      }
+      rect(col * cell, row * cell, cell, cell);
+      fill(0);
+      text(tiles[row][col], col * cell + cell / 2, row * cell + cell / 2);
+    }
+  }
+
+  fill(0);
+  for (int row = 0; row &lt; tiles.length; row++) {
+    text(rowTotal(tiles, row), tiles[0].length * cell + 40, row * cell + cell / 2);
+  }
+  for (int col = 0; col &lt; tiles[0].length; col++) {
+    text(colTotal(tiles, col), col * cell + cell / 2, tiles.length * cell + 40);
+  }
+}
+
+void mousePressed() {
+  int row = mouseY / cell;
+  int col = mouseX / cell;
+
+  if (row &lt; tiles.length &amp;&amp; col &lt; tiles[0].length) {
+    tiles[row][col] = 1 - tiles[row][col];
+    println("tiles[" + row + "][" + col + "] is now " + tiles[row][col]);
+    println("row total " + rowTotal(tiles, row) + ", column total " + colTotal(tiles, col));
+  }
+}
+
+int rowTotal(int[][] grid, int row) {
+  int total = 0;
+  for (int col = 0; col &lt; grid[0].length; col++) {
+    total = total + grid[row][col];
+  }
+  return total;
+}
+
+int colTotal(int[][] grid, int col) {
+  int total = 0;
+  for (int row = 0; row &lt; grid.length; row++) {
+    total = total + grid[row][col];
+  }
+  return total;
+}
+</pre>
+    </div>
+    <article class="ws-mission stretch">
+      <span class="eyebrow">Predict, then click</span>
+      <h3>Before you run it</h3>
+      <ol class="plain"><li>Which element changes if you click the top-right tile?</li><li>Which two totals change, and by how much?</li><li>What do <code>tiles.length</code> and <code>tiles[0].length</code> each count?</li></ol><p>Then add a method that returns the total for the whole grid.</p>
+    </article>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/GridScores/GridScores.java">
+// Visible lab 2, Java transfer: the grid totals with no window.
+// The two methods are the same ones the sketch uses. Predict every line before you run it.
+
+public class GridScores {
+
+  /** Returns the sum of the values in the given row. */
+  public static int rowTotal(int[][] grid, int row) {
+    int total = 0;
+    for (int col = 0; col &lt; grid[0].length; col++) {
+      total = total + grid[row][col];
+    }
+    return total;
+  }
+
+  /** Returns the sum of the values in the given column. */
+  public static int colTotal(int[][] grid, int col) {
+    int total = 0;
+    for (int row = 0; row &lt; grid.length; row++) {
+      total = total + grid[row][col];
+    }
+    return total;
+  }
+
+  public static void main(String[] args) {
+    int[][] tiles = {
+      {1, 0, 0, 1, 0, 0},
+      {0, 1, 0, 0, 1, 0},
+      {1, 1, 1, 0, 0, 0},
+      {0, 0, 1, 0, 1, 1}
+    };
+
+    System.out.println(rowTotal(tiles, 2));
+    System.out.println(colTotal(tiles, 2));
+
+    tiles[2][2] = 0;
+    System.out.println(rowTotal(tiles, 2));
+    System.out.println(colTotal(tiles, 2));
+  }
+}
+</pre>
+    </div>
+    <p class="ws-expect"><strong>Expect</strong> &nbsp;<code>3</code>, <code>2</code>, <code>2</code>, <code>1</code>.</p>
+    <p>Setting <code>tiles[2][2]</code> to 0 lowers both its row total and its column total by 1. Look at which index stays fixed in each method: the row in <code>rowTotal</code>, the column in <code>colTotal</code>.</p>
+    <aside class="note"><h3>Where this goes</h3><p>Free-response Question 4 asks for one method over a 2D array. In the course, see Lessons <a href="unit4/lesson-54.html">54</a>&ndash;<a href="unit4/lesson-56.html">56</a>. Outside AP CS A, the same grid can hold a pixel drawing, a game board, or a pattern.</p></aside>
+  </div>
+</section>
+
+<section id="data-bars" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Lab 3 &middot; about 25 minutes</span>
+      <h2>Data bars</h2>
+      <p>A small text file becomes a bar chart, one line at a time. The sketch uses <code>Scanner</code> and <code>File</code> directly, so the reading code is the same as AP-style Java. The rainfall numbers are made up.</p>
+    </div>
+    <div class="ws-java">
+<pre class="ws-code" data-file="DataBars/DataBars.pde">
+// Visible lab 3: Data bars.
+// The file holds made-up monthly rainfall. Scanner reads it one line at a time.
+// Click to reveal one more line. Before you click, predict the next bar's height.
+
+import java.util.Scanner;
+
+ArrayList&lt;String&gt; lines = new ArrayList&lt;String&gt;();
+int shown = 1;
+
+void setup() {
+  size(560, 340);
+  textSize(16);
+
+  // Processing needs try and catch here. The AP-style version says throws IOException.
+  try {
+    Scanner input = new Scanner(new File(dataPath("rainfall.txt")));
+    while (input.hasNext()) {
+      lines.add(input.nextLine());
+    }
+    input.close();
+  } catch (IOException e) {
+    println("Could not read the file: " + e);
+    exit();
+  }
+}
+
+void draw() {
+  background(255);
+
+  for (int i = 0; i &lt; shown; i++) {
+    String[] parts = lines.get(i).split(",");
+    double inches = Double.parseDouble(parts[1]);
+    float barHeight = (float) inches * 40;
+
+    fill(120, 170, 230);
+    rect(40 + i * 80, 240 - barHeight, 60, barHeight);
+    fill(0);
+    text(parts[0], 55 + i * 80, 262);
+  }
+
+  fill(0);
+  text("Line " + (shown - 1) + ": \"" + lines.get(shown - 1) + "\"", 40, 300);
+  text("Click to read the next line", 40, 325);
+}
+
+void mousePressed() {
+  shown = shown + 1;
+  if (shown &gt; lines.size()) {
+    shown = 1;
+  }
+  println(lines.get(shown - 1));
+}
+</pre>
+    </div>
+    <article class="ws-mission stretch">
+      <span class="eyebrow">Predict, then click</span>
+      <h3>Before you run it</h3>
+      <ol class="plain"><li>What does <code>split(",")</code> return for <code>"Jan,3.5"</code>?</li><li>Why does <code>parts[1]</code> need <code>Double.parseDouble</code>?</li><li>Which month is tallest? Predict before you click through.</li></ol><p>Then add a line to <code>data/rainfall.txt</code> and predict what changes.</p>
+    </article>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/RainReport/RainReport.java">
+// Visible lab 3, Java transfer: the same file with Scanner and no bars.
+// Run this from the RainReport folder so Java can find rainfall.txt.
+// Predict every line before you run it.
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class RainReport {
+
+  public static void main(String[] args) throws IOException {
+    Scanner input = new Scanner(new File("rainfall.txt"));
+    double total = 0;
+    String wettest = "";
+    double most = -1;
+
+    while (input.hasNext()) {
+      String[] parts = input.nextLine().split(",");
+      double inches = Double.parseDouble(parts[1]);
+      total = total + inches;
+      if (inches &gt; most) {
+        most = inches;
+        wettest = parts[0];
+      }
+    }
+    input.close();
+
+    System.out.println("total: " + total);
+    System.out.println("wettest: " + wettest);
+  }
+}
+</pre>
+    </div>
+    <p class="ws-expect"><strong>Expect</strong> &nbsp;<code>total: 11.5</code>, <code>wettest: Feb</code>.</p>
+    <p>The one real difference is the error handling. Processing needs <code>try</code> and <code>catch</code> in <code>setup()</code>, while the Java version says <code>throws IOException</code>. Run it from the <code>RainReport</code> folder so Java can find the file.</p>
+    <aside class="note"><h3>Where this goes</h3><p>Reading text files is new to the course, and it appears in multiple choice rather than as a free-response type. In the course, see Lessons <a href="unit4/lesson-44.html">44</a>&ndash;<a href="unit4/lesson-46.html">46</a>. Outside AP CS A, this is a way to start any data art or data literacy project.</p></aside>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap stack-sm">
+    <p>Every Java file on this page was compiled at the Java 17 language level, and every expected output is real output. The sketches were run with Processing&rsquo;s core library in a test harness.</p>
+    <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<script src="assets/content.js"></script>
+<script src="assets/workshop.js?v=20261019a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>
