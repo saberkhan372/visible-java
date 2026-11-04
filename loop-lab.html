@@ -31,6 +31,7 @@
       <a href="traps.html">Predict output</a>
       <a href="loop-lab.html" aria-current="page">Loop lab</a>
       <a href="labs.html">Visible labs</a>
+      <a href="demos.html">Step demos</a>
       <a href="setup.html">Java setup</a>
   </div>
 </nav>
@@ -246,6 +247,16 @@
   </div>
 </footer>
 
+<style>
+body.slide-view .masthead,body.slide-view .section-nav,body.slide-view footer,body.slide-view .skip-link,body.slide-view main>section:not(.slide-tool){display:none}
+body.slide-view main{zoom:1.25}
+</style>
+<script>
+(function () {
+  var params = new URLSearchParams(location.search), tool = document.getElementById(params.get("tool"));
+  if (params.get("view") === "slide" && tool) { tool.classList.add("slide-tool"); document.body.classList.add("slide-view"); }
+})();
+</script>
 <script src="assets/loop-lab.js?v=20261020b"></script>
 <script src="assets/while-tracer.js?v=20261020a"></script>
 <script src="assets/role.js?v=20260729c"></script>
