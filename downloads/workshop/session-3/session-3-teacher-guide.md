@@ -77,3 +77,7 @@ The sketch `BallTouch` uses this method.
 Assess the diagram, not the sketch. A student who draws two objects, three variables, and
 two arrows pointing at the first object understands references. For the class design,
 look for fields that describe one object, and a constructor that sets them.
+
+## Optional bridge: `GridScan.java`
+
+For AP CS A teachers. It prints `8`, then `row 0: 3`, `row 1: 2`, `row 2: 3`, and practices the nested traversal that free-response Question 4 requires. Everyone else can skip it.

@@ -443,6 +443,11 @@ balls[3].x = 210.0
         <p>In the array trace, most people get <code>balls[2]</code> wrong by turning it at 20. Point back to Session 2&rsquo;s boundary cases: the same <code>&lt;</code> versus <code>&lt;=</code> question, now inside an object.</p>
       </div>
     </details>
+    <aside class="note">
+      <h3>Two ways to use this move</h3>
+      <p><strong>In AP CS A:</strong> Unit 3 and free-response Question 2. A class header, instance variables, a constructor, and a method are what that question requires.</p>
+      <p><strong>In another course:</strong> Ask what each thing in a game or artwork needs to remember. That is the design question behind a class, even if students never write one in Java.</p>
+    </aside>
   </div>
 </section>
 
@@ -495,6 +500,75 @@ balls[3].x = 210.0
       <h2>Studio</h2>
       <p>Stay for whichever helps: one-on-one troubleshooting, the extensions, this AP-style question, or the classroom adaptation task.</p>
     </div>
+    <article class="ws-mission stretch">
+      <span class="eyebrow">Bridge &middot; optional</span>
+      <h3>The grid as a method</h3>
+      <p>Question 4 asks for one method over a 2D array. This file rebuilds the speeds from <code>BallGrid</code> and counts with nested loops, with no window. Predict the count and each row, then run it.</p>
+    </article>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/GridScan/GridScan.java">
+// Session 3, optional studio bridge: the BallGrid sketch as a 2D array method.
+// AP free-response Question 4 asks for one method over a 2D array. No window here.
+// Predict the count and the row-by-row output before you run it.
+
+public class GridScan {
+
+  /** Returns the number of balls in grid that are moving. */
+  public static int countMoving(Ball[][] grid) {
+    int count = 0;
+    for (int row = 0; row &lt; grid.length; row++) {
+      for (int col = 0; col &lt; grid[0].length; col++) {
+        if (grid[row][col].isMoving()) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  /** Returns the number of moving balls in the given row. */
+  public static int countMovingInRow(Ball[][] grid, int row) {
+    int count = 0;
+    for (Ball b : grid[row]) {
+      if (b.isMoving()) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  public static void main(String[] args) {
+    Ball[][] grid = new Ball[3][3];
+    for (int row = 0; row &lt; grid.length; row++) {
+      for (int col = 0; col &lt; grid[0].length; col++) {
+        grid[row][col] = new Ball(col - 1, row - 1);
+      }
+    }
+
+    System.out.println(countMoving(grid));
+    for (int row = 0; row &lt; grid.length; row++) {
+      System.out.println("row " + row + ": " + countMovingInRow(grid, row));
+    }
+  }
+}
+
+class Ball {
+  private double xSpeed;
+  private double ySpeed;
+
+  public Ball(double xSpeed, double ySpeed) {
+    this.xSpeed = xSpeed;
+    this.ySpeed = ySpeed;
+  }
+
+  public boolean isMoving() {
+    return xSpeed != 0 || ySpeed != 0;
+  }
+}
+</pre>
+    </div>
+    <p class="ws-expect"><strong>Expect</strong> &nbsp;<code>8</code>, then <code>row 0: 3</code>, <code>row 1: 2</code>, <code>row 2: 3</code>.</p>
+    <p>The middle ball has both speeds at 0, so it is the only one not counted. <code>grid.length</code> is the number of rows, and <code>grid[0].length</code> is the number of columns.</p>
     <article class="trap">
       <div class="trap-head"><span class="eyebrow">AP-style multiple choice</span><h3>What is printed?</h3></div>
 <pre class="ws-code" data-file="Consider the following code segment.">

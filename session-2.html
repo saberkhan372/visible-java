@@ -369,6 +369,11 @@ frame 8: x = 350.0, paused = false</pre>
         <p>If someone asks whether the key should be handled before or after the move: each character is the key that arrived <em>before</em> its frame, which is when Processing would handle it.</p>
       </div>
     </details>
+    <aside class="note">
+      <h3>Two ways to use this move</h3>
+      <p><strong>In AP CS A:</strong> Unit 2 and free-response Question 1 Part A. The <code>&lt;</code> versus <code>&lt;=</code> choice at a wall is the same boundary question students meet in loops.</p>
+      <p><strong>In another course:</strong> Ask students to say what should happen before they run the program. Debugging then becomes comparing behavior with a prediction, in any language.</p>
+    </aside>
   </div>
 </section>
 
@@ -421,6 +426,54 @@ frame 8: x = 350.0, paused = false</pre>
       <h2>Studio</h2>
       <p>Stay for whichever helps: one-on-one troubleshooting, the extensions, the debugging lab, this AP-style question, or the classroom adaptation task.</p>
     </div>
+    <article class="ws-mission stretch">
+      <span class="eyebrow">Bridge &middot; optional</span>
+      <h3>The key log as a String</h3>
+      <p>Question 1 Part B always calls <code>String</code> methods, and sketches rarely do. This file treats the keys from <code>KeyTrace</code> as data, using only methods on the Java Quick Reference. Predict all four lines, then run it.</p>
+    </article>
+    <div class="ws-java">
+<pre class="ws-code" data-file="plain-java/KeyScan.java">
+// Session 2, optional studio bridge: the key log as a String.
+// AP free-response Question 1 Part B always calls String methods, and sketches rarely do.
+// Every String method here is on the Java Quick Reference. Predict each line before you run it.
+
+public class KeyScan {
+
+  /** Returns how many times target appears in keys. */
+  public static int countKey(String keys, String target) {
+    int count = 0;
+    for (int i = 0; i &lt; keys.length(); i++) {
+      if (keys.substring(i, i + 1).equals(target)) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  /** Returns keys with every "." removed. */
+  public static String pressedOnly(String keys) {
+    String result = "";
+    for (int i = 0; i &lt; keys.length(); i++) {
+      String key = keys.substring(i, i + 1);
+      if (!key.equals(".")) {
+        result = result + key;
+      }
+    }
+    return result;
+  }
+
+  public static void main(String[] args) {
+    String keys = "..p.p...";
+    System.out.println(countKey(keys, "p"));
+    System.out.println(keys.indexOf("p"));
+    System.out.println(pressedOnly(keys));
+    System.out.println(pressedOnly("...").length());
+  }
+}
+</pre>
+    </div>
+    <p class="ws-expect"><strong>Expect</strong> &nbsp;<code>2</code>, <code>2</code>, <code>pp</code>, <code>0</code>.</p>
+    <p>The two 2s answer different questions: how many, and where first. <code>KeyTrace</code> uses <code>charAt</code>, which is not on the Quick Reference, so this version uses <code>substring</code> and <code>equals</code> instead.</p>
     <article class="trap">
       <div class="trap-head"><span class="eyebrow">AP-style multiple choice</span><h3>What is printed?</h3></div>
 <pre class="ws-code" data-file="Consider the following code segment.">

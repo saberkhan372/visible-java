@@ -81,3 +81,7 @@ If you can't attend: use the checklist on your own package, then ask one colleag
 the first three minutes of it as a student. Ask them only the two critique questions:
 what will work, and where a student would get stuck. Make one change, and write one
 sentence explaining it.
+
+## Grouping
+
+Most participants do not teach AP CS A. Mix groups where you can, so that AP and non-AP teachers test each other's lessons. Keep the AP link optional, and ask each presenter to say who the lesson is for before the group tries it.
