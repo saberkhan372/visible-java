@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 1 facilitator guide — Visible Java</title>
+<meta name="description" content="Facilitator guide for Visible Java Session 1: timing, talking points, common questions, and files.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@500;600;700&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=20261020e"><link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java<span class="logo-sub">A CC Fest learning studio</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html" aria-current="true">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="library.html">Library</a>
+    </nav>
+    <a href="camp.html#interest" class="nav-join">Join the interest list <span aria-hidden="true">↗</span></a>
+  </div>
+</header>
+<nav class="section-nav" aria-label="Workshop navigation">
+  <div class="wrap">
+      <a href="index.html#sessions">All sessions</a>
+      <a href="readiness.html">Get ready</a>
+      <a href="index.html#your-way">On your own</a>
+      <a href="about.html">About</a>
+  </div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Session 1 &middot; Sunday, November 8 &middot; 7&ndash;9 a.m. PT / 10 a.m.&ndash;noon ET</span>
+      <h1>Facilitator guide</h1>
+      <p class="lede">By the end, everyone can run a sketch, explain who calls <code>draw()</code>, and has made one new method.</p>
+      <div class="camp-actions"><a class="camp-button primary" href="slides-1.html">Open the slides</a><a class="camp-button" href="session-1.html">Open Session 1</a><a class="camp-button" href="downloads/workshop/session-1-files.zip">Download the files</a></div>
+    </div>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>Time (PT)</th><th>Part</th><th>Lead</th></tr></thead>
+      <tbody>
+        <tr><td>7:00</td><td><a href="#part-1">Check in and run a sketch</a></td><td>Saber</td></tr>
+        <tr><td>7:30</td><td><a href="#part-2">Concept and live coding</a></td><td>Saber</td></tr>
+        <tr><td>8:00</td><td><a href="#part-3">Guided practice</a></td><td>Joshua Hans</td></tr>
+        <tr><td>8:30</td><td><a href="#part-4">Guest Art Simon, and close</a></td><td>Saber and Joshua</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><p><strong>Presenting:</strong> open the slides, then press <code>p</code> for presenter view. It shows your notes, the next slide, and a timer, and it stays in step with the slides. Share only the slides window. Use the arrow keys to move, and <code>f</code> for full screen.</p></div>
+  </div>
+</section>
+
+<section id="part-1" class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">7:00 to 7:30</span><h2>Part 1: Check in</h2><p>The goal is that everyone can run one sketch by 7:30.</p></div>
+<ol class="plain">
+<li><strong>Welcome and consent, 5 minutes.</strong> Before recording, explain that sessions are recorded and shared in Google Classroom, and that cameras can stay off. Ask for consent.</li>
+<li><strong>Who is here, 5 minutes.</strong> Ask for name, what they teach, and one thing they have made or want to make.</li>
+<li><strong>Run a sketch, 15 minutes.</strong> Most people should already have joined Pickcode. Help the rest in a breakout, so setup does not hold up the room.</li>
+<li><strong>The shape of the workshop, 5 minutes.</strong> Cover the four parts, optional Classroom posting, and the <a href="labs.html">visible labs</a>.</li>
+</ol></div></section>
+
+<section id="part-2" class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">7:30 to 8:00</span><h2>Part 2: Concept and live coding</h2><p>The one idea: a sketch is a Java program with its loop hidden, and a variable outside <code>draw()</code> is state that lasts between frames.</p></div>
+<ol class="plain">
+<li><strong>Which lines run again? 7 minutes.</strong> Run <code>SetupDraw</code>. The console prints <code>setup ran</code>, then <code>draw ran: 1</code>, <code>2</code>, <code>3</code>.</li>
+<li><strong>Predict the ball, 6 minutes.</strong> Collect predictions in chat before running <code>MovingBall</code>. Ask: nothing calls <code>draw()</code>, so who does?</li>
+<li><strong>Trace it, 5 minutes.</strong> Draw the y-axis by hand. Frame 5 draws at 8, not 10, because the circle is drawn before <code>y</code> changes.</li>
+<li><strong>Integer division, 5 minutes.</strong> In <code>FaceDrift</code>, <code>1 / 2 * mouseX</code> is always 0, so the eyes stay still. Change it to <code>1.0 / 2</code>.</li>
+<li><strong>Port it, 5 minutes.</strong> <code>IntegerTrace.java</code> prints <code>0</code>, <code>50.0</code>, <code>3</code>, <code>3.5</code>, with no window.</li>
+<li><strong>Hand off, 2 minutes.</strong> <code>draw()</code> is a method we did not call. Now we write one and call it.</li>
+</ol>
+<div class="note"><p>Name the case for Processing here: it helps people see Java behavior that is hard to see in a console.</p></div></div></section>
+
+<section id="part-3" class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">8:00 to 8:30</span><h2>Part 3: Guided practice</h2><p>Joshua Hans leads one main activity, with about 20 minutes of real work time.</p></div>
+<ul class="plain">
+<li><strong>Project:</strong> a fall-themed <a href="session-1.html#pumpkin">pumpkin stamp</a>. Pressing a key stamps a pumpkin at the mouse.</li>
+<li><strong>Java idea:</strong> drawing a pumpkin is a method with arguments.</li>
+<li><strong>Breakouts:</strong> write code, review code, or ask a facilitator to live-code it.</li>
+<li><strong>Second facilitator:</strong> visit breakouts and note the questions that come up.</li>
+</ul></div></section>
+
+<section id="part-4" class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">8:30 to 9:00</span><h2>Part 4: Guest and close</h2><p>Art Simon has taught AP Java with Processing since its beta. <a href="https://medium.com/processing-foundation/createcanvas-season-2-interview-with-art-simon-f23a4e327e10">Read his Processing Foundation interview ↗</a></p></div>
+<ul class="plain">
+<li><strong>Conversation, 20 minutes.</strong> How did he get from fixed-output assignments to interactive graphics? How does he keep creativity alive in an AP course? What still works for students today?</li>
+<li><strong>Questions, 5 minutes.</strong> Offer the chat as well as open mic.</li>
+<li><strong>Close, 5 minutes.</strong> Ask each person what they will try with their learners. Classroom posting is optional, and posted work gets shown at the Session 2 check-in.</li>
+</ul></div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">In the moment</span><h2>Common questions</h2></div>
+<div class="tbl-scroll"><table>
+<thead><tr><th>If you hear</th><th>Try</th></tr></thead>
+<tbody>
+<tr><td>&ldquo;<code>draw()</code> only runs once.&rdquo;</td><td>Add <code>frameRate(1)</code> and watch the console.</td></tr>
+<tr><td>&ldquo;The ball moves because of <code>circle</code>.&rdquo;</td><td>Point to <code>y = y + 2</code>. <code>circle</code> only draws where it is told.</td></tr>
+<tr><td>&ldquo;Why does it print <code>0.0</code>?&rdquo;</td><td><code>y</code> is a <code>float</code>. Ask what would print if it were an <code>int</code>.</td></tr>
+<tr><td>&ldquo;I removed <code>background</code> and it broke.&rdquo;</td><td>Nothing broke. Each frame stays on screen, which shows the whole path.</td></tr>
+<tr><td>&ldquo;My variable resets every frame.&rdquo;</td><td>It is inside <code>draw()</code>, so move it above <code>setup()</code>.</td></tr>
+<tr><td>&ldquo;A warning mentions <code>pixelDensity</code>.&rdquo;</td><td>It is expected in the desktop editor and can be ignored.</td></tr>
+<tr><td>&ldquo;Is this on the exam?&rdquo;</td><td>Variables, tracing, methods, and integer division are Unit 1.</td></tr>
+</tbody></table></div></div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Keep handy</span><h2>Materials</h2></div>
+<ul class="plain">
+<li><a href="downloads/workshop/session-1/session-1-teacher-guide.md">Teacher guide ↓</a>, with expected answers and misconceptions</li>
+<li><a href="downloads/workshop/session-1/session-1-student-handout.md">Student handout ↓</a></li>
+<li><a href="processing.html">Your first sketch</a>, for desktop setup and first-run problems</li>
+<li><a href="traps.html">Predict output</a>, for extra tracing questions</li>
+<li><a href="labs.html">Visible labs</a>, for <code>String</code> methods, 2D arrays, and file reading</li>
+<li><a href="https://pickcode.io/">Pickcode ↗</a></li>
+</ul></div></section>
+</main>
+
+<footer>
+  <div class="wrap stack-sm">
+    <p>Written for facilitators and open to anyone who wants to teach this session.</p>
+    <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<script src="assets/content.js"></script>
+<script src="assets/workshop.js?v=20261019a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>

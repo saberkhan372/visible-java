@@ -25,6 +25,7 @@ tissue is the Java/Processing comparison, translation layer, port exercise, and 
 | `index.html` | **Workshop home.** Interactive state model, five-session schedule, the four learning moves, and a short preparation checklist. |
 | `processing.html` | **Workshop.** Your first sketch: install Processing, Java mode, Run, first-run problems, and three ways to run plain Java. |
 | `session-1.html` | **Workshop.** Session 1, Make state visible (Sun Nov 8): the template for every session. Four-part run of show, predictions with answers, supported and extension missions, Java transfer, colleague exchange, exit evidence, an On your own route, and facilitator notes. Files in `downloads/workshop/session-1/`, including an editable student handout and teacher guide. |
+| `slides-1.html`, `guide-1.html` | **Workshop.** Session 1 slides with a synced presenter view (press `p`), and the facilitator guide. Keep join links out of both, since the site is public. |
 | `session-2.html`–`session-5.html` | **Workshop.** Make decisions visible (Nov 15), Make objects visible (Nov 22), Make learning transferable (Dec 6), and the Showcase (Dec 13), all on the Session 1 template. Files in `downloads/workshop/session-2/`–`session-5/`, each with a student handout and teacher guide. |
 | `downloads/workshop/visible-java-2026.ics` | Calendar file for the five meetings (15:00–17:00 UTC). |
 | `course.html` | Course entry for students: direct unit routes, first lesson, pacing calendar, and the Processing-to-Java connection. |

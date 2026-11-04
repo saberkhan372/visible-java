@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 1 slides — Visible Java</title>
+<meta name="description" content="Slides for Visible Java Session 1, Make state visible, with a presenter view.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Fredoka:wght@500;600&family=Source+Code+Pro:wght@400;600&display=swap">
+<link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
+<style>
+:root{--ink:#16211f;--paper:#fff6e5;--stage:#141a19;--cream:#f6f1e4;--soft:#b8c2be;--sun:#ffc93c}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:"Atkinson Hyperlegible Next",Verdana,sans-serif}
+body{display:flex;flex-direction:column;overflow:hidden}
+#stage{flex:1;min-height:0;position:relative;overflow:hidden}
+#scaler{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden}
+.slide[hidden]{display:none!important}
+.slide h1,.slide h2,.slide h3,.slide p,.slide ul,.slide ol{margin:0}
+.slide table{width:100%;border-collapse:collapse;background:#fff;border:2px solid var(--ink)}
+.slide th,.slide td{padding:14px 24px;text-align:left;border:1.5px solid #ecdfc4}
+.slide th{background:#fbeed3;font-family:Fredoka,Verdana,sans-serif;font-weight:600}
+#bar{display:flex;align-items:center;gap:12px;padding:8px 16px;background:var(--paper);border-top:2px solid var(--ink);font-size:16px;flex-wrap:wrap}
+#bar a{color:#0a5a7e;font-weight:700}
+#bar button{font:600 15px Fredoka,Verdana,sans-serif;background:#fff;color:var(--ink);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+#bar button:focus-visible{outline:3px solid #0a5a7e;outline-offset:2px}
+#count{min-width:64px}
+.spacer{flex:1}
+body.fs #bar{display:none}
+body.presenter{overflow:auto}
+body.presenter #stage{display:none}
+#pv{display:none}
+body.presenter #pv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;padding:24px;flex:1;min-height:0}
+.pv-frame{position:relative;background:#fff;aspect-ratio:16/9;overflow:hidden;border:2px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink)}
+.pv-frame .inner{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+#pv h2{margin:0 0 8px;font:600 18px Fredoka,Verdana,sans-serif;color:#4a5552}
+#notes{font-size:24px;line-height:1.45;white-space:pre-wrap;margin:0 0 20px}
+#timer{font:600 40px "Source Code Pro",monospace;color:#7f5600}
+
+.slide[style*="#fff6e5"]{background-image:radial-gradient(#ead9b6 2.5px,transparent 2.5px)!important;background-size:32px 32px!important}
+.corner-logo{position:absolute;right:48px;bottom:40px;width:64px;height:64px}
+.hero-logo{position:absolute;right:128px;top:200px;width:360px;height:360px;transform:rotate(3deg)}
+.demo{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.demo canvas{display:block;background:#fff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;touch-action:none}
+.demo .row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.demo button{font:600 26px Fredoka,Verdana,sans-serif;color:#16211f;background:#fff;border:2px solid #16211f;border-radius:999px;box-shadow:4px 4px 0 #16211f;padding:8px 24px;cursor:pointer}
+.demo button.go{background:#ffc93c}
+.demo button:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #16211f}
+.demo button:focus-visible{outline:4px solid #0a5a7e;outline-offset:3px}
+.demo .read{font:600 26px "Source Code Pro","Courier New",monospace;color:#16211f}
+@media (max-width:760px){body.presenter #pv{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="stage"><div id="scaler">
+<section id="cover" class="slide" data-title="Make state visible" data-notes="Welcome people as they arrive. Start recording only after the consent slide." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#5fcfaf;border:2px solid #16211f;border-radius:999px;padding:12px 32px;box-shadow:4px 4px 0 #16211f;align-self:start;transform:rotate(-3deg)">Session 1</p>
+<h1 style="font-family:Fredoka, Verdana, sans-serif;font-size:136px;font-weight:600;line-height:1.05">Make state visible</h1>
+<p style="font-size:44px;line-height:1.3;color:#4a5552">Sunday, November 8 · 7–9 a.m. PT / 10 a.m.–noon ET</p>
+<p style="font-size:32px;color:#4a5552">Visible Java · A CC Fest learning studio</p>
+
+<img class="hero-logo" src="assets/visible-java-icon.svg" alt="Visible Java logo">
+</section>
+<section id="today" class="slide" data-title="Our two hours" data-notes="This is the shape for every session: check in, concept, guided practice, then a guest. Session 5 is the showcase." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Our two hours</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:32px;flex:1">
+<div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">7:00 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Check in</h3><p style="font-size:32px">Meet, join Pickcode, and run a sketch.</p></div>
+<div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">7:30 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">See it</h3><p style="font-size:32px">Predict, then watch the code run live.</p></div>
+<div style="background:#ece2f8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">8:00 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Build it</h3><p style="font-size:32px">Guided practice with Joshua Hans.</p></div>
+<div style="background:#d9eef9;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">8:30 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Meet Art Simon</h3><p style="font-size:32px">Teaching AP Java with Processing, then close.</p></div>
+</div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="setup" class="slide" data-title="Before we code" data-notes="Ask for consent before you start recording. Anyone stuck moves to a breakout with a facilitator, so setup does not hold up the room." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Before we code</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">Recording</h3><p style="font-size:36px;line-height:1.4">We record sessions and share them in Google Classroom. Cameras can stay off.</p><p style="font-size:36px;line-height:1.4"><b>Is that okay with everyone?</b></p></div>
+<div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">Run one sketch</h3><p style="font-size:36px;line-height:1.4">Already joined Pickcode? Open Lesson 1. If not, use the link in Google Classroom.</p><p style="font-size:36px;line-height:1.4"><b>You are done when a circle slides down the window.</b></p></div>
+</div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="hidden-loop" class="slide" data-title="A sketch is a Java program with its loop hidden." data-notes="This is the one idea for the talk. Everything until 8:00 comes back to it." style="background:#5fcfaf;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<h1 style="font-family:Fredoka, Verdana, sans-serif;font-size:120px;font-weight:600;line-height:1.08">A sketch is a Java program with its loop hidden.</h1>
+<p style="font-size:44px;line-height:1.3">State is what the program remembers between frames.</p>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="which-lines" class="slide" data-title="Which lines run once?" data-notes="Take predictions in chat, then run SetupDraw. This version adds a println in draw for the first three frames, so the console shows setup ran, draw ran: 1, 2, 3. Point out that frames sits outside both methods so it survives between frames." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:32px;line-height:1.45;white-space:nowrap"><span style="color:#b04e0f">int</span> frames = <span style="color:#7d4793">0</span>;<br><br><span style="color:#1f7a63">void</span> <span style="color:#006699">setup</span>() {<br>&#160;&#160;<span style="color:#006699">size</span>(<span style="color:#7d4793">400</span>, <span style="color:#7d4793">200</span>);<br>&#160;&#160;<span style="color:#006699">println</span>(<span style="color:#7d4793">"setup ran"</span>);<br>}<br><br><span style="color:#1f7a63">void</span> <span style="color:#006699">draw</span>() {<br>&#160;&#160;frames = frames + <span style="color:#7d4793">1</span>;<br>&#160;&#160;<span style="color:#006699">background</span>(<span style="color:#7d4793">255</span>);<br>&#160;&#160;<span style="color:#006699">text</span>(frames, <span style="color:#7d4793">190</span>, <span style="color:#7d4793">100</span>);<br>}</p></div>
+<div style="display:flex;flex-direction:column;gap:32px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Predict</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:72px;font-weight:600">Which lines run once?</h2><p style="font-size:40px;line-height:1.35">Who calls <b>draw()</b>?</p><div class="demo" data-demo="frames" data-w="620" data-h="250"></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="predict-ball" class="slide" data-title="What will you see?" data-notes="Common answer: it draws a circle. The motion is the surprise, so let it be one. The ball starts half hidden and leaves the bottom in about three and a half seconds." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:40px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:36px;line-height:1.5;white-space:nowrap"><span style="color:#b04e0f">float</span> y = <span style="color:#7d4793">0</span>;<br><br><span style="color:#1f7a63">void</span> <span style="color:#006699">setup</span>() {<br>&#160;&#160;<span style="color:#006699">size</span>(<span style="color:#7d4793">400</span>, <span style="color:#7d4793">400</span>);<br>}<br><br><span style="color:#1f7a63">void</span> <span style="color:#006699">draw</span>() {<br>&#160;&#160;<span style="color:#006699">background</span>(<span style="color:#7d4793">255</span>);<br>&#160;&#160;<span style="color:#006699">circle</span>(<span style="color:#7d4793">200</span>, y, <span style="color:#7d4793">40</span>);<br>&#160;&#160;y = y + <span style="color:#7d4793">2</span>;<br>}</p></div>
+<div style="display:flex;flex-direction:column;gap:32px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Predict</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:72px;font-weight:600">What will you see?</h2><div class="demo" data-demo="ball" data-w="400" data-h="400"></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="trace" class="slide" data-title="Trace five frames" data-notes="Draw the y-axis by hand while you fill this in. Frame 5 draws at 8.0, then y becomes 10.0. The common error is 10, because people forget the circle is drawn before y changes. In AP CS A this is a trace table." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:auto 1fr;gap:40px 56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Trace five frames</h2><div class="demo" data-demo="trace" data-w="480" data-h="480" style="grid-row:span 2"></div>
+<table style="font-size:40px"><tr><th style="width:34%">Frame</th><th style="width:33%">Drew at y</th><th style="width:33%">y after the frame</th></tr><tr><td>1</td><td>0.0</td><td>2.0</td></tr><tr><td>2</td><td>2.0</td><td>4.0</td></tr><tr><td>3</td><td>4.0</td><td>6.0</td></tr><tr><td>4</td><td>6.0</td><td>8.0</td></tr><tr><td>5</td><td id="t5a">?</td><td id="t5b">?</td></tr></table>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="face-drift" class="slide" data-title="Why won’t the eyes follow the mouse?" data-notes="1 / 2 is integer division, so it is 0, and 0 times mouseX is 0. Change it to 1.0 / 2. Processing makes hard-to-see Java behavior visible. Tie this to Unit 1, then use Joshua’s smiley example instead if he prefers." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:start">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:30px;line-height:1.5;white-space:nowrap"><span style="color:#1f7a63">void</span> <span style="color:#006699">draw</span>() {<br>&#160;&#160;<span style="color:#006699">background</span>(<span style="color:#7d4793">255</span>);<br>&#160;&#160;<span style="color:#006699">circle</span>(<span style="color:#7d4793">200</span>, <span style="color:#7d4793">200</span>, <span style="color:#7d4793">240</span>);<br><br>&#160;&#160;<span style="color:#b04e0f">float</span> eyeShift = <span style="color:#7d4793">1</span> / <span style="color:#7d4793">2</span> * mouseX;<br>&#160;&#160;<span style="color:#006699">circle</span>(<span style="color:#7d4793">150</span> + eyeShift / <span style="color:#7d4793">10</span>, <span style="color:#7d4793">170</span>, <span style="color:#7d4793">30</span>);<br>&#160;&#160;<span style="color:#006699">circle</span>(<span style="color:#7d4793">250</span> + eyeShift / <span style="color:#7d4793">10</span>, <span style="color:#7d4793">170</span>, <span style="color:#7d4793">30</span>);<br>}</p></div>
+<div style="display:flex;flex-direction:column;gap:28px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ff7f5c;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Trap</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:48px;font-weight:600">Why won’t the eyes follow the mouse?</h2><div class="demo" data-demo="face" data-w="400" data-h="400"></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="plain-java" class="slide" data-title="Same bug, no window" data-notes="About five minutes. It prints 0, 50.0, 3, and 3.5. This is the plain Java connection for AP CS A, and it shows the sketch was Java all along." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:start">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:30px;line-height:1.5;white-space:nowrap"><span style="color:#1f7a63">public</span> <span style="color:#1f7a63">class</span> IntegerTrace {<br>&#160;&#160;<span style="color:#1f7a63">public</span> <span style="color:#1f7a63">static</span> <span style="color:#1f7a63">void</span> <span style="color:#006699">main</span>(<span style="color:#b04e0f">String</span>[] args) {<br>&#160;&#160;&#160;&#160;<span style="color:#b04e0f">int</span> mouseX = <span style="color:#7d4793">100</span>;<br><br>&#160;&#160;&#160;&#160;System.out.<span style="color:#006699">println</span>(<span style="color:#7d4793">1</span> / <span style="color:#7d4793">2</span> * mouseX);<br>&#160;&#160;&#160;&#160;System.out.<span style="color:#006699">println</span>(<span style="color:#7d4793">1.0</span> / <span style="color:#7d4793">2</span> * mouseX);<br>&#160;&#160;&#160;&#160;System.out.<span style="color:#006699">println</span>(<span style="color:#7d4793">7</span> / <span style="color:#7d4793">2</span>);<br>&#160;&#160;&#160;&#160;System.out.<span style="color:#006699">println</span>(<span style="color:#7d4793">7</span> / <span style="color:#7d4793">2.0</span>);<br>&#160;&#160;}<br>}</p></div>
+<div style="display:flex;flex-direction:column;gap:28px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#6fbee2;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Port</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:64px;font-weight:600">Same bug, no window</h2><p style="font-size:36px;line-height:1.35">Predict all four lines first.</p><div class="demo" data-demo="console" data-w="520" data-h="300"></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="handoff" class="slide" data-title="Now write a method and call it yourself." data-notes="Hand off to Joshua. His PRIMM document and pumpkin stamp project follow here. Saber visits breakouts and notes the questions that come up." style="background:#ece2f8;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-size:44px">We did not call <b>draw()</b>. Processing did.</p>
+<h1 style="font-family:Fredoka, Verdana, sans-serif;font-size:120px;font-weight:600;line-height:1.08">Now write a method and call it yourself.</h1>
+<p style="font-size:40px">Guided practice with Joshua Hans</p>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="close" class="slide" data-title="Before you go" data-notes="Keep the close warm and short. Classroom sharing is optional. Remind people the recording and notes will be posted." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Before you go</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1">
+<div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">Tell us one thing</h3><p style="font-size:40px;line-height:1.4">What will you try with your learners?</p></div>
+<div style="background:#d9eef9;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">What’s next</h3><p style="font-size:40px;line-height:1.4">Want your work shown at the Session 2 check-in? Post it in Google Classroom.</p><p style="font-size:40px;line-height:1.4"><b>Session 2: Sunday, November 15</b></p></div>
+</div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+</div></div>
+<div id="pv">
+  <div><h2>Now</h2><div class="pv-frame" id="now"></div><h2 style="margin-top:16px">Speaker notes</h2><p id="notes"></p></div>
+  <div><h2>Elapsed</h2><p id="timer">0:00</p><button id="reset" type="button">Reset timer</button><h2 style="margin-top:20px">Next</h2><div class="pv-frame" id="next"></div></div>
+</div>
+<div id="bar">
+  <button id="prev" type="button">Back</button><span id="count" aria-live="polite"></span><button id="fwd" type="button">Next</button>
+  <button id="openpv" type="button">Open presenter view</button><button id="full" type="button">Full screen</button>
+  <span class="spacer"></span><a href="guide-1.html">Facilitator guide</a><a href="session-1.html">Session 1</a>
+</div>
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var params = new URLSearchParams(location.search);
+  var presenter = params.get('presenter') === '1';
+  var channel = 'BroadcastChannel' in window ? new BroadcastChannel('visible-java-session-1') : null;
+  var index = 0, started = Date.now();
+  var scaler = document.getElementById('scaler'), stage = document.getElementById('stage');
+
+  function fit() {
+    var scale = Math.min(stage.clientWidth / 1920, stage.clientHeight / 1080);
+    scaler.style.transform = 'translate(' + (stage.clientWidth - 1920 * scale) / 2 + 'px,' + (stage.clientHeight - 1080 * scale) / 2 + 'px) scale(' + scale + ')';
+  }
+  function copy(id, slide) {
+    var box = document.getElementById(id);
+    box.innerHTML = '';
+    if (!slide) { return; }
+    var inner = document.createElement('div'), clone = slide.cloneNode(true);
+    inner.className = 'inner'; clone.removeAttribute('id'); clone.hidden = false;
+    inner.appendChild(clone); box.appendChild(inner);
+    inner.style.transform = 'scale(' + box.clientWidth / 1920 + ')';
+  }
+  function show(n, fromChannel) {
+    index = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, i) { s.hidden = i !== index; });
+    document.getElementById('count').textContent = (index + 1) + ' / ' + slides.length;
+    document.title = slides[index].dataset.title + ' — Visible Java';
+    if (presenter) {
+      document.getElementById('notes').textContent = slides[index].dataset.notes;
+      copy('now', slides[index]); copy('next', slides[index + 1]);
+    } else {
+      history.replaceState(null, '', '#' + (index + 1));
+    }
+    if (channel && !fromChannel) { channel.postMessage({ index: index }); }
+  }
+  if (channel) { channel.onmessage = function (e) { if (typeof e.data.index === 'number') { show(e.data.index, true); } }; }
+  document.addEventListener('keydown', function (e) {
+    if (['ArrowRight', 'PageDown', ' '].indexOf(e.key) > -1) { e.preventDefault(); show(index + 1); }
+    if (['ArrowLeft', 'PageUp'].indexOf(e.key) > -1) { e.preventDefault(); show(index - 1); }
+    if (e.key === 'Home') { show(0); }
+    if (e.key === 'End') { show(slides.length - 1); }
+    if (e.key === 'f') { toggleFull(); }
+    if (e.key === 'p') { openPresenter(); }
+  });
+  function toggleFull() {
+    if (document.fullscreenElement) { document.exitFullscreen(); }
+    else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); }
+  }
+  function openPresenter() { window.open('slides-1.html?presenter=1#' + (index + 1), 'visible-java-presenter', 'width=1100,height=760'); }
+  document.addEventListener('fullscreenchange', function () { document.body.classList.toggle('fs', !!document.fullscreenElement); fit(); });
+  document.getElementById('prev').onclick = function () { show(index - 1); };
+  document.getElementById('fwd').onclick = function () { show(index + 1); };
+  document.getElementById('full').onclick = toggleFull;
+  document.getElementById('openpv').onclick = openPresenter;
+  document.getElementById('reset').onclick = function () { started = Date.now(); };
+  stage.addEventListener('click', function (e) { if (!presenter && !e.target.closest('.demo')) { show(index + 1); } });
+  window.addEventListener('resize', function () { fit(); if (presenter) { show(index, true); } });
+  if (presenter) {
+    document.body.classList.add('presenter');
+    document.getElementById('openpv').hidden = true; document.getElementById('full').hidden = true;
+    setInterval(function () {
+      var t = Math.floor((Date.now() - started) / 1000);
+      document.getElementById('timer').textContent = Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
+    }, 1000);
+  }
+
+  function make(el) {
+    var w = +el.dataset.w, h = +el.dataset.h, kind = el.dataset.demo;
+    var c = document.createElement('canvas'); c.width = w * 2; c.height = h * 2; c.style.width = w + 'px'; c.style.height = h + 'px';
+    var g = c.getContext('2d'); g.scale(2, 2);
+    var row = document.createElement('div'); row.className = 'row';
+    var read = document.createElement('span'); read.className = 'read';
+    el.appendChild(c); el.appendChild(row);
+    function button(label, go, fn) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = label; if (go) { b.className = 'go'; }
+      b.addEventListener('click', function (e) { e.stopPropagation(); fn(b); paint(); b.blur(); });
+      row.appendChild(b); return b;
+    }
+    var running = false, frame = 0, y = 0, useDouble = false, mouseX = 0, lines = 0, drawn = [], paint;
+    function clear() { g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); }
+    function ball(x, by, r) { g.beginPath(); g.arc(x, by, r, 0, 7); g.fillStyle = '#fff'; g.fill(); g.lineWidth = 2; g.strokeStyle = '#16211f'; g.stroke(); }
+    var toggle = function (b) { running = !running; b.textContent = running ? 'Pause' : 'Run'; };
+    if (kind === 'frames') {
+      var runB = button('Run', true, toggle);
+      button('Reset', false, function () { frame = 0; running = false; runB.textContent = 'Run'; });
+      paint = function () {
+        clear(); g.fillStyle = '#16211f'; g.font = '600 88px "Source Code Pro",monospace'; g.textAlign = 'center'; g.fillText(frame, 460, 150);
+        g.font = '24px "Source Code Pro",monospace'; g.textAlign = 'left'; g.fillStyle = '#0a5a7e'; g.fillText('setup ran', 24, 48);
+        for (var i = 1; i <= Math.min(frame, 3); i++) { g.fillText('draw ran: ' + i, 24, 48 + i * 40); }
+      };
+      el.tick = function (n) { if (running && n % 6 === 0) { frame++; paint(); } };
+    }
+    if (kind === 'ball') {
+      var runBall = button('Run', true, toggle);
+      button('Step', false, function () { running = false; runBall.textContent = 'Run'; y += 2; });
+      button('Reset', false, function () { y = 0; running = false; runBall.textContent = 'Run'; });
+      row.appendChild(read);
+      paint = function () { clear(); ball(200, y, 20); read.textContent = 'y = ' + y.toFixed(1); };
+      el.tick = function () { if (running) { y += 2; if (y > 440) { y = 0; } paint(); } };
+    }
+    if (kind === 'trace') {
+      button('Next frame', true, function () { if (frame < 5) { drawn.push(y); y += 2; frame++; if (frame === 5) { document.getElementById('t5a').textContent = '8.0'; document.getElementById('t5b').textContent = '10.0'; } } });
+      button('Reset', false, function () { frame = 0; y = 0; drawn = []; document.getElementById('t5a').textContent = '?'; document.getElementById('t5b').textContent = '?'; });
+      row.appendChild(read);
+      paint = function () {
+        clear(); g.strokeStyle = '#ecdfc4'; g.lineWidth = 1.5; g.fillStyle = '#4a5552'; g.font = '20px "Source Code Pro",monospace';
+        for (var v = 0; v <= 10; v += 2) { var ty = 40 + v * 40; g.beginPath(); g.moveTo(70, ty); g.lineTo(w, ty); g.stroke(); g.fillText(v, 24, ty + 7); }
+        drawn.forEach(function (d, i) { var last = i === drawn.length - 1; g.beginPath(); g.arc(150 + i * 60, 40 + d * 40, 18, 0, 7); g.fillStyle = last ? '#ffc93c' : '#fff'; g.fill(); g.strokeStyle = '#16211f'; g.lineWidth = 2; g.stroke(); });
+        read.textContent = frame ? 'frame ' + frame + ': drew at ' + drawn[frame - 1].toFixed(1) : 'frame 0';
+      };
+    }
+    if (kind === 'face') {
+      button('Use 1.0 / 2', true, function (b) { useDouble = !useDouble; b.textContent = useDouble ? 'Use 1 / 2' : 'Use 1.0 / 2'; });
+      row.appendChild(read);
+      c.addEventListener('pointermove', function (e) { var r = c.getBoundingClientRect(); mouseX = Math.round((e.clientX - r.left) / r.width * w); paint(); });
+      c.addEventListener('click', function (e) { e.stopPropagation(); });
+      paint = function () {
+        var shift = (useDouble ? 0.5 : 0) * mouseX; clear(); ball(200, 200, 120); ball(150 + shift / 10, 170, 15); ball(250 + shift / 10, 170, 15);
+        read.textContent = 'eyeShift = ' + shift.toFixed(1);
+      };
+    }
+    if (kind === 'console') {
+      var out = ['0', '50.0', '3', '3.5'];
+      button('Run next line', true, function () { if (lines < 4) { lines++; } });
+      button('Reset', false, function () { lines = 0; });
+      paint = function () { g.fillStyle = '#d9eef9'; g.fillRect(0, 0, w, h); g.fillStyle = '#16211f'; g.font = '600 38px "Source Code Pro",monospace'; g.textAlign = 'left'; for (var i = 0; i < lines; i++) { g.fillText(out[i], 28, 60 + i * 66); } };
+    }
+    paint(); el.draw = paint;
+  }
+  var demos = Array.prototype.slice.call(document.querySelectorAll('.demo'));
+  demos.forEach(make);
+  document.fonts && document.fonts.ready.then(function () { demos.forEach(function (d) { d.draw(); }); });
+  var tickCount = 0;
+  (function loop() { tickCount++; demos.forEach(function (d) { if (d.tick) { d.tick(tickCount); } }); requestAnimationFrame(loop); })();
+
+  fit();
+  show((parseInt(location.hash.slice(1), 10) || 1) - 1, true);
+})();
+</script>
+</body>
+</html>
