@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Make state visible: Session 1 recap — Visible Java</title>
+<meta name="description" content="What happened in Visible Java Session 1: the Parsons pumpkin, a stamp scene, integer division, and Art Simon's AP assignments, plus what to try before Session 2.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@500;600;700&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=20261020e"><link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java<span class="logo-sub">A CC Fest learning studio</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html" aria-current="true">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="library.html">Library</a>
+    </nav>
+    <a href="camp.html#interest" class="nav-join">Join the interest list <span aria-hidden="true">↗</span></a>
+  </div>
+</header>
+<nav class="section-nav" aria-label="Workshop navigation">
+  <div class="wrap">
+      <a href="index.html#sessions">All sessions</a>
+      <a href="readiness.html">Get ready</a>
+      <a href="index.html#your-way">On your own</a>
+      <a href="about.html">About</a>
+  </div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow"><a href="session-1.html">Session 01</a> &middot; Recap &middot; Sunday, November 8, 2026</span>
+      <h1>Make state visible</h1>
+      <p class="lede">We got to know each other, animated a circle, solved a pumpkin puzzle, watched integer division break a drawing, and toured Art Simon&rsquo;s AP assignments.</p>
+      <div class="camp-actions"><a class="camp-button primary" href="#try-this">What to try next</a><a class="camp-button" href="session-1.html">Open Session 1</a></div>
+    </div>
+    <iframe src="https://www.youtube-nocookie.com/embed/3uQLgFw4Tqg" title="Recording of Visible Java Session 1: Make state visible" style="display:block;width:100%;max-width:800px;aspect-ratio:16/9;border:0;border-radius:8px" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="note">
+      <p><strong>Player not loading?</strong> <a href="https://youtu.be/3uQLgFw4Tqg">Watch Session 1 on YouTube ↗</a>. The assignment is in Google Classroom.</p>
+      <p><strong>About this recap:</strong> participants are not named on this page. If you would like anything changed or removed here or in the recording, <a href="mailto:mrkhanatndv@gmail.com?subject=Visible%20Java%20recap">email Saber</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="try-this" class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Before November 15</span><h2>Solve the pumpkin, then build a scene</h2><p>Try what you have time for. Bring it to the start of Session 2, and post it in Google Classroom if you would like feedback.</p></div>
+<ol class="plain">
+<li><strong>Solve the Parsons pumpkin.</strong> Open <em>Visible Java Parsons Pumpkin</em> in Pickcode. Every line is there in the wrong order. Reorder <code>draw()</code> until it matches the picture.</li>
+<li><strong>Compose a stamp scene.</strong> Open <em>Visible Java scene</em> in Pickcode. Press <code>p</code> to stamp a pumpkin and <code>r</code> to start over. Then give the leaf, acorn, tree, and haystack methods keys of their own.</li>
+<li><strong>Turn the leaves.</strong> Add a random rotation inside <code>drawLeaf</code>, so that no two leaves fall the same way.</li>
+<li><strong>Add your own.</strong> Design a method of your own and add it to the scene.</li>
+</ol>
+<figure style="margin:0">
+<img src="assets/recap-1/parsons-pumpkin.jpeg" width="976" height="1114" loading="lazy" style="display:block;width:100%;max-width:420px;height:auto;border-radius:8px" alt="The Parsons pumpkin lesson in Pickcode. The target picture shows an orange three-part pumpkin with a green stem and leaf on brown ground. Below it, the scrambled code draws a brown oval, a green oval, a small orange oval, and green ground.">
+<figcaption style="margin-top:8px;font-size:15px">The lesson in Pickcode. The top picture is the goal, and the sketch below it shows what the scrambled code draws.</figcaption>
+</figure>
+<pre class="ws-code" data-file="ParsonsPumpkin.pde">
+public void draw() {
+  // unscramble these lines
+  fill(240, 130, 30);
+  rect(192, 145, 16, 35);
+  noStroke();
+  ellipse(200, 250, 130, 160);
+  background(250, 235, 210);
+  stroke(170, 80, 10);
+  ellipse(225, 160, 40, 20);
+  fill(120, 80, 50);
+  ellipse(140, 250, 120, 150);
+  noStroke();
+  strokeWeight(3);
+  fill(80, 120, 50);
+  rect(0, 320, 400, 80);
+  ellipse(260, 250, 120, 150);
+}
+</pre>
+<details class="ws-facilitator">
+<summary>Show the solution</summary>
+<div>
+<p>The background comes first, because it paints over everything drawn before it. The ground comes next, then the pumpkin, with the middle ellipse last so it sits in front, and finally the stem and leaf.</p>
+<pre class="ws-code" data-file="ParsonsPumpkinSolution.pde">
+public void draw() {
+  background(250, 235, 210);
+  strokeWeight(3);
+  fill(120, 80, 50);
+  rect(0, 320, 400, 80);
+  stroke(170, 80, 10);
+  fill(240, 130, 30);
+  ellipse(140, 250, 120, 150);
+  ellipse(260, 250, 120, 150);
+  ellipse(200, 250, 130, 160);
+  noStroke();
+  noStroke();
+  fill(80, 120, 50);
+  ellipse(225, 160, 40, 20);
+  rect(192, 145, 16, 35);
+}
+</pre>
+</div>
+</details>
+<div class="note"><p><strong>Using the desktop editor?</strong> Paste this in and add <code>size(400, 400);</code> in <code>setup()</code>. The picture above shows the goal. <a href="https://processing.org/reference/ellipse_.html">ellipse ↗</a> and <a href="https://processing.org/reference/rect_.html">rect ↗</a> explain the arguments.</p></div>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">The first hour</span><h2>What we did</h2></div>
+<ul class="plain">
+<li><strong>Introductions.</strong> Teachers and artists joined from the US, the UK, and India, working with students from primary school through university. Three themes kept coming up: keeping students engaged once a course turns to plain Java, getting software onto locked-down school machines, and wanting the hardware access and large-file work that a browser handles poorly.</li>
+<li><strong>Processing in ten minutes.</strong> Saber toured the editor and built the core idea live: <code>setup()</code> runs once, <code>draw()</code> keeps looping, and <code>x = x + 1</code> with a <code>background()</code> call makes animation.</li>
+<li><strong>Parsons pumpkin.</strong> Joshua Hans shared a puzzle that teaches top-to-bottom order and layering. It also builds the habit of commenting lines out and running code without fear. The <code>public</code> keyword appears because Pickcode runs real Java across two files, which Processing normally hides.</li>
+<li><strong>Stamp scene.</strong> <code>pushMatrix()</code> and <code>popMatrix()</code> keep <code>translate</code>, <code>scale</code>, and <code>rotate</code> from affecting other shapes. Inside <code>keyPressed</code>, students start using <code>if</code> because they want something to happen, before conditionals are formally taught.</li>
+</ul>
+<figure style="margin:0">
+<img src="assets/recap-1/stamp-scene.jpeg" width="740" height="716" loading="lazy" style="display:block;width:100%;max-width:420px;height:auto;border-radius:8px" alt="A finished stamp scene: dozens of red-brown leaves at random angles on a blue background, with a large orange pumpkin stamped on top.">
+<figcaption style="margin-top:8px;font-size:15px">A finished stamp scene, with each leaf at its own random angle. <a href="assets/recap-1/stamp-scene.gif">Watch it build ↗</a></figcaption>
+</figure>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Two Unit 1 moments</span><h2>When the drawing shows the bug</h2><p>The pumpkin should land in the center of the canvas. It lands in the corner.</p></div>
+<pre class="ws-code" data-file="Sketch.java">
+drawPumpkin(width * (1/2), height * (1/2), 1);
+</pre>
+<p><code>1/2</code> is an int divided by an int, so it evaluates to 0. Joshua&rsquo;s students write &ldquo;int divided by int is an int&rdquo; in big letters in their notebooks, because it always comes up on the AP exam. Changing to <code>1.0/2</code> produces a double, which leads straight to casting. A shape in the wrong place is harder to miss than a grade that is slightly off.</p>
+<p>Rotation does similar work for random numbers. Leaves should not all fall the same way, and <code>Math.random()</code> is the version that appears on the exam.</p>
+<pre class="ws-code" data-file="Sketch.java">
+int a = (int) (Math.random() * 360);
+rotate(radians(a));
+</pre>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Guest</span><h2>Art Simon&rsquo;s year of assignments</h2><p>Art started using Processing in its beta and taught AP Java with it in San Francisco. Open-ended visual work helped with classroom management, because students at very different places could keep adding features. Seeing each other&rsquo;s work also pushed them toward original ideas. Art paired Processing with CodingBat, which offers small problems with one right answer. <a href="https://apcslowell.github.io/">Explore the course site ↗</a></p></div>
+<div class="tbl-scroll"><table>
+<thead><tr><th>Assignment</th><th>Java focus</th></tr></thead>
+<tbody>
+<tr><td>Scales</td><td>Nested loops, a shape in a function</td></tr>
+<tr><td>Lightning</td><td>Randomness and a random walk</td></tr>
+<tr><td>Dice</td><td>A first class</td></tr>
+<tr><td>Bacteria</td><td>An array of objects and a biased random walk</td></tr>
+<tr><td>Starfield</td><td>A class and an array</td></tr>
+<tr><td>Asteroids</td><td>Inheritance, in a two-month fall project</td></tr>
+<tr><td>Sierpinski triangle, your own fractal, fractal tree</td><td>Recursion</td></tr>
+<tr><td>Minesweeper</td><td>2D arrays, classes, and recursion</td></tr>
+<tr><td>AP review</td><td>Worksheets and CodingBat sets</td></tr>
+</tbody></table></div>
+<div class="note"><p><strong>Want a digital rain assignment?</strong> Art offered to write a basic AP version of the rain from <em>The Matrix</em>, with a class holding a character, x, and y. Say so in Google Classroom if you would use it. Inheritance is no longer on the AP exam, so Asteroids may need a different place in your year.</p></div>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">From the group</span><h2>Moves to borrow</h2></div>
+<ul class="plain">
+<li><strong>Start unplugged.</strong> Students sit back to back and describe a robot sketch. Blank paper shows why they need a coordinate grid and precise arguments.</li>
+<li><strong>Comment everything out.</strong> Before reordering, bring lines back one at a time and note what each one does.</li>
+<li><strong>Use slips of paper.</strong> Students predict the order of the lines before touching the code.</li>
+<li><strong>Work in pairs.</strong> Puzzles are better with someone else, and students talk more about visual code than console output.</li>
+<li><strong>Commit on paper before AI.</strong> A sketch records a student&rsquo;s decisions first. Then ask whether they can actually build on what AI gives them, and whether schoolwork has handed the thinking away.</li>
+</ul>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Keep going</span><h2>Not covered live, and what&rsquo;s next</h2><p>We did not get to <a href="session-1.html#predict">predicting and tracing the ball</a> or the <a href="session-1.html#transfer">plain Java transfer</a>. Both are ready on the Session 1 page.</p></div>
+<ul class="plain">
+<li><a href="https://apcslowell.github.io/">Art Simon&rsquo;s AP course ↗</a> and <a href="https://codingbat.com/java">CodingBat ↗</a></li>
+<li><a href="https://pickcode.io/">Pickcode ↗</a>, for running Processing and Java in a browser</li>
+<li><a href="https://github.com/nature-of-code/noc-examples-processing">Nature of Code Processing examples ↗</a></li>
+<li><a href="https://www.raspberrypi.org/blog/reintroducing-code-classroom-now-with-the-blocks-editor/">Raspberry Pi Foundation&rsquo;s code editor and classroom ↗</a> and <a href="https://www.raspberrypi.org/hello-world">Hello World ↗</a></li>
+<li><a href="https://machinelearningforkids.co.uk/">Machine Learning for Kids ↗</a> and <a href="https://teachablemachine.withgoogle.com/">Teachable Machine ↗</a></li>
+<li><a href="https://github.com/education/students">GitHub Education for students ↗</a> and <a href="https://github.com/education/teachers">for teachers ↗</a></li>
+</ul>
+<div class="camp-actions"><a class="camp-button primary" href="session-2.html">Session 2: Make decisions visible, Nov 15</a></div>
+</div></section>
+</main>
+
+<footer>
+  <div class="wrap stack-sm">
+    <p>Drafted with AI help from the session transcript and chat, then checked against both.</p>
+    <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<script src="assets/content.js"></script>
+<script src="assets/workshop.js?v=20261019a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>

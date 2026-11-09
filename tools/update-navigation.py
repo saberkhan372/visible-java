@@ -10,7 +10,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 LIBRARY = {"library.html", "labs.html", "demos.html", "examples.html", "translate.html", "port.html", "traps.html", "loop-lab.html", "setup.html"}
-WORKSHOP = {"index.html", "camp.html", "processing.html", "readiness.html", "about.html", "guide-1.html", *[f"session-{n}.html" for n in range(1, 6)]}
+WORKSHOP = {"index.html", "camp.html", "processing.html", "readiness.html", "about.html", "guide-1.html", "recap-1.html", *[f"session-{n}.html" for n in range(1, 6)]}
 
 
 def page_paths():
