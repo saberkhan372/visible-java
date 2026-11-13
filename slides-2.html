@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 2 slides — Visible Java</title>
+<meta name="description" content="Slides for Visible Java Session 2, Make decisions visible, with a presenter view.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Fredoka:wght@500;600&family=Source+Code+Pro:wght@400;600&display=swap">
+<link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
+<style>
+:root{--ink:#16211f;--paper:#fff6e5;--stage:#141a19;--cream:#f6f1e4;--soft:#b8c2be;--sun:#ffc93c}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:"Atkinson Hyperlegible Next",Verdana,sans-serif}
+body{display:flex;flex-direction:column;overflow:hidden}
+#stage{flex:1;min-height:0;position:relative;overflow:hidden}
+#scaler{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden}
+.slide[hidden]{display:none!important}
+.slide h1,.slide h2,.slide h3,.slide p,.slide ul,.slide ol{margin:0}
+.slide table{width:100%;border-collapse:collapse;background:#fff;border:2px solid var(--ink)}
+.slide th,.slide td{padding:14px 24px;text-align:left;border:1.5px solid #ecdfc4}
+.slide th{background:#fbeed3;font-family:Fredoka,Verdana,sans-serif;font-weight:600}
+#bar{display:flex;align-items:center;gap:12px;padding:8px 16px;background:var(--paper);border-top:2px solid var(--ink);font-size:16px;flex-wrap:wrap}
+#bar a{color:#0a5a7e;font-weight:700}
+#bar button{font:600 15px Fredoka,Verdana,sans-serif;background:#fff;color:var(--ink);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+#bar button:focus-visible{outline:3px solid #0a5a7e;outline-offset:2px}
+#count{min-width:64px}
+.spacer{flex:1}
+body.fs #bar{display:none}
+body.presenter{overflow:auto}
+body.presenter #stage{display:none}
+#pv{display:none}
+body.presenter #pv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;padding:24px;flex:1;min-height:0}
+.pv-frame{position:relative;background:#fff;aspect-ratio:16/9;overflow:hidden;border:2px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink)}
+.pv-frame .inner{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+#pv h2{margin:0 0 8px;font:600 18px Fredoka,Verdana,sans-serif;color:#4a5552}
+#notes{font-size:24px;line-height:1.45;white-space:pre-wrap;margin:0 0 20px}
+#timer{font:600 40px "Source Code Pro",monospace;color:#7f5600}
+
+.slide[style*="#fff6e5"]{background-image:radial-gradient(#ead9b6 2.5px,transparent 2.5px)!important;background-size:32px 32px!important}
+.corner-logo{position:absolute;right:48px;bottom:40px;width:64px;height:64px}
+.hero-logo{position:absolute;right:128px;top:200px;width:360px;height:360px;transform:rotate(3deg)}
+.demo{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.demo canvas{display:block;background:#fff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;touch-action:none}
+.demo .row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.demo button{font:600 26px Fredoka,Verdana,sans-serif;color:#16211f;background:#fff;border:2px solid #16211f;border-radius:999px;box-shadow:4px 4px 0 #16211f;padding:8px 24px;cursor:pointer}
+.demo button.go{background:#ffc93c}
+.demo button:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #16211f}
+.demo button:focus-visible{outline:4px solid #0a5a7e;outline-offset:3px}
+.demo .read{font:600 26px "Source Code Pro","Courier New",monospace;color:#16211f}
+@media (max-width:760px){body.presenter #pv{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="stage"><div id="scaler">
+<section id="cover" class="slide" data-title="Make decisions visible" data-notes="Welcome people as they arrive. Remind everyone that the session is recorded before you start." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:12px 32px;box-shadow:4px 4px 0 #16211f;align-self:start;transform:rotate(-3deg)">Session 2</p>
+<h1 style="font-family:Fredoka, Verdana, sans-serif;font-size:136px;font-weight:600;line-height:1.05">Make decisions visible</h1>
+<p style="font-size:44px;line-height:1.3;color:#4a5552">Sunday, November 15 · 7–9 a.m. PT / 10 a.m.–noon ET</p>
+<p style="font-size:32px;color:#4a5552">Visible Java · A CC Fest learning studio</p>
+<img class="hero-logo" src="assets/visible-java-icon.svg" alt="Visible Java logo">
+</section>
+<section id="today" class="slide" data-title="Our two hours" data-notes="Less preamble than last week. The times can flex: shared work ends by 7:45 at the latest, and Joshua starts by 8:00. The guest slot at 8:30 is fixed." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Our two hours</h2><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:32px;flex:1"><div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">7:00 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Share</h3><p style="font-size:32px">A short recap, then stamp scenes from the group.</p></div><div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">7:30 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Connect</h3><p style="font-size:32px">From stamps to motion and decisions.</p></div><div style="background:#ece2f8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">7:50 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Build it</h3><p style="font-size:32px">Predict, run, and change code with Joshua Hans.</p></div><div style="background:#d9eef9;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">8:30 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Meet Alfred Thompson</h3><p style="font-size:32px">A conversation, then close.</p></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="welcome" class="slide" data-title="Welcome back" data-notes="Five minutes. Only new people introduce themselves: name and what they teach. Then open the assignment and name what Session 1 covered." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Welcome back</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1"><div style="background:#ffffff;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">New today?</h3><p style="font-size:36px;line-height:1.4">Tell us your name and what you teach.</p><p style="font-size:36px;line-height:1.4"><b>The recap and recording are on the site.</b></p></div><div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">Last week</h3><p style="font-size:36px;line-height:1.4"><b>setup()</b> runs once and <b>draw()</b> keeps going.</p><p style="font-size:36px;line-height:1.4">A pumpkin puzzle, then stamps made with methods that take arguments.</p></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="reference-point" class="slide" data-title="Why does it land away from the mouse?" data-notes="Show the planned pieces first, the one that lands on the mouse and then this one, with each person’s okay. Ask the group before explaining. After translate(x, y), the point (0, 0) is the mouse. This shape was designed around (200, 190), so every stamp is off by that much. Move the pointer over the picture, then press the button. Fix: subtract 200 from each x and about 190 from each y." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:30px;line-height:1.45;white-space:nowrap"><span style="color:#1f7a63">void</span> <span style="color:#006699">drawSnowman</span>(<span style="color:#b04e0f">int</span> x, <span style="color:#b04e0f">int</span> y, <span style="color:#b04e0f">double</span> s) {<br>&#160;&#160;<span style="color:#006699">pushMatrix</span>();<br>&#160;&#160;<span style="color:#006699">translate</span>(x, y);<br>&#160;&#160;<span style="color:#006699">scale</span>((<span style="color:#b04e0f">float</span>) s);<br><br>&#160;&#160;<span style="color:#006699">ellipse</span>(<span style="color:#7d4793">200</span>, <span style="color:#7d4793">100</span>, <span style="color:#7d4793">75</span>, <span style="color:#7d4793">75</span>);<br>&#160;&#160;<span style="color:#006699">ellipse</span>(<span style="color:#7d4793">200</span>, <span style="color:#7d4793">175</span>, <span style="color:#7d4793">100</span>, <span style="color:#7d4793">100</span>);<br>&#160;&#160;<span style="color:#006699">ellipse</span>(<span style="color:#7d4793">200</span>, <span style="color:#7d4793">275</span>, <span style="color:#7d4793">150</span>, <span style="color:#7d4793">150</span>);<br><br>&#160;&#160;<span style="color:#006699">popMatrix</span>();<br>}</p></div><div style="display:flex;flex-direction:column;gap:28px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#5fcfaf;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">From your work</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">Why does it land away from the mouse?</h2><div class="demo" data-demo="stamp" data-w="440" data-h="440"></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="big-idea" class="slide" data-title="A program decides by looking at its own state." data-notes="This is the one idea for today. Everything until 8:30 comes back to it." style="background:#5fcfaf;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<h1 style="font-family:Fredoka, Verdana, sans-serif;font-size:120px;font-weight:600;line-height:1.08">A program decides by looking at its own state.</h1>
+<p style="font-size:44px;line-height:1.3">State is what it remembers. A condition is a question about it.</p>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="motion" class="slide" data-title="From stamps to motion" data-notes="Live-code this in the stamp scene from the assignment. Last week draw() was empty so stamps stayed. Put background and one stamp inside draw(), and give its x a variable. Everyone keeps building on this one project for the rest of the series." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:36px;line-height:1.45;white-space:nowrap"><span style="color:#b04e0f">int</span> x = <span style="color:#7d4793">0</span>;<br><br><span style="color:#1f7a63">void</span> <span style="color:#006699">draw</span>() {<br>&#160;&#160;<span style="color:#006699">background</span>(<span style="color:#7d4793">7</span>, <span style="color:#7d4793">166</span>, <span style="color:#7d4793">240</span>);<br>&#160;&#160;<span style="color:#006699">drawPumpkin</span>(x, <span style="color:#7d4793">300</span>, <span style="color:#7d4793">0.4</span>);<br>&#160;&#160;x = x + <span style="color:#7d4793">2</span>;<br>}</p></div><div style="display:flex;flex-direction:column;gap:28px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#6fbee2;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Same project</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:72px;font-weight:600">From stamps to motion</h2><p style="font-size:40px;line-height:1.35">Last week <b>draw()</b> was empty, so stamps stayed.</p><p style="font-size:40px;line-height:1.35">Give one stamp a variable, and it moves.</p></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="already" class="slide" data-title="You already wrote one" data-notes="People wrote this last week because they wanted something to happen. Today names what it was. Say plainly that nobody needs all of today: one moving shape and one if is a complete result." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">You already wrote one</h2><div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:40px;line-height:1.45;white-space:nowrap"><span style="color:#1f7a63">if</span> (key == <span style="color:#7d4793">'p'</span>) {<br>&#160;&#160;<span style="color:#006699">drawPumpkin</span>(mouseX, mouseY, <span style="color:#7d4793">0.4</span>);<br>}</p></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;flex:1"><div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">State</h3><p style="font-size:36px;line-height:1.4">A variable that lasts between frames.</p></div><div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">Condition</h3><p style="font-size:36px;line-height:1.4">A question about state. The answer is true or false.</p></div><div style="background:#ece2f8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">if</h3><p style="font-size:36px;line-height:1.4">What the answer changes.</p></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="course" class="slide" data-title="Where today sits" data-notes="Five minutes at most. Loops are the other half of Unit 2 and come in a later session. Open the Unit 2 page if people want the lesson list." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Where today sits</h2><table style="font-size:40px"><tr><th style="width:26%">When</th><th style="width:26%">AP CS A</th><th>Ideas</th></tr><tr><td>Session 1</td><td>Unit 1</td><td>Variables, methods, arguments, integer division</td></tr><tr style="background:#ffefbf"><td><b>Today</b></td><td><b>Unit 2, first half</b></td><td><b>Boolean expressions, if and else</b></td></tr><tr><td>Later</td><td>Unit 2, second half</td><td>Loops</td></tr></table>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="primm" class="slide" data-title="How we will work" data-notes="Drop this slide if time is short and let people simply do the four steps. The full name is PRIMM: predict, run, investigate, modify, make. Make is the assignment." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">How we will work</h2><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:32px;flex:1"><div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">1</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Predict</h3><p style="font-size:32px">Say what the code will do before it runs.</p></div><div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">2</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Run</h3><p style="font-size:32px">Watch it, and compare with your prediction.</p></div><div style="background:#d9eef9;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">3</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Investigate</h3><p style="font-size:32px">Ask why. Which line made that happen?</p></div><div style="background:#ece2f8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">4</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Modify</h3><p style="font-size:32px">Change one thing, in a breakout room.</p></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="handoff" class="slide" data-title="Now let one thing decide for another." data-notes="Hand off to Joshua by 8:00 at the latest. His versions of the next two examples replace these. Saber visits breakout rooms and notes the questions that come up." style="background:#ece2f8;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-size:44px">Last week a key decided what to stamp.</p>
+<h1 style="font-family:Fredoka, Verdana, sans-serif;font-size:120px;font-weight:600;line-height:1.08">Now let one thing decide for another.</h1>
+<p style="font-size:40px">Motion and conditionals with Joshua Hans</p>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="two-shapes" class="slide" data-title="What happens at the edge?" data-notes="Collect predictions in chat before pressing Run. The car comes back. The bus leaves and does not return, because nothing asks about busX. Investigate: how often is the if checked, and how often is it true? Why does the car slide fully off before it returns? Modify: bring the bus back too." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:32px;line-height:1.45;white-space:nowrap"><span style="color:#b04e0f">float</span> carX = <span style="color:#7d4793">0</span>;<br><span style="color:#b04e0f">float</span> busX = <span style="color:#7d4793">0</span>;<br><br><span style="color:#1f7a63">void</span> <span style="color:#006699">draw</span>() {<br>&#160;&#160;<span style="color:#006699">background</span>(<span style="color:#7d4793">230</span>);<br>&#160;&#160;<span style="color:#006699">rect</span>(carX, <span style="color:#7d4793">120</span>, <span style="color:#7d4793">60</span>, <span style="color:#7d4793">30</span>);<br>&#160;&#160;carX = carX + <span style="color:#7d4793">3</span>;<br>&#160;&#160;<span style="color:#006699">rect</span>(busX, <span style="color:#7d4793">240</span>, <span style="color:#7d4793">100</span>, <span style="color:#7d4793">40</span>);<br>&#160;&#160;busX = busX + <span style="color:#7d4793">1</span>;<br><br>&#160;&#160;<span style="color:#1f7a63">if</span> (carX &gt; width) {<br>&#160;&#160;&#160;&#160;carX = <span style="color:#7d4793">0</span>;<br>&#160;&#160;}<br>}</p></div><div style="display:flex;flex-direction:column;gap:28px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Predict</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:64px;font-weight:600">What happens at the edge?</h2><div class="demo" data-demo="cars" data-w="600" data-h="360"></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="light" class="slide" data-title="What does the car do on red?" data-notes="The drawing of the light is left off the slide to keep it short. Predict first: where does the car stop? It stops wherever it is, even after it has passed the light, because it reads lightIsGreen and nothing else. Investigate: does the car know where the light is? What does ! do?" style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:30px;line-height:1.45;white-space:nowrap"><span style="color:#b04e0f">boolean</span> lightIsGreen = <span style="color:#7d4793">true</span>;<br><span style="color:#b04e0f">float</span> carX = <span style="color:#7d4793">0</span>;<br><br><span style="color:#1f7a63">void</span> <span style="color:#006699">draw</span>() {<br>&#160;&#160;<span style="color:#006699">background</span>(<span style="color:#7d4793">230</span>);<br>&#160;&#160;<span style="color:#1f7a63">if</span> (lightIsGreen) {<br>&#160;&#160;&#160;&#160;carX = carX + <span style="color:#7d4793">3</span>;<br>&#160;&#160;}<br>&#160;&#160;<span style="color:#006699">rect</span>(carX, <span style="color:#7d4793">220</span>, <span style="color:#7d4793">60</span>, <span style="color:#7d4793">30</span>);<br>}<br><br><span style="color:#1f7a63">void</span> <span style="color:#006699">keyPressed</span>() {<br>&#160;&#160;<span style="color:#1f7a63">if</span> (key == <span style="color:#7d4793">' '</span>) {<br>&#160;&#160;&#160;&#160;lightIsGreen = !lightIsGreen;<br>&#160;&#160;}<br>}</p></div><div style="display:flex;flex-direction:column;gap:28px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Predict</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:60px;font-weight:600">What does the car do on red?</h2><div class="demo" data-demo="light" data-w="600" data-h="360"></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="breakout" class="slide" data-title="In your room: stop at the light" data-notes="About fifteen minutes in rooms of two or three. Everyone starts from the light example and takes whichever step fits. If the room is quiet, come here early. Bring one question back to the whole group at 8:25." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">In your room: stop at the light</h2><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;flex:1"><div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">1. Before the light</h3><p style="font-size:36px;line-height:1.4">The car should not stop once it has passed the light.</p><p style="font-size:36px;line-height:1.4"><b>Add to the condition.</b></p></div><div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">2. Only when close</h3><p style="font-size:36px;line-height:1.4">Write your own distance method with <b>Math.sqrt</b>.</p><p style="font-size:36px;line-height:1.4"><b>Stop when the light is red and near.</b></p></div><div style="background:#ece2f8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">3. Add a yellow</h3><p style="font-size:36px;line-height:1.4">A boolean has two values. A stoplight has three.</p><p style="font-size:36px;line-height:1.4"><b>Slow down on yellow.</b></p></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="guest" class="slide" data-title="Meet Alfred Thompson" data-notes="Twenty minutes of conversation, five of questions. Offer the chat as well as open mic." style="background:#d9eef9;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-size:44px">Our guest today</p>
+<h1 style="font-family:Fredoka, Verdana, sans-serif;font-size:120px;font-weight:600;line-height:1.08">Meet Alfred Thompson</h1>
+<p style="font-size:40px">Bring your questions, out loud or in the chat.</p>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="close" class="slide" data-title="Before Session 3" data-notes="Keep the close short. Sharing in Classroom is optional. Completed assignments are how we judge the pace, so there is no feedback form." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Before Session 3</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1"><div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">Keep your scene going</h3><p style="font-size:36px;line-height:1.4"><b>Make one thing move.</b></p><p style="font-size:36px;line-height:1.4"><b>Add one decision</b>, such as no trees above a certain height.</p><p style="font-size:36px;line-height:1.4">Stretch: something happens when two shapes get close.</p></div><div style="background:#d9eef9;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">What’s next</h3><p style="font-size:36px;line-height:1.4">Post a screenshot or code in Google Classroom if you want feedback.</p><p style="font-size:36px;line-height:1.4"><b>Session 3: Sunday, November 22</b></p></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+</div></div>
+<div id="pv">
+  <div><h2>Now</h2><div class="pv-frame" id="now"></div><h2 style="margin-top:16px">Speaker notes</h2><p id="notes"></p></div>
+  <div><h2>Elapsed</h2><p id="timer">0:00</p><button id="reset" type="button">Reset timer</button><h2 style="margin-top:20px">Next</h2><div class="pv-frame" id="next"></div></div>
+</div>
+<div id="bar">
+  <button id="prev" type="button">Back</button><span id="count" aria-live="polite"></span><button id="fwd" type="button">Next</button>
+  <button id="openpv" type="button">Open presenter view</button><button id="full" type="button">Full screen</button>
+  <span class="spacer"></span><a href="guide-2.html">Facilitator guide</a><a href="session-2.html">Session 2</a>
+</div>
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var params = new URLSearchParams(location.search);
+  var presenter = params.get('presenter') === '1';
+  var channel = 'BroadcastChannel' in window ? new BroadcastChannel('visible-java-session-2') : null;
+  var index = 0, started = Date.now();
+  var scaler = document.getElementById('scaler'), stage = document.getElementById('stage');
+
+  function fit() {
+    var scale = Math.min(stage.clientWidth / 1920, stage.clientHeight / 1080);
+    scaler.style.transform = 'translate(' + (stage.clientWidth - 1920 * scale) / 2 + 'px,' + (stage.clientHeight - 1080 * scale) / 2 + 'px) scale(' + scale + ')';
+  }
+  function copy(id, slide) {
+    var box = document.getElementById(id);
+    box.innerHTML = '';
+    if (!slide) { return; }
+    var inner = document.createElement('div'), clone = slide.cloneNode(true);
+    inner.className = 'inner'; clone.removeAttribute('id'); clone.hidden = false;
+    inner.appendChild(clone); box.appendChild(inner);
+    inner.style.transform = 'scale(' + box.clientWidth / 1920 + ')';
+  }
+  function show(n, fromChannel) {
+    index = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, i) { s.hidden = i !== index; });
+    document.getElementById('count').textContent = (index + 1) + ' / ' + slides.length;
+    document.title = slides[index].dataset.title + ' — Visible Java';
+    if (presenter) {
+      document.getElementById('notes').textContent = slides[index].dataset.notes;
+      copy('now', slides[index]); copy('next', slides[index + 1]);
+    } else {
+      history.replaceState(null, '', '#' + (index + 1));
+    }
+    if (channel && !fromChannel) { channel.postMessage({ index: index }); }
+  }
+  if (channel) { channel.onmessage = function (e) { if (typeof e.data.index === 'number') { show(e.data.index, true); } }; }
+  document.addEventListener('keydown', function (e) {
+    if (['ArrowRight', 'PageDown', ' '].indexOf(e.key) > -1) { e.preventDefault(); show(index + 1); }
+    if (['ArrowLeft', 'PageUp'].indexOf(e.key) > -1) { e.preventDefault(); show(index - 1); }
+    if (e.key === 'Home') { show(0); }
+    if (e.key === 'End') { show(slides.length - 1); }
+    if (e.key === 'f') { toggleFull(); }
+    if (e.key === 'p') { openPresenter(); }
+  });
+  function toggleFull() {
+    if (document.fullscreenElement) { document.exitFullscreen(); }
+    else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); }
+  }
+  function openPresenter() { window.open('slides-2.html?presenter=1#' + (index + 1), 'visible-java-presenter', 'width=1100,height=760'); }
+  document.addEventListener('fullscreenchange', function () { document.body.classList.toggle('fs', !!document.fullscreenElement); fit(); });
+  document.getElementById('prev').onclick = function () { show(index - 1); };
+  document.getElementById('fwd').onclick = function () { show(index + 1); };
+  document.getElementById('full').onclick = toggleFull;
+  document.getElementById('openpv').onclick = openPresenter;
+  document.getElementById('reset').onclick = function () { started = Date.now(); };
+  stage.addEventListener('click', function (e) { if (!presenter && !e.target.closest('.demo')) { show(index + 1); } });
+  window.addEventListener('resize', function () { fit(); if (presenter) { show(index, true); } });
+  if (presenter) {
+    document.body.classList.add('presenter');
+    document.getElementById('openpv').hidden = true; document.getElementById('full').hidden = true;
+    setInterval(function () {
+      var t = Math.floor((Date.now() - started) / 1000);
+      document.getElementById('timer').textContent = Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
+    }, 1000);
+  }
+
+  function make(el) {
+    var w = +el.dataset.w, h = +el.dataset.h, kind = el.dataset.demo;
+    var c = document.createElement('canvas'); c.width = w * 2; c.height = h * 2; c.style.width = w + 'px'; c.style.height = h + 'px';
+    var g = c.getContext('2d'); g.scale(2, 2);
+    var row = document.createElement('div'); row.className = 'row';
+    var read = document.createElement('span'); read.className = 'read';
+    el.appendChild(c); el.appendChild(row);
+    function button(label, go, fn) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = label; if (go) { b.className = 'go'; }
+      b.addEventListener('click', function (e) { e.stopPropagation(); fn(b); paint(); b.blur(); });
+      row.appendChild(b); return b;
+    }
+    var running = false, carX = 0, busX = 0, green = true, centered = false, mx = 150, my = 150, paint;
+    function box(x, y, bw, bh, color) { g.fillStyle = color; g.fillRect(x, y, bw, bh); g.lineWidth = 2; g.strokeStyle = '#16211f'; g.strokeRect(x, y, bw, bh); }
+    function disc(x, y, r, color) { g.beginPath(); g.arc(x, y, r, 0, 7); g.fillStyle = color; g.fill(); g.lineWidth = 2; g.strokeStyle = '#16211f'; g.stroke(); }
+    var toggle = function (b) { running = !running; b.textContent = running ? 'Pause' : 'Run'; };
+    if (kind === 'stamp') {
+      var k = w / 600;
+      button('Draw around (0, 0)', true, function (b) { centered = !centered; b.textContent = centered ? 'Draw around (200, 190)' : 'Draw around (0, 0)'; });
+      c.addEventListener('pointermove', function (e) { var r = c.getBoundingClientRect(); mx = (e.clientX - r.left) / r.width * 600; my = (e.clientY - r.top) / r.height * 600; paint(); });
+      c.addEventListener('click', function (e) { e.stopPropagation(); });
+      paint = function () {
+        g.fillStyle = '#07a6f0'; g.fillRect(0, 0, w, h);
+        var ox = centered ? 0 : 200, oy = centered ? -90 : 100;
+        [[0, 37.5], [75, 50], [175, 75]].forEach(function (p) { g.beginPath(); g.arc((mx + ox) * k, (my + oy + p[0]) * k, p[1] * k, 0, 7); g.fillStyle = '#fff'; g.fill(); });
+        g.strokeStyle = '#16211f'; g.lineWidth = 3; g.beginPath(); g.moveTo(mx * k - 14, my * k); g.lineTo(mx * k + 14, my * k); g.moveTo(mx * k, my * k - 14); g.lineTo(mx * k, my * k + 14); g.stroke();
+      };
+    }
+    if (kind === 'cars') {
+      var k2 = h / 400, runC = button('Run', true, toggle);
+      button('Reset', false, function () { carX = 0; busX = 0; running = false; runC.textContent = 'Run'; });
+      row.appendChild(read);
+      paint = function () {
+        g.fillStyle = '#e6e6e6'; g.fillRect(0, 0, w, h);
+        box(carX, 120 * k2, 60, 30, '#285ac8'); box(busX, 240 * k2, 100, 40, '#f0b400');
+        read.textContent = 'carX = ' + carX + ', busX = ' + busX;
+      };
+      el.tick = function () { if (running) { carX += 3; busX += 1; if (carX > w) { carX = 0; } paint(); } };
+    }
+    if (kind === 'light') {
+      var runL = button('Run', true, toggle);
+      button('Press space', false, function () { green = !green; });
+      button('Reset', false, function () { carX = 0; green = true; running = false; runL.textContent = 'Run'; });
+      row.appendChild(read);
+      paint = function () {
+        g.fillStyle = '#e6e6e6'; g.fillRect(0, 0, w, h);
+        disc(450, 70, 25, green ? '#00be50' : '#dc2828'); box(carX, 200, 60, 30, '#285ac8');
+        read.textContent = 'lightIsGreen = ' + green;
+      };
+      el.tick = function () { if (running) { if (green) { carX += 3; } if (carX > w) { carX = 0; } paint(); } };
+    }
+    paint(); el.draw = paint;
+  }
+  var demos = Array.prototype.slice.call(document.querySelectorAll('.demo'));
+  demos.forEach(make);
+  document.fonts && document.fonts.ready.then(function () { demos.forEach(function (d) { d.draw(); }); });
+  var tickCount = 0;
+  (function loop() { tickCount++; demos.forEach(function (d) { if (d.tick) { d.tick(tickCount); } }); requestAnimationFrame(loop); })();
+
+  fit();
+  show((parseInt(location.hash.slice(1), 10) || 1) - 1, true);
+})();
+</script>
+</body>
+</html>

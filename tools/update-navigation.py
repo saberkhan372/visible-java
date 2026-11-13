@@ -14,7 +14,7 @@ WORKSHOP = {"index.html", "camp.html", "processing.html", "readiness.html", "abo
 
 
 def page_paths():
-    return sorted(p for p in ROOT.glob("*.html") if p.name != "slides-1.html") + sorted(p for n in range(1, 5) for p in (ROOT / f"unit{n}").glob("lesson-*.html"))
+    return sorted(p for p in ROOT.glob("*.html") if p.name not in {"slides-1.html", "slides-2.html"}) + sorted(p for n in range(1, 5) for p in (ROOT / f"unit{n}").glob("lesson-*.html"))
 
 
 def header(path):
