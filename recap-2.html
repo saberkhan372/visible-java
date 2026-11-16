@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Make decisions visible: Session 2 recap — Visible Java</title>
+<meta name="description" content="Recap of Visible Java Session 2: shared stamp scenes, the draw loop and conditionals, a traffic light to fix, and what to try before Session 3.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@500;600;700&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=20261020e"><link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java<span class="logo-sub">A CC Fest learning studio</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html" aria-current="true">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="library.html">Library</a>
+    </nav>
+    <a href="camp.html#interest" class="nav-join">Join the interest list <span aria-hidden="true">↗</span></a>
+  </div>
+</header>
+<nav class="section-nav" aria-label="Workshop navigation">
+  <div class="wrap">
+      <a href="index.html#sessions">All sessions</a>
+      <a href="readiness.html">Get ready</a>
+      <a href="index.html#your-way">On your own</a>
+      <a href="about.html">About</a>
+  </div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow"><a href="session-2.html">Session 02</a> &middot; Recap &middot; Sunday, November 15, 2026</span>
+      <h1>Make decisions visible</h1>
+      <p class="lede">We looked at each other&rsquo;s stamp scenes, found a bug by where a snowman landed, put motion and an <code>if</code> inside <code>draw()</code>, and fixed a traffic light that only knew how to turn red.</p>
+      <div class="camp-actions"><a class="camp-button primary" href="#try-this">What to try next</a><a class="camp-button" href="slides-2.html">Open the slides</a><a class="camp-button" href="session-2.html">Open Session 2</a></div>
+    </div>
+    <div class="note">
+      <p><strong>Recording:</strong> the video will be linked here and in Google Classroom once it is uploaded.</p>
+      <p><strong>About this recap:</strong> participants are not named on this page. If you would like anything changed or removed here or in the recording, <a href="mailto:mrkhanatndv@gmail.com?subject=Visible%20Java%20recap">email Saber</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="try-this" class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Before November 22</span><h2>Finish the traffic light</h2><p>Open <em>visible java traffic</em> in Pickcode. Try what you have time for, and bring it to the start of Session 3. Fuller directions will follow in Google Classroom later this week.</p></div>
+<figure style="margin:0">
+<img src="assets/recap-2/traffic-light.jpeg" width="404" height="268" loading="lazy" style="display:block;width:100%;max-width:420px;height:auto;border-radius:8px" alt="The traffic light sketch: a blue car on a grey road with a dashed yellow line, under a traffic light on a pole. Only the green light is lit.">
+<figcaption style="margin-top:8px;font-size:15px">The starter sketch. It begins on green, and the car does not move yet.</figcaption>
+</figure>
+<ol class="plain">
+<li><strong>Predict.</strong> Read the code before running it. What will you see? What happens when you click each light?</li>
+<li><strong>Run.</strong> Click all three lights. Were you right?</li>
+<li><strong>Investigate.</strong> Find the code that checks a click on the red light. Why can&rsquo;t you get back to green?</li>
+<li><strong>Modify.</strong> Make yellow and green clickable.</li>
+<li><strong>Make.</strong> Drive on green, slow on yellow, stop on red. As a bonus, wrap the car around the screen.</li>
+<li><strong>Put the light on a timer.</strong> Make it change by itself every few seconds. Two ways to do this are <a href="#timer">described below</a>.</li>
+</ol>
+<details class="ws-facilitator">
+<summary>Stuck on the clicks? Show one way</summary>
+<div>
+<p>The starter measures the distance from the mouse to the red light&rsquo;s center at (510, 55) and nothing else, so red is the only light a click can reach. The other two lights are drawn at (510, 115) and (510, 175). Each needs its own check, with its own variable name.</p>
+<pre class="ws-code" data-file="Sketch.java">
+public void mousePressed() {
+  double redDistance = calculateDistance(mouseX, mouseY, 510, 55);
+  double yellowDistance = calculateDistance(mouseX, mouseY, 510, 115);
+  double greenDistance = calculateDistance(mouseX, mouseY, 510, 175);
+
+  if (redDistance &lt;= 25) {
+    state = "red";
+  } else if (yellowDistance &lt;= 25) {
+    state = "yellow";
+  } else if (greenDistance &lt;= 25) {
+    state = "green";
+  }
+}
+</pre>
+<p>Each light is 50 across, so a click within 25 of its center is inside it. A click anywhere else leaves <code>state</code> as it was.</p>
+</div>
+</details>
+<div class="note"><p><strong>Want more?</strong> Ideas from the group: a pedestrian button that makes the car stop no matter what, a sky that moves from day to night, and a sun that follows a sine wave.</p></div>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">The first forty minutes</span><h2>What your stamp scenes taught us</h2><p>People shared a snowman, leaves that turn and change color, a scarecrow, a mushroom, and the whole scene rebuilt as a regular Java project.</p></div>
+<ul class="plain">
+<li><strong>Draw around (0, 0).</strong> A snowman stamped down and to the right of the pointer. Its circles were drawn around (200, 100), and <code>translate(x, y)</code> had already moved (0, 0) to the mouse. Someone in the group spotted it from the picture. Saber&rsquo;s advice: when an error is this easy to see, celebrate it and put it in front of the class.</li>
+<li><strong>Choose a reference point.</strong> Joshua has students pick one anchor point on paper and place every other shape relative to it, such as <code>x + 60</code> or <code>y - 105</code>. Once shapes move, anything not tied to that point gets left behind. He finds that slowing down to plan makes students faster later.</li>
+<li><strong><code>Math.random()</code> is a stretch and a shift.</strong> It gives a number from 0 up to, but not including, 1. Multiplying stretches the range, adding shifts it, and a cast to <code>int</code> drops the decimals. Processing&rsquo;s <code>random(low, high)</code> is easier, and <code>Math.random()</code> is the one on the exam. <a href="https://www.csawesome.org/">CSAwesome ↗</a> has a lesson that builds the formula step by step.</li>
+<li><strong>An arc is a sliced ellipse.</strong> The first four arguments match <code>ellipse</code>, followed by a start and a stop angle. Zero points east, and the angles increase clockwise: 90 is south, 180 is west, 270 is north. <code>radians(180)</code> lets students think in degrees.</li>
+<li><strong>Scale and layering.</strong> A scale argument lets one method draw the same shape at any size, which can suggest depth. Whatever is stamped later lands on top. Joshua&rsquo;s students are using a scalable star to put 50 stars on a flag with loops. <a href="https://processing.org/reference/scale_.html">scale ↗</a></li>
+<li><strong>Processing is a Java library.</strong> One participant moved the scene into a regular Java project with GitHub and VS Code: a <code>main</code> method loads the library and starts a separate sketch class, the same two files Pickcode shows. GitHub Codespaces is one way to run that on Chromebooks.</li>
+<li><strong><code>int</code>, <code>float</code>, and <code>double</code>.</strong> Several people hit type errors while adding randomness. Processing&rsquo;s drawing methods take <code>float</code>, which AP CS A does not cover. Java widens an <code>int</code> to a <code>float</code> by itself. Going from a <code>double</code> to a <code>float</code> could lose data, so Java asks for an explicit cast. The same &ldquo;lossy conversion&rdquo; error appears in AP work when a <code>double</code> goes into an <code>int</code>.</li>
+</ul>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Mini-lecture</span><h2>The draw loop and one <code>if</code></h2><p><code>draw()</code> works like <code>main</code>, except that it runs again every frame. Last week it was empty. Put a moving shape and an <code>if</code> inside it, and the sketch checks its own state about 60 times a second.</p></div>
+<pre class="ws-code" data-file="Wraparound.pde">
+float carX = 0;
+float busX = 0;
+
+void draw() {
+  background(230);
+  rect(carX, 120, 60, 30);
+  carX = carX + 3;
+  rect(busX, 240, 100, 40);
+  busX = busX + 1;
+
+  if (carX &gt; width) {
+    carX = 0;
+  }
+}
+</pre>
+<p>The car has a wraparound: once <code>carX</code> passes the right edge, it goes back to 0. Nothing asks about <code>busX</code>, so the bus leaves and does not come back. Saber teaches wraparound first in his animation unit, then sets small challenges, such as making it travel the other way.</p>
+<pre class="ws-code" data-file="Stoplight.pde">
+void keyPressed() {
+  if (key == ' ') {
+    lightIsGreen = !lightIsGreen;
+  }
+}
+</pre>
+<p>A <code>boolean</code> can hold the state of a light, and <code>!</code> flips it. The car reads that one variable to decide whether to move. Students often write <code>if (lightIsGreen == true)</code>. Writing <code>if (lightIsGreen)</code> shows they understand that the variable already holds the answer. Both sketches run in the <a href="slides-2.html#11">slides</a>.</p>
+<ul class="plain">
+<li><strong>PRIMM.</strong> Predict, run, investigate, modify, make. Students read working code and say what it will do before they change anything, which is less daunting than a blank editor.</li>
+<li><strong>Where this sits.</strong> This is Unit 2 of AP CS A, about a third of the way through the year. Loops belong to the same unit.</li>
+<li><strong>A project to borrow.</strong> Saber&rsquo;s students make an animation that must include a wraparound, a bounce, and a color change. It runs over several days: a drawing, pseudocode, coding, a draft share. Then each student makes a poster with the first, middle, and last frames, some of the code, and a short summary, and the posters go up on the wall. The class works from Daniel Shiffman&rsquo;s <a href="http://learningprocessing.com/"><em>Learning Processing</em> ↗</a>.</li>
+</ul>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">With Joshua Hans</span><h2>From a student&rsquo;s scene to a traffic light</h2><p>Joshua started from a shared mushroom stamp and asked the question he would ask a student: how could you make sure mushrooms only grow on the grass?</p></div>
+<pre class="ws-code" data-file="Sketch.java">
+if (key == 'h') {
+  if (mouseX &gt;= 300) {
+    drawMushroom(mouseX, mouseY, 1);
+  }
+}
+</pre>
+<p>Mushrooms appeared on the right half of the canvas, sky included, and nowhere on the left. The condition asks about <code>mouseX</code> and the grass is a question about <code>mouseY</code>. The group caught it in the chat. Mixing up x and y is a very common slip, and the picture gives it away. A nested <code>if</code> like this one is also a way into <code>&amp;&amp;</code>.</p>
+<p>The traffic light starter then ran as a PRIMM activity, with about fifteen minutes in two breakout rooms.</p>
+<ul class="plain">
+<li><strong>The state is a <code>String</code>, on purpose.</strong> <code>state.equals("red")</code> compares the characters. <code>==</code> asks whether two variables refer to the same object, which sometimes works and cannot be trusted. Strings are objects, and that is why they have methods such as <code>substring</code>.</li>
+<li><strong>Print the distances.</strong> One room printed all three distances on every click. Watching which number dropped below 25 explained the condition better than reading it, and clicking right at the edge of a light gave values like 26.</li>
+<li><strong>Short or readable?</strong> The distance call can go straight inside the <code>if</code>, which skips two calculations, or into named variables, which is easier to read. <code>else if</code> stops checking after the first match. The group also talked about adding comments or Javadoc, and whether a click outside every light should switch them all off.</li>
+<li><strong>Say the algorithm first.</strong> The other room talked the light changes through before writing any code. Saber asks students to explain a process as if to someone who has never programmed.</li>
+</ul>
+</div></section>
+
+<section id="timer" class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Two ways to count</span><h2>Putting the light on a timer</h2><p>Processing counts frames in <code>frameCount</code>, at about 60 a second. A sketch can read it and cannot set it back to zero.</p></div>
+<pre class="ws-code" data-file="Sketch.java">
+// Your own counter: easier to explain
+counter = counter + 1;
+if (counter &gt;= 180) {
+  // change the light here
+  counter = 0;
+}
+
+// Modulo: shorter
+if (frameCount % 180 == 0) {
+  // change the light here
+}
+</pre>
+<p>Both change the light every 180 frames, about three seconds. Saber starts with the counter, because many students do not yet see why a remainder would help. Students who write out a long run of <code>if</code> statements for 180, 360, 540 feel the problem that <code>%</code> solves. Joshua printed <code>frameCount</code> next to <code>frameCount % 180</code>, and the console showed the second number climbing to 179 and returning to 0.</p>
+<p><strong>Stopping the car where it is.</strong> A first attempt set <code>carX = 0</code> on red, which sent the car back to the left edge. Changing <code>carX</code> only when the light is green stops it in place. A speed variable does the same job and also allows a slow yellow: always add <code>carSpeed</code> to <code>carX</code>, and let the light set <code>carSpeed</code> to 3, 1, or 0.</p>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">From the group</span><h2>Moves to borrow</h2></div>
+<ul class="plain">
+<li><strong>Share work at the start.</strong> A few minutes of looking at pictures gives everyone a way into the code. Ask what they see on the canvas, then what that says about the code.</li>
+<li><strong>Plan on graph paper.</strong> Sketch the shape and mark its reference point before typing. One teacher keeps graph paper on hand, though students reach for it only once they are really stuck.</li>
+<li><strong>Use Desmos alongside the code.</strong> Joshua&rsquo;s students use sliders to explore period and amplitude before moving a sun along a sine wave. Sine and cosine together give an x and a y, which reinforces that every point needs two numbers.</li>
+<li><strong>Build it artificially first.</strong> For a day and night cycle, get a sky that changes by itself working, then replace the made-up clock with real local time.</li>
+<li><strong>Let projects open the next unit.</strong> A question about a student&rsquo;s own scene, such as where mushrooms may grow, introduces conditionals before the unit starts.</li>
+</ul>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Keep going</span><h2>Not covered live, and what&rsquo;s next</h2><p>The guest conversation planned for this session did not happen and will be rescheduled. We also did not get to writing loops. The <a href="session-2.html#predict">bouncing ball</a> and the debugging lab on the Session 2 page are there for anyone who wants more practice with conditions.</p></div>
+<ul class="plain">
+<li><a href="slides-2.html">Session 2 slides</a>, with the wraparound and stoplight sketches to run</li>
+<li><a href="https://www.csawesome.org/">CSAwesome ↗</a>, a free AP CS A curriculum several people here use</li>
+<li><a href="http://learningprocessing.com/"><em>Learning Processing</em> ↗</a>, by Daniel Shiffman</li>
+<li>Processing reference: <a href="https://processing.org/reference/arc_.html">arc ↗</a>, <a href="https://processing.org/reference/scale_.html">scale ↗</a>, <a href="https://processing.org/reference/random_.html">random ↗</a>, and <a href="https://processing.org/reference/frameCount.html">frameCount ↗</a></li>
+<li><a href="https://www.desmos.com/calculator">Desmos graphing calculator ↗</a></li>
+<li><a href="https://github.com/features/codespaces">GitHub Codespaces ↗</a>, with <a href="https://github.com/education/teachers">GitHub Education for teachers ↗</a></li>
+<li><a href="https://pickcode.io/">Pickcode ↗</a></li>
+</ul>
+<div class="camp-actions"><a class="camp-button primary" href="session-3.html">Session 3: Make objects visible, Nov 22</a></div>
+</div></section>
+</main>
+
+
+<footer>
+  <div class="wrap stack-sm">
+    <p>Drafted with AI help from the session transcript and chat, then checked against both.</p>
+    <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<script src="assets/content.js"></script>
+<script src="assets/workshop.js?v=20261019a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>
