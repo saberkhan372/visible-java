@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Session 2: Make decisions visible — Visible Java</title>
-<meta name="description" content="Visible Java Session 2, Sunday November 15: give the moving ball walls, a pause key, and a pattern drawn with a loop, break a condition on purpose, and move the same decisions into plain Java. Works live or on your own.">
+<meta name="description" content="Visible Java Session 2, Sunday November 15: the draw loop and a first if, a stoplight run by a boolean, and a traffic light to fix with predict, run, investigate, modify, make. Sketches, directions, and extra practice with conditions.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@500;600;700&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap">
 <link rel="stylesheet" href="assets/site.css?v=20261020e"><link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
 </head>
@@ -34,7 +34,7 @@
 </nav>
 
 <main id="main-content" tabindex="-1">
-<nav class="session-jumps wrap" aria-label="On this page"><span class="eyebrow">In this session</span><a href="#predict">Predict</a><a href="#demo">Demo</a><a href="#transfer">Java transfer</a><a href="#build">Build</a><a href="#exchange">Exchange</a><a href="#exit">Exit evidence</a><a href="#studio">Go further</a><a href="#on-your-own">On your own</a></nav>
+<nav class="session-jumps wrap" aria-label="On this page"><span class="eyebrow">In this session</span><a href="#run-of-show">What happened</a><a href="#traffic">Traffic light</a><a href="#timer">Timer</a><a href="#on-your-own">On your own</a><a href="#extra">Extra practice</a><a href="#files">Files</a></nav>
 
 <section>
   <div class="wrap stack-lg">
@@ -42,46 +42,151 @@
       <span class="eyebrow"><a href="index.html#sessions">Session 02</a> &middot; Sunday, November 15 &middot; 7&ndash;9 a.m. PT / 10 a.m.&ndash;noon ET</span>
       <h1>Make decisions visible</h1>
       <p class="lede">
-        Session 1&rsquo;s ball drifted off the screen. Today it makes decisions: it turns at the
-        walls, answers a key, and lights up the column it is in. Then you break a condition on
-        purpose, find the bug by watching, and move the same decisions into plain Java, where
-        the keyboard becomes a string of characters.
+        A shape that moves, a light that decides, and a traffic light that only knew how to
+        turn red. We put motion and an <code>if</code> inside <code>draw()</code>, then fixed
+        Joshua Hans&rsquo;s traffic light starter in breakout rooms, and put the light on a timer.
       </p>
     </div>
     <dl class="camp-logistics">
-      <div><dt>Java ideas</dt><dd>Boolean expressions, <code>if</code> and <code>else</code>, the operators <code>||</code> (or), <code>&amp;&amp;</code> (and), and <code>!</code> (not), a <code>for</code> loop that draws a pattern, integer division, and keyboard and mouse input.</dd></div>
-      <div><dt>AP link</dt><dd>AP CS A Unit 2, where the course covers decisions and loops: Boolean expressions, <code>if</code> statements, iteration, tracing, and boundary cases (the values right at the edge of a condition). <strong>Outside AP:</strong> a first lesson on conditionals, a game-design unit, or any lesson on debugging.</dd></div>
-      <div><dt>Files</dt><dd><a href="downloads/workshop/session-2-files.zip">session-2-files.zip</a>: starter, prediction, checkpoint, completed, and debugging-lab sketches; two Java files; an editable student debugging lab and a teacher guide with the answer key.</dd></div>
-      <div><dt>You leave with</dt><dd>A bouncing sketch that responds to the keyboard, a debugging lab with an answer key, and short explanation questions for students.</dd></div>
+      <div><dt>Java ideas</dt><dd>The draw loop, <code>if</code>, <code>else if</code>, and nested <code>if</code>s, a <code>boolean</code> flipped with <code>!</code>, a <code>String</code> state compared with <code>.equals</code>, a distance check with <code>Math.sqrt</code>, and counting frames with a counter or <code>%</code>.</dd></div>
+      <div><dt>AP link</dt><dd>AP CS A Unit 2, where the course covers decisions and loops: Boolean expressions, <code>if</code> statements, and comparing objects. <strong>Outside AP:</strong> a first lesson on conditionals or animation, or any lesson built on predict, run, investigate, modify, make.</dd></div>
+      <div><dt>Files</dt><dd><a href="downloads/workshop/session-2-files.zip">session-2-files.zip</a>: the traffic light starter, a finished version, and a timer version; the two mini-lecture sketches; the directions; and the bouncing-ball sketches and debugging lab for extra practice.</dd></div>
+      <div><dt>You leave with</dt><dd>A traffic light that answers clicks, a car that obeys it, and two ways to put the light on a timer.</dd></div>
     </dl>
     <div class="note">
-      <p><strong>Already happened:</strong> read the <a href="recap-2.html">November 15 recap</a> and what to try before Session 3.</p>
-      <p><strong>Teaching this session?</strong> Use the <a href="slides-2.html">slides</a> and the <a href="guide-2.html">facilitator guide</a>. The live session follows the guide, and this page has more than we will cover.</p>
-      <p><strong>Both routes:</strong> leave with one adapted handout for a group you teach or plan to teach, or for yourself as a learner. <a href="index.html#your-way">How live and independent participation work</a>.</p>
-      <p><strong>Can&rsquo;t make it live?</strong> Every block on this page works without the meeting. Follow <a href="#on-your-own">On your own</a>, which takes about 90&ndash;105 minutes, plus a later feedback reply. <strong>Missed Session 1?</strong> <code>WallBall</code> in this download starts from Session 1&rsquo;s checkpoint, so you can begin here.</p>
+      <p><strong>Already happened:</strong> read the <a href="recap-2.html">November 15 recap</a> for what people shared and said. This page has the sketches and the steps.</p>
+      <p><strong>Teaching this session?</strong> Use the <a href="slides-2.html">slides</a> and the <a href="guide-2.html">facilitator guide</a>, which was written before the session. Joshua&rsquo;s traffic light replaced the guide&rsquo;s breakout task.</p>
+      <p><strong>Missed it?</strong> Follow <a href="#on-your-own">On your own</a>, about 60 minutes. <strong>Missed Session 1?</strong> You can still start here. The traffic light does not build on the stamp scene.</p>
     </div>
   </div>
 </section>
 
-<section>
+<section id="run-of-show">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">Run of show &middot; two hours, four parts</span>
+      <span class="eyebrow">What happened &middot; Sunday, November 15</span>
       <h2>Four parts</h2>
+      <p>The session followed the plan in the <a href="guide-2.html">guide</a> until the breakout rooms, which used Joshua&rsquo;s traffic light. The guest could not join and will be rescheduled. Loops were saved for later.</p>
     </div>
     <div class="ws-agenda">
-      <div class="step"><div class="step-label">Part 1<b>30 min &middot; 7:00 PT</b></div><div class="step-body"><p><strong>Welcome and shared work.</strong> A short recap, then a look at stamp scenes people chose to share.</p></div></div>
-      <div class="step"><div class="step-label">Part 2<b>20 min &middot; 7:30 PT</b></div><div class="step-body"><p><strong>Session 2 and where it sits.</strong> Saber connects last week&rsquo;s stamps to motion and decisions, and to Unit 2.</p></div></div>
-      <div class="step"><div class="step-label">Part 3<b>40 min &middot; 7:50 PT</b></div><div class="step-body"><p><strong>Motion and conditionals.</strong> Joshua Hans leads: predict, run, investigate, modify, with breakout rooms.</p></div></div>
-      <div class="step"><div class="step-label">Part 4<b>30 min &middot; 8:30 PT</b></div><div class="step-body"><p><strong>Guest and close.</strong> The guest conversation is being rescheduled.</p></div></div>
+      <div class="step"><div class="step-label">Part 1<b>About 40 min</b></div><div class="step-body"><p><strong>Shared stamp scenes.</strong> A snowman drawn around the wrong point, <code>Math.random()</code>, <code>arc</code>, scale, and the scene moved into a regular Java project. <a href="recap-2.html">In the recap</a>.</p></div></div>
+      <div class="step"><div class="step-label">Part 2<b>About 10 min</b></div><div class="step-body"><p><strong>The draw loop and one <code>if</code>.</strong> Saber&rsquo;s mini-lecture: a car that wraps around and a bus that doesn&rsquo;t, then a stoplight that a <code>boolean</code> runs. <code>Wraparound</code> and <code>Stoplight</code> in the download.</p></div></div>
+      <div class="step"><div class="step-label">Part 3<b>About 45 min</b></div><div class="step-body"><p><strong>From a scene to a traffic light.</strong> Joshua asked where mushrooms may grow, then ran the <a href="#traffic">traffic light</a> as PRIMM, with two breakout rooms and a debrief.</p></div></div>
+      <div class="step"><div class="step-label">Part 4<b>About 20 min</b></div><div class="step-body"><p><strong>The light on a timer.</strong> In the guest&rsquo;s slot: <a href="#timer">a counter and <code>frameCount % 180</code></a>, stopping the car where it is, and extension ideas.</p></div></div>
     </div>
+  </div>
+</section>
+
+<section id="traffic" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Part 3 &middot; With Joshua Hans &middot; PRIMM</span>
+      <h2>A traffic light that only turns red</h2>
+      <p>Open <em>visible java traffic</em> in Pickcode, or <code>TrafficLight</code> from the download in the Processing editor. The light starts on green and the car does not move yet. Read the code before you run it.</p>
+    </div>
+    <figure style="margin:0">
+      <img src="assets/recap-2/traffic-light.jpeg" width="404" height="268" loading="lazy" style="display:block;width:100%;max-width:420px;height:auto;border-radius:8px" alt="The traffic light sketch: a blue car on a grey road with a dashed yellow line, under a traffic light on a pole. Only the green light is lit.">
+    </figure>
+<pre class="ws-code" data-file="TrafficLight/TrafficLight.pde">
+String state = "green";
+float carX = 40;
+
+// drawRoad(), drawLight(), and drawCar() are in the file.
+// drawLight() makes a light bright when state names it, and dull otherwise.
+
+public void mousePressed() {
+  double d = calculateDistance(mouseX, mouseY, 510, 55);
+  if (d &lt;= 25) {
+    state = "red";
+  }
+}
+
+public double calculateDistance(int x1, int y1, int x2, int y2) {
+  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}</pre>
+    <ol class="ws-predict">
+      <li>
+        <p><strong>Predict.</strong> What will you see? What happens when you click each light?</p>
+        <button class="reveal-btn" type="button" aria-controls="t1">Show answer</button>
+        <div class="answer" id="t1" hidden><p><span class="out">only red answers</span> Clicking red turns it on and dims green. Clicking yellow or green does nothing, before or after. The car stays where it is the whole time, because nothing changes <code>carX</code>.</p></div>
+      </li>
+      <li>
+        <p><strong>Investigate.</strong> Why can&rsquo;t you get back to green?</p>
+        <button class="reveal-btn" type="button" aria-controls="t2">Show answer</button>
+        <div class="answer" id="t2" hidden><p><span class="out">one distance, one light</span> <code>mousePressed()</code> measures the distance from the mouse to (510, 55), the center of the red light, and nothing else. The other lights are at (510, 115) and (510, 175). Each light is 50 across, so a click within 25 of a center is inside it.</p></div>
+      </li>
+    </ol>
+    <ul class="plain">
+      <li><strong>Modify.</strong> Make yellow and green clickable.</li>
+      <li><strong>Make.</strong> Drive on green, slow on yellow, stop on red. As a bonus, wrap the car around the screen.</li>
+    </ul>
+    <details class="ws-facilitator">
+      <summary>One way to make all three lights clickable</summary>
+      <div>
+<pre class="ws-code" data-file="TrafficLightCheckpoint/TrafficLightCheckpoint.pde">
+public void mousePressed() {
+  double redDistance = calculateDistance(mouseX, mouseY, 510, 55);
+  double yellowDistance = calculateDistance(mouseX, mouseY, 510, 115);
+  double greenDistance = calculateDistance(mouseX, mouseY, 510, 175);
+
+  if (redDistance &lt;= 25) {
+    state = "red";
+  } else if (yellowDistance &lt;= 25) {
+    state = "yellow";
+  } else if (greenDistance &lt;= 25) {
+    state = "green";
+  }
+}</pre>
+        <p>A click anywhere else leaves <code>state</code> as it was. To move the car, let the light set a speed and always add it: <code>carSpeed</code> is 3 on green, 1 on yellow, and 0 on red, and <code>carX = carX + carSpeed;</code> runs every frame. Setting <code>carX = 0</code> on red sends the car back to the left edge instead of stopping it. <code>TrafficLightCheckpoint</code> has all of it, with a wraparound.</p>
+      </div>
+    </details>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>The state is a <code>String</code> on purpose, so students compare with <code>.equals</code>. <code>==</code> asks whether two variables refer to the same object, which sometimes works and cannot be trusted.</p>
+        <p>One room printed all three distances on every click. Watching which number dropped below 25 explained the condition better than reading it, and clicks at the edge of a light gave values like 26. The other room talked the light changes through in words before writing code. Both worked.</p>
+        <p>Questions from the debrief worth keeping: should the distance call go inside the <code>if</code> or into named variables? What should a click outside every light do? Could each light be its own object? <a href="session-3.html#lights">Session 3 starts from that last one</a>.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="timer" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Part 4 &middot; Two ways to count</span>
+      <h2>Put the light on a timer</h2>
+      <p>Make the light change by itself every few seconds. Say the process in words first. Processing counts frames in <code>frameCount</code>, about 60 a second, and a sketch cannot set it back to zero.</p>
+    </div>
+<pre class="ws-code" data-file="TrafficLightTimer/TrafficLightTimer.pde">
+// Your own counter: easier to explain
+counter = counter + 1;
+if (counter &gt;= 180) {
+  changeLight();
+  counter = 0;
+}
+
+// Modulo: shorter
+if (frameCount % 180 == 0) {
+  changeLight();
+}</pre>
+    <p>Both change the light every 180 frames, about three seconds. <code>changeLight()</code> moves green to yellow, yellow to red, and red to green. Start with the counter. Students who write <code>if</code>s for 180, 360, and 540 feel the problem that <code>%</code> solves. Printing <code>frameCount</code> next to <code>frameCount % 180</code> shows the second number climbing to 179 and returning to 0.</p>
+    <div class="note"><p><strong>Want more?</strong> A pedestrian button that stops the car no matter what, a sky that moves from day to night, or a sun that follows a sine wave. More in the <a href="recap-2.html#timer">recap</a>.</p></div>
+  </div>
+</section>
+
+<section id="extra">
+  <div class="wrap stack">
+    <span class="eyebrow">Extra practice &middot; planned, not taught live</span>
+    <h2>The bouncing ball and a debugging lab</h2>
+    <p>Everything below was written before the session, as the original plan. It was not taught live. Use it for more practice with conditions: a ball that turns at the walls, a boundary case to step through, the same decisions in plain Java, and a debugging lab with three planted bugs. The sketches are in the same download.</p>
   </div>
 </section>
 
 <section id="predict" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">Part 2 &middot; Concept &middot; Predict</span>
+      <span class="eyebrow">Extra practice &middot; Predict</span>
       <h2>One new line of logic</h2>
       <p>This is Session 1&rsquo;s checkpoint with one <code>if</code> added at the end. <strong>Before anyone presses Run</strong>, answer the two questions. Then open <code>WallBall</code> from the download and run it.</p>
     </div>
@@ -129,7 +234,7 @@ void draw() {
 <section id="demo" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">Part 2 &middot; Concept &middot; Live coding</span>
+      <span class="eyebrow">Extra practice &middot; Live coding</span>
       <h2>Slow it down at the wall, then break it</h2>
       <p>
         The facilitator runs <code>WallTrace</code>: a ball moving sideways toward the right wall
@@ -233,7 +338,7 @@ setup();
 <section id="transfer" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">Part 2 &middot; About 5 minutes live &middot; Java transfer</span>
+      <span class="eyebrow">Extra practice &middot; Java transfer</span>
       <h2>Same decisions, no window</h2>
       <p>
         In the session, trace one file together in about five minutes, and run the rest on your own. <strong>The test: the output must match the <code>WallTrace</code> console line for
@@ -326,7 +431,7 @@ frame 8: x = 350.0, paused = false</pre>
 <section id="build" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">Part 3 &middot; Guided practice with Joshua Hans</span>
+      <span class="eyebrow">Extra practice &middot; Guided practice with Joshua Hans</span>
       <h2>Walls, a key, and a pattern</h2>
       <p>Work in <code>WallBall</code>. Before each run, say what you expect. The supported missions end at <code>WallBallCheckpoint</code>. If you fall behind, open that and carry on from there.</p>
     </div>
@@ -409,12 +514,12 @@ frame 8: x = 350.0, paused = false</pre>
 <section id="exit" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">Part 4 &middot; Close</span>
+      <span class="eyebrow">Extra practice &middot; Check yourself</span>
       <h2>Before you go</h2>
     </div>
     <ol class="ws-checklist">
       <li><div><h3>Exit evidence</h3><p>Post your answer to question 6 in one sentence: why does the ball shiver when it starts at <code>x = 390</code>?</p></div></li>
-      <li><div><h3>Next step</h3><p>Session 3, <strong>Sunday, November 22</strong>, starts from <code>WallBallCheckpoint</code>. Open it once before then, so it runs on your machine.</p></div></li>
+      <li><div><h3>Next step</h3><p>Session 3, <strong>Sunday, November 22</strong>, starts from the traffic light. Bring yours, finished or not.</p></div></li>
     </ol>
   </div>
 </section>
@@ -508,24 +613,22 @@ System.out.println(count);</pre>
 <section id="on-your-own" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">Asynchronous route &middot; about 90&ndash;105 minutes, plus a later reply</span>
+      <span class="eyebrow">If you missed the session &middot; about 60 minutes</span>
       <h2>On your own</h2>
-      <p>Everything from the live session, in order. Answers are behind the Show buttons on this page.</p>
+      <p>What happened live, in order. Answers are behind the Show buttons on this page.</p>
     </div>
     <ol class="ws-checklist">
-      <li><div><h3>Set up</h3><p>Download <a href="downloads/workshop/session-2-files.zip">session-2-files.zip</a>. If Processing isn&rsquo;t installed, start with <a href="processing.html">Your first sketch</a>. About 10 minutes.</p></div></li>
-      <li><div><h3>Predict</h3><p>Answer questions 1&ndash;6 on paper <em>before</em> running anything. Then run <code>WallBall</code> and <code>WallTrace</code>, make the two breaks, and check. About 20 minutes.</p></div></li>
-      <li><div><h3>Build</h3><p>Missions 1&ndash;3, and the extensions if you want more. Compare with <code>WallBallCheckpoint</code> and <code>ControlBall</code>. About 25 minutes.</p></div></li>
-      <li><div><h3>Transfer</h3><p>Run <code>WallTrace.java</code>. Trace <code>KeyTrace.java</code> before you run it. About 15 minutes.</p></div></li>
-      <li><div><h3>Debug</h3><p>Do the lab in <code>session-2-student-handout.md</code> yourself, as a student would, on <code>BrokenBall</code>. Check it against the teacher guide. About 15 minutes.</p></div></li>
-      <li><div><h3>Adapt &middot; about 8 minutes</h3><p>Open your copy of the handout in this session&rsquo;s Google Classroom assignment, or <a href="downloads/workshop/session-2/session-2-student-handout.md">download it &darr;</a>. Change one prompt for a group you teach or plan to teach, or for yourself as a learner. Read the opening instructions as a learner and revise one likely sticking point. Use the <a href="#exchange">discussion prompt</a> and example response to check your thinking.</p></div></li>
-      <li><div><h3>Exchange &middot; about 7 minutes, plus a later reply</h3><p>If you want feedback, or want your work shown at the next check-in, post your draft in the workshop&rsquo;s Google Classroom. The invite link is in your email. Include: Who is this for? What will learners predict? Where might they get stuck? Try another participant&rsquo;s opening instructions and leave one specific suggestion. If no draft is available yet, return later; you can continue without waiting for a partner.</p></div></li>
-      <li><div><h3>Return and revise</h3><p>When feedback arrives, save a revision and explain what changed, for whom, and why. For more development time, try the <a href="#studio">optional studio task</a>. The teacher guide has explained answers and likely misconceptions.</p></div></li>
+      <li><div><h3>Set up</h3><p>Open <em>visible java traffic</em> in Pickcode, or download <a href="downloads/workshop/session-2-files.zip">session-2-files.zip</a> for the Processing editor. About 5 minutes.</p></div></li>
+      <li><div><h3>Read the recap</h3><p>Skim the <a href="recap-2.html">recap</a> for the shared stamp scenes and what people noticed. About 10 minutes.</p></div></li>
+      <li><div><h3>Predict two small sketches</h3><p>Before you run <code>Wraparound</code>: what happens to the car at the right edge, and to the bus? Before you run <code>Stoplight</code>: where does the car stop on red? Click inside the window before pressing the space bar. About 10 minutes.</p></div></li>
+      <li><div><h3>Fix the traffic light</h3><p>Work through <a href="#traffic">the traffic light</a>: predict, run, investigate, modify, make. Compare with <code>TrafficLightCheckpoint</code>. About 25 minutes.</p></div></li>
+      <li><div><h3>Put it on a timer</h3><p>Try <a href="#timer">a counter, then <code>%</code></a>. Compare with <code>TrafficLightTimer</code>. About 10 minutes.</p></div></li>
+      <li><div><h3>Share, if you like</h3><p>Post a screenshot or your code in the workshop&rsquo;s Google Classroom before Sunday, November 22. The invite link is in your email. For more practice, try the <a href="#extra">bouncing ball and debugging lab</a>.</p></div></li>
     </ol>
   </div>
 </section>
 
-<section>
+<section id="files">
   <div class="wrap stack-lg">
     <div class="stack">
       <span class="eyebrow">In the download</span>
@@ -535,12 +638,19 @@ System.out.println(count);</pre>
       <table>
         <thead><tr><th>File</th><th>What it is</th></tr></thead>
         <tbody>
-          <tr><td><code>WallBall/</code></td><td class="why">Starter. Session 1&rsquo;s checkpoint plus one <code>if</code>. Where everyone begins.</td></tr>
+          <tr><td><code>Wraparound/</code></td><td class="why">Mini-lecture: a car that wraps around and a bus that does not.</td></tr>
+          <tr><td><code>Stoplight/</code></td><td class="why">Mini-lecture: a <code>boolean</code> light flipped with the space bar.</td></tr>
+          <tr><td><code>TrafficLight/</code></td><td class="why">The traffic light starter. Only red is clickable. Rebuilt from the recording of Joshua&rsquo;s Pickcode lesson, which is the original.</td></tr>
+          <tr><td><code>TrafficLightCheckpoint/</code></td><td class="why">One way to finish it: three clickable lights, a speed set by the light, and a wraparound. Session 3 starts here.</td></tr>
+          <tr><td><code>TrafficLightTimer/</code></td><td class="why">The checkpoint plus a counter that changes the light every 180 frames.</td></tr>
+          <tr><td><code>traffic-light-directions.md</code></td><td class="why">The directions to work from before Session 3.</td></tr>
+          <tr><th colspan="2" scope="rowgroup">Extra practice</th></tr>
+          <tr><td><code>WallBall/</code></td><td class="why">Starter. Session 1&rsquo;s checkpoint plus one <code>if</code>.</td></tr>
           <tr><td><code>WallTrace/</code></td><td class="why">The demo sketch: one wall, one frame a second, stops after six.</td></tr>
-          <tr><td><code>WallBallCheckpoint/</code></td><td class="why">Checkpoint: missions 1&ndash;3 done. Session 3 starts here.</td></tr>
+          <tr><td><code>WallBallCheckpoint/</code></td><td class="why">Checkpoint: missions 1&ndash;3 done.</td></tr>
           <tr><td><code>ControlBall/</code></td><td class="why">Completed example of both extensions.</td></tr>
           <tr><td><code>BrokenBall/</code></td><td class="why">The debugging lab sketch: three planted bugs.</td></tr>
-          <tr><td><code>plain-java/</code></td><td class="why"><code>WallTrace.java</code>, <code>KeyTrace.java</code>.</td></tr>
+          <tr><td><code>plain-java/</code></td><td class="why"><code>WallTrace.java</code>, <code>KeyTrace.java</code>, <code>KeyScan.java</code>.</td></tr>
           <tr><td><code>session-2-student-handout.md</code></td><td class="why">Editable 30-minute student debugging lab. Plain text, easy to translate.</td></tr>
           <tr><td><code>session-2-teacher-guide.md</code></td><td class="why">Answer key, expected explanations, likely misconceptions, and how to assess it.</td></tr>
         </tbody>
@@ -563,7 +673,7 @@ System.out.println(count);</pre>
 
 <footer>
   <div class="wrap stack-sm">
-    <p>Every sketch and Java file on this page was run with Processing 4.3.4 and Java 17. Every expected output shown is real output.</p>
+    <p>The traffic light and mini-lecture sketches were built and run with Processing 4.5.7. The extra-practice sketches and Java files were run with Processing 4.3.4 and Java 17. Every expected output shown is real output.</p>
     <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
   </div>
 </footer>

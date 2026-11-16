@@ -34,7 +34,7 @@
 </nav>
 
 <main id="main-content" tabindex="-1">
-<nav class="session-jumps wrap" aria-label="On this page"><span class="eyebrow">In this session</span><a href="#predict">Predict</a><a href="#demo">Demo</a><a href="#transfer">Java transfer</a><a href="#build">Build</a><a href="#exchange">Exchange</a><a href="#exit">Exit evidence</a><a href="#studio">Go further</a><a href="#on-your-own">On your own</a></nav>
+<nav class="session-jumps wrap" aria-label="On this page"><span class="eyebrow">In this session</span><a href="#lights">Start here</a><a href="#predict">Predict</a><a href="#demo">Demo</a><a href="#transfer">Java transfer</a><a href="#build">Build</a><a href="#exchange">Exchange</a><a href="#exit">Exit evidence</a><a href="#studio">Go further</a><a href="#on-your-own">On your own</a></nav>
 
 <section>
   <div class="wrap stack-lg">
@@ -42,8 +42,9 @@
       <span class="eyebrow"><a href="index.html#sessions">Session 03</a> &middot; Sunday, November 22 &middot; 7&ndash;9 a.m. PT / 10 a.m.&ndash;noon ET</span>
       <h1>Make objects visible</h1>
       <p class="lede">
-        Session 2&rsquo;s ball knows its walls. Now it becomes a class, so one set of rules can
-        drive many balls, each starting in a different state. You watch two objects share code
+        Session 2 ended with a question from the group: could each traffic light be its own
+        object? We start there. Then the ball from Session 2&rsquo;s extra practice becomes a class,
+        so one set of rules can drive many balls, each starting in a different state. You watch two objects share code
         but not state, watch one object answer to two names, and put a small set of them in an
         array. In plain Java, the class gains private fields and a getter.
       </p>
@@ -51,12 +52,12 @@
     <dl class="camp-logistics">
       <div><dt>Java ideas</dt><dd>Classes, fields (the variables each object owns), constructors, <code>new</code>, methods, references (a variable that points to an object rather than holding it) and <code>null</code>, <code>this</code>, and a small array of objects traversed with a loop.</dd></div>
       <div><dt>AP link</dt><dd>AP CS A Unit 3, writing classes, and Unit 4, arrays and how to traverse them. Free-response Question 2 asks students to write a whole class. <strong>Outside AP:</strong> any course that introduces objects, an ecosystem or particle project in creative coding, or a game with many characters.</dd></div>
-      <div><dt>Files</dt><dd><a href="downloads/workshop/session-3-files.zip">session-3-files.zip</a>: starter, prediction, checkpoint, completed, and optional 2D-grid sketches; two Java files; an editable student class-design activity and a teacher guide.</dd></div>
+      <div><dt>Files</dt><dd><a href="downloads/workshop/session-3-files.zip">session-3-files.zip</a>: the traffic light with a <code>Light</code> class; ball starter, prediction, checkpoint, completed, and optional 2D-grid sketches; two Java files; an editable student class-design activity and a teacher guide.</dd></div>
       <div><dt>You leave with</dt><dd>A small object world, a class-design activity, an object-state diagram, and a scaffolded extension for students.</dd></div>
     </dl>
     <div class="note">
       <p><strong>Both routes:</strong> leave with one adapted handout for a group you teach or plan to teach, or for yourself as a learner. <a href="index.html#your-way">How live and independent participation work</a>.</p>
-      <p><strong>Can&rsquo;t make it live?</strong> Every block on this page works without the meeting. Follow <a href="#on-your-own">On your own</a>, which takes about 90&ndash;105 minutes, plus a later feedback reply. <strong>Missed Session 2?</strong> <code>BallObjects</code> starts from Session 2&rsquo;s ball, already turned into a class, so you can begin here.</p>
+      <p><strong>Can&rsquo;t make it live?</strong> Every block on this page works without the meeting. Follow <a href="#on-your-own">On your own</a>, which takes about 90&ndash;105 minutes, plus a later feedback reply. <strong>Missed Session 2?</strong> Run <code>TrafficLightCheckpoint</code> from the <a href="session-2.html#traffic">Session 2 download</a> once, then begin here. <code>BallObjects</code> starts from Session 2&rsquo;s ball, already turned into a class.</p>
     </div>
   </div>
 </section>
@@ -69,10 +70,84 @@
     </div>
     <div class="ws-agenda">
       <div class="step"><div class="step-label">Part 1<b>30 min &middot; 7:00 PT</b></div><div class="step-body"><p><strong>Check in.</strong> Housekeeping, loose ends, and a look at work people chose to post in Google Classroom.</p></div></div>
-      <div class="step"><div class="step-label">Part 2<b>30 min &middot; 7:30 PT</b></div><div class="step-body"><p><a href="#predict"><strong>Concept and live coding.</strong></a> Saber covers classes and objects, then a short Java transfer.</p></div></div>
+      <div class="step"><div class="step-label">Part 2<b>30 min &middot; 7:30 PT</b></div><div class="step-body"><p><a href="#lights"><strong>Concept and live coding.</strong></a> Opens with Session 2&rsquo;s traffic light: could each light be an object? Then classes and objects with the ball, and a short Java transfer.</p></div></div>
       <div class="step"><div class="step-label">Part 3<b>30 min &middot; 8:00 PT</b></div><div class="step-body"><p><a href="#build"><strong>Guided practice.</strong></a> Joshua Hans leads one main activity, with breakouts.</p></div></div>
       <div class="step"><div class="step-label">Part 4<b>30 min &middot; 8:30 PT</b></div><div class="step-body"><p><strong>Guest and close.</strong> Guest to be announced, then five minutes to close.</p></div></div>
     </div>
+  </div>
+</section>
+
+<section id="lights" class="ws-block">
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow">Start here &middot; From Session 2&rsquo;s traffic light</span>
+      <h2>Could each light be an object?</h2>
+      <p>In Session 2&rsquo;s debrief, someone asked whether each light could be its own object. The three lights ran the same code with different numbers: a center, a bright color, and a dull color, plus a distance check for clicks. Here the same picture is drawn by a <code>Light</code> class, written once, and three <code>Light</code> objects. Open <code>TrafficLightObjects</code> from the download, and have Session 2&rsquo;s <code>TrafficLightCheckpoint</code> open beside it.</p>
+    </div>
+<pre class="ws-code" data-file="TrafficLightObjects/TrafficLightObjects.pde">
+Light red = new Light("red", 510, 55, 230, 40, 40, 90, 30, 30);
+Light yellow = new Light("yellow", 510, 115, 250, 210, 40, 90, 80, 20);
+Light green = new Light("green", 510, 175, 60, 200, 80, 25, 75, 35);
+
+public void mousePressed() {
+  if (red.contains(mouseX, mouseY)) {
+    state = "red";
+  } else if (yellow.contains(mouseX, mouseY)) {
+    state = "yellow";
+  } else if (green.contains(mouseX, mouseY)) {
+    state = "green";
+  }
+}
+
+class Light {
+  String name;
+  int x;
+  int y;
+  int onRed, onGreen, onBlue;
+  int offRed, offGreen, offBlue;
+
+  // The constructor copies its nine parameters into the fields.
+
+  void display(String state) {
+    stroke(0);
+    if (state.equals(name)) {
+      fill(onRed, onGreen, onBlue);
+    } else {
+      fill(offRed, offGreen, offBlue);
+    }
+    ellipse(x, y, 50, 50);
+  }
+
+  boolean contains(int mx, int my) {
+    double distance = Math.sqrt(Math.pow(x - mx, 2) + Math.pow(y - my, 2));
+    return distance &lt;= 25;
+  }
+}</pre>
+    <ol class="ws-predict">
+      <li>
+        <p>This sketch draws the same picture as the Session 2 checkpoint. Which lines from Session 2 are gone, and where did they go?</p>
+        <button class="reveal-btn" type="button" aria-controls="l1">Show answer</button>
+        <div class="answer" id="l1" hidden><p><span class="out">three copies became one</span> The three <code>if</code>/<code>else</code> blocks in <code>drawLight()</code> became <code>display()</code>, and the three distance lines in <code>mousePressed()</code> became <code>contains()</code>. Each is written once. The numbers that made the copies different moved into the constructor calls.</p></div>
+      </li>
+      <li>
+        <p>How many classes are there, and how many <code>Light</code> objects? When <code>yellow.display(state)</code> runs, which <code>x</code> and <code>y</code> does it use?</p>
+        <button class="reveal-btn" type="button" aria-controls="l2">Show answer</button>
+        <div class="answer" id="l2" hidden><p><span class="out">one class, three objects</span> Each object keeps its own fields, so inside <code>yellow.display(state)</code>, <code>x</code> is 510 and <code>y</code> is 115. Same code, different state. The ball below works the same way.</p></div>
+      </li>
+      <li>
+        <p>Who knows which light is on: each light, or the sketch?</p>
+        <button class="reveal-btn" type="button" aria-controls="l3">Show answer</button>
+        <div class="answer" id="l3" hidden><p><span class="out">the sketch</span> <code>state</code> lives in the sketch, and a light only compares it with its own name. Another design gives each <code>Light</code> a <code>boolean on</code> field and a method to switch it. Then a click has to turn one light on and the other two off. Neither design is wrong. Which would you teach first?</p></div>
+      </li>
+    </ol>
+    <details class="ws-facilitator">
+      <summary>Facilitator notes</summary>
+      <div>
+        <p>Keep this to about ten minutes. People who worked on the traffic light have just felt the copying, which makes it a good moment to say the word <em>class</em>. Then move to the ball, which adds references, <code>this</code>, and arrays.</p>
+        <p>Nine constructor parameters is a lot, and someone may say so. That is a good opening for Processing&rsquo;s <code>color</code> type, or for a <code>Light</code> that takes only a name and a center and chooses its own colors.</p>
+        <p>In Pickcode, the class can go inside <code>Sketch.java</code>, as it does here, or in its own <code>Light.java</code> file. A separate file needs the sketch passed in to draw, which is more than this opener needs.</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -624,7 +699,8 @@ System.out.println(speeds[0] + " " + speeds[1] + " " + copy[2]);</pre>
       <table>
         <thead><tr><th>File</th><th>What it is</th></tr></thead>
         <tbody>
-          <tr><td><code>BallObjects/</code></td><td class="why">Starter. Session 2&rsquo;s ball as a class, with two objects. Where everyone begins.</td></tr>
+          <tr><td><code>TrafficLightObjects/</code></td><td class="why">The opener: Session 2&rsquo;s traffic light checkpoint, with a <code>Light</code> class and three <code>Light</code> objects.</td></tr>
+          <tr><td><code>BallObjects/</code></td><td class="why">Starter. Session 2&rsquo;s ball as a class, with two objects.</td></tr>
           <tr><td><code>ObjectTrace/</code></td><td class="why">The demo sketch: two objects, one frame a second, stops after five.</td></tr>
           <tr><td><code>BallArrayCheckpoint/</code></td><td class="why">Checkpoint: missions 1&ndash;3 done. Session 4 starts here.</td></tr>
           <tr><td><code>BallTouch/</code></td><td class="why">Completed example of extension 1.</td></tr>
