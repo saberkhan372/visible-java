@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 3 slides — Visible Java</title>
+<meta name="description" content="Slides for Visible Java Session 3, Make objects visible, with a presenter view and the traffic light sketches running in the slides.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Fredoka:wght@500;600&family=Source+Code+Pro:wght@400;600&display=swap">
+<link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
+<style>
+:root{--ink:#16211f;--paper:#fff6e5;--stage:#141a19;--cream:#f6f1e4;--soft:#b8c2be;--sun:#ffc93c}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:"Atkinson Hyperlegible Next",Verdana,sans-serif}
+body{display:flex;flex-direction:column;overflow:hidden}
+#stage{flex:1;min-height:0;position:relative;overflow:hidden}
+#scaler{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden}
+.slide[hidden]{display:none!important}
+.slide h1,.slide h2,.slide h3,.slide p,.slide ul,.slide ol{margin:0}
+.slide table{width:100%;border-collapse:collapse;background:#fff;border:2px solid var(--ink)}
+.slide th,.slide td{padding:14px 24px;text-align:left;border:1.5px solid #ecdfc4}
+.slide th{background:#fbeed3;font-family:Fredoka,Verdana,sans-serif;font-weight:600}
+#bar{display:flex;align-items:center;gap:12px;padding:8px 16px;background:var(--paper);border-top:2px solid var(--ink);font-size:16px;flex-wrap:wrap}
+#bar a{color:#0a5a7e;font-weight:700}
+#bar button{font:600 15px Fredoka,Verdana,sans-serif;background:#fff;color:var(--ink);border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+#bar button:focus-visible{outline:3px solid #0a5a7e;outline-offset:2px}
+#count{min-width:64px}
+.spacer{flex:1}
+body.fs #bar{display:none}
+body.presenter{overflow:auto}
+body.presenter #stage{display:none}
+#pv{display:none}
+body.presenter #pv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;padding:24px;flex:1;min-height:0}
+.pv-frame{position:relative;background:#fff;aspect-ratio:16/9;overflow:hidden;border:2px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink)}
+.pv-frame .inner{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+#pv h2{margin:0 0 8px;font:600 18px Fredoka,Verdana,sans-serif;color:#4a5552}
+#notes{font-size:24px;line-height:1.45;white-space:pre-wrap;margin:0 0 20px}
+#timer{font:600 40px "Source Code Pro",monospace;color:#7f5600}
+
+.slide[style*="#fff6e5"]{background-image:radial-gradient(#ead9b6 2.5px,transparent 2.5px)!important;background-size:32px 32px!important}
+.corner-logo{position:absolute;right:48px;bottom:40px;width:64px;height:64px}
+.hero-logo{position:absolute;right:128px;top:200px;width:360px;height:360px;transform:rotate(3deg)}
+.demo{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.demo canvas{display:block;background:#fff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;touch-action:none}
+.demo .row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.demo button{font:600 26px Fredoka,Verdana,sans-serif;color:#16211f;background:#fff;border:2px solid #16211f;border-radius:999px;box-shadow:4px 4px 0 #16211f;padding:8px 24px;cursor:pointer}
+.demo button.go{background:#ffc93c}
+.demo button:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #16211f}
+.demo button:focus-visible{outline:4px solid #0a5a7e;outline-offset:3px}
+.demo .read{max-width:600px;font:600 26px "Source Code Pro","Courier New",monospace;color:#16211f}
+@media (max-width:760px){body.presenter #pv{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="stage"><div id="scaler">
+<section id="cover" class="slide" data-title="Make objects visible" data-notes="Welcome people as they arrive. Remind everyone that the session is recorded before you start." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:12px 32px;box-shadow:4px 4px 0 #16211f;align-self:start;transform:rotate(-3deg)">Session 3</p>
+<h1 style="font-family:Fredoka, Verdana, sans-serif;font-size:136px;font-weight:600;line-height:1.05">Make objects visible</h1>
+<p style="font-size:44px;line-height:1.3;color:#4a5552">Sunday, November 22 · 7–9 a.m. PT / 10 a.m.–noon ET</p>
+<p style="font-size:32px;color:#4a5552">Visible Java · A CC Fest learning studio</p>
+
+<img class="hero-logo" src="assets/visible-java-icon.svg" alt="Visible Java logo">
+</section>
+<section id="today" class="slide" data-title="Our two hours" data-notes="The times can flex. Joshua Hans starts confetti by 8:00. The 8:30 slot is Joshua Davis. If he can&#x27;t join, the last half hour goes to sharing confetti work, and Joshua Hans has an extra piece of student work ready." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Our two hours</h2><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:32px;flex:1"><div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">7:00 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Check in</h3><p style="font-size:32px">Loose ends, then work from the group.</p></div><div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">7:30 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Traffic light</h3><p style="font-size:32px">Session 2’s light, rebuilt from objects.</p></div><div style="background:#ece2f8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">8:00 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Confetti</h3><p style="font-size:32px">Many objects with Joshua Hans.</p></div><div style="background:#d9eef9;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:36px;display:flex;flex-direction:column;gap:20px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:36px;font-weight:600">8:30 PT</p><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Joshua Davis</h3><p style="font-size:32px">The artist behind Praystation, then close.</p></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="welcome" class="slide" data-title="Welcome back" data-notes="Five minutes. Only new people introduce themselves. Then call on people who have work to share: a finished light, a half-finished one, or something tried in class. Joshua Hans is checking in on Saturday about who has work to share. Partial work is welcome." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Welcome back</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1"><div style="background:#ffffff;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">New today?</h3><p style="font-size:36px;line-height:1.4">Tell us your name and what you teach.</p><p style="font-size:36px;line-height:1.4"><b>The recap and recording are on the site.</b></p></div><div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">Last week</h3><p style="font-size:36px;line-height:1.4">A <b>draw()</b> loop and a first <b>if</b>.</p><p style="font-size:36px;line-height:1.4">A traffic light that only knew red, then a car that obeys it.</p></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="question" class="slide" data-title="Could each light be its own object?" data-notes="Someone asked this in the Session 2 debrief. People who worked on the light have felt the copying. Ask: what would you write only once? What changes from one light to the next? A center, a bright color, and a dull color." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:28px;line-height:1.45;white-space:nowrap"><span style="color:#6b7672">// red</span><br><span style="color:#1f7a63">if</span> (state.<span style="color:#006699">equals</span>(<span style="color:#7d4793">&quot;red&quot;</span>)) {<br>&#160;&#160;<span style="color:#006699">fill</span>(<span style="color:#7d4793">230</span>, <span style="color:#7d4793">40</span>, <span style="color:#7d4793">40</span>);<br>} <span style="color:#1f7a63">else</span> {<br>&#160;&#160;<span style="color:#006699">fill</span>(<span style="color:#7d4793">90</span>, <span style="color:#7d4793">30</span>, <span style="color:#7d4793">30</span>);<br>}<br><span style="color:#006699">ellipse</span>(<span style="color:#7d4793">510</span>, <span style="color:#7d4793">55</span>, <span style="color:#7d4793">50</span>, <span style="color:#7d4793">50</span>);<br><br><span style="color:#6b7672">// yellow</span><br><span style="color:#1f7a63">if</span> (state.<span style="color:#006699">equals</span>(<span style="color:#7d4793">&quot;yellow&quot;</span>)) {<br>&#160;&#160;<span style="color:#006699">fill</span>(<span style="color:#7d4793">250</span>, <span style="color:#7d4793">210</span>, <span style="color:#7d4793">40</span>);<br>} <span style="color:#1f7a63">else</span> {<br>&#160;&#160;<span style="color:#006699">fill</span>(<span style="color:#7d4793">90</span>, <span style="color:#7d4793">80</span>, <span style="color:#7d4793">20</span>);<br>}<br><span style="color:#006699">ellipse</span>(<span style="color:#7d4793">510</span>, <span style="color:#7d4793">115</span>, <span style="color:#7d4793">50</span>, <span style="color:#7d4793">50</span>);<br><br><span style="color:#6b7672">// green: the same again</span></p></div><div style="display:flex;flex-direction:column;gap:28px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#5fcfaf;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">From the debrief</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:60px;font-weight:600">Could each light be its own object?</h2><p style="font-size:40px;line-height:1.35">The same code, three times.</p><p style="font-size:40px;line-height:1.35">Only the numbers change: a center, a bright color, a dull color.</p></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="big-idea" class="slide" data-title="Each object keeps its own state." data-notes="This is the one idea for today. The traffic light and the confetti both come back to it." style="background:#5fcfaf;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<h1 style="font-family:Fredoka, Verdana, sans-serif;font-size:120px;font-weight:600;line-height:1.08">Each object keeps its own state.</h1>
+<p style="font-size:44px;line-height:1.3">A class is the plan, written once. Each object made with <b>new</b> gets its own fields.</p>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="course" class="slide" data-title="Where today sits" data-notes="Five minutes at most. Say plainly that one session can&#x27;t do objects justice, and that the ball sections on the Session 3 page are there for anyone who wants to go further." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Where today sits</h2><table style="font-size:40px"><tr><th style="width:26%">When</th><th style="width:26%">AP CS A</th><th>Ideas</th></tr><tr><td>Session 1</td><td>Unit 1</td><td>Variables, methods, arguments, integer division</td></tr><tr><td>Session 2</td><td>Unit 2</td><td>Boolean expressions, if and else</td></tr><tr style="background:#ffefbf"><td><b>Today</b></td><td><b>Unit 3</b></td><td><b>Writing classes: fields, constructors, methods, getters and setters</b></td></tr><tr><td>Later</td><td>Unit 4</td><td>Collections of data and objects</td></tr></table><p style="font-size:40px;line-height:1.35">Objects deserve more than one session. If they click for you, <b>go deeper on your own</b>.</p>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="step-1" class="slide" data-title="One class, three lights" data-notes="Open TrafficLightObjects, or run it here, and click the lights. Ask: three objects and one display(). When yellow.display(state) runs, which x and y does it use? Its own: 510 and 115. Same code, different state. Then ask: who knows which light is on? The sketch does, in state. A light only compares state with its own name. That leads to step 2." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:28px;line-height:1.45;white-space:nowrap"><span style="color:#1f7a63">class</span> Light {<br>&#160;&#160;<span style="color:#b04e0f">String</span> name;<br>&#160;&#160;<span style="color:#b04e0f">int</span> x;<br>&#160;&#160;<span style="color:#b04e0f">int</span> y;<br>&#160;&#160;<span style="color:#b04e0f">int</span> onRed, onGreen, onBlue;<br>&#160;&#160;<span style="color:#b04e0f">int</span> offRed, offGreen, offBlue;<br><br>&#160;&#160;<span style="color:#1f7a63">void</span> <span style="color:#006699">display</span>(<span style="color:#b04e0f">String</span> state) {<br>&#160;&#160;&#160;&#160;<span style="color:#006699">stroke</span>(<span style="color:#7d4793">0</span>);<br>&#160;&#160;&#160;&#160;<span style="color:#1f7a63">if</span> (state.<span style="color:#006699">equals</span>(name)) {<br>&#160;&#160;&#160;&#160;&#160;&#160;<span style="color:#006699">fill</span>(onRed, onGreen, onBlue);<br>&#160;&#160;&#160;&#160;} <span style="color:#1f7a63">else</span> {<br>&#160;&#160;&#160;&#160;&#160;&#160;<span style="color:#006699">fill</span>(offRed, offGreen, offBlue);<br>&#160;&#160;&#160;&#160;}<br>&#160;&#160;&#160;&#160;<span style="color:#006699">ellipse</span>(x, y, <span style="color:#7d4793">50</span>, <span style="color:#7d4793">50</span>);<br>&#160;&#160;}<br>}</p></div><div style="display:flex;flex-direction:column;gap:28px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Step 1</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:60px;font-weight:600">One class, three lights</h2><div class="demo" data-demo="objects" data-w="600" data-h="400"></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="step-2" class="slide" data-title="Each light keeps its own flag" data-notes="Open TrafficLightFlags. It runs frame for frame like Session 2&#x27;s timer version: green, yellow, red every 180 frames, and clicks still work. Each Light has a boolean on. The Car has its own x and speed. Ask: where does the sketch ask a light a question? Where does it tell the car something? The sketch never touches a field itself." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start">
+<div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:34px;line-height:1.45;white-space:nowrap"><span style="color:#6b7672">// In draw(): ask the lights, tell the car.</span><br><span style="color:#1f7a63">if</span> (green.<span style="color:#006699">isOn</span>()) {<br>&#160;&#160;car.<span style="color:#006699">setSpeed</span>(<span style="color:#7d4793">3</span>);<br>} <span style="color:#1f7a63">else</span> <span style="color:#1f7a63">if</span> (yellow.<span style="color:#006699">isOn</span>()) {<br>&#160;&#160;car.<span style="color:#006699">setSpeed</span>(<span style="color:#7d4793">1</span>);<br>} <span style="color:#1f7a63">else</span> {<br>&#160;&#160;car.<span style="color:#006699">setSpeed</span>(<span style="color:#7d4793">0</span>);<br>}<br>car.<span style="color:#006699">move</span>();</p></div><div style="display:flex;flex-direction:column;gap:28px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Step 2</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:60px;font-weight:600">Each light keeps its own flag</h2><div class="demo" data-demo="flags" data-w="600" data-h="400"></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="private" class="slide" data-title="Private fields, a getter, a setter" data-notes="Joshua Hans suggests this here. It is the AP CS A norm, and free-response question 2 asks students to write a whole class this way. The sketch only uses isOn(), setOn(), and the car&#x27;s setSpeed()." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Private fields, a getter, a setter</h2><div style="display:grid;grid-template-columns:1.25fr 1fr;gap:56px;flex:1;align-items:start"><div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:28px;line-height:1.45;white-space:nowrap"><span style="color:#1f7a63">class</span> Light {<br>&#160;&#160;<span style="color:#1f7a63">private</span> <span style="color:#b04e0f">int</span> x;<br>&#160;&#160;<span style="color:#1f7a63">private</span> <span style="color:#b04e0f">int</span> y;<br>&#160;&#160;<span style="color:#1f7a63">private</span> <span style="color:#b04e0f">boolean</span> on;<br>&#160;&#160;<span style="color:#6b7672">// also r, g, b, display(), contains()</span><br><br>&#160;&#160;<span style="color:#1f7a63">public</span> <span style="color:#b04e0f">boolean</span> <span style="color:#006699">isOn</span>() {<br>&#160;&#160;&#160;&#160;<span style="color:#1f7a63">return</span> on;<br>&#160;&#160;}<br><br>&#160;&#160;<span style="color:#1f7a63">public</span> <span style="color:#1f7a63">void</span> <span style="color:#006699">setOn</span>(<span style="color:#b04e0f">boolean</span> on) {<br>&#160;&#160;&#160;&#160;<span style="color:#1f7a63">this</span>.on = on;<br>&#160;&#160;}<br>}</p></div><div style="display:flex;flex-direction:column;gap:20px"><div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:28px 36px;display:flex;flex-direction:column;gap:12px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:40px;font-weight:600">Getter</h3><p style="font-size:30px;line-height:1.35"><b>isOn()</b> asks and changes nothing. A boolean getter starts with <b>is</b>.</p></div><div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:28px 36px;display:flex;flex-direction:column;gap:12px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:40px;font-weight:600">Setter</h3><p style="font-size:30px;line-height:1.35"><b>setOn()</b> changes one field and returns nothing.</p></div><div style="background:#ece2f8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:28px 36px;display:flex;flex-direction:column;gap:12px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:40px;font-weight:600">Private</h3><p style="font-size:30px;line-height:1.35">Only the class itself should touch its fields.</p></div></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="compile" class="slide" data-title="Will this compile?" data-notes="Collect answers in the chat before going on. The answer is on the next slide: yes, inside a sketch." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Predict</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:72px;font-weight:600">The field is private. Will this compile?</h2><div style="align-self:start"><div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:44px;line-height:1.45;white-space:nowrap"><span style="color:#1f7a63">public</span> <span style="color:#1f7a63">void</span> <span style="color:#006699">setup</span>() {<br>&#160;&#160;green.on = <span style="color:#7d4793">true</span>;<br>}</p></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="compile-answer" class="slide" data-title="Yes, inside a sketch" data-notes="Checked in Processing 4.5.7 and in plain Java. Worth saying before someone finds it by accident. It is also a way into why AP Java puts each class in its own file." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Yes, inside a sketch</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1"><div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">Inside the sketch</h3><p style="font-size:36px;line-height:1.4">It compiles. Processing puts every class inside the sketch, and Java lets the outer class reach the private fields of a class nested in it.</p><p style="font-size:36px;line-height:1.4">Pickcode too, when the class is in <b>Sketch.java</b>.</p></div><div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">In its own file</h3><p style="font-size:36px;line-height:1.4"><span style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:32px">on has private access in Light</span></p><p style="font-size:36px;line-height:1.4">Move <b>Light</b> to its own <b>.java</b> file, and the compiler stops you.</p></div></div><p style="font-size:40px;line-height:1.35">In a sketch, <b>private</b> is a promise you keep. In a separate class, the compiler keeps it for you.</p>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="step-3" class="slide" data-title="A button that stops the car" data-notes="The group&#x27;s idea from Session 2. Open TrafficLightWalk, or run it here: click the button on the pole, or press Push. Predict first: the light is green, the car&#x27;s front bumper is just past the stop line, and someone pushes. Green ends at once. The car is past the line, so it keeps going, slowly on yellow. Three seconds later the light turns red, the car is past the crosswalk, and the sign says WALK on that same frame. About two seconds to cross, then WAIT, then red finishes its three seconds and turns green. The car now stops at a stop line, and the button does nothing while the sign says WALK." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start">
+<div style="display:flex;flex-direction:column;gap:32px"><div style="background:#ffffff;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:40px;display:flex;flex-direction:column;gap:16px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:44px;font-weight:600">Flags pass the signal</h3><p style="font-size:30px;line-height:1.5"><span style="font-family:'Source Code Pro', 'Courier New', monospace;font-weight:600">walkSign.isRequested()</span> &rarr; green ends</p><p style="font-size:30px;line-height:1.5"><span style="font-family:'Source Code Pro', 'Courier New', monospace;font-weight:600">red.isOn()</span> &rarr; the sign says WALK</p><p style="font-size:30px;line-height:1.5"><span style="font-family:'Source Code Pro', 'Courier New', monospace;font-weight:600">walkSign.isWalk()</span> &rarr; the person crosses</p><p style="font-size:30px;line-height:1.5"><span style="font-family:'Source Code Pro', 'Courier New', monospace;font-weight:600">person.isCrossing()</span> &rarr; back to WAIT</p><p style="font-size:30px;line-height:1.35">Each object keeps its own flags. The others ask with a getter.</p></div><div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:28px 36px;display:flex;flex-direction:column;gap:12px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:40px;font-weight:600">Predict</h3><p style="font-size:30px;line-height:1.35">Green, the car just past the stop line, and someone pushes. What happens, in order?</p></div></div><div style="display:flex;flex-direction:column;gap:28px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Step 3</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:60px;font-weight:600">A button that stops the car</h2><div class="demo" data-demo="walk" data-w="600" data-h="440"></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="handoff" class="slide" data-title="Now make a lot of them." data-notes="Hand off to Joshua Hans by 8:00. His confetti example replaces the next slide if he brings his own. Arrays have not been taught yet, and many objects may introduce them. Breakout rooms if there is time. Saber visits rooms and notes the questions that come up." style="background:#ece2f8;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-size:44px">Three lights only show so much.</p><h1 style="font-family:Fredoka, Verdana, sans-serif;font-size:120px;font-weight:600;line-height:1.08">Now make a lot of them.</h1><p style="font-size:40px">Confetti with Joshua Hans</p>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="breakout" class="slide" data-title="In your room: make it yours" data-notes="About fifteen minutes in rooms of two or three, if there is time. Daniel Shiffman has a good lerp() explanation for the smooth challenge. Bring one idea back to the whole group." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">In your room: make it yours</h2><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;flex:1"><div style="background:#d6f3e8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">1. Collide</h3><p style="font-size:36px;line-height:1.4">Pieces that touch each other do something.</p><p style="font-size:36px;line-height:1.4"><b>Who touched whom?</b></p></div><div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">2. Smooth</h3><p style="font-size:36px;line-height:1.4">Use <b>lerp()</b> instead of a jagged random walk.</p></div><div style="background:#ece2f8;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">3. Your context</h3><p style="font-size:36px;line-height:1.4">Instead of confetti, <b>what would you make?</b></p></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="guest" class="slide" data-title="Meet Joshua Davis" data-notes="About twenty-five minutes, then five to close. Offer the chat as well as open mic. Background: Joshua Davis is a designer, technologist, and new-media artist. His site praystation.com won the 2001 Prix Ars Electronica Golden Nica for Net Vision / Net Excellence, and he was an early advocate of publishing his source code. HYPE, the open-source Processing library he co-maintains, does the heavy lifting with a small set of classes: a good link to today&#x27;s objects. He taught Dynamic Media at the School of Visual Arts for ten years, and teaches generative art with Processing and HYPE on Skillshare. If he can&#x27;t join, use the half hour to share confetti work. Joshua Hans has an extra piece of student work ready." style="background:#d9eef9;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-size:44px">Our guest today</p><h1 style="font-family:Fredoka, Verdana, sans-serif;font-size:120px;font-weight:600;line-height:1.08">Meet Joshua Davis</h1><p style="font-size:40px;line-height:1.35">Artist and designer, and the person behind <b>Praystation</b>. He makes generative art in Processing with <b>HYPE</b>, an open-source library built from objects.</p><p style="font-size:40px">Bring your questions, out loud or in the chat.</p>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="close" class="slide" data-title="Before Session 4" data-notes="Keep the close short. Sharing in Classroom is optional." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:80px;font-weight:600">Before Session 4</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1"><div style="background:#ffefbf;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">Keep going</h3><p style="font-size:36px;line-height:1.4"><b>Try one challenge</b>, or your own context.</p><p style="font-size:36px;line-height:1.4">Want more objects? The ball on the Session 3 page adds references and a first array.</p></div><div style="background:#d9eef9;border:2px solid #16211f;border-radius:22px;box-shadow:4px 4px 0 #16211f;padding:48px;display:flex;flex-direction:column;gap:24px"><h3 style="font-family:Fredoka, Verdana, sans-serif;font-size:52px;font-weight:600">What’s next</h3><p style="font-size:36px;line-height:1.4">No meeting on November 29, Thanksgiving weekend.</p><p style="font-size:36px;line-height:1.4">Post a screenshot or code in Google Classroom if you want feedback.</p><p style="font-size:36px;line-height:1.4"><b>Session 4: Sunday, December 6</b></p></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+</div></div>
+<div id="pv">
+  <div><h2>Now</h2><div class="pv-frame" id="now"></div><h2 style="margin-top:16px">Speaker notes</h2><p id="notes"></p></div>
+  <div><h2>Elapsed</h2><p id="timer">0:00</p><button id="reset" type="button">Reset timer</button><h2 style="margin-top:20px">Next</h2><div class="pv-frame" id="next"></div></div>
+</div>
+<div id="bar">
+  <button id="prev" type="button">Back</button><span id="count" aria-live="polite"></span><button id="fwd" type="button">Next</button>
+  <button id="openpv" type="button">Open presenter view</button><button id="full" type="button">Full screen</button>
+  <span class="spacer"></span><a href="session-3.html#lights">Facilitator notes</a><a href="session-3.html">Session 3</a>
+</div>
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var params = new URLSearchParams(location.search);
+  var presenter = params.get('presenter') === '1';
+  var channel = 'BroadcastChannel' in window ? new BroadcastChannel('visible-java-session-3') : null;
+  var index = 0, started = Date.now();
+  var scaler = document.getElementById('scaler'), stage = document.getElementById('stage');
+
+  function fit() {
+    var scale = Math.min(stage.clientWidth / 1920, stage.clientHeight / 1080);
+    scaler.style.transform = 'translate(' + (stage.clientWidth - 1920 * scale) / 2 + 'px,' + (stage.clientHeight - 1080 * scale) / 2 + 'px) scale(' + scale + ')';
+  }
+  function copy(id, slide) {
+    var box = document.getElementById(id);
+    box.innerHTML = '';
+    if (!slide) { return; }
+    var inner = document.createElement('div'), clone = slide.cloneNode(true);
+    inner.className = 'inner'; clone.removeAttribute('id'); clone.hidden = false;
+    inner.appendChild(clone); box.appendChild(inner);
+    inner.style.transform = 'scale(' + box.clientWidth / 1920 + ')';
+  }
+  function show(n, fromChannel) {
+    index = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, i) { s.hidden = i !== index; });
+    document.getElementById('count').textContent = (index + 1) + ' / ' + slides.length;
+    document.title = slides[index].dataset.title + ' — Visible Java';
+    if (presenter) {
+      document.getElementById('notes').textContent = slides[index].dataset.notes;
+      copy('now', slides[index]); copy('next', slides[index + 1]);
+    } else {
+      history.replaceState(null, '', '#' + (index + 1));
+    }
+    if (channel && !fromChannel) { channel.postMessage({ index: index }); }
+  }
+  if (channel) { channel.onmessage = function (e) { if (typeof e.data.index === 'number') { show(e.data.index, true); } }; }
+  document.addEventListener('keydown', function (e) {
+    if (['ArrowRight', 'PageDown', ' '].indexOf(e.key) > -1) { e.preventDefault(); show(index + 1); }
+    if (['ArrowLeft', 'PageUp'].indexOf(e.key) > -1) { e.preventDefault(); show(index - 1); }
+    if (e.key === 'Home') { show(0); }
+    if (e.key === 'End') { show(slides.length - 1); }
+    if (e.key === 'f') { toggleFull(); }
+    if (e.key === 'p') { openPresenter(); }
+  });
+  function toggleFull() {
+    if (document.fullscreenElement) { document.exitFullscreen(); }
+    else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); }
+  }
+  function openPresenter() { window.open('slides-3.html?presenter=1#' + (index + 1), 'visible-java-presenter', 'width=1100,height=760'); }
+  document.addEventListener('fullscreenchange', function () { document.body.classList.toggle('fs', !!document.fullscreenElement); fit(); });
+  document.getElementById('prev').onclick = function () { show(index - 1); };
+  document.getElementById('fwd').onclick = function () { show(index + 1); };
+  document.getElementById('full').onclick = toggleFull;
+  document.getElementById('openpv').onclick = openPresenter;
+  document.getElementById('reset').onclick = function () { started = Date.now(); };
+  stage.addEventListener('click', function (e) { if (!presenter && !e.target.closest('.demo')) { show(index + 1); } });
+  window.addEventListener('resize', function () { fit(); if (presenter) { show(index, true); } });
+  if (presenter) {
+    document.body.classList.add('presenter');
+    document.getElementById('openpv').hidden = true; document.getElementById('full').hidden = true;
+    setInterval(function () {
+      var t = Math.floor((Date.now() - started) / 1000);
+      document.getElementById('timer').textContent = Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
+    }, 1000);
+  }
+
+  // The traffic light sketches from the Session 3 download, ported to canvas.
+  // One step() is one draw() of the Processing sketch:
+  // objects = TrafficLightObjects, flags = TrafficLightFlags, walk = TrafficLightWalk.
+  function trafficModel(kind) {
+    var m = { kind: kind, light: 'green', carX: 40, speed: 0, counter: 0, requested: false, walk: false, crossing: false, py: 298, dir: 1 };
+    var centers = { red: 55, yellow: 115, green: 175 };
+    function change() { m.light = m.light === 'green' ? 'yellow' : m.light === 'yellow' ? 'red' : 'green'; }
+    function within(x, y, cx, cy, r) { return Math.sqrt(Math.pow(cx - x, 2) + Math.pow(cy - y, 2)) <= r; }
+    m.step = function () {
+      if (kind === 'flags') {
+        m.counter = m.counter + 1;
+        if (m.counter >= 180) { change(); m.counter = 0; }
+      }
+      if (kind === 'walk') {
+        var holdRed = m.light === 'red' && (m.requested || m.walk);
+        m.counter = m.counter + 1;
+        if (m.counter >= 180 && !holdRed) { change(); m.counter = 0; }
+        if (m.requested && m.light === 'green') { change(); m.counter = 0; }
+        var front = m.carX + 120;
+        if (m.light === 'red' && m.requested && (front <= 425 || m.carX >= 490)) { m.requested = false; m.walk = true; m.crossing = true; }
+        if (m.crossing) {
+          m.py = m.py + m.dir;
+          if (m.py === 298 || m.py === 430) { m.crossing = false; m.dir = -m.dir; }
+        }
+        if (m.walk && !m.crossing) { m.walk = false; }
+        var atLine = front >= 422 && front <= 425;
+        m.speed = m.light === 'red' && atLine ? 0 : m.light === 'yellow' ? 1 : 3;
+      } else {
+        m.speed = m.light === 'green' ? 3 : m.light === 'yellow' ? 1 : 0;
+      }
+      m.carX = m.carX + m.speed;
+      if (m.carX > 600) { m.carX = -120; }
+    };
+    m.click = function (x, y) {
+      if (kind === 'walk') {
+        if (within(x, y, 510, 268, 12) && !m.walk) { m.requested = true; }
+        return;
+      }
+      ['red', 'yellow', 'green'].some(function (name) {
+        if (within(x, y, 510, centers[name], 25)) { m.light = name; return true; }
+        return false;
+      });
+      if (kind === 'flags') { m.counter = 0; }
+    };
+    return m;
+  }
+
+  var ON = { red: [230, 40, 40], yellow: [250, 210, 40], green: [60, 200, 80] };
+  var OFF = { red: [90, 30, 30], yellow: [90, 80, 20], green: [25, 75, 35] };   // TrafficLightObjects' own dull colors
+
+  function paintTraffic(g, m) {
+    var H = m.kind === 'walk' ? 440 : 400;
+    function rgb(c) { return 'rgb(' + c.join(',') + ')'; }
+    function shape(path, fill, stroke) {
+      g.beginPath(); path();
+      if (fill) { g.fillStyle = fill; g.fill(); }
+      if (stroke) { g.lineWidth = 1; g.strokeStyle = '#000'; g.stroke(); }
+    }
+    function rect(x, y, w, h, r, fill, stroke) {
+      shape(function () {
+        if (!r) { g.rect(x, y, w, h); return; }
+        g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r);
+        g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath();
+      }, fill, stroke);
+    }
+    function ellipse(x, y, d, fill) { shape(function () { g.arc(x, y, d / 2, 0, Math.PI * 2); }, fill, true); }
+
+    g.fillStyle = 'rgb(185,220,250)'; g.fillRect(0, 0, 600, H);
+    if (m.kind === 'walk') { rect(0, 288, 600, 12, 0, 'rgb(175,175,175)'); rect(0, 400, 600, 40, 0, 'rgb(175,175,175)'); }
+    rect(0, 300, 600, 100, 0, 'rgb(70,70,70)');
+    for (var x = 0; x < 600; x += 60) { rect(x, 357, 30, 6, 0, 'rgb(255,210,0)'); }
+    if (m.kind === 'walk') {
+      for (var y = 304; y < 400; y += 16) { rect(440, y, 50, 8, 0, 'rgb(245,245,245)'); }
+      rect(427, 300, 4, 100, 0, 'rgb(245,245,245)');
+      var px = 465, py = m.py, swing = m.crossing && py % 20 < 10 ? 4 : 0;
+      g.lineWidth = 3; g.strokeStyle = '#000'; g.lineCap = 'round';
+      g.beginPath(); g.moveTo(px - 3, py - 14); g.lineTo(px - 3 - swing, py); g.moveTo(px + 3, py - 14); g.lineTo(px + 3 + swing, py); g.stroke();
+      g.lineCap = 'butt';
+      rect(px - 8, py - 34, 16, 22, 4, 'rgb(240,120,60)', true);
+      ellipse(px, py - 42, 16, 'rgb(235,195,160)');
+    }
+    var cx = m.carX, cy = 305;
+    rect(cx + 25, cy - 25, 65, 30, 8, 'rgb(30,90,200)', true);
+    rect(cx, cy, 120, 35, 8, 'rgb(30,90,200)', true);
+    ellipse(cx + 25, cy + 35, 28, 'rgb(20,20,20)');
+    ellipse(cx + 95, cy + 35, 28, 'rgb(20,20,20)');
+    rect(505, 210, 10, 90, 0, 'rgb(60,60,60)', true);
+    rect(475, 20, 70, 190, 10, 'rgb(60,60,60)', true);
+    [['red', 55], ['yellow', 115], ['green', 175]].forEach(function (l) {
+      var on = ON[l[0]], off = m.kind === 'objects' ? OFF[l[0]] : on.map(function (v) { return Math.floor(v / 3); });
+      ellipse(510, l[1], 50, rgb(m.light === l[0] ? on : off));
+    });
+    if (m.kind === 'walk') {
+      rect(522, 222, 66, 34, 6, 'rgb(30,30,30)', true);
+      g.font = '16px sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillStyle = m.walk ? 'rgb(245,245,245)' : 'rgb(255,140,0)';
+      g.fillText(m.walk ? 'WALK' : 'WAIT', 555, 239);
+      ellipse(510, 268, 24, m.requested ? 'rgb(255,220,0)' : 'rgb(150,150,150)');
+    }
+  }
+
+  function make(el) {
+    var w = +el.dataset.w, h = +el.dataset.h, kind = el.dataset.demo;
+    var H = kind === 'walk' ? 440 : 400;
+    var c = document.createElement('canvas'); c.width = w * 2; c.height = h * 2; c.style.width = w + 'px'; c.style.height = h + 'px';
+    var g = c.getContext('2d'); g.scale(2 * w / 600, 2 * h / H);
+    var row = document.createElement('div'); row.className = 'row';
+    var read = document.createElement('span'); read.className = 'read';
+    el.appendChild(c); el.appendChild(row);
+    var m = trafficModel(kind), running = false, last = 0, acc = 0;
+    el.model = m;
+    function button(label, go, fn) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = label; if (go) { b.className = 'go'; }
+      b.addEventListener('click', function (e) { e.stopPropagation(); fn(b); paint(); b.blur(); });
+      row.appendChild(b); return b;
+    }
+    function paint() {
+      paintTraffic(g, m);
+      if (kind === 'objects') { read.textContent = 'state = "' + m.light + '"'; }
+      if (kind === 'flags') { read.textContent = m.light + '.isOn() is true · car.setSpeed(' + m.speed + ')'; }
+      if (kind === 'walk') { read.textContent = 'isRequested() ' + m.requested + ' · isWalk() ' + m.walk; }
+    }
+    var run = button('Run', true, function (b) { running = !running; last = performance.now(); acc = 0; b.textContent = running ? 'Pause' : 'Run'; });
+    if (kind === 'walk') { button('Push', false, function () { m.click(510, 268); }); }
+    button('Reset', false, function () { m = trafficModel(kind); el.model = m; running = false; run.textContent = 'Run'; });
+    row.appendChild(read);
+    c.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var r = c.getBoundingClientRect();
+      m.click(Math.floor((e.clientX - r.left) / r.width * 600), Math.floor((e.clientY - r.top) / r.height * H));
+      paint();
+    });
+    // A fixed 60 steps a second, like Processing's frame rate, whatever the screen's refresh rate.
+    el.tick = function () {
+      if (!running) { return; }
+      var now = performance.now();
+      acc += Math.min(now - last, 100); last = now;
+      var stepped = false;
+      while (acc >= 1000 / 60) { m.step(); acc -= 1000 / 60; stepped = true; }
+      if (stepped) { paint(); }
+    };
+    paint(); el.draw = paint;
+  }
+  var demos = Array.prototype.slice.call(document.querySelectorAll('.demo'));
+  demos.forEach(make);
+  document.fonts && document.fonts.ready.then(function () { demos.forEach(function (d) { d.draw(); }); });
+  var tickCount = 0;
+  (function loop() { tickCount++; demos.forEach(function (d) { if (d.tick) { d.tick(tickCount); } }); requestAnimationFrame(loop); })();
+
+  fit();
+  show((parseInt(location.hash.slice(1), 10) || 1) - 1, true);
+})();
+</script>
+</body>
+</html>
