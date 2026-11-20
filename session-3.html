@@ -6,7 +6,7 @@
 <title>Session 3: Make objects visible — Visible Java</title>
 <meta name="description" content="Visible Java Session 3, Sunday November 22: rebuild Session 2's traffic light from objects with private fields, getters, and setters, add a walk button, then put many objects on screen with confetti. Works live or on your own.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@500;600;700&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261120a"><link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css?v=20261120d"><link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
 </head>
 <body>
 
@@ -60,7 +60,7 @@
     <div class="note">
       <p><strong>Teaching this session?</strong> Use the <a href="slides-3.html">slides</a>, where the three traffic light sketches run. The facilitator notes are on this page, under each section.</p>
       <p><strong>Both routes:</strong> leave with one adapted handout for a group you teach or plan to teach, or for yourself as a learner. <a href="index.html#your-way">How live and independent participation work</a>.</p>
-      <p><strong>Can&rsquo;t make it live?</strong> Every block on this page works without the meeting. Follow <a href="#on-your-own">On your own</a>, which takes about 115&ndash;130 minutes, plus a later feedback reply. <strong>Missed Session 2?</strong> Run <code>TrafficLightCheckpoint</code> from the <a href="session-2.html#traffic">Session 2 download</a> once, then begin here. <code>BallObjects</code> starts from Session 2&rsquo;s ball, already turned into a class.</p>
+      <p><strong>Can&rsquo;t make it live?</strong> Every block on this page works without the meeting. Follow <a href="#on-your-own">On your own</a>, which takes about 120&ndash;135 minutes, plus a later feedback reply. <strong>Missed Session 2?</strong> Run <code>TrafficLightCheckpoint</code> from the <a href="session-2.html#traffic">Session 2 download</a> once, then begin here. <code>BallObjects</code> starts from Session 2&rsquo;s ball, already turned into a class.</p>
     </div>
   </div>
 </section>
@@ -210,6 +210,45 @@ class Light {
       </li>
     </ol>
 
+    <div class="otrace" data-loop-trace>
+      <div class="stack-sm">
+        <h3>The whole loop in eight steps</h3>
+        <p>Green, yellow, red, and back to green: one full loop of <code>TrafficLightFlags</code>, from its first frame, with no clicks. Each step is one kind of frame. The lines that ran are marked, and the branches skipped are faded. Between the light changes, every frame runs the same lines, so those stretches are one step each. The values are the sketch&rsquo;s own.</p>
+      </div>
+      <div class="lab-panel otrace-bar">
+        <div class="lab-buttons">
+          <button type="button" class="camp-button primary" data-play>Play</button>
+          <button type="button" class="reveal-btn" data-back>Back</button>
+          <button type="button" class="reveal-btn" data-next>Next</button>
+          <span class="otrace-progress" data-progress></span>
+        </div>
+        <p class="otrace-jump" data-frame></p>
+        <div class="ltrace-timeline" aria-hidden="true"><span class="g"></span><span class="y"></span><span class="r"></span><i data-marker></i></div>
+        <p class="ltrace-scale" aria-hidden="true"><span>frame 0</span><span>180</span><span>360</span><span>540</span></p>
+      </div>
+      <div class="otrace-grid">
+        <figure class="lab-panel lab-code"><figcaption><span>draw() &middot; sketch</span><span class="lab-code-note">ran <span data-ran-note></span></span></figcaption><pre><code data-draw></code></pre></figure>
+        <figure class="lab-panel lab-code"><figcaption><span>changeLight() and turnOn()</span><span class="lab-code-note" data-helpers-note></span></figcaption><pre><code data-helpers></code></pre></figure>
+        <div class="otrace-col">
+          <figure class="lab-panel otrace-picture"><canvas width="1200" height="800" data-scene role="img" aria-label="The traffic light and the blue car"></canvas><figcaption data-picture></figcaption></figure>
+          <div class="lab-panel">
+            <span class="lab-head">Objects at the end of the step</span>
+            <table class="otrace-objects">
+              <thead><tr><th>Object</th><th>Private fields</th></tr></thead>
+              <tbody>
+                <tr><td>red : Light</td><td data-value="red"></td></tr>
+                <tr><td>yellow : Light</td><td data-value="yellow"></td></tr>
+                <tr><td>green : Light</td><td data-value="green"></td></tr>
+                <tr><td>car : Car</td><td data-value="car"></td></tr>
+              </tbody>
+            </table>
+            <p class="otrace-counter">Sketch: <code data-counter></code></p>
+          </div>
+        </div>
+      </div>
+      <p class="otrace-detail" aria-live="polite" data-detail></p>
+    </div>
+
     <div class="otrace" data-object-trace>
       <div class="stack-sm">
         <h3>Step through one frame</h3>
@@ -287,7 +326,7 @@ if (walkSign.isWalk() &amp;&amp; !person.isCrossing()) {
         <p>This is all of Part 2. Project the short block and the running sketch, not the whole file. People who worked on the traffic light have just felt the copying, which makes it a good moment to say the word <em>class</em>. Then hand off to Joshua Hans&rsquo;s confetti.</p>
         <p>Joshua Hans suggests private fields with getters and setters at step 2, the AP CS A norm. Question 5 is the catch: inside a sketch, <code>private</code> is not enforced. Worth saying before someone finds it by accident.</p>
         <p>Nine constructor parameters in step 1 is a lot, and someone may say so. Step 2 answers with five: an off light is a third of each part of its on color, so off lights are a little darker than in Session 2.</p>
-        <p>The step-through under Step 2 is too long to do live. Point people to it for after the session, or show the first few lines if someone asks what <code>this</code> means.</p>
+        <p>Under Step 2, &ldquo;The whole loop in eight steps&rdquo; is short enough to click through live in about three minutes, right after people run <code>TrafficLightFlags</code>. The one-frame step-through below it is too long to do live. Point people to it for after the session, or show the first few lines if someone asks what <code>this</code> means.</p>
         <p>Step 3 is optional. Run it rather than reading it all. The comment at the top of the sketch lists which flags <code>draw()</code> checks and what it changes. Say plainly that the sketch coordinates the objects: no object sends another a message.</p>
         <p>In Pickcode, the classes can go inside <code>Sketch.java</code>, as they do here, or each in its own file. A separate file needs the sketch passed in to draw, which is more than this opener needs. All three sketches compile as plain Java, so they paste into <code>Sketch.java</code>.</p>
       </div>
@@ -838,13 +877,13 @@ System.out.println(speeds[0] + " " + speeds[1] + " " + copy[2]);</pre>
 <section id="on-your-own" class="ws-block">
   <div class="wrap stack-lg">
     <div class="stack">
-      <span class="eyebrow">Asynchronous route &middot; about 115&ndash;130 minutes, plus a later reply</span>
+      <span class="eyebrow">Asynchronous route &middot; about 120&ndash;135 minutes, plus a later reply</span>
       <h2>On your own</h2>
       <p>The traffic light from the live session, then the ball. The ball stands in for the live confetti activity: it covers the same idea, many objects from one class, and goes further into references and a first array. Answers are behind the Show buttons on this page.</p>
     </div>
     <ol class="ws-checklist">
       <li><div><h3>Set up</h3><p>Download <a href="downloads/workshop/session-3-files.zip">session-3-files.zip</a>. If Processing isn&rsquo;t installed, start with <a href="processing.html">Your first sketch</a>. About 10 minutes.</p></div></li>
-      <li><div><h3>Traffic light</h3><p>Run <code>TrafficLightObjects</code>, <code>TrafficLightFlags</code>, and <code>TrafficLightWalk</code> in order, and answer the <a href="#lights">traffic light questions</a> as you go. Then step through one frame of <code>TrafficLightFlags</code> under Step 2. About 25 minutes.</p></div></li>
+      <li><div><h3>Traffic light</h3><p>Run <code>TrafficLightObjects</code>, <code>TrafficLightFlags</code>, and <code>TrafficLightWalk</code> in order, and answer the <a href="#lights">traffic light questions</a> as you go. Then, under Step 2, step through the whole loop and then one frame of <code>TrafficLightFlags</code>. About 30 minutes.</p></div></li>
       <li><div><h3>Predict</h3><p>For the ball, answer questions 1&ndash;6 on paper <em>before</em> running anything. Then run <code>BallObjects</code> and <code>ObjectTrace</code>, make the two changes, and check. About 20 minutes.</p></div></li>
       <li><div><h3>Build</h3><p>Missions 1&ndash;3, and the extensions if you want more. Compare with <code>BallArrayCheckpoint</code>, <code>BallTouch</code>, and <code>BallGrid</code>. About 25 minutes.</p></div></li>
       <li><div><h3>Transfer</h3><p>Run <code>BallWorld.java</code>. Trace <code>ArrayTrace.java</code> before you run it. About 15 minutes.</p></div></li>
@@ -906,5 +945,6 @@ System.out.println(speeds[0] + " " + speeds[1] + " " + copy[2]);</pre>
 <script src="assets/role.js?v=20260729c"></script>
 <script src="assets/step-demos.js"></script>
 <script src="assets/object-trace.js?v=20261120a"></script>
+<script src="assets/loop-trace.js?v=20261120a"></script>
 </body>
 </html>

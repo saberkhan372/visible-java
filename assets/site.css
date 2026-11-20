@@ -2242,8 +2242,10 @@ h1, h2, h3, h4, .logo { font-weight: 600; }
 .otrace-legend { margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); font-size: 14px; line-height: 22px; color: var(--ink-soft); }
 .otrace-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); align-items: start; }
 .otrace-col { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+/* The Loop lab pins .lab-code to a grid cell; here the panes flow in order. */
+.otrace .lab-code { grid-column: auto; grid-row: auto; }
 .otrace .lab-code pre { overflow-x: auto; }
-.otrace .lab-line { padding: 0 var(--space-3); }
+.otrace .lab-line { padding: 0 var(--space-3); white-space: pre-wrap; overflow-wrap: anywhere; }
 .otrace .lab-line::before { content: "\00a0\00a0"; }
 .otrace .lab-line.is-active::before { content: "▶\00a0"; }
 .otrace .lab-line.is-waiting { background: var(--sunken); box-shadow: inset 3px 0 0 var(--ink-soft); }
@@ -2264,3 +2266,15 @@ h1, h2, h3, h4, .logo { font-weight: 600; }
   .otrace-grid > .otrace-col:last-child { grid-column: 1 / -1; }
 }
 @media (max-width: 600px) { .otrace-grid { grid-template-columns: minmax(0, 1fr); } }
+/* The whole loop (assets/loop-trace.js): lines that ran, lines skipped, and a 540-frame timeline. */
+.otrace .lab-line.is-ran { background: var(--sun-soft); }
+.otrace .lab-line.is-ran::before { content: "▶\00a0"; }
+.otrace .lab-line.is-skipped { opacity: .45; }
+.ltrace-timeline { position: relative; display: flex; height: 18px; margin: var(--space-1) 0; border: var(--stroke-2) solid var(--outline); border-radius: var(--radius-md); overflow: hidden; }
+.ltrace-timeline span { flex: 1; }
+.ltrace-timeline .g { background: rgb(60 200 80); }
+.ltrace-timeline .y { background: rgb(250 210 40); }
+.ltrace-timeline .r { background: rgb(230 40 40); }
+.ltrace-timeline i { position: absolute; top: -2px; bottom: -2px; width: 4px; margin-left: -2px; background: var(--ink); box-shadow: 0 0 0 2px var(--paper); }
+.ltrace-timeline i.is-range { margin-left: 0; background: color-mix(in srgb, var(--ink) 35%, transparent); box-shadow: inset 0 0 0 2px var(--ink); }
+.ltrace-scale { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) auto; max-width: none; margin: 0; font: 400 13px/18px var(--font-mono); color: var(--ink-soft); }
