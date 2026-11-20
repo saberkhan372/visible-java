@@ -50,6 +50,24 @@ body.presenter #pv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1
 .demo button:focus-visible{outline:4px solid #0a5a7e;outline-offset:3px}
 .demo .read{max-width:600px;font:600 26px "Source Code Pro","Courier New",monospace;color:#16211f}
 @media (max-width:760px){body.presenter #pv{grid-template-columns:1fr}}
+[data-loop-trace] .ls-pane{margin:0;background:#fff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;overflow:hidden}
+[data-loop-trace] .ls-pane figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 18px;background:#5fcfaf;border-bottom:2px solid #16211f;font:600 26px Fredoka,Verdana,sans-serif}
+[data-loop-trace] .ls-pane figcaption span{font:400 20px 'Atkinson Hyperlegible Next',Verdana,sans-serif}
+[data-loop-trace] pre{margin:0;padding:12px 0;font:400 21px/1.45 'Source Code Pro','Courier New',monospace;color:#16211f}
+[data-loop-trace] .lab-line{display:block;padding:0 14px;white-space:pre-wrap}
+[data-loop-trace] .lab-line::before{content:"\00a0\00a0"}
+[data-loop-trace] .lab-line.is-ran{background:#ffefbf}
+[data-loop-trace] .lab-line.is-ran::before{content:"\25B6\00a0"}
+[data-loop-trace] .lab-line.is-skipped{opacity:.38}
+[data-loop-trace] button:disabled{opacity:.4;cursor:default}
+[data-loop-trace] button:focus-visible{outline:4px solid #0a5a7e;outline-offset:3px}
+.ltrace-timeline{position:relative;display:flex;height:30px;border:2px solid #16211f;border-radius:8px;overflow:hidden}
+.ltrace-timeline span{flex:1}
+.ltrace-timeline .g{background:rgb(60 200 80)}
+.ltrace-timeline .y{background:rgb(250 210 40)}
+.ltrace-timeline .r{background:rgb(230 40 40)}
+.ltrace-timeline i{position:absolute;top:0;bottom:0;width:8px;margin-left:-4px;background:#16211f}
+.ltrace-timeline i.is-range{margin-left:0;background:rgba(22,33,31,.3);box-shadow:inset 0 0 0 3px #16211f}
 </style>
 </head>
 <body>
@@ -95,6 +113,11 @@ body.presenter #pv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1
 </section>
 <section id="step-2" class="slide" data-title="Each light keeps its own flag" data-notes="Open TrafficLightFlags. It runs frame for frame like Session 2&#x27;s timer version: green, yellow, red every 180 frames, and clicks still work. Each Light has a boolean on. The Car has its own x and speed. Ask: where does the sketch ask a light a question? Where does it tell the car something? The lights never talk to the car: the sketch coordinates them, and never touches a field itself. The Session 3 page has the whole loop in eight steps, short enough to click through live, and a line-by-line step-through of one frame for after the session." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start">
 <div style="background:#ffffff;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f;padding:36px"><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:34px;line-height:1.45;white-space:nowrap"><span style="color:#6b7672">// In draw(): ask the lights, tell the car.</span><br><span style="color:#1f7a63">if</span> (green.<span style="color:#006699">isOn</span>()) {<br>&#160;&#160;car.<span style="color:#006699">setSpeed</span>(<span style="color:#7d4793">3</span>);<br>} <span style="color:#1f7a63">else</span> <span style="color:#1f7a63">if</span> (yellow.<span style="color:#006699">isOn</span>()) {<br>&#160;&#160;car.<span style="color:#006699">setSpeed</span>(<span style="color:#7d4793">1</span>);<br>} <span style="color:#1f7a63">else</span> {<br>&#160;&#160;car.<span style="color:#006699">setSpeed</span>(<span style="color:#7d4793">0</span>);<br>}<br>car.<span style="color:#006699">move</span>();</p></div><div style="display:flex;flex-direction:column;gap:28px"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Step 2</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:60px;font-weight:600">Each light keeps its own flag</h2><div class="demo" data-demo="flags" data-w="600" data-h="400"></div></div>
+
+<img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
+</section>
+<section id="loop" class="slide" data-title="The whole loop" data-notes="About three minutes. Click Next yourself; Play moves every 3 seconds. Before each light change, ask: what is the counter about to do, and which branch will run? Frame 180: green answers true, so turnOn(yellow). Frame 360: green is off and yellow is on, so turnOn(red), and the else branch sets the speed to 0. Frame 540: both off, so the else branch in changeLight() turns green on. Between the changes, every frame runs the same lines; only the counter and the car move. Point out frame 541: the lights repeat every 540 frames, but the car is at x 42, not 43. The values are the sketch&#x27;s own. The same stepper is on the Session 3 page, above the one-frame step-through." style="background:#fff6e5;color:#16211f;font-family:'Atkinson Hyperlegible Next', Verdana, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<div data-loop-trace data-manual style="display:flex;flex-direction:column;gap:20px;flex:1;min-height:0"><div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap"><p style="font-family:Fredoka, Verdana, sans-serif;font-size:32px;font-weight:600;background:#ffc93c;border:2px solid #16211f;border-radius:999px;padding:8px 24px;align-self:start">Step 2 · the whole loop</p><h2 style="font-family:Fredoka, Verdana, sans-serif;font-size:56px;font-weight:600">Green, yellow, red, and back</h2><p data-frame style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:30px;font-weight:600"></p></div><div style="display:flex;align-items:center;gap:18px"><button type="button" data-back style="font:600 26px Fredoka,Verdana,sans-serif;color:#16211f;background:#fff;border:2px solid #16211f;border-radius:999px;box-shadow:4px 4px 0 #16211f;padding:8px 24px;cursor:pointer">Back</button><button type="button" data-next style="font:600 26px Fredoka,Verdana,sans-serif;color:#16211f;background:#fff;border:2px solid #16211f;border-radius:999px;box-shadow:4px 4px 0 #16211f;padding:8px 24px;cursor:pointer;background:#ffc93c">Next</button><button type="button" data-play style="font:600 26px Fredoka,Verdana,sans-serif;color:#16211f;background:#fff;border:2px solid #16211f;border-radius:999px;box-shadow:4px 4px 0 #16211f;padding:8px 24px;cursor:pointer">Play</button><span data-progress style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:26px;min-width:90px"></span><div class="ltrace-timeline" style="flex:1"><span class="g"></span><span class="y"></span><span class="r"></span><i data-marker></i></div></div><div style="display:grid;grid-template-columns:1fr 1.1fr 0.95fr;gap:28px;align-items:start;flex:1;min-height:0"><figure class="ls-pane"><figcaption>draw() <span>ran <span data-ran-note></span></span></figcaption><pre data-draw></pre></figure><figure class="ls-pane"><figcaption>changeLight() and turnOn() <span data-helpers-note></span></figcaption><pre data-helpers></pre></figure><div style="display:flex;flex-direction:column;gap:16px"><canvas data-scene width="1200" height="800" role="img" style="display:block;width:100%;height:auto;border:2px solid #16211f;border-radius:14px;box-shadow:4px 4px 0 #16211f"></canvas><p style="font-family:'Source Code Pro', 'Courier New', monospace;font-size:22px"><span data-counter></span> · car: <span data-value="car"></span></p><p data-detail style="font-size:26px;line-height:1.4"></p></div></div></div>
 
 <img class="corner-logo" src="assets/visible-java-icon.svg" alt="">
 </section>
@@ -148,6 +171,7 @@ body.presenter #pv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1
   <button id="openpv" type="button">Open presenter view</button><button id="full" type="button">Full screen</button>
   <span class="spacer"></span><a href="session-3.html#lights">Facilitator notes</a><a href="session-3.html">Session 3</a>
 </div>
+<script src="assets/loop-trace.js?v=20261120b"></script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
@@ -169,6 +193,7 @@ body.presenter #pv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1
     inner.className = 'inner'; clone.removeAttribute('id'); clone.hidden = false;
     inner.appendChild(clone); box.appendChild(inner);
     clone.querySelectorAll('.demo').forEach(function (d) { d.innerHTML = ''; make(d, true); });
+    clone.querySelectorAll('[data-loop-trace]').forEach(loopPreview);
     inner.style.transform = 'scale(' + box.clientWidth / 1920 + ')';
   }
   function show(n, fromChannel) {
@@ -187,6 +212,7 @@ body.presenter #pv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1
   if (channel) { channel.onmessage = function (e) {
     if (typeof e.data.index === 'number') { show(e.data.index, true); }
     if (e.data.demo && presenter) { previewState(e.data.demo, e.data.state); }
+    if (typeof e.data.loop === 'number' && presenter) { loopState(e.data.loop); }
     if (e.data.hello && !presenter) { shareAll(); }
   }; }
   document.addEventListener('keydown', function (e) {
@@ -208,7 +234,7 @@ body.presenter #pv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1
   document.getElementById('full').onclick = toggleFull;
   document.getElementById('openpv').onclick = openPresenter;
   document.getElementById('reset').onclick = function () { started = Date.now(); };
-  stage.addEventListener('click', function (e) { if (!presenter && !e.target.closest('.demo')) { show(index + 1); } });
+  stage.addEventListener('click', function (e) { if (!presenter && !e.target.closest('.demo, [data-loop-trace]')) { show(index + 1); } });
   window.addEventListener('resize', function () { fit(); if (presenter) { show(index, true); } });
   if (presenter) {
     document.body.classList.add('presenter');
@@ -338,7 +364,33 @@ body.presenter #pv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1
       p.paint();
     });
   }
-  function shareAll() { sharers.forEach(function (share) { share(true); }); }
+  function shareAll() {
+    sharers.forEach(function (share) { share(true); });
+    if (loopMain && channel && !presenter) { channel.postMessage({ loop: loopAt }); }
+  }
+
+  // The whole-loop slide uses assets/loop-trace.js, the same stepper as the Session 3 page.
+  // The audience window shares its step; presenter-view copies follow it.
+  var loopPreviews = [], loopAt = 0, loopMain = null;
+  var loopRoot = document.querySelector('#stage [data-loop-trace]');
+  if (loopRoot && window.VisibleJavaLoopTrace) {
+    loopMain = window.VisibleJavaLoopTrace(loopRoot, { onStep: function (at) {
+      loopAt = at;
+      if (channel && !presenter) { channel.postMessage({ loop: at }); }
+    } });
+  }
+  function loopPreview(root) {
+    if (!window.VisibleJavaLoopTrace) { return; }
+    var copy = window.VisibleJavaLoopTrace(root, { preview: true });
+    copy.go(loopAt);
+    loopPreviews.push(copy);
+    if (channel) { channel.postMessage({ hello: 1 }); }
+  }
+  function loopState(at) {
+    loopAt = at;
+    loopPreviews = loopPreviews.filter(function (c) { return document.body.contains(c.el); });
+    loopPreviews.forEach(function (c) { c.go(at); });
+  }
 
   function make(el, preview) {
     var w = +el.dataset.w, h = +el.dataset.h, kind = el.dataset.demo;

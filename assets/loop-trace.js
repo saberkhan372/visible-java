@@ -88,67 +88,81 @@
     });
   }
 
-  var root = document.querySelector('[data-loop-trace]');
-  if (!root) { return; }
-  var $ = function (sel) { return root.querySelector(sel); };
-  var steps = buildSteps();
-  root.loopSteps = steps;   // read by checks; not used by the page
-  var at = 0, timer = null;
-  var scene = $('[data-scene]').getContext('2d');
-  scene.scale(2, 2);
+  // Mount one stepper. The Session 3 page mounts itself; the slides mount theirs by hand
+  // (data-manual) so they can share the step with the presenter view. Parts marked
+  // optional below may be left out of the markup.
+  function mount(root, opts) {
+    opts = opts || {};
+    var $ = function (sel) { return root.querySelector(sel); };
+    var set = function (sel, text) { var e = $(sel); if (e) { e.textContent = text; } };
+    var steps = buildSteps();
+    root.loopSteps = steps;   // read by checks; not used by the page
+    var at = 0, timer = null;
+    var scene = $('[data-scene]').getContext('2d');
+    scene.scale(2, 2);
 
-  function lines(target, source, ran, called) {
-    var box = $(target);
-    box.textContent = '';
-    source.forEach(function (text, i) {
-      var span = document.createElement('span');
-      var closing = /^\s*}\s*$/.test(text) || text === '';
-      span.className = 'lab-line' + (!called ? '' : ran.indexOf(i) > -1 ? ' is-ran' : closing ? '' : ' is-skipped');
-      span.textContent = text;
-      box.appendChild(span);
-    });
-  }
+    function lines(target, source, ran, called) {
+      var box = $(target);
+      box.textContent = '';
+      source.forEach(function (text, i) {
+        var span = document.createElement('span');
+        var closing = /^\s*}\s*$/.test(text) || text === '';
+        span.className = 'lab-line' + (!called ? '' : ran.indexOf(i) > -1 ? ' is-ran' : closing ? '' : ' is-skipped');
+        span.textContent = text;
+        box.appendChild(span);
+      });
+    }
 
-  function stop() {
-    if (timer) { clearInterval(timer); }
-    timer = null;
-    $('[data-play]').textContent = at === steps.length - 1 ? 'Replay' : 'Play';
-  }
+    function stop() {
+      if (timer) { clearInterval(timer); }
+      timer = null;
+      set('[data-play]', at === steps.length - 1 ? 'Replay' : 'Play');
+    }
 
-  function render() {
-    var t = steps[at], many = t.last > t.first;
-    $('[data-progress]').textContent = (at + 1) + ' / ' + steps.length;
-    $('[data-frame]').textContent = (many ? 'Frames ' + t.first + '–' + t.last + ' · ' + (t.last - t.first + 1) + ' frames' : 'Frame ' + t.first) + ' · ' + t.light;
-    // Frame 540 ends the loop, so it sits at the right-hand end; frame 541 starts again at the left.
-    var loopPos = function (f) { return f === 540 ? 100 : (f % 540) / 540 * 100; };
-    var marker = $('[data-marker]');
-    marker.style.left = loopPos(t.first) + '%';
-    marker.style.width = many ? (loopPos(t.last) - loopPos(t.first)) + '%' : '';
-    marker.classList.toggle('is-range', many);
-    lines('[data-draw]', DRAW, t.draw, true);
-    lines('[data-helpers]', HELPERS, t.helpers, t.helpers.length > 0);
-    $('[data-helpers-note]').textContent = t.helpers.length ? 'called · light → ' + t.passed : 'not called';
-    $('[data-ran-note]').textContent = many ? 'every frame' : 'this frame';
-    ['red', 'yellow', 'green'].forEach(function (name) { $('[data-value="' + name + '"]').textContent = 'on = ' + (t.light === name); });
-    $('[data-value="car"]').textContent = 'x = ' + t.x + ', speed = ' + t.speed;
-    $('[data-counter]').textContent = 'counter = ' + t.counter;
-    $('[data-detail]').textContent = t.text;
-    paint(scene, t.light, t.x);
-    $('[data-picture]').textContent = 'End of frame ' + t.last + ': ' + t.light + ' light, car.x = ' + t.x;
-    $('[data-scene]').setAttribute('aria-label', 'End of frame ' + t.last + ': ' + t.light + ' light, blue car at x ' + t.x);
-    $('[data-back]').disabled = at === 0;
-    $('[data-next]').disabled = at === steps.length - 1;
-    if (!timer) { $('[data-play]').textContent = at === steps.length - 1 ? 'Replay' : 'Play'; }
-  }
+    function render() {
+      var t = steps[at], many = t.last > t.first;
+      set('[data-progress]', (at + 1) + ' / ' + steps.length);
+      set('[data-frame]', (many ? 'Frames ' + t.first + '–' + t.last + ' · ' + (t.last - t.first + 1) + ' frames' : 'Frame ' + t.first) + ' · ' + t.light);
+      // Frame 540 ends the loop, so it sits at the right-hand end; frame 541 starts again at the left.
+      var loopPos = function (f) { return f === 540 ? 100 : (f % 540) / 540 * 100; };
+      var marker = $('[data-marker]');
+      marker.style.left = loopPos(t.first) + '%';
+      marker.style.width = many ? (loopPos(t.last) - loopPos(t.first)) + '%' : '';
+      marker.classList.toggle('is-range', many);
+      lines('[data-draw]', DRAW, t.draw, true);
+      lines('[data-helpers]', HELPERS, t.helpers, t.helpers.length > 0);
+      set('[data-helpers-note]', t.helpers.length ? 'called · light → ' + t.passed : 'not called');   // optional
+      set('[data-ran-note]', many ? 'every frame' : 'this frame');                                       // optional
+      ['red', 'yellow', 'green'].forEach(function (name) { set('[data-value="' + name + '"]', 'on = ' + (t.light === name)); });   // optional
+      set('[data-value="car"]', 'x = ' + t.x + ', speed = ' + t.speed);   // optional
+      set('[data-counter]', 'counter = ' + t.counter);                   // optional
+      set('[data-detail]', t.text);
+      paint(scene, t.light, t.x);
+      set('[data-picture]', 'End of frame ' + t.last + ': ' + t.light + ' light, car.x = ' + t.x);   // optional
+      $('[data-scene]').setAttribute('aria-label', 'End of frame ' + t.last + ': ' + t.light + ' light, blue car at x ' + t.x);
+      $('[data-back]').disabled = at === 0;
+      $('[data-next]').disabled = at === steps.length - 1;
+      if (!timer) { set('[data-play]', at === steps.length - 1 ? 'Replay' : 'Play'); }
+    }
 
-  $('[data-next]').addEventListener('click', function () { stop(); at = Math.min(at + 1, steps.length - 1); render(); });
-  $('[data-back]').addEventListener('click', function () { stop(); at = Math.max(at - 1, 0); render(); });
-  $('[data-play]').addEventListener('click', function () {
-    if (timer) { stop(); return; }
-    if (at === steps.length - 1) { at = 0; }
-    timer = setInterval(function () { at++; if (at === steps.length - 1) { stop(); } render(); }, 3000);
-    $('[data-play]').textContent = 'Pause';
+    function moved() { if (opts.onStep) { opts.onStep(at); } }
+    if (!opts.preview) {
+      $('[data-next]').addEventListener('click', function () { stop(); at = Math.min(at + 1, steps.length - 1); render(); moved(); });
+      $('[data-back]').addEventListener('click', function () { stop(); at = Math.max(at - 1, 0); render(); moved(); });
+      $('[data-play]').addEventListener('click', function () {
+        if (timer) { stop(); return; }
+        if (at === steps.length - 1) { at = 0; moved(); }
+        timer = setInterval(function () { at++; if (at === steps.length - 1) { stop(); } render(); moved(); }, 3000);
+        set('[data-play]', 'Pause');
+        render();
+      });
+    }
     render();
+    return { go: function (n) { stop(); at = Math.max(0, Math.min(steps.length - 1, n)); render(); }, el: root };
+  }
+
+  window.VisibleJavaLoopTrace = mount;
+  document.querySelectorAll('[data-loop-trace]').forEach(function (root) {
+    if (!root.hasAttribute('data-manual')) { mount(root); }
   });
-  render();
 })();
