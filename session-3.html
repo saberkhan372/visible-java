@@ -45,7 +45,7 @@
         Session 2 ended with a question from the group: could each traffic light be its own
         object? We start there. One <code>Light</code> class draws all three lights, then each
         light keeps its own on/off flag behind private fields, with a getter and a setter, the
-        way AP CS A writes classes. A walk button shows objects passing signals to each other.
+        way AP CS A writes classes. A walk button shows the sketch passing signals between objects.
         Then Joshua Hans&rsquo;s confetti puts many objects on the screen at once. The ball from
         Session 2&rsquo;s extra practice covers the same ideas, plus references and a first
         array, for anyone working on their own.
@@ -154,7 +154,7 @@ Light yellow = new Light(510, 115, 250, 210, 40);
 Light green = new Light(510, 175, 60, 200, 80);
 Car car = new Car(40, 305);
 
-// In draw(): the lights pass their signal to the car.
+// In draw(): ask the lights, then tell the car.
 if (green.isOn()) {
   car.setSpeed(3);
 } else if (yellow.isOn()) {
@@ -196,7 +196,7 @@ class Light {
       <li>
         <p>Which methods are getters, and which are setters? Where does the sketch ask a light a question, and where does it tell the car something?</p>
         <button class="reveal-btn" type="button" aria-controls="l4">Show answer</button>
-        <div class="answer" id="l4" hidden><p><span class="out">ask, then tell</span> <code>isOn()</code> is a getter: it returns the flag and changes nothing. A <code>boolean</code> getter is named <code>isOn</code>, not <code>getOn</code>. <code>setOn()</code> and <code>setSpeed()</code> are setters: each changes one field and returns nothing. The <code>if</code>/<code>else</code> asks the lights, and each branch tells the car. The sketch never touches a field itself.</p></div>
+        <div class="answer" id="l4" hidden><p><span class="out">ask, then tell</span> <code>isOn()</code> is a getter: it returns the flag and changes nothing. We name this <code>boolean</code> getter <code>isOn</code> rather than <code>getOn</code>, which is a naming convention, not a Java rule. <code>setOn()</code> and <code>setSpeed()</code> are setters: each changes one field and returns nothing. The <code>if</code>/<code>else</code> asks the lights, and each branch tells the car. The lights never talk to the car: the sketch coordinates them, and never touches a field itself.</p></div>
       </li>
       <li>
         <p>The fields are private. In <code>setup()</code>, replace <code>green.setOn(true);</code> with <code>green.on = true;</code>. Will it compile?</p>
@@ -211,7 +211,7 @@ class Light {
     </ol>
 
     <h3>Step 3 &middot; A walk button</h3>
-    <p>In Session 2, the group suggested a pedestrian button that makes the car stop no matter what. Open <code>TrafficLightWalk</code> and click the button on the pole. Two more classes join the sketch: a <code>WalkSign</code>, which knows whether someone pushed the button and whether it says WALK, and a <code>Pedestrian</code>, who knows whether they are crossing. The car now stops at a stop line, not wherever it happens to be. The objects never reach into each other. Each one&rsquo;s flags reach the others through getters and setters:</p>
+    <p>In Session 2, the group suggested a pedestrian button that makes the car stop no matter what. Open <code>TrafficLightWalk</code> and click the button on the pole. Two more classes join the sketch: a <code>WalkSign</code>, which knows whether someone pushed the button and whether it says WALK, and a <code>Pedestrian</code>, who knows whether they are crossing. The car now stops at a stop line, not wherever it happens to be. The objects never talk to each other directly. Each frame, <code>draw()</code> asks one object about its flags with a getter, and tells another what to do with a setter:</p>
 <pre class="ws-code" data-file="TrafficLightWalk/TrafficLightWalk.pde">
 // A push on green ends the green now.
 if (walkSign.isRequested() &amp;&amp; green.isOn()) {
@@ -245,7 +245,7 @@ if (walkSign.isWalk() &amp;&amp; !person.isCrossing()) {
         <p>This is all of Part 2. Project the short block and the running sketch, not the whole file. People who worked on the traffic light have just felt the copying, which makes it a good moment to say the word <em>class</em>. Then hand off to Joshua Hans&rsquo;s confetti.</p>
         <p>Joshua Hans suggests private fields with getters and setters at step 2, the AP CS A norm. Question 5 is the catch: inside a sketch, <code>private</code> is not enforced. Worth saying before someone finds it by accident.</p>
         <p>Nine constructor parameters in step 1 is a lot, and someone may say so. Step 2 answers with five: an off light is a third of each part of its on color, so off lights are a little darker than in Session 2.</p>
-        <p>Step 3 is optional. Run it rather than reading it all. The comment at the top of the sketch lists which flag each object reads.</p>
+        <p>Step 3 is optional. Run it rather than reading it all. The comment at the top of the sketch lists which flags <code>draw()</code> checks and what it changes. Say plainly that the sketch coordinates the objects: no object sends another a message.</p>
         <p>In Pickcode, the classes can go inside <code>Sketch.java</code>, as they do here, or each in its own file. A separate file needs the sketch passed in to draw, which is more than this opener needs. All three sketches compile as plain Java, so they paste into <code>Sketch.java</code>.</p>
       </div>
     </details>
@@ -654,7 +654,7 @@ balls[3].x = 210.0
       <p>Use a group you teach or plan to teach, or yourself as a learner. Work in pairs for the exchange; the first revision happens inside the core session.</p>
     </div>
     <ol class="ws-checklist">
-      <li><div><h3>Adapt</h3><p>Open your copy of the handout in this session&rsquo;s Google Classroom assignment, or <a href="downloads/workshop/session-3/session-3-student-handout.md">download it &darr;</a>. Change one prompt for your learners. Keep the prediction before Run and a way to check the answer.</p></div></li>
+      <li><div><h3>Adapt</h3><p>Open your copy of the handout in this session&rsquo;s Google Classroom assignment, or <a href="downloads/workshop/session-3/session-3-student-handout.md">download it &darr;</a>. It is built on the ball, so run <code>BallArrayCheckpoint</code> once first, or adapt one of the <a href="#lights">traffic light questions</a> instead. Change one prompt for your learners. Keep the prediction before Run and a way to check the answer.</p></div></li>
       <li><div><h3>Exchange</h3><p>Use a minute to pair up, then three minutes each to try the opening instructions. Ask: Who is this for? What will learners predict? Where might they get stuck? Give one specific suggestion, using the discussion prompt below to focus your feedback.</p></div></li>
       <li><div><h3>Revise</h3><p>Make one change, and write one sentence: what did you change, for whom, and why? If you would like it shown at the next check-in, post it in Google Classroom. Posting is optional.</p></div></li>
     </ol>
@@ -683,7 +683,7 @@ balls[3].x = 210.0
     </div>
     <ol class="ws-checklist">
       <li><div><h3>Exit evidence</h3><p>Post one sentence: in <code>TrafficLightFlags</code>, which object knows that a light is on, and how does the car find out? Working through the ball on your own? Answer its question 5 instead: after <code>b = a</code>, why does one ball move twice as far each frame?</p></div></li>
-      <li><div><h3>Next step</h3><p>No meeting on November 29, Thanksgiving weekend. Session 4, <strong>Sunday, December 6</strong>, starts from <code>BallArrayCheckpoint</code>. Open it once before then, so it runs on your machine.</p></div></li>
+      <li><div><h3>Next step</h3><p>No meeting on November 29, Thanksgiving weekend. Session 4 is <strong>Sunday, December 6</strong>. Its topic is still being decided.</p></div></li>
     </ol>
   </div>
 </section>
@@ -787,7 +787,7 @@ System.out.println(speeds[0] + " " + speeds[1] + " " + copy[2]);</pre>
       </div>
     </article>
     <div class="note">
-      <p><strong>Continue your adaptation, 20&ndash;30 optional minutes.</strong> Open <code>session-3-student-handout.md</code> from the download. It is a complete 30-minute class-design activity: students design a new kind of object, draw an object-state diagram, and try a scaffolded extension. Continue revising it for a group you teach or plan to teach, or for yourself as a learner: swap in a character your students care about, change the vocabulary, and cut what won&rsquo;t fit. Keep the diagram. Bring it to Session 5.</p>
+      <p><strong>Continue your adaptation, 20&ndash;30 optional minutes.</strong> Open <code>session-3-student-handout.md</code> from the download. It is a complete 30-minute class-design activity built on the ball: students design a new kind of object, draw an object-state diagram, and try a scaffolded extension. Continue revising it for a group you teach or plan to teach, or for yourself as a learner: swap in a character your students care about, change the vocabulary, and cut what won&rsquo;t fit. Keep the diagram. Bring it to Session 5.</p>
     </div>
   </div>
 </section>
@@ -797,7 +797,7 @@ System.out.println(speeds[0] + " " + speeds[1] + " " + copy[2]);</pre>
     <div class="stack">
       <span class="eyebrow">Asynchronous route &middot; about 105&ndash;120 minutes, plus a later reply</span>
       <h2>On your own</h2>
-      <p>Everything from the live session, in order. Answers are behind the Show buttons on this page.</p>
+      <p>The traffic light from the live session, then the ball. The ball stands in for the live confetti activity: it covers the same idea, many objects from one class, and goes further into references and a first array. Answers are behind the Show buttons on this page.</p>
     </div>
     <ol class="ws-checklist">
       <li><div><h3>Set up</h3><p>Download <a href="downloads/workshop/session-3-files.zip">session-3-files.zip</a>. If Processing isn&rsquo;t installed, start with <a href="processing.html">Your first sketch</a>. About 10 minutes.</p></div></li>
@@ -805,7 +805,7 @@ System.out.println(speeds[0] + " " + speeds[1] + " " + copy[2]);</pre>
       <li><div><h3>Predict</h3><p>For the ball, answer questions 1&ndash;6 on paper <em>before</em> running anything. Then run <code>BallObjects</code> and <code>ObjectTrace</code>, make the two changes, and check. About 20 minutes.</p></div></li>
       <li><div><h3>Build</h3><p>Missions 1&ndash;3, and the extensions if you want more. Compare with <code>BallArrayCheckpoint</code>, <code>BallTouch</code>, and <code>BallGrid</code>. About 25 minutes.</p></div></li>
       <li><div><h3>Transfer</h3><p>Run <code>BallWorld.java</code>. Trace <code>ArrayTrace.java</code> before you run it. About 15 minutes.</p></div></li>
-      <li><div><h3>Adapt &middot; about 8 minutes</h3><p>Open your copy of the handout in this session&rsquo;s Google Classroom assignment, or <a href="downloads/workshop/session-3/session-3-student-handout.md">download it &darr;</a>. Change one prompt for a group you teach or plan to teach, or for yourself as a learner. Read the opening instructions as a learner and revise one likely sticking point. Use the <a href="#exchange">discussion prompt</a> and example response to check your thinking.</p></div></li>
+      <li><div><h3>Adapt &middot; about 8 minutes</h3><p>Open your copy of the handout in this session&rsquo;s Google Classroom assignment, or <a href="downloads/workshop/session-3/session-3-student-handout.md">download it &darr;</a>, which is built on the ball, or adapt one of the <a href="#lights">traffic light questions</a>. Change one prompt for a group you teach or plan to teach, or for yourself as a learner. Read the opening instructions as a learner and revise one likely sticking point. Use the <a href="#exchange">discussion prompt</a> and example response to check your thinking.</p></div></li>
       <li><div><h3>Exchange &middot; about 7 minutes, plus a later reply</h3><p>If you want feedback, or want your work shown at the next check-in, post your draft in the workshop&rsquo;s Google Classroom. The invite link is in your email. Include: Who is this for? What will learners predict? Where might they get stuck? Try another participant&rsquo;s opening instructions and leave one specific suggestion. If no draft is available yet, return later; you can continue without waiting for a partner.</p></div></li>
       <li><div><h3>Return and revise</h3><p>When feedback arrives, save a revision and explain what changed, for whom, and why. For more development time, try the <a href="#studio">optional studio task</a>. The teacher guide has explained answers and likely misconceptions.</p></div></li>
     </ol>
@@ -827,11 +827,11 @@ System.out.println(speeds[0] + " " + speeds[1] + " " + copy[2]);</pre>
           <tr><td><code>TrafficLightWalk/</code></td><td class="why">Step 3, optional: adds a walk button, a walk sign, a person who crosses, and a stop line.</td></tr>
           <tr><td><code>BallObjects/</code></td><td class="why">Starter. Session 2&rsquo;s ball as a class, with two objects.</td></tr>
           <tr><td><code>ObjectTrace/</code></td><td class="why">The demo sketch: two objects, one frame a second, stops after five.</td></tr>
-          <tr><td><code>BallArrayCheckpoint/</code></td><td class="why">Checkpoint: missions 1&ndash;3 done. Session 4 starts here.</td></tr>
+          <tr><td><code>BallArrayCheckpoint/</code></td><td class="why">Checkpoint: missions 1&ndash;3 done.</td></tr>
           <tr><td><code>BallTouch/</code></td><td class="why">Completed example of extension 1.</td></tr>
           <tr><td><code>BallGrid/</code></td><td class="why">Optional extension 2: a 2D array of balls.</td></tr>
           <tr><td><code>plain-java/</code></td><td class="why"><code>BallWorld/BallWorld.java</code> and <code>ArrayTrace/ArrayTrace.java</code>, each in its own folder because both define a <code>Ball</code> class.</td></tr>
-          <tr><td><code>session-3-student-handout.md</code></td><td class="why">Editable 30-minute class-design activity, with an object-state diagram and a scaffolded extension.</td></tr>
+          <tr><td><code>session-3-student-handout.md</code></td><td class="why">Editable 30-minute class-design activity built on the ball (<code>BallArrayCheckpoint</code>), with an object-state diagram and a scaffolded extension. Optional practice, not part of the live traffic light and confetti session.</td></tr>
           <tr><td><code>session-3-teacher-guide.md</code></td><td class="why">Expected answers, likely misconceptions, and how to assess it.</td></tr>
         </tbody>
       </table>

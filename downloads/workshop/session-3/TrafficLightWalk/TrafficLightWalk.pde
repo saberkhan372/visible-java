@@ -8,12 +8,13 @@
 // Once they are across, click again and they cross back.
 // (The lights themselves don't take clicks here.)
 //
-// Six objects pass signals to each other with flags (booleans):
-//   the button turns on the sign's requested flag  -> green ends
-//   the red light's on flag                         -> the sign switches to WALK
-//   the sign's walk flag                            -> the person crosses
-//   the person's crossing flag                      -> the sign goes back to WAIT
-//   the lights' on flags                            -> the car's speed
+// The six objects never talk to each other directly. Each frame, draw() asks
+// them about their flags (booleans) with getters, and passes the signal on
+// with setters:
+//   a push is waiting, and green is on             -> green ends
+//   a push is waiting, red is on, no car in the way -> WALK, and the person starts
+//   the sign says WALK, the person is not crossing  -> the sign goes back to WAIT
+//   which light is on                               -> the car's speed
 //
 // Predict: you click the button while the light is green and the car's front
 // bumper is just past the stop line. What happens, in order?

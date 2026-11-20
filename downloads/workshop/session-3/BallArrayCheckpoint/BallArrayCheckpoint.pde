@@ -1,6 +1,5 @@
 // Session 3 checkpoint: the supported missions done.
 // Four balls in a small array, each with its own position, speed, and size.
-// Session 4 starts from this sketch.
 
 Ball[] balls = new Ball[4];
 

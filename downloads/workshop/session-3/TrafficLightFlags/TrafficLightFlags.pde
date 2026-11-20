@@ -32,7 +32,7 @@ public void draw() {
     counter = 0;
   }
 
-  // The lights pass their signal to the car.
+  // The sketch asks the lights, then tells the car.
   if (green.isOn()) {
     car.setSpeed(3);
   } else if (yellow.isOn()) {
@@ -113,7 +113,8 @@ class Light {
     on = false;
   }
 
-  // Getter: a boolean getter is named isSomething instead of getSomething.
+  // Getter. We name this boolean getter isOn rather than getOn:
+  // a naming convention, not a Java rule.
   public boolean isOn() {
     return on;
   }
