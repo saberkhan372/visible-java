@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Make objects visible: Session 3 recap — Visible Java</title>
+<meta name="description" content="Recap of Visible Java Session 3: shared traffic lights, why objects, confetti from parallel arrays to a class, guest artist Joshua Davis, and what to try before Session 4.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@500;600;700&family=Source+Code+Pro:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=20261020e"><link rel="icon" href="assets/visible-java-icon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="logo" href="index.html">Visible Java<span class="logo-sub">A CC Fest learning studio</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html" aria-current="true">Workshop</a>
+      <a href="course.html">Course</a>
+      <a href="library.html">Library</a>
+    </nav>
+    <a href="camp.html#interest" class="nav-join">Join the interest list <span aria-hidden="true">↗</span></a>
+  </div>
+</header>
+<nav class="section-nav" aria-label="Workshop navigation">
+  <div class="wrap">
+      <a href="index.html#sessions">All sessions</a>
+      <a href="readiness.html">Get ready</a>
+      <a href="index.html#your-way">On your own</a>
+      <a href="about.html">About</a>
+  </div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+<section>
+  <div class="wrap stack-lg">
+    <div class="stack">
+      <span class="eyebrow"><a href="session-3.html">Session 03</a> &middot; Recap &middot; Sunday, November 22, 2026</span>
+      <h1>Make objects visible</h1>
+      <p class="lede">Your traffic lights made the case for objects before we said the word. We talked through why objects help, followed confetti from repeated variables to parallel arrays to a class of its own, and heard from artist Joshua Davis about what happens when you ask for a thousand of something.</p>
+      <div class="camp-actions"><a class="camp-button primary" href="#try-this">What to try next</a><a class="camp-button" href="slides-3.html">Open the slides</a><a class="camp-button" href="session-3.html">Open Session 3</a></div>
+    </div>
+    <iframe src="https://www.youtube-nocookie.com/embed/eLbCwO9hRSQ" title="Recording of Visible Java Session 3: Make objects visible" style="display:block;width:100%;max-width:800px;aspect-ratio:16/9;border:0;border-radius:8px" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="note">
+      <p><strong>Recording:</strong> <a href="https://youtu.be/eLbCwO9hRSQ">Watch Session 3 on YouTube</a>. The chapters in the description jump to each part, including Joshua Davis&rsquo;s talk.</p>
+      <p><strong>About this recap:</strong> participants are not named on this page. If you would like anything changed or removed here or in the recording, <a href="mailto:mrkhanatndv@gmail.com?subject=Visible%20Java%20recap">email Saber</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="try-this" class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Before December 6</span><h2>Grow the confetti</h2><p>Open the confetti lesson in Pickcode. It has two files: <code>Sketch.java</code>, a Times Square New Year&rsquo;s Eve scene, and <code>Confetti.java</code>, the class. In the Processing editor, paste the sketch into a new sketch and the class into a second tab named <code>Confetti</code>. The same steps and the starter code are in the Google Classroom assignment. Try what you have time for, and bring it to the start of Session 4.</p></div>
+<ol class="plain">
+<li><strong>Predict.</strong> Read both files before running them. What will you see? What happens when you click?</li>
+<li><strong>Run.</strong> Run it a few times, and click a few times. Were you right?</li>
+<li><strong>Investigate.</strong> Which constructor does <code>setup()</code> call? What would <code>new Confetti(100)</code> do? Why does <code>drawConfetti</code> call <code>c.getSize()</code> instead of reading the size directly?</li>
+<li><strong>Modify.</strong> Give each piece its own <code>x</code> and <code>y</code>: private instance variables, set in both constructors, with getters. Use the getters in <code>drawConfetti</code> in place of (400, 80).</li>
+<li><strong>Make.</strong> Write a <code>fall()</code> method that moves the piece down by its own speed, and call <code>piece.fall()</code> in <code>draw()</code>. When it falls off the bottom, send it back to the top at a random <code>x</code>.</li>
+<li><strong>Make more.</strong> Put several pieces on the screen. Three variables is fine. An array or an <code>ArrayList</code> of <code>Confetti</code> is the next step if you are ready for it.</li>
+</ol>
+<details class="ws-facilitator">
+<summary>The starter class</summary>
+<div>
+<pre class="ws-code" data-file="Confetti.java">
+public class Confetti {
+
+    // Instance variable: every Confetti object gets its own size
+    private int size;
+
+    // TODO: What else does a piece of confetti need to know about itself?
+    // Ideas: x, y, speed, color (r, g, b), rotation, drift
+
+    // Constructor: runs once when a new Confetti object is created
+    // No parameters: the piece picks its own random size (3 to 15)
+    public Confetti() {
+        size = (int)(Math.random()*13+3);
+    }
+
+    // Overloaded constructor: the caller chooses the size
+    public Confetti(int s) {
+        size = s;
+    }
+
+    // Getter: lets other classes READ the size
+    public int getSize() {
+        return size;
+    }
+
+    // Setter: lets other classes CHANGE the size
+    public void setSize(int s) {
+        size = s;
+    }
+
+    // TODO: Add a fall() method that moves this piece down the screen
+
+} // end Confetti class
+</pre>
+<p>In the sketch, <code>Confetti piece;</code> is declared at the top, <code>piece = new Confetti();</code> runs once in <code>setup()</code>, and <code>drawConfetti(piece)</code> draws a white square at (400, 80) every frame. A click calls <code>piece.setSize()</code> with a new random size, so the setter is already in use.</p>
+</div>
+</details>
+<div class="note"><p><strong>Want more?</strong> Give each piece a color, a sideways drift, or a spin. Click a piece to remove it. Let pieces pile up at the bottom, or bump into each other. Or pick your own context: instead of confetti, what would you make?</p></div>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">The first forty minutes</span><h2>What your traffic lights taught us</h2><p>People shared their own traffic lights and work from their students: pedestrians, crosswalks, a parallax road, a sun on a sine wave, a tractor-trailer, and a crash or two.</p></div>
+<ul class="plain">
+<li><strong>Name your numbers.</strong> One participant replaced every magic number with a named, capitalized constant. A <code>color</code> could not be a constant, because it needs a method call before it exists. A hex value gets around that. Saber&rsquo;s comment: this was making the case for object orientation without meaning to, because the hard part had become deciding where each block of code should live.</li>
+<li><strong>Objects were there all along.</strong> MakeCode Arcade sprites are objects, and so is anything students have used with a capital letter, such as <code>String</code>. Pointing back to them makes the new unit feel less new. <a href="https://www.csawesome.org/">CSAwesome ↗</a> has physical models that show how objects work.</li>
+<li><strong>Pedestrians collide.</strong> Several students added a walker, and several walkers walked into the car. That is good discussion material, and compound conditions are usually the fix. One teacher asked for a good way into De Morgan&rsquo;s laws. Joshua&rsquo;s: <em>moving</em> is <em>not red and not pedestrian button</em>, then rewrite it the other way.</li>
+<li><strong>Reuse a method, then add to it.</strong> In Joshua&rsquo;s class, a night car calls the day car method and adds a couple of shapes, such as headlights. Students who finish early go much further. He checks in when someone writes <code>dx * dx</code> instead of <code>Math.pow</code>, to find out whether they know what <code>Math.pow</code> does. The project ran more than five class days.</li>
+<li><strong>Collisions go deep.</strong> Jeffrey Thompson&rsquo;s <a href="https://www.jeffreythompson.org/collision-detection/">Collision Detection ↗</a> starts with two points and builds to polygons, with the math for each case. Some students love it. Games often cheat with rectangles, called hitboxes.</li>
+<li><strong>Starting and stopping are different states.</strong> In the UK, amber shows before green as a get-ready signal, so the car should go straight from stopped to full speed instead of creeping. And a real car keeps going until it reaches the light. Students ask for an eased stop too. The order of states matters, not only which state you are in.</li>
+<li><strong>The error is often on the line before.</strong> A missing bracket or semicolon is reported on the next line. Joshua has students label closing brackets, such as <code>} // end drawLight method</code>, which also builds the vocabulary.</li>
+<li><strong>AI in the Make stage.</strong> One teacher lets students ask an AI tool for help in the Make stage, with specific questions, and reminds them there is no AI on the exam. Another noticed that students who use AI often think they understand the code until they are asked about it.</li>
+<li><strong>Make sharing a habit.</strong> Teachers want students celebrating and questioning each other&rsquo;s code more, possibly on a set day each week. End-of-unit presentations help students expect to explain their work, and always need more time than planned.</li>
+</ul>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Mini-lecture</span><h2>Why objects</h2><p>Once a sketch needs a pile of booleans and variables, every light needs its own state. An object holds that state and the methods that change it. <code>draw()</code> gets shorter: it calls methods, and the objects do the work. This is roughly Unit 3 of AP CS A.</p></div>
+<pre class="ws-code" data-file="Light.java">
+class Light {
+  private int x;
+  private int y;
+  private boolean on;
+  // also r, g, b, display(), contains()
+
+  public boolean isOn() {
+    return on;
+  }
+
+  public void setOn(boolean on) {
+    this.on = on;
+  }
+}
+</pre>
+<ul class="plain">
+<li><strong>Dot notation is not new.</strong> Students have used it with strings and with printing. Now they write the methods on the other side of the dot.</li>
+<li><strong>Private, getter, setter.</strong> Private fields can only be touched by the class itself. Other code asks with a getter and changes things with a setter. Students may ask who else would ever touch their variables. It is still good hygiene, and the AP expects it. A good question to ask: can <code>setup()</code> set <code>green.on = true</code> directly? The <a href="session-3.html#lights">Session 3 page</a> has the answer.</li>
+<li><strong>Trace the calls slowly.</strong> <code>draw()</code> calls a method, control jumps into the class, the method runs, and control comes back to <code>draw()</code>. With objects, which code runs when gets harder to see, so diagram it. With the traffic light, ask: the car is moving, so where are we in the code, and what runs next? <a href="https://pythontutor.com/">Python Tutor ↗</a> can step through Java too.</li>
+<li><strong>Where the code runs matters.</strong> Pickcode, the Processing editor, and Eclipse each handle files differently. In Eclipse, the folders have to match the class structure, or Java cannot find the methods.</li>
+<li><strong>Assess with the sketch you built.</strong> Have students diagram each class and its methods, predict what happens in a specific scenario, and take a quiz about the traffic light itself instead of abstract questions.</li>
+<li><strong>A lighter way to close a unit.</strong> Saber showed a student poster: frames from the animation, some code, and a written reflection. Posters go up on the wall and get shown to next year&rsquo;s class.</li>
+</ul>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">With Joshua Hans</span><h2>From one piece of confetti to a class</h2><p>Joshua noticed that students who learned Processing first are used to global variables, so instance variables are a much smoother step for them than in past years. He built up to the class in three steps.</p></div>
+<ol class="plain">
+<li><strong>One piece, no objects.</strong> Variables for location, size, speed, and color. In <code>draw()</code>, the y value changes by the speed, and the piece comes back at the top at a random x once it falls off the bottom, like the car&rsquo;s wraparound.</li>
+<li><strong>Three pieces.</strong> A whole set of variables for each piece, and every condition written three times.</li>
+<li><strong>Parallel arrays.</strong> Joshua taught arrays before objects last year, so students reached for one array per property. Index 0 of every array makes the first piece, index 1 the second, and it scales from 5 to 100 by changing one number. It works, and it is hard to read.</li>
+</ol>
+<p><strong>The question that motivates the switch:</strong> what if you want to delete just the third piece? With parallel arrays, you have to remove it from every array and keep them lined up. Adding a sideways drift or a spin to one piece gets messy the same way.</p>
+<p><strong>The class.</strong> The starter <code>Confetti</code> class holds one private field, <code>size</code>, and two constructors that show overloading: one picks a random size, and one takes a size. <code>new Confetti(100)</code> makes a very large square. In the sketch, <code>Confetti</code> is now a type, like <code>int</code> or <code>boolean</code>.</p>
+<ul class="plain">
+<li><strong>Constructors and methods look alike.</strong> Students often mix them up. A constructor makes the object, has the name of the class, and has no return type. A method is something an object does, and can be named anything.</li>
+<li><strong>Watch the capital letters.</strong> Saber has students box anything with a capital letter, as a sign they are working with a class. Joshua asks students not to capitalize their own method and variable names, so constructors stand out.</li>
+<li><strong>Working to a spec.</strong> A class is often the first time students write inside someone else&rsquo;s structure, almost like an API, instead of starting from a blank file.</li>
+<li><strong>What <code>return</code> does.</strong> A question from the group: <code>return</code> makes sense for math functions, but less elsewhere. A getter is a good place to start: <code>getSize()</code> hands back the value of <code>size</code> to whoever asked.</li>
+</ul>
+<p><strong>In the breakout rooms,</strong> one room moved the drawing code into its own method inside <code>Confetti.java</code>, so each piece draws itself. The other connected confetti to Daniel Shiffman&rsquo;s flocking sketch: one object first, then many in a data structure, so the main sketch stays short. Many objects also set up collisions and physics, such as confetti piling up at the bottom, which would be close to impossible without them.</p>
+</div></section>
+
+<section id="guest" class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Guest</span><h2>Joshua Davis: a painter whose tools changed</h2><p>Once you can make a thousand of something, things start to take on a life of their own. That idea runs through Daniel Shiffman&rsquo;s <a href="https://natureofcode.com/"><em>The Nature of Code</em> ↗</a> and through much of <a href="https://en.wikipedia.org/wiki/Joshua_Davis_(designer)">Joshua Davis&rsquo;s ↗</a> work. Being in the Processing world means students are part of a community of artists doing remarkable things, not only doing assignments.</p></div>
+<ul class="plain">
+<li><strong>Systems he could not control.</strong> Joshua moved from Colorado to New York in 1992 to study painting at Pratt. He baked glazed oil paintings in an oven so they would crack differently every time. A Commodore 64 from his dad, computers found on the street, and a campus job building Pratt&rsquo;s website taught him code. When he realized he could program randomness, he stopped thinking of himself as a painter who used computers. He still calls himself a painter. The weapons changed.</li>
+<li><strong>An undefined internet.</strong> Saber asked when code first felt like art. Joshua said that question comes from today&rsquo;s internet. In the mid-1990s there was no shopping, no social media, not even CSS. Artists treated the web as a new canvas that anyone in the world could see.</li>
+<li><strong>Casey, Flash, and Processing.</strong> His first job after Pratt paired him with a designer named Casey Reas, who later went to MIT and co-created Processing. Joshua spent about fifteen years in Flash. When it ended, he moved into physical computing, found that the Arduino editor was the Processing editor, and has used Processing ever since.</li>
+<li><strong>Processing as a shell.</strong> Joshua still works in Processing&rsquo;s Java mode on Linux. His main file only sets things up. Separate classes handle SVG, textures, shaders, colors, and audio. The heavy drawing happens in GLSL shaders on the GPU, so a live show stays at 60 frames a second. Processing orchestrates, and the shaders paint.</li>
+<li><strong>A tiny <code>draw()</code>.</strong> His <code>draw()</code> updates the data and colors, then renders. It matched the point from the mini-lecture: do the work in objects, and keep <code>draw()</code> short.</li>
+<li><strong>Better programmers write less.</strong> Modulo turns eleven lines into one. Objects do the same. Ten people, each wearing a hat, is a mess of arrays at the top of a sketch. A <code>Person</code> with a hat keeps each hat with its owner.</li>
+<li><strong>One class, fifty times.</strong> He showed work built on Shiffman&rsquo;s flocking example: one particle class, asked for many times, each picking its own direction, color, and behavior within set limits. He sets the canvas, the paints, the strokes, and which colors love or hate each other, says go, and becomes the first person to see what happens.</li>
+<li><strong>GLSL.</strong> Shader code addresses every pixel at once, so there is no real idea of a <code>for</code> loop. That is why it is hard to learn and why it is fast.</li>
+</ul>
+<div class="note"><p><strong>His advice for students:</strong> when you are starting out, you write more code than you need, so you spend more time on the technical side. The more you learn, the less you write, and the more time you get to be creative.</p></div>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">From the group</span><h2>Moves to borrow</h2></div>
+<ul class="plain">
+<li><strong>Let the mess come first.</strong> Three pieces of confetti with copied variables, or a traffic light full of booleans, makes students want a better way before you show one.</li>
+<li><strong>Ask about one object.</strong> &ldquo;Delete just the third piece&rdquo; or &ldquo;make only this light blink&rdquo; shows what parallel arrays and global variables make hard.</li>
+<li><strong>Use student work as the lesson.</strong> A pedestrian walking into a car is a better way into compound conditions than a made-up example.</li>
+<li><strong>Quiz on the sketch you built.</strong> Specific scenarios about the traffic light test sequence and state better than abstract questions.</li>
+<li><strong>Connect to museums.</strong> Much of the digital art students see in museums is made with Processing or tools like it. Ask what classes and data structures a piece would need.</li>
+</ul>
+</div></section>
+
+<section class="ws-block"><div class="wrap stack-lg"><div class="stack"><span class="eyebrow">Keep going</span><h2>Not covered live, and what&rsquo;s next</h2><p>The live session used the group&rsquo;s traffic lights and Joshua&rsquo;s confetti. The <code>Light</code> class steps, the walk button, and the ball on the <a href="session-3.html">Session 3 page</a> were not run live. They cover the same ideas, and go further into references and a first array of objects, for anyone who wants more practice.</p></div>
+<ul class="plain">
+<li><a href="slides-3.html">Session 3 slides</a>, with the three traffic light sketches to run</li>
+<li><a href="downloads/workshop/session-3-files.zip">Session 3 files</a>, including the <code>Light</code> class and ball sketches</li>
+<li><a href="https://www.jeffreythompson.org/collision-detection/">Collision Detection ↗</a>, by Jeffrey Thompson</li>
+<li><a href="https://pythontutor.com/">Python Tutor ↗</a>, for stepping through code</li>
+<li><a href="https://www.csawesome.org/">CSAwesome ↗</a>, a free AP CS A curriculum</li>
+<li><a href="https://natureofcode.com/"><em>The Nature of Code</em> ↗</a>, by Daniel Shiffman, including flocking</li>
+<li><a href="https://www.desmos.com/calculator">Desmos graphing calculator ↗</a></li>
+<li><a href="https://pickcode.io/">Pickcode ↗</a></li>
+</ul>
+<p>No meeting on November 29, Thanksgiving weekend.</p>
+<div class="camp-actions"><a class="camp-button primary" href="session-4.html">Session 4, Dec 6</a></div>
+</div></section>
+</main>
+
+
+<footer>
+  <div class="wrap stack-sm">
+    <p>Drafted with AI help from the session transcript and chat, then checked against both.</p>
+    <p><button class="reveal-btn" type="button" id="theme">Switch theme</button></p>
+  </div>
+</footer>
+
+<script src="assets/content.js"></script>
+<script src="assets/workshop.js?v=20261019a"></script>
+<script src="assets/role.js?v=20260729c"></script>
+</body>
+</html>
